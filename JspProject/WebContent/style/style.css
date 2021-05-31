@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+#main {
+	position: relative;
+	width: 1027px;
+	margin-left: 210px;
+	padding-left: 30px;
+	padding-top: 20px !important;
+}
+
+#sidebar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 1000;
+	display: block;
+	padding: 0 20px;
+	overflow: hidden;
+	background-color: #0059ab;
+	width: 210px;
+	height: auto;
+}

@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	test입니다.
-	Branch A입니다.
-	수정합니다.
+	브런치 테스트 1234
 </body>
 </html>

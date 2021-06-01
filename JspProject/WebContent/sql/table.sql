@@ -12,7 +12,8 @@ create table okky_member(
     mem_image varchar2(100) not null,			-- 회원 프로필 이미지
     mem_tag varchar2(1000),						-- 회원 관심 태그
     mem_email varchar2(100) not null,			-- 회원 이메일
-    mem_emailCheck varchar2(10) default 'yes'	-- 이메일 수신여부
+    mem_emailCheck varchar2(10) default 'yes',
+    mem_check varchar2(20) default 'no'
 );
 
 create table okky_category(
@@ -50,7 +51,7 @@ create table okky_comment(
     com_target number(5) not null,			-- 댓글을 작성한 게시글 번호
     com_like number(5) default 0,			-- 댓글 추천 수
     com_regdate date,						-- 댓글 작성일자
-    com_selected varchar2(20) default 'false', -- 댓글 채택 여부
+    com_selected varchar2(20) default 'no', -- 댓글 채택 여부
     constraint fk_target1 foreign key(com_target) references okky_board(board_num) on delete cascade,
     constraint fk_writer1 foreign key(com_writer) references okky_member(mem_num) on delete cascade
 );

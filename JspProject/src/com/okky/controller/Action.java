@@ -1,4 +1,4 @@
-package com.okky.action;
+package com.okky.controller;
 
 import java.io.IOException;
 

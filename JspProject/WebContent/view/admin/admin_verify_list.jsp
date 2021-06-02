@@ -13,6 +13,8 @@
 </head>
 <body>
 
+	<jsp:include page="<%=request.getContextPath() %>/include/side.jsp"></jsp:include>
+
 	<div width="881">
 		<h3>회사인증관리</h3>
 		
@@ -59,6 +61,8 @@
 		</table>
 		
 	</div>
+	
+	<jsp:include page="<%=request.getContextPath() %>/include/footer.jsp"></jsp:include>
 
 </body>
 </html>

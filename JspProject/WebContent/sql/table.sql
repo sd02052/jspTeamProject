@@ -14,7 +14,8 @@ create table okky_member(
     mem_email varchar2(100) not null,			-- 회원 이메일
     mem_emailCheck varchar2(10) default 'yes',
     mem_check varchar2(20) default 'no',
-    mem_score number(5) default 0
+    mem_score number(5) default 0,
+    mem_company number(5) default 0
 );
 
 create table okky_category(
@@ -72,4 +73,34 @@ create table okky_follow(
 	follow_target number(5) not null,		-- 팔로우 당한 사람
 	constraint fk_mem foreign key(follow_mem) references okky_member(mem_num) on delete cascade,
 	constraint fk_target foreign key(follow_target) references okky_member(mem_num) on delete cascade
+);
+
+create table okky_company(
+	company_num number(5) primary key,				-- 회사 번호
+	company_name varchar2(100) not null,			-- 회사 이름
+	company_license_num nuber(30) not null,			-- 회사 사업자 등록번호
+	company_license_image varchar2(200) not null,	-- 회사 사업자 등록증
+	company_boss_phone varchar2(100) not null,		-- 회사 대표 번호
+	company_boss_email varchar2(100) not null,		-- 회사 대표 메일
+	company_charge_phone varchar2(100) not null,	-- 회사 담당자 번호
+	company_charge_email varchar2(100) not null,	-- 회사 담당자 메일
+	company_charge_name varchar2(100) not null,		-- 회사 담당자 이름
+	company_emp number(4) default 0,				-- 회사 직원 수
+	company_homepage varchar2(100),					-- 회사 홈페이지
+	company_logo varchar2(200),						-- 회사 로고
+	company_content varchar2(1000) not null,		-- 회사 소개
+	company_check number(1) default 0				-- 회사 등록 인증 여부(0: 미수락, 1: 수락)
+);
+
+create table okky_job(
+    job_num number(5) primary key,		    -- 구인 게시글 번호
+	job_target number(5) not null,         -- 구인 게시글 연결 번호
+    job_contract varchar2(50) not null,    -- 구인 계약형태(정규직/계약직)
+    job_mincost number(10) not null,       -- 최소 급여
+    job_maxcost number(10) not null,       -- 최대 급여
+    job_location varchar2(50) not null,    -- 지역
+    job_do varchar2(100) not null,         -- 직무
+    job_mincareer number(10) not null,     -- 최소 경력
+    job_maxcareer number(10) not null,     -- 최대 경력
+    constraint fk_target4 foreign key(job_target) references okky_board(board_num) on delete cascade 
 );

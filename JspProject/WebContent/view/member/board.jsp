@@ -15,6 +15,48 @@
 .table-bordered {
 	padding: 5px 10px;
 }
+
+.label1 {
+	background-color: #bbb;
+}
+
+.h {
+	margin: 3px 0px;
+}
+
+.padding {
+	padding: 1.8px 5.4px 2.7px;
+}
+
+.font {
+	font-size: 12px;
+}
+
+.font1 {
+	font-size: 10px;
+}
+
+.font_style {
+	font-weight: bold;
+}
+
+.box {
+	width: 400px;
+	height: 40px;
+}
+
+.size {
+	width: 803px;
+	height: 53px;
+}
+
+.img {
+	width: 14px;
+	height: 14px;
+}
+.ul1{
+	padding: 20px;
+}
 </style>
 <script type="text/javascript">
 	/* $(function(){
@@ -40,7 +82,7 @@
 						<div class="col-xs-12 col-md-8">
 							<h4>커뮤니티</h4>
 						</div>
-						<div class="col-xs-6 col-md-4">
+						<div class="col-xs-12 col-md-4">
 							<button type="button" class="btn btn-success">
 								<i class="fas fa-pencil-alt"></i>새 글 쓰기
 							</button>
@@ -89,25 +131,79 @@
 					</div>
 				</div>
 				<div class="row">
-					<table class="table table-hover">
-						<ul class="list-group">
-							<li class="list-group-item list-group-item-question list-group-has-note clearfix">
-								<div class="list-title-wrapper clearfix">
-									<div class="list-tag clearfix">
-										<span class="list-group-item-text article-id">#953490</span>
-										<a class="list-group-item-text item-tag label label-info">
-											<i class="fas fa-comment"></i>
-											" 공지사항"
-										</a>
-										<a class="list-group-item-text item-tag label label-info ">설문조사</a>
-										<a class="list-group-item-text item-tag label label-gray ">jobs</a>
-										<a class="list-group-item-text item-tag label label-gray ">프리랜서</a>
-										<a class="list-group-item-text item-tag label label-gray ">개발자</a>
-										<a class="list-group-item-text item-tag label label-gray ">okky</a>
-									</div>								
+					<table class="table table-bordered">
+					<td>
+						<div class="col-md-6">
+
+							<div class="panel panel-default">
+								<ul class="list-group">
+									<li
+										class="list-group-item list-group-item-question list-group-has-note clearfix size">
+										<div class="list-title-wrapper clearfix box">
+											<div class="list-tag clearfix">
+												<span class="list-group-item-text article-id font">#953490</span>
+												<a
+													class="list-group-item-text item-tag label label-info padding">
+													<i class="fas fa-comment"></i> 공지사항
+												</a> &nbsp; <a
+													class="list-group-item-text item-tag label label1 padding font1">설문조사</a>
+												<a
+													class="list-group-item-text item-tag label label1 padding font1">jobs</a>
+												<a
+													class="list-group-item-text item-tag label label1 padding font1">프리랜서</a>
+												<a
+													class="list-group-item-text item-tag label label1 padding font1">개발자</a>
+												<a
+													class="list-group-item-text item-tag label label1 padding font1">okky</a>
+											</div>
+											<h5
+												class="list-group-item-heading list-group-item-evaluate h">
+												<a class="font_style">[OKKY Jobs] 프리랜서 개발자 대상 설문조사 결과 공유
+													!</a>
+											</h5>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="list-summary-wrapper clearfix">
+								<div class="list-group-item-summary clearfix" align="center">
+									<ul class="list-inline ul1" >
+										<li class="list-unstyled">
+										<a> <i class="fas fa-comment img"></i> 11</a>
+										</li>
+										<li class="list-unstyled">
+										<a> <i class="fas fa-thumbs-up img"></i> 11</a>
+										</li>
+										<li class="list-unstyled">
+										<a> <i class="far fa-eye"></i> 6k </a>
+										</li>
+									</ul>
 								</div>
-							</li>
-						</ul>
+							</div>
+
+						</div>
+						<!-- img_okky -->
+						<div class="col-md-3">
+							<div class="list-group-item-author clearfix okky">
+								<div class="avatar clearfix avatar-list ">
+									<a class="avatar-photo"> <img width="30" height="30"
+										class="img-circle"
+										src="//www.gravatar.com/avatar/b66da5ef6099211f5db8f5f7a3b4c36b?d=identicon&s=30">
+									</a>
+									<div class="avatar-info" align="center">
+										<a>OKKY</a>
+										<div class="activity">
+											<i class="fas fa-bolt"></i> 2k
+										</div>
+										<div class="date-created">
+											<span>2021-05-27 09:27:16</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</table>
 				</div>
 			</div>

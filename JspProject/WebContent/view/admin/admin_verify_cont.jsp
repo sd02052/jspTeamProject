@@ -7,11 +7,6 @@
 <title>OKKY - 회사인증관리</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<style type="text/css">
-
-	.div {margin-left: 245px;}
-
-</style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
@@ -19,8 +14,11 @@
 </head>
 <body>
 
-	<jsp:include page="../../include/side.jsp" />
-	
+<div class="layout_container">
+		<div class="main">
+			<jsp:include page="../../include/side.jsp" />
+				<div style="width: 805px; min-height: 800px;">
+
 	<div class="div">
 	<h3>회사인증관리</h3>
 	
@@ -134,8 +132,10 @@
 	
 	</div>
 	
-	
-	<jsp:include page="../../include/footer.jsp" /> 
+						</div>
+			<jsp:include page="../../include/footer.jsp" />
+		</div>
+	</div>
 
 </body>
 </html>

@@ -7,11 +7,6 @@
 <title>OKKY - 회원관리</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<style type="text/css">
-
-	.div {margin-left: 245px;}
-
-</style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
@@ -19,7 +14,13 @@
 </head>
 <body>
 
-	<jsp:include page="../../include/side.jsp" /> 
+<div class="layout_container">
+		<div class="main">
+			<jsp:include page="../../include/side.jsp" />
+				<div style="width: 805px; min-height: 800px;">
+
+
+
 
 	<div class="div">
 		<h3>회원관리</h3>
@@ -47,7 +48,7 @@
 					<th></th>
 					<th>번호</th>
 					<th>아이디</th>
-					<th>이름</th>
+					<th>닉네임</th>
 					<th>이메일</th>
 					<th>관리</th>				
 				</tr>
@@ -56,7 +57,9 @@
 					<th><input type="checkbox"></th>
 					<td>2</td>
 					<td>가</td>
-					<td>홍길동</td>
+					<td>
+					<a href="<%=request.getContextPath()%>//view/user/member_personal.jsp"><img src="@" width="40" height="40"></a>
+					<a href="<%=request.getContextPath()%>//view/user/member_personal.jsp">홍길동</a></td>
 					<td>aaa@gmail.com</td>
 					<td><input type="submit" value="탈퇴"></td>
 				</tr>
@@ -65,7 +68,9 @@
 					<th><input type="checkbox"></th>
 					<td>1</td>
 					<td>가</td>
-					<td>홍길동</td>
+					<td>
+					<a href="<%=request.getContextPath()%>//view/user/member_personal.jsp"><img src="@" width="40" height="40"></a>
+					<a href="<%=request.getContextPath()%>//view/user/member_personal.jsp">홍길동</a></td>
 					<td>aaa@gmail.com</td>
 					<td><input type="submit" value="탈퇴"></td>
 				</tr>
@@ -86,7 +91,10 @@
 		
 	 </div>
 	 
-	<jsp:include page="../../include/footer.jsp" />
+					</div>
+			<jsp:include page="../../include/footer.jsp" />
+		</div>
+	</div>
 
 </body>
 </html>

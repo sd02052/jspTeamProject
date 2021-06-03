@@ -27,11 +27,11 @@
 		<form method="post" action="*.do">
 			<table>
 				<tr>
-					<select>
-						<option>-전체검색-</option>
-						<option>아이디</option>
-						<option>닉네임</option>
-						<option>이메일</option>
+					<select name="search">
+						<option value="all">-전체검색-</option>
+						<option value="id">아이디</option>
+						<option value="nick">닉네임</option>
+						<option value="email">이메일</option>
 					</select>
 					<input type="text" name="data" placeholder="검색어">
 					<input type="submit" value="검색">

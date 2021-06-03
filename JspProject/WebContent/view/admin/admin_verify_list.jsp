@@ -22,7 +22,7 @@
 
 	<jsp:include page="../../include/side.jsp" /> 
 
-	<div class="div">
+	<div id="article" class="div">
 		<h3>회사인증관리</h3>
 		
 		<form method="post" action="<%=request.getContextPath()%>/*.do">

@@ -10,12 +10,18 @@
 	<div class="sidebar">
 		<h1>
 			<div class="logo">
-			<a href="main.jsp">
-				<img src="../../images/okjsp_logo.png">
-			</a>
+				<a href="main.jsp">
+					<img src="../../images/okjsp_logo.png">
+				</a>
 			</div>
 		</h1>
-		
+		<ul id="search-google-icon" class="nav nav-sidebar-search-wrapper">
+			<li class="nav-sidebar-search">
+				<a href="#" class="link" id="search-google">
+					<i class="fas fa-search"></i>
+				</a>
+			</li>
+		</ul>
 		<form id="search-google-form" class="nav-sidebar-form" action="https://www.google.com/search">
 			<div class="input-group">
 				<input type="text" class="form-control input-sm" placeholder="Google 검색">
@@ -30,7 +36,7 @@
 		<div class="nav-user nav-sidebar">
 			<ul class="nav nav-sidebar">
 				<li>
-					<a href="#" class="link">
+					<a href="../member/loginOk.jsp" class="link">
 						<i class="fas fa-sign-in-alt"></i>
 						<span class="nav-sidebar-label">로그인</span>
 					</a>
@@ -58,7 +64,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="#" class="link">
+				<a href="<%=request.getContextPath() %>/view/member/board.jsp" class="link">
 					<i class="nav-icon fas fa-comments"></i>
 					<span class="nav-sidebar-label nav-sidebar-category-label">커뮤니티</span>
 				</a>

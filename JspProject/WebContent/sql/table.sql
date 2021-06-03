@@ -10,7 +10,6 @@ create table okky_member(
     mem_nick varchar2(100) not null,			-- 회원 닉네임
     mem_pwd varchar2(100) not null,				-- 회원 비밀번호
     mem_image varchar2(100) not null,			-- 회원 프로필 이미지
-    mem_tag varchar2(1000),						-- 회원 관심 태그
     mem_email varchar2(100) not null,			-- 회원 이메일
     mem_emailCheck varchar2(10) default 'yes',
     mem_check varchar2(20) default 'no',

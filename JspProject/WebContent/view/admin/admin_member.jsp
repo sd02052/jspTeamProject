@@ -58,8 +58,8 @@
 					<td>2</td>
 					<td>가</td>
 					<td>
-					<a href="<%=request.getContextPath()%>//view/user/member_personal.jsp"><img src="@" width="40" height="40"></a>
-					<a href="<%=request.getContextPath()%>//view/user/member_personal.jsp">홍길동</a></td>
+					<a href="<%=request.getContextPath()%>/view/user/member_personal.jsp"><img src="@" width="40" height="40"></a>
+					<a href="<%=request.getContextPath()%>/view/user/member_personal.jsp">홍길동</a></td>
 					<td>aaa@gmail.com</td>
 					<td><input type="submit" value="탈퇴"></td>
 				</tr>
@@ -69,8 +69,8 @@
 					<td>1</td>
 					<td>가</td>
 					<td>
-					<a href="<%=request.getContextPath()%>//view/user/member_personal.jsp"><img src="@" width="40" height="40"></a>
-					<a href="<%=request.getContextPath()%>//view/user/member_personal.jsp">홍길동</a></td>
+					<a href="<%=request.getContextPath()%>/view/user/member_personal.jsp"><img src="@" width="40" height="40"></a>
+					<a href="<%=request.getContextPath()%>/view/user/member_personal.jsp">홍길동</a></td>
 					<td>aaa@gmail.com</td>
 					<td><input type="submit" value="탈퇴"></td>
 				</tr>

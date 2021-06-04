@@ -10,7 +10,7 @@ public class MemberDTO {
 	private String mem_emailCheck;
 	private String mem_check;
 	private int mem_score;
-	private int company;
+	private int mem_company;
 
 	public int getMem_num() {
 		return mem_num;
@@ -84,12 +84,12 @@ public class MemberDTO {
 		this.mem_score = mem_score;
 	}
 
-	public int getCompany() {
-		return company;
+	public int getMem_company() {
+		return mem_company;
 	}
 
-	public void setCompany(int company) {
-		this.company = company;
+	public void setMem_company(int mem_company) {
+		this.mem_company = mem_company;
 	}
 
 }

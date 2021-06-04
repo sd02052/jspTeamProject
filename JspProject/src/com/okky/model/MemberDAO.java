@@ -66,4 +66,64 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
+
+	public int memberCheck(String id, String pwd) {
+		int result = 0;
+
+		try {
+			openConn();
+
+			sql = "select from okky_member where mem_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				if (rs.getString("mem_pwd").equals(pwd)) {
+					result = 0;
+				} else {
+					result = -1;
+				}
+			} else {
+				result = -2;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	}
+	
+	public MemberDTO getMember(String id) {
+		MemberDTO dto = new MemberDTO();
+		
+		try {
+			openConn();
+			
+			sql = "select from okky_member where mem_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto.setMem_num(rs.getInt("mem_num"));
+				dto.setMem_id(rs.getString("mem_id"));
+				dto.setMem_nick(rs.getString("mem_nick"));
+				dto.setMem_pwd(rs.getString("mem_pwd"));
+				dto.setMem_image(rs.getString("mem_image"));
+				dto.setMem_email(rs.getString("mem_email"));
+				dto.setMem_emailCheck(rs.getString("mem_emailcheck"));
+				dto.setMem_check(rs.getString("mem_check"));
+				dto.setMem_score(rs.getInt("mem_score"));
+				dto.setMem_company(rs.getInt("mem_company"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return dto;
+	}
 }

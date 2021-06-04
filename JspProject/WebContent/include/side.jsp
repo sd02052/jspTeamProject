@@ -36,7 +36,7 @@
 		<div class="nav-user nav-sidebar">
 			<ul class="nav nav-sidebar">
 				<li>
-					<a href="../member/loginOk.jsp" class="link">
+					<a href="<%=request.getContextPath() %>/view/member/login.jsp" class="link">
 						<i class="fas fa-sign-in-alt"></i>
 						<span class="nav-sidebar-label">로그인</span>
 					</a>

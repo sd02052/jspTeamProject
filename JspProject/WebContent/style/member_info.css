@@ -3,6 +3,11 @@
     width: 805px;
     min-height: 800px;
   }
+  .content-header {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #6f7275;
+  }
   .main-block-left {
     padding-left: 0 !important;
     padding-right: 15px;
@@ -46,6 +51,11 @@
     border-top-left-radius:3px;
     border-top-right-radius:3px;
   }
+  .panel-header{
+    text-align: center;
+    color: #6f7275;
+  }
+
   .panel-margin{
     margin-left: 30px;
     margin-right: 30px;
@@ -66,9 +76,6 @@
     margin: 0;
     width: auto !important;
     max-width: inherit;
-  }
-  .panel-header{
-    text-align: center;
   }
 
   /* email-edit */

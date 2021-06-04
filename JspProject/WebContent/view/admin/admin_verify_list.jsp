@@ -5,49 +5,31 @@
 <meta charset="UTF-8">
 <title>OKKY - 회사인증관리</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/style/style_admin.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
 
+/* css 파일 따로 작성시 부트스트랩 디자인 먼저 적용되므로 여기서 작성! */
+/* 회사 인증 상태 - 대기 */
 .badge-waitting {
     color: #fff;
     background-color: #0059AB;
 }
 
+/* 회사 인증 상태 - 승인 */
 .badge-success {
     color: #fff;
     background-color: #449D44;
 }
 
+/* 회사 인증 상태 - 거절 */
 .badge-reject {
     color: #fff;
     background-color: #ccc;
 }
-
-.list-group {
-	text-align: center;
-}
-
-.activity {
-	font-size: 0.5em;
-}
-
-.pagination {
-	position: center;
-}
-
-.member_img {
-	width: 30px;
-	height: 30px;
-}
-
-<%-- .member_info .activity {
-	display: inline-block;
-
-}
---%>
 
 </style>
 </head>
@@ -93,7 +75,7 @@
 		
 						<div class="row">
 							<div class="col-xs-12">
-								<ul class="list-group list-title">
+								<ul class="list-group list-title com-list-title">
 									<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
 										<div class="col-xs-1">#</div>				
 										<div class="col-xs-3">회사명</div>					
@@ -108,18 +90,20 @@
 
 						<div class="row">
 							<div class="col-xs-12 table table-hover">
-								<ul class="list-group">
+								<ul class="list-group com-list">
 									<li class="list-group-item list-group-item-question list-group-has-note clearfix">
-										<h5 class="col-xs-1">3</h5>				
+										<h5 class="col-xs-1">(인증글 번호)</h5>				
 										<h5 class="col-xs-3">
-											<a href="<%=request.getContextPath() %>/view/admin/admin_verify_cont.jsp">(주)필그림소프트</a>
+											<a href="<%=request.getContextPath() %>/view/admin/admin_verify_cont.jsp">(회사명)</a>
 										</h5>					
-										<h5 class="col-xs-2">000-00-00000</h5>					
+										<h5 class="col-xs-2">(사업자등록번호)</h5>					
 										<h5 class="col-xs-3">
-											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="member_img"></a>
-											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">신청자</a>
+											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
+												<img src="<%=request.getContextPath() %>/images/profile00.png" class="mem_logo_cont img-circle"></a>												
+											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">(닉네임)</a>
+											(활동점수)
 										</h5>					
-										<h5 class="col-xs-2">2021-06-03</h5>					
+										<h5 class="col-xs-2">(등록일자)</h5>					
 										<h5 class="col-xs-1"><span class="badge badge-waitting">대기</span></h5>
 									</li>
 				
@@ -128,8 +112,10 @@
 										<h5 class="col-xs-3"><a href="<%=request.getContextPath() %>/view/admin/admin_verify_cont.jsp">캐빈시스템</a></h5>					
 										<h5 class="col-xs-2">000-00-00000</h5>					
 										<h5 class="col-xs-3">
-											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="member_img"></a>
+											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
+												<img src="<%=request.getContextPath() %>/images/profile00.png" class="mem_logo_cont img-circle"></a>	
 											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">신청자</a>
+											(활동점수)
 										</h5>					
 										<h5 class="col-xs-2">2021-06-03</h5>					
 										<h5 class="col-xs-1"><span class="badge badge-success">승인</span></h5>
@@ -140,8 +126,10 @@
 										<h5 class="col-xs-3"><a href="<%=request.getContextPath() %>/view/admin/admin_verify_cont.jsp">(주)필그림소프트</a></h5>					
 										<h5 class="col-xs-2">000-00-00000</h5>					
 										<h5 class="col-xs-3">
-											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="member_img"></a>
+											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
+												<img src="<%=request.getContextPath() %>/images/profile00.png" class="mem_logo_cont img-circle"></a>	
 											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">신청자</a>
+											(활동점수)
 										</h5>					
 										<h5 class="col-xs-2">2021-06-03</h5>					
 										<h5 class="col-xs-1"><span class="badge badge-reject">거절</span></h5>

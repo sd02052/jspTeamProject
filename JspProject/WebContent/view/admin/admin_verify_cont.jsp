@@ -6,63 +6,30 @@
 <meta charset="UTF-8">
 <title>OKKY - 회사인증관리</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/style/style_admin.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
 
-.job_num {
-	color: #999;
-}
-
-.job_title_1 {
-	font-weight: bold;
-	margin: 0;
-}
-
+/* css 파일 따로 작성시 부트스트랩 디자인 먼저 적용되므로 여기서 작성! */
+/* 회사 인증 상태 - 대기 */
 .badge-waitting {
     color: #fff;
     background-color: #0059AB;
 }
 
+/* 회사 인증 상태 - 승인 */
 .badge-success {
     color: #fff;
     background-color: #449D44;
 }
 
+/* 회사 인증 상태 - 거절 */
 .badge-reject {
     color: #fff;
     background-color: #ccc;
-}
-
-.job-table {
-	border-style: none;
-}
-
-.job_title {
-	font-size: 2em;
-	font-weight: bold;
-}
-
-.badge {
-	margin-top: 15px;
-}
-
-.job_logo {
-	width: 150px;
-	height: 150px;
-}
-
-
-.job_regist {
-	width: 300px;
-	height: 150px;
-}
-
-.btn-group {
-	margin-left: 30px;
-	
 }
 
 </style>
@@ -96,16 +63,16 @@
 									<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
 										<div class="row">						
 											<div class="col-xs-10">
-												<p class="job_num">#(구인글번호)</p>
+												<p class="cont-num">#(구인글번호)</p>
 													<div class="col-xs-11">
-														<p class="job_title">(회사명)</p>
+														<p class="cont-title">(회사명)</p>
 													</div>
 													<div class="col-xs-1">
 														<span class="badge badge-waitting">대기</span> 
 													</div>
 											
 													<div class="col-xs-12">
-														<table class="table job-table">
+														<table class="table cont-table">
 															<tr>
 																<th>회사명</th>
 																<td>(회사명)</td>
@@ -156,10 +123,10 @@
 															
 															<tr>
 																<td colspan="3">
-																	<img class="job_logo" src="image">
+																	<img class="com-logo" src="image">
 																</td>
 																<td colspan="3">
-																	<img class="job_regist" src="img">
+																	<img class="com-regist" src="img">
 																</td>
 															</tr>
 														</table>
@@ -167,7 +134,7 @@
 											</div>
 							
 											<div class="col-xs-2">		
-												<div class="btn-group">
+												<div class="btn-group btn-verify">
 													<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 														대기&nbsp;&nbsp;<span class="caret"></span></button>
 														<ul class="dropdown-menu" role="menu">
@@ -189,7 +156,7 @@
 							<div class="col-xs-12">
 								<ul class="list-group list-title">
 									<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
-										<h5 class="job_title_1">회사소개</h5>
+										<h5 class="cont-title-com">회사소개</h5>
 									</li>
 									<li class="list-group-item list-group-item-question list-group-has-note clearfix">
 										<p>(주)씨인플러스는 IT서비스 / HR soulsion / AI machine runnung / deep running / 

@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>OKKY - 회원관리</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/style/style_admin.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
@@ -17,13 +18,6 @@ function checkAll(){
 }
 
 </script>
-<style type="text/css">
-
-.list-group {
-	text-align: center;
-}
-
-</style>
 </head>
 <body>
 
@@ -68,7 +62,7 @@ function checkAll(){
 		
 						<div class="row">
 							<div class="col-xs-12">
-								<ul class="list-group list-title">
+								<ul class="list-group list-title mem-list-title">
 									<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
 										<div class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></div>				
 										<div class="col-xs-1">#</div>
@@ -85,17 +79,17 @@ function checkAll(){
 						<div class="row">
 							<div class="col-xs-12">
 								<form name="mem_magage" method="post" action="">
-									<ul class="list-group list-title">
+									<ul class="list-group mem-list">
 										<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
 											<h5 class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></h5>				
-											<h5 class="col-xs-1">3</h5>
-											<h5 class="col-xs-2">aaaaa1111</h5>					
+											<h5 class="col-xs-1">(번호)</h5>
+											<h5 class="col-xs-2">(아이디)</h5>					
 											<h5 class="col-xs-3">
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="member_img"></a>
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">홍길동</a>
+												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="mem_logo"></a>
+												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">(닉네임)</a>
 											</h5>					
-											<h5 class="col-xs-2">aaa@gmail.com</h5>					
-											<h5 class="col-xs-2">2021-06-03</h5>					
+											<h5 class="col-xs-2">(이메일)</h5>					
+											<h5 class="col-xs-2">(작성일자)</h5>					
 											<h5 class="col-xs-1"><span class="label label-warning">회원</span></h5>
 										</li>
 										
@@ -104,7 +98,7 @@ function checkAll(){
 											<h5 class="col-xs-1">2</h5>
 											<h5 class="col-xs-2">aaaaa1111</h5>					
 											<h5 class="col-xs-3">
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="member_img"></a>
+												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="mem_logo"></a>
 												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">홍길동</a>
 											</h5>					
 											<h5 class="col-xs-2">aaa@gmail.com</h5>					
@@ -117,7 +111,7 @@ function checkAll(){
 											<h5 class="col-xs-1">1</h5>
 											<h5 class="col-xs-2">aaaaa1111</h5>					
 											<h5 class="col-xs-3">
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="member_img"></a>
+												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="mem_logo"></a>
 												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">홍길동</a>
 											</h5>					
 											<h5 class="col-xs-2">aaa@gmail.com</h5>					

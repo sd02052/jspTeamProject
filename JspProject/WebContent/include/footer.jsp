@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +11,7 @@
 		<div class="row">
 			<div class="col-sm-9">
 				<div style="float:left; margin-right:10px; height:100px;">
-					<img src="../../images/okky_logo_footer.png">
+					<img src="<%=request.getContextPath() %>/images/okky_logo_footer.png">
 				</div>
 				<div>
 					<a href="#">About OKKY</a> |
@@ -36,8 +35,8 @@
 			<div class="sponsor-banner col-sm-3">
 				<div class="sponsor-banner-head">Sponsored by</div>
 				<div class="sponsor-banner-images">
-					<img src="../../images/spb_inames.png">
-					<img src="../../images/spb_nhncloud.png">
+					<img src="<%=request.getContextPath() %>/images/spb_inames.png">
+					<img src="<%=request.getContextPath() %>/images/spb_nhncloud.png">
 				</div>
 			</div>
 		</div>

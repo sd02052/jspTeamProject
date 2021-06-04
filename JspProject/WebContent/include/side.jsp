@@ -11,7 +11,7 @@
 		<h1>
 			<div class="logo">
 				<a href="main.jsp">
-					<img src="../../images/okjsp_logo.png">
+					<img src="<%=request.getContextPath() %>/images/okjsp_logo.png">
 				</a>
 			</div>
 		</h1>

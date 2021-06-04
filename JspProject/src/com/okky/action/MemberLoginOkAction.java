@@ -16,24 +16,25 @@ public class MemberLoginOkAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
+
 		String mem_id = request.getParameter("mem_id").trim();
 		String mem_pwd = request.getParameter("mem_pwd").trim();
-		
+
 		MemberDAO dao = MemberDAO.getInstance();
 		int check = dao.memberCheck(mem_id, mem_pwd);
 
+		System.out.println(check);
 		PrintWriter out = response.getWriter();
 		ActionForward forward = new ActionForward();
 		HttpSession session = request.getSession();
-
+		System.out.println(check);
 		if (check > 0) {
 			MemberDTO dto = dao.getMember(mem_id);
 
 			session.setAttribute("loginNum", dto.getMem_num());
 
 			forward.setRedirect(false);
-			forward.setPath("view/member/loginTest.jsp");
+			forward.setPath("view/member/member_info.jsp");
 		} else if (check == -1) {
 			out.println("<script>");
 			out.println("alert('비밀번호가 틀립니다.')");

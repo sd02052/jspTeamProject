@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>OKKY - All That Developer</title>
-<link rel="stylesheet" href="../../style/member_personal.css">
-<link rel="stylesheet" href="../../style/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/style/member_personal.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -22,7 +22,7 @@
 				            <form class="panel-body">
 				                <div class="avatar clearfix avatar-big col-sm-3 text-center">
 				                    <a href="" class="avatar-photo">
-				                        <img src="../../images/29a87623405c294d79bd2b4728996363.png">
+				                        <img src="<%=request.getContextPath() %>/images/29a87623405c294d79bd2b4728996363.png">
 				                    </a>
 				                </div>
 				                <div class="user-info col-sm-9">
@@ -76,7 +76,7 @@
 				                            <div class="list-group-item-author pull-right clearfix">
 				                                <div class="avatar clearfix avatar-x-small">
 				                                    <a href="" class="avatar-photo">
-				                                        <img src="../../images/437ec94ff99317bcb4a15730e1b5cf61.png">
+				                                        <img src="<%=request.getContextPath() %>/images/437ec94ff99317bcb4a15730e1b5cf61.png">
 				                                    </a>
 				                                    <div class="avatar-info">
 				                                        <a class="nickname" href="">(사용자1)</a>
@@ -106,7 +106,7 @@
 				                            <div class="list-group-item-author pull-right clearfix">
 				                                <div class="avatar clearfix avatar-x-small">
 				                                    <a href="" class="avatar-photo">
-				                                        <img src="../../images/437ec94ff99317bcb4a15730e1b5cf61.png">
+				                                        <img src="<%=request.getContextPath() %>/images/437ec94ff99317bcb4a15730e1b5cf61.png">
 				                                    </a>
 				                                    <div class="avatar-info">
 				                                        <a class="nickname" href="">(사용자1)</a>

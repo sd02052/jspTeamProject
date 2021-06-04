@@ -15,9 +15,9 @@
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../../include/side.jsp" />
-				<div style="width: 805px; min-height: 800px;">
-					본문내용
-				</div>
+			<div style="width: 805px; min-height: 800px;">
+				본문내용
+			</div>
 			<jsp:include page="../../include/footer.jsp" />
 		</div>
 	</div>

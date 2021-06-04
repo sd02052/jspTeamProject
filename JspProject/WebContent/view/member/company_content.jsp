@@ -117,15 +117,13 @@
 								</a>
 								<div class="avatar-info">
 									<a class="nickname" href="/company/info/1693" title="(주)다온아이티에스">(주)다온아이티에스</a>
-
 									<div class="date-created">
 										<span class="timeago" title="2021-06-04T11:13:56">2021-06-04 11:13:56</span>
 									</div>
 								</div>
 							</div>
 						</div>
-					</li>
-					
+					</li>					
 				</ul>
 			</div>
 			<jsp:include page="../../include/footer.jsp" />

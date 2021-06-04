@@ -73,13 +73,13 @@ public class MemberDAO {
 		try {
 			openConn();
 
-			sql = "select from okky_member where mem_id = ?";
+			sql = "select * from okky_member where mem_id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				if (rs.getString("mem_pwd").equals(pwd)) {
-					result = 0;
+					result = 1;
 				} else {
 					result = -1;
 				}
@@ -101,7 +101,7 @@ public class MemberDAO {
 		try {
 			openConn();
 			
-			sql = "select from okky_member where mem_id = ?";
+			sql = "select * from okky_member where mem_id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();

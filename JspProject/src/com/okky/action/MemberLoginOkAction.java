@@ -32,8 +32,8 @@ public class MemberLoginOkAction implements Action {
 
 			session.setAttribute("loginNum", dto.getMem_num());
 
-			forward.setRedirect(true);
-			forward.setPath("member_main.do");
+			forward.setRedirect(false);
+			forward.setPath("view/member/loginTest.jsp");
 		} else if (check == -1) {
 			out.println("<script>");
 			out.println("alert('비밀번호가 틀립니다.')");

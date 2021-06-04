@@ -1,0 +1,140 @@
+@charset "UTF-8";
+
+/* 페이지 제목 */
+.nav h4 {
+	display: inline-block;
+}
+
+/* 회사 목록 */
+.com-list{
+	text-align: center;	
+} 
+
+/* 회원 목록 */
+.mem-list {
+	text-align: center;
+}
+
+/* 회사 목록 타이틀 */
+.com-list-title {
+	text-align: center;
+	font-weight: bold;
+}
+
+/* 회사 목록 타이틀 */
+.mem-list-title {
+	text-align: center;
+	font-weight: bold;
+}
+
+/* 회원 활동점수 */
+.activity {
+	font-size: 0.5em;
+}
+
+/* 하단 페이징 */
+.pagination {
+	position: center;
+}
+
+/* 회원 로고 */
+.mem_logo {
+	width: 30px;
+	height: 30px;
+}
+
+/*	
+.member_info .activity {
+	display: inline-block;
+}
+*/
+
+
+/* 글번호 */
+.cont-num {
+	color: #999;
+}
+
+/* 회사 상세 글 내용 */
+.cont-table {
+	border-style: none;
+}
+
+/* 상세 글 제목 */
+.cont-title {
+	font-size: 1.5em;
+}
+
+/* 상세 글 제목 - 회사 */
+.cont-title-com {
+	font-weight: bold;
+	margin: 0;
+}
+
+/* 회사 로고 */
+.com-logo {
+	width: 150px;
+	height: 150px;
+}
+
+/* 회사 사업자등록증 */
+.com-regist {
+	width: 300px;
+	height: 150px;
+}
+
+/* 회사 인증 결정 버튼 */
+.btn-verify {
+	margin-left: 30px;
+}
+
+/* 게시글 상세내용에서의 회원 로고 */
+.mem_logo_cont {
+	width: 40px;
+	height: 40px;
+}
+
+/* qna 답변 선택 로고 */
+.qna-logo {
+	width: 40px;
+	height: 40px;
+}
+
+/* 댓글 작성창 로고 */
+.comment-logo {
+	width: 40px;
+	height: 40px;
+}
+
+/* 댓글 작성 등록 버튼 */
+.comment-submit {
+	width: 70px;
+	height: 33x;
+}
+
+/* 새 글쓰기 버튼 */
+.btn-write {
+	width: 130px;
+}
+
+/* 게시글 상세내용 조회수, 댓글수 div */
+.cont-count {
+	
+}
+
+/* 게시글 상세내용 추천,스크랩 div */
+.cont-like {
+	align-content: center;
+}
+
+.list-cont-wrapper {
+	display: inline;
+}
+
+.list-like-wrapper {
+	display: inline;
+}
+
+.list-mem-wrapper {
+	display: inline;
+}

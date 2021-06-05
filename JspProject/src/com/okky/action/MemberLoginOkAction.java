@@ -23,18 +23,17 @@ public class MemberLoginOkAction implements Action {
 		MemberDAO dao = MemberDAO.getInstance();
 		int check = dao.memberCheck(mem_id, mem_pwd);
 
-		System.out.println(check);
 		PrintWriter out = response.getWriter();
 		ActionForward forward = new ActionForward();
 		HttpSession session = request.getSession();
-		System.out.println(check);
+		
 		if (check > 0) {
 			MemberDTO dto = dao.getMember(mem_id);
 
 			session.setAttribute("loginNum", dto.getMem_num());
 
 			forward.setRedirect(false);
-			forward.setPath("view/member/member_info.jsp");
+			forward.setPath("view/member/main.jsp");
 		} else if (check == -1) {
 			out.println("<script>");
 			out.println("alert('비밀번호가 틀립니다.')");

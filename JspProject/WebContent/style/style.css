@@ -154,7 +154,72 @@
 	text-align: center;
 }
 
-/* 사이드바 css 시작 */
+.nav-user .avatar {
+    margin-left: -5px;
+    margin-bottom: 10px;
+    float: left;
+}
+
+.avatar-medium .avatar-photo {
+    vertical-align: top;
+    width: 42px;
+    height: 42px;
+}
+
+.nav-user .avatar-photo {
+    border-color: #2a6496;
+    margin-right: 5px;
+}
+
+.avatar-photo {
+    display: inline-block;
+    border: 1px solid #ededed;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.nav-user a, .nav-user a:hover, .nav-user a:focus, .nav-user a:visited {
+    color: #fff;
+}
+
+.nav-user .avatar-info {
+    display: inline-block;
+    max-width: 110px;
+    overflow: hidden;
+}
+
+.avatar-medium .nickname {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.avatar-info .nickname {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.avatar-info .activity.block {
+    display: block;
+}
+.avatar-medium .activity {
+    line-height: 20px;
+}
+.avatar-info .activity {
+    color: #999999;
+    display: inline-block;
+    font-size: 10px;
+    margin-right: 10px;
+}
+
+.nav-user-action {
+    float: right;
+    text-align: center;
+}
+
+.login-view {
+	display: none;
+}
+/* 사이드바 css 끝 */
 
 /* footer css 시작*/
 #footer {

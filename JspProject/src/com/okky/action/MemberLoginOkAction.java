@@ -35,6 +35,7 @@ public class MemberLoginOkAction implements Action {
 				MemberDTO dto = dao.getMember(login_id);
 				
 				session.setAttribute("loginNum", dto.getMem_num());
+				session.setAttribute("loginType", loginType);
 				
 				forward.setRedirect(false);
 				forward.setPath("view/member/main.jsp");
@@ -63,9 +64,10 @@ public class MemberLoginOkAction implements Action {
 				AdminDTO dto = dao.getAdmin(login_id);
 				
 				session.setAttribute("loginNum", dto.getAdmin_num());
+				session.setAttribute("loginType", loginType);
 				
 				forward.setRedirect(false);
-				forward.setPath("view/admin/admin_member.jsp");
+				forward.setPath("view/member/main.jsp");
 			} else if (check == -1) {
 				out.println("<script>");
 				out.println("alert('비밀번호가 틀립니다.')");

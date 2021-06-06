@@ -11,6 +11,7 @@ create table okky_member(
     mem_pwd varchar2(100) not null,				-- 회원 비밀번호
     mem_image varchar2(100) not null,			-- 회원 프로필 이미지
     mem_email varchar2(100) not null,			-- 회원 이메일
+    mem_regdate date not null,					-- 회원 가입일
     mem_emailCheck varchar2(10) default 'yes',
     mem_check varchar2(20) default 'no',
     mem_score number(5) default 0,

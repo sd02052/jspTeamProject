@@ -5,32 +5,49 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%
-		int loginUser = 0;
-		if (session.getAttribute("loginNum") != null) {
-			loginUser = (int) session.getAttribute("loginNum");
-		}
-		System.out.println(session.getAttribute("loginNum"));
-		System.out.println(loginUser);
-		if (loginUser != 0) {
-	%>
-	<script type="text/javascript">
-		$(function() {
-			$(".login-view").css("display", "block");
-			$(".nav-user.nav-sidebar ul").css("display", "none");
-		});
-	</script>
-	<%
-		} else {
-	%>
-	<script type="text/javascript">
+	int loginUser = 0;
+	String loginType = null;
+	if (session.getAttribute("loginNum") != null) {
+		loginUser = (int) session.getAttribute("loginNum");
+		loginType = (String) session.getAttribute("loginType");
+	}
+	System.out.println(loginUser);
+	System.out.println(loginType);
+
+	if (loginUser != 0) { // 로그인한 사람이 있을때
+		if (loginType.equals("member")) { // 사용자일때
+%>
+<script type="text/javascript">
+	$(function() {
+		$(".login-view").css("display", "block");
+		$(".nav-user.nav-sidebar ul").css("display", "none");
+		$(".admin-menu").css("display", "none");
+	});
+</script>
+<%
+	} else if (loginType.equals("admin")) { // 관리자일때
+%>
+<script type="text/javascript">
+	$(function() {
+		$(".login-view").css("display", "block");
+		$(".nav-user.nav-sidebar ul").css("display", "none");
+		$(".admin-menu").css("display", "block");
+	});
+</script>
+<%
+	}
+	} else { // 로그인한 사람이 없을때
+%>
+<script type="text/javascript">
 	$(function() {
 		$(".login-view").css("display", "none");
 		$(".nav-user.nav-sidebar ul").css("display", "block");
+		$(".admin-menu").css("display", "none");
 	});
-	</script>
-	<%
-		}
-	%>
+</script>
+<%
+	}
+%>
 </head>
 <body>
 	
@@ -131,6 +148,13 @@
 				<a href="#" class="link">
 					<i class="nav-icon fas fa-users"></i>
 					<span class="nav-sidebar-label nav-sidebar-category-label">Jobs</span>
+				</a>
+			</li>
+			<!-- 관리자 메뉴 -->
+			<li style="display: none;" class="admin-menu">
+				<a href="<%=request.getContextPath() %>/admin_member_list.do" class="link">
+					<i class="nav-icon fas fa-tools"></i>
+					<span class="nav-sidebar-label nav-sidebar-category-label">관리자 메뉴</span>
 				</a>
 			</li>
 		</ul>

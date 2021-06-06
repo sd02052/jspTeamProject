@@ -219,6 +219,10 @@
 .login-view {
 	display: none;
 }
+
+.admin-menu {
+	display: none;
+}
 /* 사이드바 css 끝 */
 
 /* footer css 시작*/

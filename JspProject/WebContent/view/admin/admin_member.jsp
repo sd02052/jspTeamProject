@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,7 +66,7 @@ function checkAll(){
 						</div>		
 	
 						<br><br>
-		
+						
 						<div class="row">
 							<div class="col-xs-12">
 								<ul class="list-group list-title">
@@ -81,12 +82,42 @@ function checkAll(){
 								</ul>
 							</div>
 						</div>	
-		
 						<div class="row">
 							<div class="col-xs-12">
 								<form name="mem_magage" method="post" action="">
 									<ul class="list-group list-title">
-										<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
+									
+										<c:set var="list" value="${member_list }" />
+										<c:if test="${!empty list }">
+											<c:forEach items="${list }" var="dto">
+												<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
+													<h5 class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></h5>				
+													<h5 class="col-xs-1">${dto.getMem_num() }</h5>
+													<h5 class="col-xs-2">${dto.getMem_id() }</h5>					
+													<h5 class="col-xs-3">
+														<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="member_img"></a>
+														<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">${dto.getMem_nick() }</a>
+													</h5>					
+													<h5 class="col-xs-2">${dto.getMem_email() }</h5>					
+													<h5 class="col-xs-2">${dto.getMem_regdate().substring(0, 10) }</h5>
+													<c:if test="${dto.getMem_check().equals('no') }">
+														<h5 class="col-xs-1"><span class="label label-warning">회원</span></h5>
+													</c:if>
+													<c:if test="${dto.getMem_check().equals('yes') }">
+														<h5 class="col-xs-1"><span class="label label-default">탈퇴</span></h5>
+													</c:if>				
+												</li>
+											
+										</c:forEach>
+										</c:if>
+										<c:if test="${empty list }">
+											<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
+													등록된 회원이 없습니다.
+												</li>
+										</c:if>
+										
+										
+										<%-- <li class="list-group-item list-group-item-question list-group-has-note clearfix ">
 											<h5 class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></h5>				
 											<h5 class="col-xs-1">3</h5>
 											<h5 class="col-xs-2">aaaaa1111</h5>					
@@ -123,7 +154,7 @@ function checkAll(){
 											<h5 class="col-xs-2">aaa@gmail.com</h5>					
 											<h5 class="col-xs-2">2021-06-03</h5>					
 											<h5 class="col-xs-1"><span class="label label-warning">회원</span></h5>
-										</li>
+										</li> --%>
 									</ul>
 									<button type="submit" class="btn btn-default">강제탈퇴</button>
 								</form>

@@ -78,7 +78,7 @@ public class AdminDAO {
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				if (rs.getString("mem_pwd").equals(pwd)) {
+				if (rs.getString("admin_pwd").equals(pwd)) {
 					result = 1;
 				} else {
 					result = -1;

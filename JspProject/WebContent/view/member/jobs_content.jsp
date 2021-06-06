@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>OKKY - (글제목)</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
-<link rel="stylesheet" href="<%=request.getContextPath() %>/style/style_admin.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/style/content.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
@@ -21,6 +21,11 @@
     color: #666;
     border: 1px solid #DEDEDE;
     background-color: #FFF;
+}
+
+/* padding 설정 */
+.cont-member {
+	padding: 3px 8px;
 }
 
 </style>
@@ -51,25 +56,46 @@ $(document).ready(function(){
 							</div>
 							
 							<br>
+							
+							
+												
+						</div>
 												
 							
 							<div class="cont">
 								<table class="table table-bordered">
 									<tr>
 										<td colspan="12">
-											<a href="<%=request.getContextPath()%>/view/member/company_content.jsp">
-												<img src="<%=request.getContextPath() %>/images/profile00.png" class="mem_logo_cont img-circle"></a>
-											<a href="<%=request.getContextPath()%>/view/member/company_content.jsp">(회사 이름)</a>
-											(작성일자)
-											<span class="cont-count pull-right">
-												<i class="fas fa-comment"></i>(댓글수)
-												<i class="far fa-eye"></i>(조회수)
-											</span>
+											<div class="cont-header">
+												<div class="cont-member pull-left">
+													<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
+														<img src="<%=request.getContextPath() %>/images/profile01.png" class="cont-company-logo"></a>
+																	
+														
+														<div class="cont-mem-info">
+															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">(회사 이름)</a>
+															
+																			
+															<div class="cont-regdate">
+																(작성일자)
+															</div>
+																			
+														</div>
+												</div>
+																	
+												<div class="cont-wrapper pull-right">
+													<i class="comment-img fas fa-comment"></i>&nbsp;(댓글수)&nbsp;&nbsp;
+													<i class="hit-img far fa-eye"></i>&nbsp;(조회수)
+												</div>
+											
+											</div>
 										</td>
 									</tr>
 									<tr>
 										<td class="col-md-10">
+											
 											<span class="cont-title">(글제목)</span>
+											<div class="com-content">
 											<hr>
 											
 												<p><b>종류 : </b>
@@ -81,7 +107,7 @@ $(document).ready(function(){
 												
 												<hr>	
 												
-												<h4>∙ 직무 정보</h4>
+												<h4><b>∙ 직무 정보</b></h4>
 												
 												<p><b>직무 : </b>(직무)</p>
 												<p><b>경력 : </b>(최소 경력)년 이상 ~ (최대 경력)년 이하</p>
@@ -89,40 +115,36 @@ $(document).ready(function(){
 						
 											<hr>
 											
-											<h4>∙ 프로젝트 정보</h4>
+											<h4><b>∙ 프로젝트 정보</b></h4>
 											<p>(구인 글 내용)</p>
 													
 											<hr>
-											<h4>∙ 담당자 정보</h4>
+											<h4><b>∙ 담당자 정보</b></h4>
 											<p><b>담당자명 : </b>(담당자 이름)</p>
 											<p><b>이메일 : </b>(담당자 이메일)</p>
 											<p><b>연락처 : </b>(담당자 연락처)</p>
-											
+											</div>
 										</td>
 						
 										<td class="col-md-2">
-											<div class="cont-like">
+											<div class="cont-like text-center">
 												<div class="cont-recommend">
 													<a href="">
-														<i class="fas fa-angle-up" data-toggle="tooltip" data-placement="left" title="추천"></i>
+														<i class="img fas fa-angle-up fa-2x" data-toggle="tooltip" data-placement="left" title="추천"></i>
 													</a>
-													<p>(추천 수)</p>
+													<p class="recommend-count">(추천 수)</p>
 													<a href="">
-														<i class="fas fa-angle-down"  data-toggle="tooltip" data-placement="left" title="반대"></i>
+														<i class="img fas fa-angle-down fa-2x"  data-toggle="tooltip" data-placement="left" title="반대"></i>
 													</a>
 												</div>
 												
 												<div class="cont-scrap">
 													<a href="">
-														<i class="fas fa-bookmark"  data-toggle="tooltip" data-placement="left" title="스크랩"></i><br>
+														<i class="img fas fa-bookmark fa-2x"  data-toggle="tooltip" data-placement="left" title="스크랩"></i><br>
 													</a>
 													<span class="badge-scrap badge">(스크랩 수)</span>
 												</div>
-												<div>
-													<a href="">
-														<i class="fab fa-facebook-square" data-toggle="tooltip" data-placement="left" title="페이스북 공유"></i>
-													</a>
-												</div>
+												
 											</div>
 										</td>
 									</tr>
@@ -131,22 +153,25 @@ $(document).ready(function(){
 								<table class=" table table-bordered">
 									<tr>
 										<td colspan="12" class="active">
-											회사정보
+											<span>회사정보</span>
 										</td>
 									</tr>
 									
 									<tr>
 										<td class="col-xs-3">
+											<div class="auto-padding">
 											<a href="<%=request.getContextPath() %>/view/member/company_content.jsp">
-												<img src="<%=request.getContextPath() %>/images/profile01.png">
+												<img src="<%=request.getContextPath() %>/images/profile01.png" class="company-logo auto-padding">
 											</a>
+											</div>
 										</td>
 										<td class="col-xs-9">
-											<a href="<%=request.getContextPath() %>/view/member/company_content.jsp">
-												(회사 이름)
-											</a>
+											<h2><a href="<%=request.getContextPath() %>/view/member/company_content.jsp">
+											<span class="company-name">(회사 이름)</span>
+											</a></h2>
+											<a href="(회사 홈페이지)"><span class="company-homepage">(회사 홈페이지)</span></a>
 											<hr>
-											<p>(회사소개)</p>
+											<p class="company-content">(회사소개)</p>
 										</td>
 									</tr>
 									

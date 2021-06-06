@@ -12,14 +12,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class FrontController extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
+
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; cahrset=UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		System.out.println("1");
 
 		String uri = request.getRequestURI();
 		String path = request.getContextPath();
 		String command = uri.substring(path.length() + 1);
+		
+		System.out.println(uri);
+		System.out.println(path);
+		System.out.println(command);
 
 		Action action = null;
 		ActionForward forward = null;
@@ -27,9 +36,11 @@ public class FrontController extends HttpServlet {
 		Properties prop = new Properties();
 
 		FileInputStream fis = new FileInputStream(
-				"C:\\Users\\SOS\\git\\jspTeamProject\\JspProject\\src\\com\\okky\\controller\\mapping.properties");
+				"C:\\NCS\\jspTeamProject\\JspProject\\src\\com\\okky\\controller\\mapping.properties");
 		prop.load(fis);
 		String value = prop.getProperty(command);
+		
+		System.out.println(value);
 
 		if (value.substring(0, 7).equals("execute")) {
 			StringTokenizer st = new StringTokenizer(value, "|");

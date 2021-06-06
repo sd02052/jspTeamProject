@@ -1,0 +1,173 @@
+@charset "UTF-8";
+
+/* 페이지 제목(카테고리명) */
+.nav h4 {
+	display: inline-block;
+}
+
+/* 게시글 상세내용 - 회원 프로필 이미지 */
+.cont-mem-logo {
+	display: inline-block;
+	width: 42px;
+	height: 42px;
+}
+
+/* 게시글 상세내용 - 회사 프로필 이미지 */
+.cont-company-logo {
+	display: inline-block;
+	width: 42px;
+	height: 42px;
+	border: 1px solid #EEE;
+}
+
+/* 게시글 상세내용 - 회원 정보(닉네임&활동점수&작성일자) */
+.cont-mem-info {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/* 게시글 상세내용 - 회원 닉네임 */
+.cont-mem-nick {
+	font-size: 1em;
+}
+
+/* 회원 활동점수 */
+.cont-activity {
+	font-size: 0.71em;
+	color: #999;
+}
+
+/* 게시글 상세내용 작성일자 */
+.cont-regdate {
+	font-size: 0.82em;
+	color: #CCC;
+}
+
+/* 게시글 상세내용 - 댓글수&조회수 */
+.cont-wrapper {
+	display: inline-block;
+	font-size: 0.85em;
+}
+
+/* 게시글 상세내용 - 글 제목 */
+.cont-title {
+	font-size: 1.5em;
+	padding-top: 5px;
+}
+
+/* 게시글 상세내용 - 글 내용 */
+.cont-content {
+	padding: 3px 8px;
+}
+
+/* 게시글 상세내용 - 추천 */
+.cont-recommend {
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 30px;
+}
+
+/* 게시글 상세내용 - 추천수 */
+.recommend-count {
+	padding: 8px 0;
+	font-size: 30px;
+}
+
+/* 게시글 상세내용 - 스크랩 */
+.cont-scrap {
+	padding-bottom: 80px; 
+}
+
+/* 게시글 상세내용 - 아이콘 */
+.img {
+	color: #CCC;
+}
+
+/* 게시글 상세내용 - 페이스북 */
+.cont-facebook {
+	padding-bottom: 10px;
+}
+
+/* 게시글 상세내용 - 페이스북 아이콘 */
+.facebook-img {
+	font-size: 1.42em;
+	color: #999;
+}
+
+/* 댓글 내용 */
+.com-content {
+	padding: 3px 8px;
+}
+
+/* 댓글 추천수 */
+.com-recommend-count {
+	font-size: 1.78em;
+}
+
+/* 댓글 수정 */
+.com-edit {
+	text-align: center;
+}
+
+/* 댓글 수정 버튼 */
+.com-edit-btn {
+	border: 0 none #FFF;
+	background-color: #FFF;
+}
+
+/* 들여쓰기 */
+table tr td span {
+	padding: 3px 8px;
+}
+
+
+/* qna 답변 선택 로고 */
+.qna-logo {
+	width: 40px;
+	height: 40px;
+}
+
+/* 댓글 작성창 로고 */
+.comment-logo {
+	width: 40px;
+	height: 40px;
+}
+
+/* 댓글 작성 등록 버튼 */
+.comment-submit {
+	width: 70px;
+	height: 33x;
+}
+
+/* 새 글쓰기 버튼 */
+.btn-write {
+	width: 130px;
+}
+
+.company-logo {
+	width: 150px;
+	height: 150px;
+	padding: auto;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid #EEE;
+}
+
+.company-name {
+	color: black;
+}
+
+.company-content {
+	padding: 0px 8px;
+}
+
+.company-homepage {
+	font-size: 4px;
+}
+
+.auto-padding {
+	padding: auto;
+}
+
+

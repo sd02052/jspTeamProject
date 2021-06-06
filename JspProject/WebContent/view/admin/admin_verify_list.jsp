@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <title>OKKY - 회사인증관리</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
-<link rel="stylesheet" href="<%=request.getContextPath() %>/style/style_admin.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/style/admin.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
@@ -99,7 +99,7 @@
 										<h5 class="col-xs-2">(사업자등록번호)</h5>					
 										<h5 class="col-xs-3">
 											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
-												<img src="<%=request.getContextPath() %>/images/profile00.png" class="mem_logo_cont img-circle"></a>												
+												<img src="<%=request.getContextPath() %>/images/profile00.png" class="list_company_logo img-circle"></a>												
 											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">(닉네임)</a>
 											(활동점수)
 										</h5>					
@@ -113,7 +113,7 @@
 										<h5 class="col-xs-2">000-00-00000</h5>					
 										<h5 class="col-xs-3">
 											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
-												<img src="<%=request.getContextPath() %>/images/profile00.png" class="mem_logo_cont img-circle"></a>	
+												<img src="<%=request.getContextPath() %>/images/profile00.png" class="list_company_logo img-circle"></a>	
 											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">신청자</a>
 											(활동점수)
 										</h5>					
@@ -127,7 +127,7 @@
 										<h5 class="col-xs-2">000-00-00000</h5>					
 										<h5 class="col-xs-3">
 											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
-												<img src="<%=request.getContextPath() %>/images/profile00.png" class="mem_logo_cont img-circle"></a>	
+												<img src="<%=request.getContextPath() %>/images/profile00.png" class="list_company_logo img-circle"></a>	
 											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">신청자</a>
 											(활동점수)
 										</h5>					

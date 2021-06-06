@@ -39,16 +39,15 @@
 
 /* 회원 로고 */
 .mem_logo {
-	width: 30px;
-	height: 30px;
+	width: 32px;
+	height: 32px;
 }
 
-/*	
-.member_info .activity {
-	display: inline-block;
+/* 리스트 - 회사 로고 */
+.list_company_logo {
+	width: 32px;
+	height: 32px;	
 }
-*/
-
 
 /* 글번호 */
 .cont-num {
@@ -86,55 +85,4 @@
 /* 회사 인증 결정 버튼 */
 .btn-verify {
 	margin-left: 30px;
-}
-
-/* 게시글 상세내용에서의 회원 로고 */
-.mem_logo_cont {
-	width: 40px;
-	height: 40px;
-}
-
-/* qna 답변 선택 로고 */
-.qna-logo {
-	width: 40px;
-	height: 40px;
-}
-
-/* 댓글 작성창 로고 */
-.comment-logo {
-	width: 40px;
-	height: 40px;
-}
-
-/* 댓글 작성 등록 버튼 */
-.comment-submit {
-	width: 70px;
-	height: 33x;
-}
-
-/* 새 글쓰기 버튼 */
-.btn-write {
-	width: 130px;
-}
-
-/* 게시글 상세내용 조회수, 댓글수 div */
-.cont-count {
-	
-}
-
-/* 게시글 상세내용 추천,스크랩 div */
-.cont-like {
-	align-content: center;
-}
-
-.list-cont-wrapper {
-	display: inline;
-}
-
-.list-like-wrapper {
-	display: inline;
-}
-
-.list-mem-wrapper {
-	display: inline;
 }

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import com.okky.controller.Action;
 import com.okky.controller.ActionForward;
+import com.okky.model.AdminDAO;
+import com.okky.model.AdminDTO;
 import com.okky.model.MemberDAO;
 import com.okky.model.MemberDTO;
 
@@ -17,41 +19,73 @@ public class MemberLoginOkAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		String mem_id = request.getParameter("mem_id").trim();
-		String mem_pwd = request.getParameter("mem_pwd").trim();
-
-		MemberDAO dao = MemberDAO.getInstance();
-		int check = dao.memberCheck(mem_id, mem_pwd);
-
+		String login_id = request.getParameter("mem_id").trim();
+		String login_pwd = request.getParameter("mem_pwd").trim();
+		String loginType = request.getParameter("optionsRadios").trim();
+		
 		PrintWriter out = response.getWriter();
 		ActionForward forward = new ActionForward();
-		HttpSession session = request.getSession();
 		
-		if (check > 0) {
-			MemberDTO dto = dao.getMember(mem_id);
-
-			session.setAttribute("loginNum", dto.getMem_num());
-
-			forward.setRedirect(false);
-			forward.setPath("view/member/main.jsp");
-		} else if (check == -1) {
-			out.println("<script>");
-			out.println("alert('비밀번호가 틀립니다.')");
-			out.println("history.back()");
-			out.println("</script>");
-		} else if (check == -2) {
-			out.println("<script>");
-			out.println("alert('등록된 회원이 아닙니다.')");
-			out.println("history.back()");
-			out.println("</script>");
-		} else {
-			out.println("<script>");
-			out.println("alert('로그인 실패')");
-			out.println("history.back()");
-			out.println("</script>");
+		if(loginType.equals("member")) { // 회원 로그인 선택한 경우
+			MemberDAO dao = MemberDAO.getInstance();
+			int check = dao.memberCheck(login_id, login_pwd);
+			
+			if (check > 0) {
+				HttpSession session = request.getSession();
+				MemberDTO dto = dao.getMember(login_id);
+				
+				session.setAttribute("loginNum", dto.getMem_num());
+				
+				forward.setRedirect(false);
+				forward.setPath("view/member/main.jsp");
+			} else if (check == -1) {
+				out.println("<script>");
+				out.println("alert('비밀번호가 틀립니다.')");
+				out.println("history.back()");
+				out.println("</script>");
+			} else if (check == -2) {
+				out.println("<script>");
+				out.println("alert('등록된 회원이 아닙니다.')");
+				out.println("history.back()");
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('로그인 실패')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+		} else { // 관리자 로그인 선택한 경우
+			AdminDAO dao = AdminDAO.getInstance();
+			int check = dao.adminCheck(login_id, login_pwd);
+			
+			if (check > 0) {
+				HttpSession session = request.getSession();
+				AdminDTO dto = dao.getAdmin(login_id);
+				
+				session.setAttribute("loginNum", dto.getAdmin_num());
+				
+				forward.setRedirect(false);
+				forward.setPath("view/admin/admin_member.jsp");
+			} else if (check == -1) {
+				out.println("<script>");
+				out.println("alert('비밀번호가 틀립니다.')");
+				out.println("history.back()");
+				out.println("</script>");
+			} else if (check == -2) {
+				out.println("<script>");
+				out.println("alert('등록된 관리자가 아닙니다.')");
+				out.println("history.back()");
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('로그인 실패')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+			
 		}
-
 		return forward;
+		
 	}
 
 }

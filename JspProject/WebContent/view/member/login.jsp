@@ -32,13 +32,13 @@
 				                    <div class="radio-check">
 				                        <div class="radio">
 				                            <label>
-				                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="user" checked>
+				                                <input type="radio" name="optionsRadios" id="member" value="member" checked>
 				                                <i class="fas fa-user"></i> 회원 로그인
 				                            </label>
 				                          </div>
 				                          <div class="radio">
 				                            <label>
-				                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="admin">
+				                                <input type="radio" name="optionsRadios" id="admin" value="admin">
 				                                <i class="fas fa-user-cog"></i> 관리자 로그인
 				                            </label>
 				                          </div>

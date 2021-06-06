@@ -126,4 +126,36 @@ public class MemberDAO {
 		}
 		return dto;
 	}
+	
+	public MemberDTO getMember(int num) {
+		MemberDTO dto = new MemberDTO();
+		
+		try {
+			openConn();
+			
+			sql = "select * from okky_member where mem_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto.setMem_num(rs.getInt("mem_num"));
+				dto.setMem_id(rs.getString("mem_id"));
+				dto.setMem_nick(rs.getString("mem_nick"));
+				dto.setMem_pwd(rs.getString("mem_pwd"));
+				dto.setMem_image(rs.getString("mem_image"));
+				dto.setMem_email(rs.getString("mem_email"));
+				dto.setMem_emailCheck(rs.getString("mem_emailcheck"));
+				dto.setMem_check(rs.getString("mem_check"));
+				dto.setMem_score(rs.getInt("mem_score"));
+				dto.setMem_company(rs.getInt("mem_company"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return dto;
+	}
 }

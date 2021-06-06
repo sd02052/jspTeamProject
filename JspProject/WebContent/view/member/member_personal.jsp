@@ -61,7 +61,7 @@
 				
 				        <div class="col-sm-10 main-block-left pull-left"> <!-- activity List -->
 				            <ul class="list-group">
-				                <li class="list-group-item list-group-has-note">
+				                <li class="list-group-item list-group-has-note list-group-item-small">
 				                    <div class="list-icon-wrapper pull-left">
 				                        <i class="fas fa-angle-up"></i>
 				                    </div>
@@ -91,7 +91,7 @@
 				                    </div>
 				                </li>
 				
-				                <li class="list-group-item list-group-has-note">
+				                <li class="list-group-item list-group-has-note list-group-item-small">
 				                    <div class="list-icon-wrapper pull-left">
 				                        <i class="fas fa-angle-up"></i>
 				                    </div>
@@ -121,25 +121,27 @@
 				                </li>
 				            </ul>
 				            
-				            <nav aria-label="Page navigation example"> <!-- pagination -->
-				                <ul class="pagination">
-				                    <li class="page-item">
-				                        <a class="page-link" href="#" aria-label="Previous">
-				                            <span aria-hidden="true">&laquo;</span>
-				                            <span class="sr-only">Previous</span>
-				                        </a>
-				                    </li>
-				                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-				                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-				                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-				                    <li class="page-item">
-				                        <a class="page-link" href="#" aria-label="Next">
-				                            <span aria-hidden="true">&raquo;</span>
-				                            <span class="sr-only">Next</span>
-				                        </a>
-				                    </li>
-				                </ul>
-				            </nav> <!-- /pagination -->
+				            <div style="text-align: center;">
+					            <nav aria-label="Page navigation example"> <!-- pagination -->
+					                <ul class="pagination">
+					                    <li class="page-item">
+					                        <a class="page-link" href="#" aria-label="Previous">
+					                            <span aria-hidden="true">&laquo;</span>
+					                            <span class="sr-only">Previous</span>
+					                        </a>
+					                    </li>
+					                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+					                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+					                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+					                    <li class="page-item">
+					                        <a class="page-link" href="#" aria-label="Next">
+					                            <span aria-hidden="true">&raquo;</span>
+					                            <span class="sr-only">Next</span>
+					                        </a>
+					                    </li>
+					                </ul>
+					            </nav> <!-- /pagination -->
+				            </div>
 				        </div> <!-- /activity list -->
 				    </div> <!-- /container -->
 			    </div>

@@ -78,7 +78,7 @@ create table okky_follow(
 create table okky_company(
 	company_num number(5) primary key,				-- 회사 번호
 	company_name varchar2(100) not null,			-- 회사 이름
-	company_license_num nuber(30) not null,			-- 회사 사업자 등록번호
+	company_license_num number(30) not null,		-- 회사 사업자 등록번호
 	company_license_image varchar2(200) not null,	-- 회사 사업자 등록증
 	company_boss_phone varchar2(100) not null,		-- 회사 대표 번호
 	company_boss_email varchar2(100) not null,		-- 회사 대표 메일

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,71 +98,56 @@ $(function(){
 						<div class="row">
 							<div class="admin-verify-list-content col-xs-12 table table-hover">
 								<ul class="list-group com-list">
-									<li class="admin-verify-list-li list-group-item list-group-item-question list-group-has-note clearfix">
-										<div class="col-xs-1">(인증글 번호)</div>				
-										<div class="col-xs-3">
-											<a href="<%=request.getContextPath() %>/view/admin/admin_verify_cont.jsp">(회사명)</a>
-										</div>		
-										<div class="col-xs-2">(사업자등록번호)</div>		
-											<div class="cont-member col-xs-3">			
-												<div>
-													<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
-														<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
+								
+								
+								<c:if test="${!empty comList }">
+									<c:forEach items="${comList }" var="comDTO" varStatus="status">
+										<li class="admin-verify-list-li list-group-item list-group-item-question list-group-has-note clearfix">
+											<div class="col-xs-1">${comDTO.getCompany_num() }</div>				
+											<div class="col-xs-3">
+												<a href="<%=request.getContextPath() %>/view/admin/admin_verify_cont.jsp">${comDTO.getCompany_name() }</a>
+											</div>		
+											<div class="col-xs-2">${comDTO.getCompany_license_num() }</div>		
+												<div class="cont-member col-xs-3">			
+													<div>
+														<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
+															<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
+															
 														
-													<div class="cont-mem-info">
-														<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">(글작성자 닉네임)</a><br>
-														<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;(활동점수)</span><br>
-													</div>
+														<div class="cont-mem-info">
+															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">${memList[status.index].getMem_nick() }</a><br>
+															<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${memList[status.index].getMem_score() }</span><br>
+														</div>
+													</div>	
 												</div>	
-											</div>	
-
-										<div class="cont-regdate col-xs-2">(작성일자)</div>				
-										<div class="col-xs-1"><span class="badge badge-waitting">대기</span></div>
-									</li>
-				
+	
+											<div class="cont-regdate col-xs-2">${boardList[status.index].getBoard_regdate() }</div>
+											
+											<c:if test="${comDTO.getCompany_check() eq 0 }">			
+												<div class="col-xs-1"><span class="badge badge-waitting">대기</span></div>
+											</c:if>	
+											<c:if test="${comDTO.getCompany_check() eq 1 }">			
+												<div class="col-xs-1"><span class="badge badge-success">승인</span></div>
+											</c:if>	
+											<c:if test="${comDTO.getCompany_check() eq 2 }">			
+												<div class="col-xs-1"><span class="badge badge-reject">거절</span></div>
+											</c:if>	
+										</li>
+								
+									</c:forEach>
+								</c:if>
+								
+								<c:if test="${empty comList }">
 									<li class="admin-verify-list-li list-group-item list-group-item-question list-group-has-note clearfix">
-										<div class="col-xs-1">2</div>				
-										<div class="col-xs-3">
-											<a href="<%=request.getContextPath() %>/view/admin/admin_verify_cont.jsp">필그림소프트</a>
-										</div>		
-										<div class="col-xs-2">000-00-00000</div>		
-											<div class="cont-member col-xs-3">			
-												<div>
-													<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
-														<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
-														
-													<div class="cont-mem-info">
-														<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">홍길동홍길동</a><br>
-														<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;13</span><br>
-													</div>
-												</div>	
-											</div>	
-
-										<div class="cont-regdate col-xs-2">2021-06-07</div>				
-										<div class="col-xs-1"><span class="badge badge-reject">거절</span></div>
+										조회된 회사 인증 목록이 없습니다.
 									</li>
+								</c:if>
+								
 									
-									<li class="admin-verify-list-li list-group-item list-group-item-question list-group-has-note clearfix">
-										<div class="col-xs-1">1</div>				
-										<div class="col-xs-3">
-											<a href="<%=request.getContextPath() %>/view/admin/admin_verify_cont.jsp">필그림소프트</a>
-										</div>		
-										<div class="col-xs-2">000-00-00000</div>		
-											<div class="cont-member col-xs-3">			
-												<div>
-													<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
-														<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
-														
-													<div class="cont-mem-info">
-														<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">홍길동</a><br>
-														<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;13</span><br>
-													</div>
-												</div>	
-											</div>	
-
-										<div class="cont-regdate col-xs-2">2021-06-07</div>				
-										<div class="col-xs-1"><span class="badge badge-success">승인</span></div>
-									</li>
+								
+								
+								
+								
 								</ul>
 							</div>
 						</div>

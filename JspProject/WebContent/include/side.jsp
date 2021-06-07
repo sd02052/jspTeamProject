@@ -167,7 +167,7 @@
 				<div id="demo6" class="collapse">
 					<ul>
 						<li><a id="menu6-1" href="<%=request.getContextPath() %>/admin_member_list.do">회원 관리</a></li>
-						<li><a id="menu6-2" href="<%=request.getContextPath() %>/view/admin/admin_verify_list.jsp">회사 인증관리</a></li>
+						<li><a id="menu6-2" href="<%=request.getContextPath() %>/admin_verify_list.do">회사 인증관리</a></li>
 					</ul>
 				</div>
 			</li>

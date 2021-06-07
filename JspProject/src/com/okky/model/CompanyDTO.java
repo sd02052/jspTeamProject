@@ -3,7 +3,7 @@ package com.okky.model;
 public class CompanyDTO {
 	private int company_num;
 	private String company_name;
-	private int company_license_num;
+	private String company_license_num;
 	private String company_license_image;
 	private String company_boss_phone;
 	private String company_boss_email;
@@ -15,9 +15,20 @@ public class CompanyDTO {
 	private String company_logo;
 	private String company_content;
 	private int company_check;
+	private int company_target;
+
+	
 
 	public int getCompany_num() {
 		return company_num;
+	}
+
+	public int getCompany_target() {
+		return company_target;
+	}
+
+	public void setCompany_target(int company_target) {
+		this.company_target = company_target;
 	}
 
 	public void setCompany_num(int company_num) {
@@ -32,11 +43,11 @@ public class CompanyDTO {
 		this.company_name = company_name;
 	}
 
-	public int getCompany_license_num() {
+	public String getCompany_license_num() {
 		return company_license_num;
 	}
 
-	public void setCompany_license_num(int company_license_num) {
+	public void setCompany_license_num(String company_license_num) {
 		this.company_license_num = company_license_num;
 	}
 

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -66,4 +68,49 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public List<BoardDTO> getBoardList(List<Integer> target) {
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
+		int count = 0;
+		
+		try {
+			openConn();
+			sql = "select company_target from okky_company";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				sql = "select * from okky_board where board_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, target.get(count++));
+				ResultSet rs1 = pstmt.executeQuery();
+				
+				while(rs1.next()) {
+					BoardDTO dto = new BoardDTO();
+					
+					dto.setBoard_num(rs1.getInt("board_num"));
+					dto.setBoard_title(rs1.getString("board_title"));
+					dto.setBoard_writer(rs1.getInt("board_writer"));
+					dto.setBoard_content(rs1.getString("board_content"));
+					dto.setBoard_hit(rs1.getInt("board_hit"));
+					dto.setBoard_like(rs1.getInt("board_like"));
+					dto.setBoard_scrap(rs1.getInt("board_scrap"));
+					dto.setBoard_category(rs1.getInt("board_category"));
+					dto.setBoard_regdate(rs1.getString("board_regdate"));
+					
+					list.add(dto);
+				}
+				
+				rs1.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+	}
+	
+	
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +18,10 @@ function checkAll(){
 	
 }
 
+$(function(){
+	$("#menu6").css("border-right","5px solid #e67d3e");
+	$("#menu6-1").css("color","#fff");
+});
 </script>
 </head>
 <body>
@@ -39,7 +44,7 @@ function checkAll(){
 							<div class="col-xs-6">
 								<form method="post" action="" class="">				
 									<div class="input-group">
-										<span class="input-group-btn">
+										<span class="search-list input-group-btn">
 											<select name="search" class="btn btn-default dropdown-toggle">
 												<option value="all">-전체검색-</option>
 												<option value="id">아이디</option>
@@ -59,11 +64,11 @@ function checkAll(){
 						</div>		
 	
 						<br><br>
-		
+						
 						<div class="row">
 							<div class="col-xs-12">
-								<ul class="list-group list-title mem-list-title">
-									<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
+								<ul class=" list-group list-title mem-list-title">
+									<li class="member-list-title list-group-item list-group-item-question list-group-has-note clearfix ">
 										<div class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></div>				
 										<div class="col-xs-1">#</div>
 										<div class="col-xs-2">아이디</div>					
@@ -75,49 +80,88 @@ function checkAll(){
 								</ul>
 							</div>
 						</div>	
-		
 						<div class="row">
 							<div class="col-xs-12">
 								<form name="mem_magage" method="post" action="">
-									<ul class="list-group mem-list">
-										<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
-											<h5 class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></h5>				
-											<h5 class="col-xs-1">(번호)</h5>
-											<h5 class="col-xs-2">(아이디)</h5>					
-											<h5 class="col-xs-3">
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="mem_logo"></a>
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">(닉네임)</a>
-											</h5>					
-											<h5 class="col-xs-2">(이메일)</h5>					
-											<h5 class="col-xs-2">(작성일자)</h5>					
-											<h5 class="col-xs-1"><span class="label label-warning">회원</span></h5>
+
+									<ul class="list-group list-title">
+									
+										<c:set var="list" value="${member_list }" />
+										<c:if test="${!empty list }">
+											<c:forEach items="${list }" var="dto">
+												<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
+													<div class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></div>				
+													<div class="col-xs-1">${dto.getMem_num() }</div>
+													<div class="col-xs-2">${dto.getMem_id() }</div>					
+													<div class="cont-member col-xs-3">	
+														<div>
+															<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
+																<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
+															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">${dto.getMem_nick() }</a><br>
+															<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${dto.getMem_score }</span><br>
+														</div>
+													</div>					
+													<div class="col-xs-2">${dto.getMem_email() }</div>					
+													<div class="cont-regdate col-xs-2">${dto.getMem_regdate().substring(0, 10) }</div>
+													<c:if test="${dto.getMem_check().equals('no') }">
+														<div class="col-xs-1"><span class="label label-warning">회원</span></div>
+													</c:if>
+													<c:if test="${dto.getMem_check().equals('yes') }">
+														<div class="col-xs-1"><span class="label label-default">탈퇴</span></div>
+													</c:if>				
+												</li>
+											
+										</c:forEach>
+										</c:if>
+										<c:if test="${empty list }">
+											<li class="list-group-item list-group-item-question list-group-has-note clearfix">
+													등록된 회원이 없습니다.
+											</li>
+										</c:if>
+										
+										
+										<li class="member-list list-group-item list-group-item-question list-group-has-note clearfix ">
+											<div class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></div>				
+											<div class="col-xs-1">(번호)</div>
+											<div class="col-xs-2">(아이디)</div>					
+											<div class="cont-member col-xs-3">			
+												<div>
+													<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
+														<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
+														
+													<div class="cont-mem-info">
+														<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">(닉네임)</a><br>
+														<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;13</span><br>
+													</div>
+												</div>	
+											</div>	
+														
+											<div class="col-xs-2">(이메일)</div>					
+											<div class="cont-regdate col-xs-2">(가입일자)</div>					
+											<div class="col-xs-1"><span class="label label-warning">회원</span></div>
 										</li>
 										
-										<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
-											<h5 class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></h5>				
-											<h5 class="col-xs-1">2</h5>
-											<h5 class="col-xs-2">aaaaa1111</h5>					
-											<h5 class="col-xs-3">
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="mem_logo"></a>
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">홍길동</a>
-											</h5>					
-											<h5 class="col-xs-2">aaa@gmail.com</h5>					
-											<h5 class="col-xs-2">2021-06-03</h5>					
-											<h5 class="col-xs-1"><span class="label label-default">탈퇴</span></h5>
+										<li class="member-list list-group-item list-group-item-question list-group-has-note clearfix ">
+											<div class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></div>				
+											<div class="col-xs-1">1</div>
+											<div class="col-xs-2">hong</div>					
+											<div class="cont-member col-xs-3">			
+												<div>
+													<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
+														<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
+														
+													<div class="cont-mem-info">
+														<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">홍길동홍길동</a><br>
+														<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;13</span><br>
+													</div>
+												</div>	
+											</div>	
+														
+											<div class="col-xs-2">hong@hong.com</div>					
+											<div class="cont-regdate col-xs-2">2021-06-05</div>					
+											<div class="col-xs-1"><span class="label label-default">탈퇴</span></div>
 										</li>
-	
-										<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
-											<h5 class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></h5>				
-											<h5 class="col-xs-1">1</h5>
-											<h5 class="col-xs-2">aaaaa1111</h5>					
-											<h5 class="col-xs-3">
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="mem_logo"></a>
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">홍길동</a>
-											</h5>					
-											<h5 class="col-xs-2">aaa@gmail.com</h5>					
-											<h5 class="col-xs-2">2021-06-03</h5>					
-											<h5 class="col-xs-1"><span class="label label-warning">회원</span></h5>
-										</li>
+										
 									</ul>
 									<button type="submit" class="btn btn-default">강제탈퇴</button>
 								</form>

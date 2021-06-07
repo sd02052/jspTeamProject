@@ -105,14 +105,6 @@
 	background: none;
 }
 
-.nav-user>ul>li>.link:hover {
-	background-color: #0059ab;
-}
-
-.sidebar>ul>li>.link:hover {
-	background-color: #0059ab;
-}
-
 .nav-sidebar>li>.link {
 	display: block;
 	color: #fff;
@@ -140,6 +132,14 @@
 	background: none;
 }
 
+.nav-main>li>.link:hover {
+	background-color: #0059ab;
+}
+
+.nav-main>li>.link:focus {
+	background-color: #0059ab;
+}
+
 .nav-bottom {
 	margin: 40px 0 0 0;
 	font-size: 10px;
@@ -154,7 +154,84 @@
 	text-align: center;
 }
 
-/* 사이드바 css 시작 */
+.nav-user .avatar {
+    margin-left: -5px;
+    margin-bottom: 10px;
+    float: left;
+}
+
+.avatar-medium .avatar-photo {
+    vertical-align: top;
+    width: 42px;
+    height: 42px;
+}
+
+.nav-user .avatar-photo {
+    border-color: #2a6496;
+    margin-right: 5px;
+}
+
+.avatar-photo {
+    display: inline-block;
+    border: 1px solid #ededed;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.nav-user a, .nav-user a:hover, .nav-user a:focus, .nav-user a:visited {
+    color: #fff;
+}
+
+.nav-user .avatar-info {
+    display: inline-block;
+    max-width: 110px;
+    overflow: hidden;
+}
+
+.avatar-medium .nickname {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.avatar-info .nickname {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.avatar-info .activity.block {
+    display: block;
+}
+.avatar-medium .activity {
+    line-height: 20px;
+}
+.avatar-info .activity {
+    color: #999999;
+    display: inline-block;
+    font-size: 10px;
+    margin-right: 10px;
+}
+
+.nav-user-action {
+    float: right;
+    text-align: center;
+}
+
+.login-view {
+	display: none;
+}
+
+.admin-menu {
+	display: none;
+}
+
+.nav-main a{
+	color: #9fb0c9;
+	display: block;
+}
+.nav-main li{
+	list-style: none;
+}
+/* 사이드바 css 끝 */
 
 /* footer css 시작*/
 #footer {
@@ -242,6 +319,12 @@
 	float: left;
 	width: 450px;
 	margin-right: 10px;
+}
+
+.panel .list-title-wrapper {
+    float: none;
+    width: 100%;
+    margin-bottom: 5px;
 }
 
 .list-tag {

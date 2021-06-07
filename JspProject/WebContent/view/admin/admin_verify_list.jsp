@@ -10,6 +10,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#menu6").css("border-right","5px solid #e67d3e");
+	$("#menu6-2").css("color","#fff");
+});
+</script>
 <style type="text/css">
 
 /* css 파일 따로 작성시 부트스트랩 디자인 먼저 적용되므로 여기서 작성! */
@@ -91,62 +97,70 @@
 						<div class="row">
 							<div class="admin-verify-list-content col-xs-12 table table-hover">
 								<ul class="list-group com-list">
-									<li class="list-group-item list-group-item-question list-group-has-note clearfix">
-										<h5 class="col-xs-1">(인증글 번호)</h5>				
-										<h5 class="col-xs-3">
-											<a href="<%=request.getContextPath() %>/view/admin/admin_verify_cont.jsp">(회사명)</a>
-										</h5>					
-										<h5 class="col-xs-2">(사업자등록번호)</h5>		
-										
-										<div class="cont-member">			
+									<li class="admin-verify-list-li list-group-item list-group-item-question list-group-has-note clearfix">
+										<div class="col-xs-1">(인증글 번호)</div>				
 										<div class="col-xs-3">
-											
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
-													<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
-												
-									
+											<a href="<%=request.getContextPath() %>/view/admin/admin_verify_cont.jsp">(회사명)</a>
+										</div>		
+										<div class="col-xs-2">(사업자등록번호)</div>		
+											<div class="cont-member col-xs-3">			
+												<div>
+													<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
+														<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
+														
 													<div class="cont-mem-info">
 														<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">(글작성자 닉네임)</a><br>
 														<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;(활동점수)</span><br>
-														
-														
-														
 													</div>
-											
 												</div>	
-											</div>				
-										<div class="cont-regdate col-xs-2">
-											(작성일자)
-										</div>				
-										<h5 class="col-xs-1"><span class="badge badge-waitting">대기</span></h5>
+											</div>	
+
+										<div class="cont-regdate col-xs-2">(작성일자)</div>				
+										<div class="col-xs-1"><span class="badge badge-waitting">대기</span></div>
 									</li>
 				
-									<li class="list-group-item list-group-item-question list-group-has-note clearfix">
-										<h5 class="col-xs-1">2</h5>				
-										<h5 class="col-xs-3"><a href="<%=request.getContextPath() %>/view/admin/admin_verify_cont.jsp">캐빈시스템</a></h5>					
-										<h5 class="col-xs-2">000-00-00000</h5>					
-										<h5 class="col-xs-3">
-											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
-												<img src="<%=request.getContextPath() %>/images/profile00.png" class="list_company_logo img-circle"></a>	
-											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">신청자</a>
-											(활동점수)
-										</h5>					
-										<h5 class="col-xs-2">2021-06-03</h5>					
-										<h5 class="col-xs-1"><span class="badge badge-success">승인</span></h5>
+									<li class="admin-verify-list-li list-group-item list-group-item-question list-group-has-note clearfix">
+										<div class="col-xs-1">2</div>				
+										<div class="col-xs-3">
+											<a href="<%=request.getContextPath() %>/view/admin/admin_verify_cont.jsp">필그림소프트</a>
+										</div>		
+										<div class="col-xs-2">000-00-00000</div>		
+											<div class="cont-member col-xs-3">			
+												<div>
+													<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
+														<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
+														
+													<div class="cont-mem-info">
+														<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">홍길동홍길동</a><br>
+														<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;13</span><br>
+													</div>
+												</div>	
+											</div>	
+
+										<div class="cont-regdate col-xs-2">2021-06-07</div>				
+										<div class="col-xs-1"><span class="badge badge-reject">거절</span></div>
 									</li>
 									
-									<li class="list-group-item list-group-item-question list-group-has-note clearfix">
-										<h5 class="col-xs-1">1</h5>				
-										<h5 class="col-xs-3"><a href="<%=request.getContextPath() %>/view/admin/admin_verify_cont.jsp">(주)필그림소프트</a></h5>					
-										<h5 class="col-xs-2">000-00-00000</h5>					
-										<h5 class="col-xs-3">
-											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
-												<img src="<%=request.getContextPath() %>/images/profile00.png" class="list_company_logo img-circle"></a>	
-											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">신청자</a>
-											(활동점수)
-										</h5>					
-										<h5 class="col-xs-2">2021-06-03</h5>					
-										<h5 class="col-xs-1"><span class="badge badge-reject">거절</span></h5>
+									<li class="admin-verify-list-li list-group-item list-group-item-question list-group-has-note clearfix">
+										<div class="col-xs-1">1</div>				
+										<div class="col-xs-3">
+											<a href="<%=request.getContextPath() %>/view/admin/admin_verify_cont.jsp">필그림소프트</a>
+										</div>		
+										<div class="col-xs-2">000-00-00000</div>		
+											<div class="cont-member col-xs-3">			
+												<div>
+													<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
+														<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
+														
+													<div class="cont-mem-info">
+														<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">홍길동</a><br>
+														<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;13</span><br>
+													</div>
+												</div>	
+											</div>	
+
+										<div class="cont-regdate col-xs-2">2021-06-07</div>				
+										<div class="col-xs-1"><span class="badge badge-success">승인</span></div>
 									</li>
 								</ul>
 							</div>

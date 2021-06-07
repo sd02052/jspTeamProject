@@ -11,6 +11,7 @@ create table okky_member(
     mem_pwd varchar2(100) not null,				-- 회원 비밀번호
     mem_image varchar2(100) not null,			-- 회원 프로필 이미지
     mem_email varchar2(100) not null,			-- 회원 이메일
+    mem_regdate date not null,					-- 회원 가입일
     mem_emailCheck varchar2(10) default 'yes',
     mem_check varchar2(20) default 'no',
     mem_score number(5) default 0,
@@ -77,7 +78,7 @@ create table okky_follow(
 create table okky_company(
 	company_num number(5) primary key,				-- 회사 번호
 	company_name varchar2(100) not null,			-- 회사 이름
-	company_license_num nuber(30) not null,			-- 회사 사업자 등록번호
+	company_license_num number(30) not null,		-- 회사 사업자 등록번호
 	company_license_image varchar2(200) not null,	-- 회사 사업자 등록증
 	company_boss_phone varchar2(100) not null,		-- 회사 대표 번호
 	company_boss_email varchar2(100) not null,		-- 회사 대표 메일

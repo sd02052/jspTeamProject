@@ -18,7 +18,7 @@
 /* 회사 목록 타이틀 */
 .com-list-title {
 	text-align: center;
-	font-weight: bold;
+	font-weight: bold;		
 }
 
 /* 회사 목록 타이틀 */
@@ -125,10 +125,24 @@
 /* 작성일자 */
 .cont-regdate {
 	font-size: 1em;
-	color: #CCC;
+	color: #999;
 }
 
+/* 회사인증 테이블 타이틀 */
 .admin-verify-list-title {
 	font-size: 0.9em;
 	color: #999;
 }
+
+/* 멤버관리 테이블 타이틀 */
+.member-list-title {
+	font-size: 0.9em;
+	color: #999;
+	vertical-align: middle;
+}
+
+.member-list {
+	text-align: center;
+}
+
+

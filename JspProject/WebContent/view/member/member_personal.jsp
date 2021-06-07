@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>OKKY - All That Developer</title>
-<link rel="stylesheet" href="../../style/member_personal.css">
-<link rel="stylesheet" href="../../style/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/style/member_personal.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -22,7 +22,7 @@
 				            <form class="panel-body">
 				                <div class="avatar clearfix avatar-big col-sm-3 text-center">
 				                    <a href="" class="avatar-photo">
-				                        <img src="../../images/29a87623405c294d79bd2b4728996363.png">
+				                        <img src="<%=request.getContextPath() %>/images/29a87623405c294d79bd2b4728996363.png">
 				                    </a>
 				                </div>
 				                <div class="user-info col-sm-9">
@@ -61,7 +61,7 @@
 				
 				        <div class="col-sm-10 main-block-left pull-left"> <!-- activity List -->
 				            <ul class="list-group">
-				                <li class="list-group-item list-group-has-note">
+				                <li class="list-group-item list-group-has-note list-group-item-small">
 				                    <div class="list-icon-wrapper pull-left">
 				                        <i class="fas fa-angle-up"></i>
 				                    </div>
@@ -76,7 +76,7 @@
 				                            <div class="list-group-item-author pull-right clearfix">
 				                                <div class="avatar clearfix avatar-x-small">
 				                                    <a href="" class="avatar-photo">
-				                                        <img src="../../images/437ec94ff99317bcb4a15730e1b5cf61.png">
+				                                        <img src="<%=request.getContextPath() %>/images/437ec94ff99317bcb4a15730e1b5cf61.png">
 				                                    </a>
 				                                    <div class="avatar-info">
 				                                        <a class="nickname" href="">(사용자1)</a>
@@ -91,7 +91,7 @@
 				                    </div>
 				                </li>
 				
-				                <li class="list-group-item list-group-has-note">
+				                <li class="list-group-item list-group-has-note list-group-item-small">
 				                    <div class="list-icon-wrapper pull-left">
 				                        <i class="fas fa-angle-up"></i>
 				                    </div>
@@ -106,7 +106,7 @@
 				                            <div class="list-group-item-author pull-right clearfix">
 				                                <div class="avatar clearfix avatar-x-small">
 				                                    <a href="" class="avatar-photo">
-				                                        <img src="../../images/437ec94ff99317bcb4a15730e1b5cf61.png">
+				                                        <img src="<%=request.getContextPath() %>/images/437ec94ff99317bcb4a15730e1b5cf61.png">
 				                                    </a>
 				                                    <div class="avatar-info">
 				                                        <a class="nickname" href="">(사용자1)</a>
@@ -121,25 +121,27 @@
 				                </li>
 				            </ul>
 				            
-				            <nav aria-label="Page navigation example"> <!-- pagination -->
-				                <ul class="pagination">
-				                    <li class="page-item">
-				                        <a class="page-link" href="#" aria-label="Previous">
-				                            <span aria-hidden="true">&laquo;</span>
-				                            <span class="sr-only">Previous</span>
-				                        </a>
-				                    </li>
-				                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-				                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-				                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-				                    <li class="page-item">
-				                        <a class="page-link" href="#" aria-label="Next">
-				                            <span aria-hidden="true">&raquo;</span>
-				                            <span class="sr-only">Next</span>
-				                        </a>
-				                    </li>
-				                </ul>
-				            </nav> <!-- /pagination -->
+				            <div style="text-align: center;">
+					            <nav aria-label="Page navigation example"> <!-- pagination -->
+					                <ul class="pagination">
+					                    <li class="page-item">
+					                        <a class="page-link" href="#" aria-label="Previous">
+					                            <span aria-hidden="true">&laquo;</span>
+					                            <span class="sr-only">Previous</span>
+					                        </a>
+					                    </li>
+					                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+					                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+					                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+					                    <li class="page-item">
+					                        <a class="page-link" href="#" aria-label="Next">
+					                            <span aria-hidden="true">&raquo;</span>
+					                            <span class="sr-only">Next</span>
+					                        </a>
+					                    </li>
+					                </ul>
+					            </nav> <!-- /pagination -->
+				            </div>
 				        </div> <!-- /activity list -->
 				    </div> <!-- /container -->
 			    </div>

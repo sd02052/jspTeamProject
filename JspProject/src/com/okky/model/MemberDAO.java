@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -94,25 +96,26 @@ public class MemberDAO {
 		}
 		return result;
 	}
-	
+
 	public MemberDTO getMember(String id) {
 		MemberDTO dto = new MemberDTO();
-		
+
 		try {
 			openConn();
-			
+
 			sql = "select * from okky_member where mem_id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				dto.setMem_num(rs.getInt("mem_num"));
 				dto.setMem_id(rs.getString("mem_id"));
 				dto.setMem_nick(rs.getString("mem_nick"));
 				dto.setMem_pwd(rs.getString("mem_pwd"));
 				dto.setMem_image(rs.getString("mem_image"));
 				dto.setMem_email(rs.getString("mem_email"));
+				dto.setMem_regdate(rs.getString("mem_regdate"));
 				dto.setMem_emailCheck(rs.getString("mem_emailcheck"));
 				dto.setMem_check(rs.getString("mem_check"));
 				dto.setMem_score(rs.getInt("mem_score"));
@@ -125,5 +128,74 @@ public class MemberDAO {
 			closeConn(rs, pstmt, con);
 		}
 		return dto;
+	}
+
+	public MemberDTO getMember(int num) {
+		MemberDTO dto = new MemberDTO();
+
+		try {
+			openConn();
+
+			sql = "select * from okky_member where mem_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				dto.setMem_num(rs.getInt("mem_num"));
+				dto.setMem_id(rs.getString("mem_id"));
+				dto.setMem_nick(rs.getString("mem_nick"));
+				dto.setMem_pwd(rs.getString("mem_pwd"));
+				dto.setMem_image(rs.getString("mem_image"));
+				dto.setMem_email(rs.getString("mem_email"));
+				dto.setMem_regdate(rs.getString("mem_regdate"));
+				dto.setMem_emailCheck(rs.getString("mem_emailcheck"));
+				dto.setMem_check(rs.getString("mem_check"));
+				dto.setMem_score(rs.getInt("mem_score"));
+				dto.setMem_company(rs.getInt("mem_company"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return dto;
+	}
+
+	public List<MemberDTO> getMemberList() {
+		List<MemberDTO> list = new ArrayList<MemberDTO>();
+
+		try {
+			openConn();
+
+			sql = "select * from okky_member order by mem_num desc";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				MemberDTO dto = new MemberDTO();
+
+				dto.setMem_num(rs.getInt("mem_num"));
+				dto.setMem_id(rs.getString("mem_id"));
+				dto.setMem_nick(rs.getString("mem_nick"));
+				dto.setMem_pwd(rs.getString("mem_pwd"));
+				dto.setMem_image(rs.getString("mem_image"));
+				dto.setMem_email(rs.getString("mem_email"));
+				dto.setMem_regdate(rs.getString("mem_regdate"));
+				dto.setMem_emailCheck(rs.getString("mem_emailcheck"));
+				dto.setMem_check(rs.getString("mem_check"));
+				dto.setMem_score(rs.getInt("mem_score"));
+				dto.setMem_company(rs.getInt("mem_company"));
+
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
 	}
 }

@@ -19,8 +19,6 @@ public class FrontController extends HttpServlet {
 			throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		
-		System.out.println("1");
 
 		String uri = request.getRequestURI();
 		String path = request.getContextPath();
@@ -36,7 +34,7 @@ public class FrontController extends HttpServlet {
 		Properties prop = new Properties();
 
 		FileInputStream fis = new FileInputStream(
-				"C:\\NCS\\jspTeamProject\\JspProject\\src\\com\\okky\\controller\\mapping.properties");
+				"C:\\Users\\SIST\\git\\jspTeamProject\\JspProject\\src\\com\\okky\\controller\\mapping.properties");
 		prop.load(fis);
 		String value = prop.getProperty(command);
 		
@@ -59,7 +57,7 @@ public class FrontController extends HttpServlet {
 			}
 		} else {
 			forward = new ActionForward();
-			forward.setRedirect(true);
+			forward.setRedirect(false);
 			forward.setPath(value);
 		}
 

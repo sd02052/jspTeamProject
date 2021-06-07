@@ -7,6 +7,8 @@ public class MemberDTO {
 	private String mem_pwd;
 	private String mem_image;
 	private String mem_email;
+	private String mem_regdate;
+
 	private String mem_emailCheck;
 	private String mem_check;
 	private int mem_score;
@@ -62,6 +64,14 @@ public class MemberDTO {
 
 	public String getMem_emailCheck() {
 		return mem_emailCheck;
+	}
+
+	public String getMem_regdate() {
+		return mem_regdate;
+	}
+
+	public void setMem_regdate(String mem_regdate) {
+		this.mem_regdate = mem_regdate;
 	}
 
 	public void setMem_emailCheck(String mem_emailCheck) {

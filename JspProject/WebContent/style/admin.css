@@ -86,3 +86,49 @@
 .btn-verify {
 	margin-left: 30px;
 }
+
+
+
+/* 게시글 상세내용 - 회원 프로필 이미지 */
+.cont-mem-logo {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+}
+
+/* 게시글 상세내용 - 회사 프로필 이미지 */
+.cont-company-logo {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	border: 1px solid #EEE;
+}
+
+/* 회원 정보(닉네임&활동점수&작성일자) */
+.cont-mem-info {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/* 회원 닉네임 */
+.cont-mem-nick {
+	font-size: 1em;
+}
+
+/* 회원 활동점수 */
+.cont-activity {
+	font-size: 0.71em;
+	color: #999;
+	float: left;
+}
+
+/* 작성일자 */
+.cont-regdate {
+	font-size: 1em;
+	color: #CCC;
+}
+
+.admin-verify-list-title {
+	font-size: 0.9em;
+	color: #999;
+}

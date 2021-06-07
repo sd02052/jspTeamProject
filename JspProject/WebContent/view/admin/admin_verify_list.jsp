@@ -75,7 +75,7 @@
 		
 						<div class="row">
 							<div class="col-xs-12">
-								<ul class="list-group list-title com-list-title">
+								<ul class="admin-verify-list-title list-group list-title com-list-title">
 									<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
 										<div class="col-xs-1">#</div>				
 										<div class="col-xs-3">회사명</div>					
@@ -89,21 +89,35 @@
 						</div>	
 
 						<div class="row">
-							<div class="col-xs-12 table table-hover">
+							<div class="admin-verify-list-content col-xs-12 table table-hover">
 								<ul class="list-group com-list">
 									<li class="list-group-item list-group-item-question list-group-has-note clearfix">
 										<h5 class="col-xs-1">(인증글 번호)</h5>				
 										<h5 class="col-xs-3">
 											<a href="<%=request.getContextPath() %>/view/admin/admin_verify_cont.jsp">(회사명)</a>
 										</h5>					
-										<h5 class="col-xs-2">(사업자등록번호)</h5>					
-										<h5 class="col-xs-3">
-											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
-												<img src="<%=request.getContextPath() %>/images/profile00.png" class="list_company_logo img-circle"></a>												
-											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">(닉네임)</a>
-											(활동점수)
-										</h5>					
-										<h5 class="col-xs-2">(등록일자)</h5>					
+										<h5 class="col-xs-2">(사업자등록번호)</h5>		
+										
+										<div class="cont-member">			
+										<div class="col-xs-3">
+											
+												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
+													<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
+												
+									
+													<div class="cont-mem-info">
+														<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">(글작성자 닉네임)</a><br>
+														<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;(활동점수)</span><br>
+														
+														
+														
+													</div>
+											
+												</div>	
+											</div>				
+										<div class="cont-regdate col-xs-2">
+											(작성일자)
+										</div>				
 										<h5 class="col-xs-1"><span class="badge badge-waitting">대기</span></h5>
 									</li>
 				

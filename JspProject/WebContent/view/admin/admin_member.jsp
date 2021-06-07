@@ -120,45 +120,6 @@ $(function(){
 												</li>
 										</c:if>
 										
-										
-										<%-- <li class="list-group-item list-group-item-question list-group-has-note clearfix ">
-											<h5 class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></h5>				
-											<h5 class="col-xs-1">3</h5>
-											<h5 class="col-xs-2">aaaaa1111</h5>					
-											<h5 class="col-xs-3">
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="member_img"></a>
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">홍길동</a>
-											</h5>					
-											<h5 class="col-xs-2">aaa@gmail.com</h5>					
-											<h5 class="col-xs-2">2021-06-03</h5>					
-											<h5 class="col-xs-1"><span class="label label-warning">회원</span></h5>
-										</li>
-										
-										<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
-											<h5 class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></h5>				
-											<h5 class="col-xs-1">2</h5>
-											<h5 class="col-xs-2">aaaaa1111</h5>					
-											<h5 class="col-xs-3">
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="member_img"></a>
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">홍길동</a>
-											</h5>					
-											<h5 class="col-xs-2">aaa@gmail.com</h5>					
-											<h5 class="col-xs-2">2021-06-03</h5>					
-											<h5 class="col-xs-1"><span class="label label-default">탈퇴</span></h5>
-										</li>
-	
-										<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
-											<h5 class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></h5>				
-											<h5 class="col-xs-1">1</h5>
-											<h5 class="col-xs-2">aaaaa1111</h5>					
-											<h5 class="col-xs-3">
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="member_img"></a>
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">홍길동</a>
-											</h5>					
-											<h5 class="col-xs-2">aaa@gmail.com</h5>					
-											<h5 class="col-xs-2">2021-06-03</h5>					
-											<h5 class="col-xs-1"><span class="label label-warning">회원</span></h5>
-										</li> --%>
 									</ul>
 									<button type="submit" class="btn btn-default">강제탈퇴</button>
 								</form>

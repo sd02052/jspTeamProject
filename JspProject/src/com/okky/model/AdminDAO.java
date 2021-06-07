@@ -66,4 +66,82 @@ public class AdminDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public int adminCheck(String id, String pwd) {
+		int result = 0;
+
+		try {
+			openConn();
+
+			sql = "select * from okky_admin where admin_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				if (rs.getString("admin_pwd").equals(pwd)) {
+					result = 1;
+				} else {
+					result = -1;
+				}
+			} else {
+				result = -2;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	}
+	
+	public AdminDTO getAdmin(String id) {
+		AdminDTO dto = new AdminDTO();
+		
+		try {
+			openConn();
+			
+			sql = "select * from okky_admin where admin_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto.setAdmin_num(rs.getInt("admin_num"));
+				dto.setAdmin_id(rs.getString("admin_id"));
+				dto.setAdmin_pwd(rs.getString("admin_pwd"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return dto;
+	}
+	
+	public AdminDTO getAdmin(int num) {
+		AdminDTO dto = new AdminDTO();
+		
+		try {
+			openConn();
+			
+			sql = "select * from okky_admin where admin_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto.setAdmin_num(rs.getInt("admin_num"));
+				dto.setAdmin_id(rs.getString("admin_id"));
+				dto.setAdmin_pwd(rs.getString("admin_pwd"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return dto;
+	}
 }

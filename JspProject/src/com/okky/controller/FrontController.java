@@ -15,7 +15,7 @@ public class FrontController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; cahrset=UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 
 		String uri = request.getRequestURI();
 		String path = request.getContextPath();
@@ -48,7 +48,7 @@ public class FrontController extends HttpServlet {
 			}
 		} else {
 			forward = new ActionForward();
-			forward.setRedirect(true);
+			forward.setRedirect(false);
 			forward.setPath(value);
 		}
 

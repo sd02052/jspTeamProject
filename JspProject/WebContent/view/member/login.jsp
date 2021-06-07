@@ -4,8 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <title>OKKY - All That Developer</title>
-<link rel="stylesheet" href="../../style/login.css">
-<link rel="stylesheet" href="../../style/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/style/login.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -23,22 +23,22 @@
 				                <div class="panel-heading">
 				                    <h5 class="panel-header">아이디 로그인</h5>
 				                </div>
-				                <form class="form-signin panel-body panel-margin">
+				                <form class="form-signin panel-body panel-margin" method="post" action="<%=request.getContextPath() %>/member_login_ok.do">
 				                    <label for="inputEmail" class="sr-only">아이디</label>
-				                    <input type="email" id="inputEmail" class="form-control" placeholder="아이디" required autofocus>
+				                    <input type="email" id="inputEmail" class="form-control" placeholder="아이디" required autofocus name="mem_id">
 				                    <label for="inputPassword" class="sr-only">비밀번호</label>
-				                    <input type="password" id="inputPassword" class="form-control" placeholder="비밀번호" required>
+				                    <input type="password" id="inputPassword" class="form-control" placeholder="비밀번호" required name="mem_pwd">
 				
 				                    <div class="radio-check">
 				                        <div class="radio">
 				                            <label>
-				                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="user" checked>
+				                                <input type="radio" name="optionsRadios" id="member" value="member" checked>
 				                                <i class="fas fa-user"></i> 회원 로그인
 				                            </label>
 				                          </div>
 				                          <div class="radio">
 				                            <label>
-				                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="admin">
+				                                <input type="radio" name="optionsRadios" id="admin" value="admin">
 				                                <i class="fas fa-user-cog"></i> 관리자 로그인
 				                            </label>
 				                          </div>

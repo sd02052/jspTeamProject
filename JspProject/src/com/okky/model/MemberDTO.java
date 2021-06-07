@@ -7,10 +7,12 @@ public class MemberDTO {
 	private String mem_pwd;
 	private String mem_image;
 	private String mem_email;
+	private String mem_regdate;
+
 	private String mem_emailCheck;
 	private String mem_check;
 	private int mem_score;
-	private int company;
+	private int mem_company;
 
 	public int getMem_num() {
 		return mem_num;
@@ -64,6 +66,14 @@ public class MemberDTO {
 		return mem_emailCheck;
 	}
 
+	public String getMem_regdate() {
+		return mem_regdate;
+	}
+
+	public void setMem_regdate(String mem_regdate) {
+		this.mem_regdate = mem_regdate;
+	}
+
 	public void setMem_emailCheck(String mem_emailCheck) {
 		this.mem_emailCheck = mem_emailCheck;
 	}
@@ -84,12 +94,12 @@ public class MemberDTO {
 		this.mem_score = mem_score;
 	}
 
-	public int getCompany() {
-		return company;
+	public int getMem_company() {
+		return mem_company;
 	}
 
-	public void setCompany(int company) {
-		this.company = company;
+	public void setMem_company(int mem_company) {
+		this.mem_company = mem_company;
 	}
 
 }

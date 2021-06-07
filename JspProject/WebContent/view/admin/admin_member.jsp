@@ -121,48 +121,6 @@ $(function(){
 													등록된 회원이 없습니다.
 											</li>
 										</c:if>
-										
-										<li class="member-list list-group-item list-group-item-question list-group-has-note clearfix ">
-											<div class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></div>				
-											<div class="col-xs-1">(번호)</div>
-											<div class="col-xs-2">(아이디)</div>					
-											<div class="cont-member col-xs-3">			
-												<div>
-													<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
-														<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
-														
-													<div class="cont-mem-info">
-														<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">(닉네임)</a><br>
-														<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;13</span>
-													</div>
-												</div>	
-											</div>	
-														
-											<div class="col-xs-2">(이메일)</div>					
-											<div class="cont-regdate col-xs-2">(가입일자)</div>					
-											<div class="col-xs-1"><span class="label label-warning">회원</span></div>
-										</li>
-										
-										<li class="member-list list-group-item list-group-item-question list-group-has-note clearfix ">
-											<div class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></div>				
-											<div class="col-xs-1">1</div>
-											<div class="col-xs-2">hong</div>					
-											<div class="cont-member col-xs-3">			
-												<div>
-													<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
-														<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
-														
-													<div class="cont-mem-info">
-														<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">홍길동홍길동</a><br>
-														<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;13</span>
-													</div>
-												</div>	
-											</div>	
-														
-											<div class="col-xs-2">hong@hong.com</div>					
-											<div class="cont-regdate col-xs-2">2021-06-05</div>					
-											<div class="col-xs-1"><span class="label label-default">탈퇴</span></div>
-										</li>
 									</ul>
 									<button type="submit" class="btn btn-default">강제탈퇴</button>
 								</form>

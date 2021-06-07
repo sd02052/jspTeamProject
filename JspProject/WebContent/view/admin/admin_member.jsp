@@ -89,7 +89,7 @@ $(function(){
 										<c:set var="list" value="${member_list }" />
 										<c:if test="${!empty list }">
 											<c:forEach items="${list }" var="dto">
-												<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
+												<li class="member-list list-group-item list-group-item-question list-group-has-note clearfix ">
 													<div class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></div>				
 													<div class="col-xs-1">${dto.getMem_num() }</div>
 													<div class="col-xs-2">${dto.getMem_id() }</div>					
@@ -97,8 +97,11 @@ $(function(){
 														<div>
 															<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
 																<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
+															<div class="cont-mem-info">
 															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">${dto.getMem_nick() }</a><br>
-															<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${dto.getMem_score }</span><br>
+															<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${dto.getMem_score() }</span>
+															</div>
+															
 														</div>
 													</div>					
 													<div class="col-xs-2">${dto.getMem_email() }</div>					
@@ -130,7 +133,7 @@ $(function(){
 														
 													<div class="cont-mem-info">
 														<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">(닉네임)</a><br>
-														<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;13</span><br>
+														<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;13</span>
 													</div>
 												</div>	
 											</div>	
@@ -151,7 +154,7 @@ $(function(){
 														
 													<div class="cont-mem-info">
 														<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">홍길동홍길동</a><br>
-														<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;13</span><br>
+														<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;13</span>
 													</div>
 												</div>	
 											</div>	

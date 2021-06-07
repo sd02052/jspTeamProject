@@ -24,9 +24,9 @@ public class FrontController extends HttpServlet {
 		String path = request.getContextPath();
 		String command = uri.substring(path.length() + 1);
 		
-		System.out.println(uri);
-		System.out.println(path);
-		System.out.println(command);
+		System.out.println("uri >> " + uri);
+		System.out.println("path >> " + path);
+		System.out.println("command >> " + command);
 
 		Action action = null;
 		ActionForward forward = null;
@@ -38,7 +38,7 @@ public class FrontController extends HttpServlet {
 		prop.load(fis);
 		String value = prop.getProperty(command);
 		
-		System.out.println(value);
+		System.out.println("value >> " + value);
 
 		if (value.substring(0, 7).equals("execute")) {
 			StringTokenizer st = new StringTokenizer(value, "|");

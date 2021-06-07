@@ -321,6 +321,12 @@
 	margin-right: 10px;
 }
 
+.panel .list-title-wrapper {
+    float: none;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
 .list-tag {
 	font-size: 12px;
 	margin-bottom: 5px;

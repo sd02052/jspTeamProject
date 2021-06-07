@@ -9,6 +9,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#menu6").css("border-right","5px solid #e67d3e");
+	$("#menu6-2").css("color","#fff");
+});
+</script>
 <style type="text/css">
 
 .badge-waitting {
@@ -97,8 +103,8 @@
 									<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
 										<div class="col-xs-1">#</div>				
 										<div class="col-xs-3">회사명</div>					
-										<div class="col-xs-2">사업자 등록번호</div>					
-										<div class="col-xs-3">신청자</div>					
+										<div class="col-xs-3">사업자 등록번호</div>					
+										<div class="col-xs-2">신청자</div>					
 										<div class="col-xs-2">등록일</div>					
 										<div class="col-xs-1">상태</div>
 									</li>
@@ -114,8 +120,8 @@
 										<h5 class="col-xs-3">
 											<a href="<%=request.getContextPath() %>/view/admin/admin_verify_cont.jsp">(주)필그림소프트</a>
 										</h5>					
-										<h5 class="col-xs-2">000-00-00000</h5>					
-										<h5 class="col-xs-3">
+										<h5 class="col-xs-3">000-00-00000</h5>					
+										<h5 class="col-xs-2">
 											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="member_img"></a>
 											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">신청자</a>
 										</h5>					
@@ -126,8 +132,8 @@
 									<li class="list-group-item list-group-item-question list-group-has-note clearfix">
 										<h5 class="col-xs-1">2</h5>				
 										<h5 class="col-xs-3"><a href="<%=request.getContextPath() %>/view/admin/admin_verify_cont.jsp">캐빈시스템</a></h5>					
-										<h5 class="col-xs-2">000-00-00000</h5>					
-										<h5 class="col-xs-3">
+										<h5 class="col-xs-3">000-00-00000</h5>					
+										<h5 class="col-xs-2">
 											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="member_img"></a>
 											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">신청자</a>
 										</h5>					
@@ -138,8 +144,8 @@
 									<li class="list-group-item list-group-item-question list-group-has-note clearfix">
 										<h5 class="col-xs-1">1</h5>				
 										<h5 class="col-xs-3"><a href="<%=request.getContextPath() %>/view/admin/admin_verify_cont.jsp">(주)필그림소프트</a></h5>					
-										<h5 class="col-xs-2">000-00-00000</h5>					
-										<h5 class="col-xs-3">
+										<h5 class="col-xs-3">000-00-00000</h5>					
+										<h5 class="col-xs-2">
 											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="member_img"></a>
 											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">신청자</a>
 										</h5>					

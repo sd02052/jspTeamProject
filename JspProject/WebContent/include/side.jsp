@@ -48,6 +48,7 @@
 <%
 	}
 %>
+
 </head>
 <body>
 	
@@ -120,11 +121,18 @@
 		</div>
 		
 		<ul class="nav nav-sidebar nav-main">
-			<li>
-				<a href="#" class="link">
+			<li class="dropdown dropright">
+				<a href="#" id="navbarDroprightMenuLink" class="link" data-toggle="collapse" data-target="#demo1">
 					<i class="nav-icon fas fa-database"></i>
 					<span class="nav-sidebar-label nav-sidebar-category-label">Q&A</span>
 				</a>
+				<div id="demo1" class="collapse">
+				<ul>
+					<li><a href="#">All</a></li>
+					<li><a href="#">Tech Q&A</a></li>
+					<li><a href="#">Blockchain Q&A</a></li>
+				</ul>
+				</div>
 			</li>
 			<li>
 				<a href="#" class="link">
@@ -151,11 +159,17 @@
 				</a>
 			</li>
 			<!-- 관리자 메뉴 -->
-			<li style="display: none;" class="admin-menu">
-				<a href="<%=request.getContextPath() %>/admin_member_list.do" class="link">
+			<li class="admin-menu dropdown dropright">
+				<a href="#" id="menu6" class="link" data-toggle="collapse" data-target="#demo6">
 					<i class="nav-icon fas fa-tools"></i>
 					<span class="nav-sidebar-label nav-sidebar-category-label">관리자 메뉴</span>
 				</a>
+				<div id="demo6" class="collapse">
+					<ul>
+						<li><a id="menu6-1" href="<%=request.getContextPath() %>/admin_member_list.do">회원 관리</a></li>
+						<li><a id="menu6-2" href="<%=request.getContextPath() %>/view/admin/admin_verify_list.jsp">회사 인증관리</a></li>
+					</ul>
+				</div>
 			</li>
 		</ul>
 		

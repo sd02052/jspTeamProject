@@ -17,6 +17,10 @@ function checkAll(){
 	
 }
 
+$(function(){
+	$("#menu6").css("border-right","5px solid #e67d3e");
+	$("#menu6-1").css("color","#fff");
+});
 </script>
 <style type="text/css">
 

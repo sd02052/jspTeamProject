@@ -119,7 +119,6 @@ $(function(){
 											</li>
 										</c:if>
 										
-										
 										<li class="member-list list-group-item list-group-item-question list-group-has-note clearfix ">
 											<div class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></div>				
 											<div class="col-xs-1">(번호)</div>
@@ -161,7 +160,6 @@ $(function(){
 											<div class="cont-regdate col-xs-2">2021-06-05</div>					
 											<div class="col-xs-1"><span class="label label-default">탈퇴</span></div>
 										</li>
-										
 									</ul>
 									<button type="submit" class="btn btn-default">강제탈퇴</button>
 								</form>

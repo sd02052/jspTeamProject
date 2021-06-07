@@ -1,4 +1,4 @@
-package com.okky.action;
+package com.okky.controller;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,7 +15,7 @@ public class FrontController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; cahrset=UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 
 		String uri = request.getRequestURI();
 		String path = request.getContextPath();
@@ -27,7 +27,7 @@ public class FrontController extends HttpServlet {
 		Properties prop = new Properties();
 
 		FileInputStream fis = new FileInputStream(
-				"C:\\Users\\sd020\\git\\jspTeamProject\\JspProject\\src\\com\\okky\\action\\mapping.properties");
+				"C:\\Users\\SOS\\git\\jspTeamProject\\JspProject\\src\\com\\okky\\controller\\mapping.properties");
 		prop.load(fis);
 		String value = prop.getProperty(command);
 
@@ -48,7 +48,7 @@ public class FrontController extends HttpServlet {
 			}
 		} else {
 			forward = new ActionForward();
-			forward.setRedirect(true);
+			forward.setRedirect(false);
 			forward.setPath(value);
 		}
 

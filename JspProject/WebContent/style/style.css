@@ -1,6 +1,16 @@
 @charset "UTF-8";
 
-#main {
+.layout-container {
+	padding: 0;
+	margin: 0;
+	max-width: 1280px;
+}
+
+.body{
+	background-color: #f8f8f8 !important;
+}
+
+.main {
 	position: relative;
 	width: 1027px;
 	margin-left: 210px;
@@ -8,7 +18,8 @@
 	padding-top: 20px !important;
 }
 
-#sidebar {
+/* 사이드바 css 시작 */
+.sidebar {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -21,3 +32,392 @@
 	width: 210px;
 	height: auto;
 }
+
+.sidebar h1 {
+	text-align: center;
+	margin-top: 10px;
+	margin-left: -10px;
+	letter-spacing: 5px;
+}
+
+.logo {
+	height: 40px;
+	align-items: center;
+}
+
+#search-google-icon {
+	display: none;
+}
+
+#search-google.link {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.nav-sidebar-form {
+	padding-top: 10px;
+	padding-bottom: 25px;
+}
+
+.nav-user {
+	height: 150px;
+	padding: 10px 15px 0px 10px;
+}
+
+.nav-user .nav-sidebar {
+	margin-right: -17px;
+	margin-left: -15px;
+}
+
+.nav {
+	padding-left: 0;
+	margin-bottom: 0;
+	list-style: none;
+}
+
+.nav-sidebar {
+	margin-right: -21px;
+	margin-left: -20px;
+}
+
+.nav-user li {
+	width: 50%;
+	float: left;
+	text-align: center;
+	border-top: 1px solid #00519c;
+	border-bottom: 1px solid #00519c;
+	border-left: 1px solid #00519c;
+	box-sizing: border-box;
+	margin-bottom: 0;
+	box-sizing: border-box
+}
+
+.nav>li {
+	display: block;
+}
+
+.nav-user>ul>li>.link {
+	font-size: 12px;
+	font-weight: normal;
+	margin-bottom: 0;
+	padding: 10px 20px;
+	box-sizing: border-box;
+	background: none;
+}
+
+.nav-user>ul>li>.link:hover {
+	background-color: #0059ab;
+}
+
+.sidebar>ul>li>.link:hover {
+	background-color: #0059ab;
+}
+
+.nav-sidebar>li>.link {
+	display: block;
+	color: #fff;
+	cursor: pointer;
+}
+
+.nav-icon {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border: 1px solid #ffffff;
+	border-radius: 50%;
+	text-align: center;
+	font-size: 11px !important;
+	padding-top: 4px;
+	vertical-align: top;
+	margin-right: 20px;
+}
+
+.nav-main>li>.link {
+	display: block;
+	padding: 20px 20px;
+	color: #fff;
+	cursor: pointer;
+	background: none;
+}
+
+.nav-bottom {
+	margin: 40px 0 0 0;
+	font-size: 10px;
+	border-left: 4px solid #9fb0c9;
+}
+
+.sidebar-category #search-google-icon {
+	display: block;
+}
+
+.sidebar-category li {
+	text-align: center;
+}
+
+.nav-user .avatar {
+    margin-left: -5px;
+    margin-bottom: 10px;
+    float: left;
+}
+
+.avatar-medium .avatar-photo {
+    vertical-align: top;
+    width: 42px;
+    height: 42px;
+}
+
+.nav-user .avatar-photo {
+    border-color: #2a6496;
+    margin-right: 5px;
+}
+
+.avatar-photo {
+    display: inline-block;
+    border: 1px solid #ededed;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.nav-user a, .nav-user a:hover, .nav-user a:focus, .nav-user a:visited {
+    color: #fff;
+}
+
+.nav-user .avatar-info {
+    display: inline-block;
+    max-width: 110px;
+    overflow: hidden;
+}
+
+.avatar-medium .nickname {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.avatar-info .nickname {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.avatar-info .activity.block {
+    display: block;
+}
+.avatar-medium .activity {
+    line-height: 20px;
+}
+.avatar-info .activity {
+    color: #999999;
+    display: inline-block;
+    font-size: 10px;
+    margin-right: 10px;
+}
+
+.nav-user-action {
+    float: right;
+    text-align: center;
+}
+
+.login-view {
+	display: none;
+}
+
+.admin-menu {
+	display: none;
+}
+/* 사이드바 css 끝 */
+
+/* footer css 시작*/
+#footer {
+	position: relative;
+	border-top: 1px solid #ddd;
+	width: 805px;
+	color: #999;
+	font-size: 12px;
+	margin-top: 50px;
+	padding: 20px 0;
+	height: 100px;
+	text-align: left;
+}
+
+#footer a {
+	color: #999;
+	text-decoration: underline;
+}
+
+.sponsor-banner {
+	margin-top: -8px;
+	text-align: right;
+}
+
+.sponsor-banner-head {
+	margin-bottom: 7px;
+	font-size: 10px;
+}
+
+.sponsor-banner-images {
+	vertical-align: bottom;
+}
+
+.sponsor-banner-images img {
+	margin-left: 15px;
+}
+/* footer css 끝*/
+
+/* 회사등록 css 시작 */
+.required-indicator {
+	color: red;
+	display: inline-block;
+	font-weight: bold;
+	position: relative;
+}
+
+.note-editor .note-editing-area .note-codable {
+	display: none;
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 0;
+	font-size: 14px;
+	color: #ccc;
+	background-color: #222;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+	box-sizing: border-box;
+	resize: none;
+}
+/* 회사등록 css 끝 */
+
+/* 회사소개 css 시작 */
+.avatar-photo img {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.list-group {
+	padding-left: 0;
+	margin-bottom: 20px;
+}
+
+.list-group-item:first-child {
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+}
+
+.list-group-item {
+	padding: 6px 10px;
+}
+
+.list-title-wrapper {
+	float: left;
+	width: 450px;
+	margin-right: 10px;
+}
+
+.list-tag {
+	font-size: 12px;
+	margin-bottom: 5px;
+}
+
+.article-id {
+	color: #999;
+}
+
+.list-group-item-heading {
+	color: #1a446b;
+	font-size: 14px;
+	font-weight: normal;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	word-break: break-all;
+}
+
+.list-group-item-text {
+	margin-bottom: 0;
+	line-height: 1.3;
+}
+
+.list-summary-wrapper {
+	float: left;
+	margin-bottom: 5px;
+}
+
+.list-group-item-summary {
+	color: #888;
+	font-size: 10px;
+	margin-top: 10px;
+}
+
+.list-group-item-summary>ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.list-group-item-summary .item-icon-disabled {
+	color: #ddd;
+}
+
+.list-group-item-summary li {
+	float: left;
+	width: 45px;
+	line-height: 20px;
+	vertical-align: middle;
+}
+
+.list-group-item-summary .item-icon {
+	font-size: 14px;
+	vertical-align: middle;
+}
+
+.list-group-item-author {
+	margin-top: 2px;
+	float: right;
+}
+
+.avatar-list .avatar-photo {
+	vertical-align: middle;
+	width: 32px;
+	height: 32px;
+}
+
+.avatar-company {
+	border-radius: 0 !important;
+}
+
+.avatar-photo {
+	display: inline-block;
+	border: 1px solid #ededed;
+	overflow: hidden;
+}
+
+.avatar-info {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.avatar-list .nickname {
+	font-size: 12px;
+	display: inline-block;
+	max-width: 100px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-break: keep-all;
+	white-space: nowrap;
+}
+
+.avatar-info .nickname {
+	vertical-align: middle;
+}
+
+.avatar-list .date-created {
+	color: #ccc;
+	display: block;
+	font-size: 10px;
+}
+
+.timeago {
+	display: inline-block;
+	color: #ccc;
+	font-size: 10px;
+}
+/* 회사소개 css 끝 */

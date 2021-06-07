@@ -24,14 +24,14 @@
 				                    <h5 class="panel-header">이메일로 가입하기</h5>
 				                </div>
 				        
-				                <form class="form-signin panel-body">
-				                    <input type="email" id="inputID" class="form-control" placeholder="아이디" required autofocus>
-				                    <input type="password" id="inputPassword" class="form-control" placeholder="비밀번호" required>
-				                    <input type="email" id="inputEmail" class="form-control" placeholder="이메일" required>
-				                    <input type="text" id="inputNickname" class="form-control" placeholder="닉네임" required>
+				                <form class="form-signin panel-body" action="<%=request.getContextPath()%>/member_sign_up.do">
+				                    <input type="email" id="inputID" name="mem_id" class="form-control" placeholder="아이디" required autofocus>
+				                    <input type="password" id="inputPassword" name="mem_pwd" class="form-control" placeholder="비밀번호" required>
+				                    <input type="email" id="inputEmail" name="mem_email" class="form-control" placeholder="이메일" required>
+				                    <input type="text" id="inputNickname" name="mem_nick" class="form-control" placeholder="닉네임" required>
 				                    <div class="checkbox">
 				                        <label>
-				                            <input type="checkbox" value="emailCheck"> 이메일 수신 동의
+				                            <input type="checkbox" name="mem_emailCheck" value="emailCheck" checked="checked"> 이메일 수신 동의
 				                        </label>
 				                    </div>
 				        

@@ -151,8 +151,8 @@
 				</a>
 				<div id="demo1" class="collapse">
 					<ul>
-						<li><a id="menu1-1" href="#">All</a></li>
-						<li><a id="menu1-2" href="#">Tech Q&A</a></li>
+						<li><a id="menu1-1" href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=1&big='menu1'&small='menu1-1'">All</a></li>
+						<li><a id="menu1-2" href="">Tech Q&A</a></li>
 						<li><a id="menu1-3" href="#">Blockchain Q&A</a></li>
 					</ul>
 				</div>
@@ -164,7 +164,7 @@
 				</a>
 				<div id="demo2" class="collapse">
 					<ul>
-						<li><a id="menu2-1" href="#">All</a></li>
+						<li><a id="menu2-1" href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=2&big='menu2'&small='menu2-1'">All</a></li>
 						<li><a id="menu2-2" href="#">IT News & 정보</a></li>
 						<li><a id="menu2-3" href="#">Tips & 강좌</a></li>
 					</ul>
@@ -177,7 +177,7 @@
 				</a>
 				<div id="demo3" class="collapse">
 					<ul>
-						<li><a id="menu3-1" href="#">All</a></li>
+						<li><a id="menu3-1" href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=3&big='menu3'&small='menu3-1'">All</a></li>
 						<li><a id="menu3-2" href="#">공지사항</a></li>
 						<li><a id="menu3-3" href="#">사는얘기</a></li>
 						<li><a id="menu3-4" href="#">포럼</a></li>
@@ -195,7 +195,7 @@
 				</a>
 				<div id="demo4" class="collapse">
 					<ul>
-						<li><a id="menu4-1" href="#">All</a></li>
+						<li><a id="menu4-1" href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=4">All</a></li>
 					</ul>
 				</div>
 			</li>
@@ -206,7 +206,7 @@
 				</a>
 				<div id="demo5" class="collapse">
 					<ul>
-						<li><a id="menu5-1" href="#">All</a></li>
+						<li><a id="menu5-1" href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=5">All</a></li>
 						<li><a id="menu5-2" href="#">구인</a></li>
 						<li><a id="menu5-3" href="#">구직</a></li>
 						<li><a id="menu5-4" href="#">좋은회사/나쁜회사</a></li>

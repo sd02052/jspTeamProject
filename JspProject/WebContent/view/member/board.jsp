@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/style/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
@@ -35,9 +35,9 @@
 	font-size: 10px;
 }
 
-.font_style {
+/* .font_style {
 	font-weight: bold;
-}
+} */
 
 .box {
 	width: 400px;
@@ -53,161 +53,169 @@
 	width: 14px;
 	height: 14px;
 }
-.ul1{
+
+.li1 {
+	font-size: 13px;
+	color: gray;
+}
+
+.pa {
 	padding: 20px;
 }
+
+.a1 {
+	font-size: 12px;
+}
+
+.li2 {
+	font-size: 3px;
+	color: gray;
+}
+
+.font2 {
+	font-size: 3px;
+	color: gray;
+}
+
+.span {
+	font-size: 10px;
+}
+
+.img1 {
+	padding-top: 12px;
+}
+
+.a2 {
+	padding-top: 12px;
+}
 </style>
-<script type="text/javascript">
-	/* $(function(){
-		$(".nav-sidebar-category-label").css("display","none");
-		$(".sidebar").css("width","58px");
-		$("#search-google-form").css("display","none");
-		$("#search-google-icon").css("display","block").css("height","65px").css("vertical-align","middle");
-		$(".nav-sidebar-label").css("display","none");
-		$(".nav-user").find("li").css("width","100%").css("float","none").css("border","none");
-		
-		$('.sidebar').addClass('sidebar-category');
-		
-	}); */
-</script>
+
 </head>
+<c:set var="big_category" value="${big_category }" />
+<c:set var="small_cattegory" value="${small_category }" />
+<script type="text/javascript">
+	
+	$(function(){
+		$("#"+${big_category }).css("border-right","5px solid #e67d3e");
+		$("#"+${small_category }).css("color","#fff");
+	});
+</script>
 <body>
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../../include/side.jsp" />
+			<!-- 본문 시작-->
+
+
 			<div style="width: 805px; min-height: 800px;">
 				<div class="container-fluid">
+				<c:set var="list" value="${boardList }" />
+				<c:set var="cate" value="${category }" />
 					<div class="row">
-						<div class="col-xs-12 col-md-8">
-							<h4>커뮤니티</h4>
+						<div class="row">
+							<div class="col-xs-12 col-md-8">
+								<h4>${cate.getCate_name() }</h4>
+							</div>
+							<div class="col-xs-12 col-md-4" align="right">
+								<button type="button" class="btn btn-success">
+									<i class="fas fa-pencil-alt"></i>새 글 쓰기
+								</button>
+							</div>
 						</div>
-						<div class="col-xs-12 col-md-4">
-							<button type="button" class="btn btn-success">
-								<i class="fas fa-pencil-alt"></i>새 글 쓰기
-							</button>
-						</div>
-					</div>
-					<br>
-					<div class="row">
-						<div class="col-md-6">
-							<button type="button" class="btn btn-link btn-xs">
-								<p class="text-muted">최신순</p>
-							</button>
-							&nbsp;
-							<button type="button" class="btn btn-link btn-xs">
-								<p class="text-muted">추천순</p>
-							</button>
-							&nbsp;
-							<button type="button" class="btn btn-link btn-xs">
-								<p class="text-muted">댓글순</p>
-							</button>
-							&nbsp;
-							<button type="button" class="btn btn-link btn-xs">
-								<p class="text-muted">스크랩순</p>
-							</button>
-							&nbsp;
-							<button type="button" class="btn btn-link btn-xs">
-								<p class="text-muted">조회순</p>
-							</button>
-							&nbsp;
-						</div>
-						<div class="col-md-4">
-							<form class="form-inline">
-								<div class="form-group">
-									<label class="sr-only" for="exampleInputAmount"></label>
-									<div class="input-group">
-										<input type="search" class="form-control" id="search-field"
-											placeholder="검색어">
-										<div class="input-group-addon">
-											<button type="button" class="btn btn-link btn-xs">
-												<i class="fas fa-search"></i>
-											</button>
+						<br>
+
+						<form class="form-inline">
+							<div class="row">
+								<div class="col-md-6">
+									<button type="button" class="btn btn-link btn-xs">
+										<p class="text-muted">최신순</p>
+									</button>
+									&nbsp;
+									<button type="button" class="btn btn-link btn-xs">
+										<p class="text-muted">추천순</p>
+									</button>
+									&nbsp;
+									<button type="button" class="btn btn-link btn-xs">
+										<p class="text-muted">댓글순</p>
+									</button>
+									&nbsp;
+									<button type="button" class="btn btn-link btn-xs">
+										<p class="text-muted">스크랩순</p>
+									</button>
+									&nbsp;
+									<button type="button" class="btn btn-link btn-xs">
+										<p class="text-muted">조회순</p>
+									</button>
+									&nbsp;
+								</div>
+								<div class="col-md-6" align="right">
+									<div class="form-group">
+										<label class="sr-only" for="exampleInputAmount"></label>
+										<div class="input-group">
+											<input type="search" class="form-control" id="search-field" placeholder="검색어">
+											<div class="input-group-addon">
+												<button type="button" class="btn btn-link btn-xs">
+													<i class="fas fa-search"></i>
+												</button>
+											</div>
 										</div>
 									</div>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<table class="table table-bordered">
-					<td>
-						<div class="col-md-6">
 
-							<div class="panel panel-default">
-								<ul class="list-group">
-									<li
-										class="list-group-item list-group-item-question list-group-has-note clearfix size">
-										<div class="list-title-wrapper clearfix box">
-											<div class="list-tag clearfix">
-												<span class="list-group-item-text article-id font">#953490</span>
-												<a
-													class="list-group-item-text item-tag label label-info padding">
-													<i class="fas fa-comment"></i> 공지사항
-												</a> &nbsp; <a
-													class="list-group-item-text item-tag label label1 padding font1">설문조사</a>
-												<a
-													class="list-group-item-text item-tag label label1 padding font1">jobs</a>
-												<a
-													class="list-group-item-text item-tag label label1 padding font1">프리랜서</a>
-												<a
-													class="list-group-item-text item-tag label label1 padding font1">개발자</a>
-												<a
-													class="list-group-item-text item-tag label label1 padding font1">okky</a>
-											</div>
-											<h5
-												class="list-group-item-heading list-group-item-evaluate h">
-												<a class="font_style">[OKKY Jobs] 프리랜서 개발자 대상 설문조사 결과 공유
-													!</a>
+								</div>
+							</div>
+						</form>
+						
+						<c:if test="${!empty list }">
+							<c:forEach items="${list }" var="dto" varStatus="status">
+								<div class="row " style="border: 1px solid #ddd; border-bottom-width: 0.5px;">
+									<div class="col-xs-6">
+										<div class="row">
+											<span class="list-group-item-text article-id font">#${dto.getBoard_num() }</span>
+											<a class="list-group-item-text item-tag label label-info padding">${cate.getCate_name() }</a>
+										</div>
+										<div class="row">
+											<h5 class="list-group-item-heading list-group-item-evaluate h">
+												<a class="font_style">${dto.getBoard_title() }</a>
 											</h5>
 										</div>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="list-summary-wrapper clearfix">
-								<div class="list-group-item-summary clearfix" align="center">
-									<ul class="list-inline ul1" >
-										<li class="list-unstyled">
-										<a> <i class="fas fa-comment img"></i> 11</a>
-										</li>
-										<li class="list-unstyled">
-										<a> <i class="fas fa-thumbs-up img"></i> 11</a>
-										</li>
-										<li class="list-unstyled">
-										<a> <i class="far fa-eye"></i> 6k </a>
-										</li>
-									</ul>
-								</div>
-							</div>
+									</div>
+									<div class="col-xs-5">
+										<div class="row">
+											<div class="col-md-12">
+												<ul class="list-inline">
+													<li class="list-unstyled li1"><i class="fas fa-comment img"></i> ${dto.getBoard_comment() }</li>
+													<li class="list-unstyled li1"><i class="fas fa-thumbs-up img"></i> ${dto.getBoard_like() }</li>
+													<li class="list-unstyled li1"><i class="far fa-eye"></i> ${dto.getBoard_hit() }</li>
 
-						</div>
-						<!-- img_okky -->
-						<div class="col-md-3">
-							<div class="list-group-item-author clearfix okky">
-								<div class="avatar clearfix avatar-list ">
-									<a class="avatar-photo"> <img width="30" height="30"
-										class="img-circle"
-										src="//www.gravatar.com/avatar/b66da5ef6099211f5db8f5f7a3b4c36b?d=identicon&s=30">
-									</a>
-									<div class="avatar-info" align="center">
-										<a>OKKY</a>
-										<div class="activity">
-											<i class="fas fa-bolt"></i> 2k
-										</div>
-										<div class="date-created">
-											<span>2021-05-27 09:27:16</span>
+													<li class="list-unstyled li1  img1"></li>
+													<a class="avatar-photo text-left"> <img width="30" height="30" class="img-circle " src="//www.gravatar.com/avatar/b66da5ef6099211f5db8f5f7a3b4c36b?d=identicon&s=30">
+													</a>
+													</li>
+													<li class="list-unstyled li1 a2">
+														<div>
+															<a class="a1">${memberList[status.index].getMem_nick() }</a> &nbsp;
+															<div style="font-size: 10px; display: inline-block;">
+																<i class="fas fa-bolt i1"></i> ${memberList[status.index].getMem_score() }
+															</div>
+															<p class="span">${dto.getBoard_regdate() }</p>
+														</div>
+													</li>
+												</ul>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-					</table>
+							</c:forEach>
+						</c:if>
+						
+
+						
+					</div>
+					<!-- 본문 끝 -->
 				</div>
 			</div>
 			<jsp:include page="../../include/footer.jsp" />
 		</div>
-	</div>
 </body>
+
 </html>

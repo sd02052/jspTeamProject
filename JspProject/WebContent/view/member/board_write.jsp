@@ -4,7 +4,7 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>Insert title here</title>
+        <title>board_write</title>
         <link rel="stylesheet" href="<%=request.getContextPath()%>/style/style.css">
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -185,6 +185,19 @@
                                         <div class="col-sm-8 ">
                                             <textarea class="form-control noresize" rows="15"></textarea>
                                         </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
+                                        <br> <br>
+                                        <button type="button" class="btn btn-success"
+                                            style="float: right; background-color: snow;">
+                                            </i>취소
+                                        </button>
+                                    </div>
+                                    <div class="col-xs-12 col-md-8">
+                                        <br> <br>
+                                        <button type="button" class="btn btn-success" style="float: right;">
+                                            등록
+                                        </button>
                                     </div>
                             </div>
                             </form>

@@ -4,7 +4,7 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>Insert title here</title>
+        <title>board_content</title>
         <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -201,17 +201,42 @@
 
                         <br> <br>
 
-                        <div class="row">
-                            <div class="class=" col-xs-12>
-                                <ul class="list-group">
-                                    <li class="list-group-item note-title"
-                                        style="border: 1px solid gray; background-color: #f2f2f2;">
-                                        <h3 class="panel-title">
-                                            댓글 <span>0</span>
-                                        </h3>
+                        <div class="row" style="border: 1px solid;">
+                            <div class="col-xs-12"
+                                style="border: 1px solid gray; background-color: #f2f2f2; border-left: honeydew; border-top: honeydew; border-right: honeydew;">
+                                <h4>댓글&nbsp;&nbsp;<span>0</span></h4>
+                            </div>
+
+                            <div class="col-xs-10" style="margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">
+                                <ul class="list-inline">
+                                    <li class="list-unstyled li1  img1"></li>
+                                    <a class="avatar-photo text-left"> <img width="30" height="30" class="img-circle "
+                                            src="//www.gravatar.com/avatar/b66da5ef6099211f5db8f5f7a3b4c36b?d=identicon&s=30">
+                                    </a>
                                     </li>
-                                    <li class="list-group-item note-item clearfix"></li>
+                                    <li class="list-unstyled li1 a2">
+                                        <div class="text-left">
+                                            <p style="margin-bottom : 0;">가나다라마바</p>
+                                            <span class="list-group-item-text article-id font">#953490</span><i
+                                                class="fas fa-bolt i1"></i>
+                                            2k
+                                        </div>
+                                    </li>
                                 </ul>
+                                <div class="row">
+                                    <div class="col-sm-8 "
+                                        style=" padding: 0px 0px 0px 10px; margin: 0px 0px 0px 10px;">
+                                        <textarea class="form-control noresize" rows="5"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-2"
+                                style="border: 1px solid gray; background-color: #ffffff; border-bottom: honeydew; border-top: honeydew; border-right: honeydew;">
+                                <br> <br> <br> <br> <br> <br> <br>
+                                <button type="button" class="btn btn-success" style="position: static;">
+                                    <i class="fas fa-pencil-alt"></i>등록
+                                </button>
                             </div>
                         </div>
                         <!-- 본문 끝-->

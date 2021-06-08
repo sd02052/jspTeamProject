@@ -5,7 +5,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>boadrd</title>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/style/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -175,7 +175,7 @@
 								</div>
 							</div>
 						</form>
-						<div class="row " style="border: 1px solid gray; border-bottom-width: 0.5px;">
+						<div class="row " style="border: 1px solid gray; border-bottom-width: 0.5px; border-left-color: skyblue; border-left-width: 5px;">
 
 							<div class="col-xs-6">
 								<div class="row">

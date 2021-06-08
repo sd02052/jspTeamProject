@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>OKKY - 회원관리</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/style/admin.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
@@ -22,13 +23,6 @@ $(function(){
 	$("#menu6-1").css("color","#fff");
 });
 </script>
-<style type="text/css">
-
-.list-group {
-	text-align: center;
-}
-
-</style>
 </head>
 <body>
 
@@ -50,7 +44,7 @@ $(function(){
 							<div class="col-xs-6">
 								<form method="post" action="" class="">				
 									<div class="input-group">
-										<span class="input-group-btn">
+										<span class="search-list input-group-btn">
 											<select name="search" class="btn btn-default dropdown-toggle">
 												<option value="all">-전체검색-</option>
 												<option value="id">아이디</option>
@@ -73,8 +67,8 @@ $(function(){
 						
 						<div class="row">
 							<div class="col-xs-12">
-								<ul class="list-group list-title">
-									<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
+								<ul class=" list-group list-title mem-list-title">
+									<li class="member-list-title list-group-item list-group-item-question list-group-has-note clearfix ">
 										<div class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></div>				
 										<div class="col-xs-1">#</div>
 										<div class="col-xs-2">아이디</div>					
@@ -89,76 +83,44 @@ $(function(){
 						<div class="row">
 							<div class="col-xs-12">
 								<form name="mem_magage" method="post" action="">
+
 									<ul class="list-group list-title">
 									
 										<c:set var="list" value="${member_list }" />
 										<c:if test="${!empty list }">
 											<c:forEach items="${list }" var="dto">
-												<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
-													<h5 class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></h5>				
-													<h5 class="col-xs-1">${dto.getMem_num() }</h5>
-													<h5 class="col-xs-2">${dto.getMem_id() }</h5>					
-													<h5 class="col-xs-3">
-														<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="member_img"></a>
-														<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">${dto.getMem_nick() }</a>
-													</h5>					
-													<h5 class="col-xs-2">${dto.getMem_email() }</h5>					
-													<h5 class="col-xs-2">${dto.getMem_regdate().substring(0, 10) }</h5>
+												<li class="member-list list-group-item list-group-item-question list-group-has-note clearfix ">
+													<div class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></div>				
+													<div class="col-xs-1">${dto.getMem_num() }</div>
+													<div class="col-xs-2">${dto.getMem_id() }</div>					
+													<div class="cont-member col-xs-3">	
+														<div>
+															<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
+																<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
+															<div class="cont-mem-info">
+															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">${dto.getMem_nick() }</a><br>
+															<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${dto.getMem_score() }</span>
+															</div>
+															
+														</div>
+													</div>					
+													<div class="col-xs-2">${dto.getMem_email() }</div>					
+													<div class="cont-regdate col-xs-2">${dto.getMem_regdate().substring(0, 10) }</div>
 													<c:if test="${dto.getMem_check().equals('no') }">
-														<h5 class="col-xs-1"><span class="label label-warning">회원</span></h5>
+														<div class="col-xs-1"><span class="label label-warning">회원</span></div>
 													</c:if>
 													<c:if test="${dto.getMem_check().equals('yes') }">
-														<h5 class="col-xs-1"><span class="label label-default">탈퇴</span></h5>
+														<div class="col-xs-1"><span class="label label-default">탈퇴</span></div>
 													</c:if>				
 												</li>
 											
 										</c:forEach>
 										</c:if>
 										<c:if test="${empty list }">
-											<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
+											<li class="list-group-item list-group-item-question list-group-has-note clearfix">
 													등록된 회원이 없습니다.
-												</li>
+											</li>
 										</c:if>
-										
-										
-										<%-- <li class="list-group-item list-group-item-question list-group-has-note clearfix ">
-											<h5 class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></h5>				
-											<h5 class="col-xs-1">3</h5>
-											<h5 class="col-xs-2">aaaaa1111</h5>					
-											<h5 class="col-xs-3">
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="member_img"></a>
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">홍길동</a>
-											</h5>					
-											<h5 class="col-xs-2">aaa@gmail.com</h5>					
-											<h5 class="col-xs-2">2021-06-03</h5>					
-											<h5 class="col-xs-1"><span class="label label-warning">회원</span></h5>
-										</li>
-										
-										<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
-											<h5 class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></h5>				
-											<h5 class="col-xs-1">2</h5>
-											<h5 class="col-xs-2">aaaaa1111</h5>					
-											<h5 class="col-xs-3">
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="member_img"></a>
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">홍길동</a>
-											</h5>					
-											<h5 class="col-xs-2">aaa@gmail.com</h5>					
-											<h5 class="col-xs-2">2021-06-03</h5>					
-											<h5 class="col-xs-1"><span class="label label-default">탈퇴</span></h5>
-										</li>
-	
-										<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
-											<h5 class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></h5>				
-											<h5 class="col-xs-1">1</h5>
-											<h5 class="col-xs-2">aaaaa1111</h5>					
-											<h5 class="col-xs-3">
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"><img src="@" class="member_img"></a>
-												<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">홍길동</a>
-											</h5>					
-											<h5 class="col-xs-2">aaa@gmail.com</h5>					
-											<h5 class="col-xs-2">2021-06-03</h5>					
-											<h5 class="col-xs-1"><span class="label label-warning">회원</span></h5>
-										</li> --%>
 									</ul>
 									<button type="submit" class="btn btn-default">강제탈퇴</button>
 								</form>

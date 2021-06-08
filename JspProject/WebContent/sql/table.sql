@@ -104,3 +104,10 @@ create table okky_job(
     job_maxcareer number(10) not null,     -- 최대 경력
     constraint fk_target4 foreign key(job_target) references okky_board(board_num) on delete cascade 
 );
+
+create table okky_mem_tag(
+    tag_num number(5) primary key,			-- 태그 번호
+    tag_name varchar2(100) not null,		-- 태그 이름
+    tag_target number(5) not null,			-- 태그가 적용된 회원
+    constraint fk_tag1 foreign key(tag_target) references okky_member(mem_num) on delete cascade
+);

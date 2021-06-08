@@ -237,4 +237,27 @@ public class MemberDAO {
 		}
 		return result;
 	} // signUp() 메서드 end
+
+	public List<String> getMemTag(int num) {
+		List<String> list = new ArrayList<String>();
+
+		try {
+			openConn();
+
+			sql = "select * from okky_mem_tag where tag_target = ? order by tag_num";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				String tag = rs.getString("tag_name");
+				list.add(tag);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+	}
 }

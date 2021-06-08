@@ -1,0 +1,148 @@
+@charset "UTF-8";
+
+/* 페이지 제목 */
+.nav h4 {
+	display: inline-block;
+}
+
+/* 회사 목록 */
+.com-list{
+	text-align: center;	
+} 
+
+/* 회원 목록 */
+.mem-list {
+	text-align: center;
+}
+
+/* 회사 목록 타이틀 */
+.com-list-title {
+	text-align: center;
+	font-weight: bold;		
+}
+
+/* 회사 목록 타이틀 */
+.mem-list-title {
+	text-align: center;
+	font-weight: bold;
+}
+
+/* 회원 활동점수 */
+.activity {
+	font-size: 0.5em;
+}
+
+/* 하단 페이징 */
+.pagination {
+	position: center;
+}
+
+/* 회원 로고 */
+.mem_logo {
+	width: 32px;
+	height: 32px;
+}
+
+/* 리스트 - 회사 로고 */
+.list_company_logo {
+	width: 32px;
+	height: 32px;	
+}
+
+/* 글번호 */
+.cont-num {
+	color: #999;
+}
+
+/* 회사 상세 글 내용 */
+.cont-table {
+	border-style: none;
+}
+
+/* 상세 글 제목 */
+.cont-title {
+	font-size: 1.5em;
+}
+
+/* 상세 글 제목 - 회사 */
+.cont-title-com {
+	font-weight: bold;
+	margin: 0;
+}
+
+/* 회사 로고 */
+.com-logo {
+	width: 150px;
+	height: 150px;
+}
+
+/* 회사 사업자등록증 */
+.com-regist {
+	width: 300px;
+	height: 150px;
+}
+
+/* 회사 인증 결정 버튼 */
+.btn-verify {
+	margin-left: 30px;
+}
+
+
+
+/* 게시글 상세내용 - 회원 프로필 이미지 */
+.cont-mem-logo {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+}
+
+/* 게시글 상세내용 - 회사 프로필 이미지 */
+.cont-company-logo {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	border: 1px solid #EEE;
+}
+
+/* 회원 정보(닉네임&활동점수&작성일자) */
+.cont-mem-info {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/* 회원 닉네임 */
+.cont-mem-nick {
+	font-size: 1em;
+}
+
+/* 회원 활동점수 */
+.cont-activity {
+	font-size: 0.71em;
+	color: #999;
+	float: left;
+}
+
+/* 작성일자 */
+.cont-regdate {
+	font-size: 1em;
+	color: #999;
+}
+
+/* 회사인증 테이블 타이틀 */
+.admin-verify-list-title {
+	font-size: 0.9em;
+	color: #999;
+}
+
+/* 멤버관리 테이블 타이틀 */
+.member-list-title {
+	font-size: 0.9em;
+	color: #999;
+	vertical-align: middle;
+}
+
+.member-list {
+	text-align: center;
+}
+
+

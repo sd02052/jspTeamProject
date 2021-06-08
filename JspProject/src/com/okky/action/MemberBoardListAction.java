@@ -14,7 +14,7 @@ import com.okky.model.CategoryDAO;
 import com.okky.model.CategoryDTO;
 import com.okky.model.MemberDTO;
 
-public class MemberBoardListAllAction implements Action {
+public class MemberBoardListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -28,7 +28,7 @@ public class MemberBoardListAllAction implements Action {
 		dao1.setBoardScrap();
 		dao1.setBoardComment();
 		
-		List<BoardDTO> list = dao1.getBoardListAll(cate_num);
+		List<BoardDTO> list = dao1.getBoardList(cate_num);
 		List<MemberDTO> list2 = dao1.getMemberList(list);
 		
 		

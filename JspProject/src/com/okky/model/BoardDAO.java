@@ -68,13 +68,14 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
+	// 회사번호와 동일한 글번호에 해당하는 정보를 조회하는 메서드
 	public List<BoardDTO> getBoardList(int page, int rowsize) {
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
-		
+
 		int startNo = (page * rowsize) - (rowsize - 1); // 해당 페이지에서 시작 번호
 		int endNo = (page * rowsize); // 해당 페이지에서 마지막 번호
-		
+
 		try {
 			openConn();
 			sql = "select company_target from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c)"
@@ -83,16 +84,16 @@ public class BoardDAO {
 			pstmt.setInt(1, startNo);
 			pstmt.setInt(2, endNo);
 			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				sql = "select * from okky_board where board_num = ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, rs.getInt(1));
 				ResultSet rs1 = pstmt.executeQuery();
-				
-				while(rs1.next()) {
+
+				while (rs1.next()) {
 					BoardDTO dto = new BoardDTO();
-					
+
 					dto.setBoard_num(rs1.getInt("board_num"));
 					dto.setBoard_title(rs1.getString("board_title"));
 					dto.setBoard_writer(rs1.getInt("board_writer"));
@@ -102,10 +103,10 @@ public class BoardDAO {
 					dto.setBoard_scrap(rs1.getInt("board_scrap"));
 					dto.setBoard_category(rs1.getInt("board_category"));
 					dto.setBoard_regdate(rs1.getString("board_regdate"));
-					
+
 					list.add(dto);
 				}
-				
+
 				rs1.close();
 			}
 		} catch (SQLException e) {
@@ -116,6 +117,128 @@ public class BoardDAO {
 		}
 		return list;
 	}
-	
-	
+
+	// 검색해서 나온 회사번호와 동일한 글번호에 해당하는 정보를 조회하는 메서드
+	public List<BoardDTO> getSearchBoardList(String field, String data, int page, int rowsize) {
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
+		
+		int startNo = (page * rowsize) - (rowsize - 1); // 해당 페이지에서 시작 번호
+		int endNo = (page * rowsize); // 해당 페이지에서 마지막 번호
+
+		openConn();
+		if (field.equals("all")) { // 전체검색의 경우(회사명, 작성회원, 상태)
+			
+			String check_data = "";
+
+			if (data.equals("대기")) {
+				check_data = "0";
+			} else if (data.equals("승인")) {
+				check_data = "1";
+			} else if (data.equals("거절")) {
+				check_data = "2";
+			}
+			
+			sql = "select company_target from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
+					+ "where company_name like ? or company_check like ? or company_target in "
+					+ "(select board_num from okky_board where board_writer in "
+					+ "(select mem_num from okky_member where mem_nick like ? )))" + "where rnum >= ? and rnum <= ?";
+
+			try {
+				pstmt = con.prepareStatement(sql);
+
+				pstmt.setString(1, "%" + data + "%");
+				pstmt.setString(2, check_data);
+				pstmt.setString(3, "%" + data + "%");
+				pstmt.setInt(4, startNo);
+				pstmt.setInt(5, endNo);
+
+				rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+					sql = "select * from okky_board where board_num = ? order by board_num desc";
+					
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, rs.getInt(1));
+					ResultSet rs1 = pstmt.executeQuery();
+					
+					while(rs1.next()) {
+						BoardDTO dto = new BoardDTO();
+
+						dto.setBoard_num(rs1.getInt("board_num"));
+						dto.setBoard_title(rs1.getString("board_title"));
+						dto.setBoard_writer(rs1.getInt("board_writer"));
+						dto.setBoard_content(rs1.getString("board_content"));
+						dto.setBoard_hit(rs1.getInt("board_hit"));
+						dto.setBoard_like(rs1.getInt("board_like"));
+						dto.setBoard_scrap(rs1.getInt("board_scrap"));
+						dto.setBoard_category(rs1.getInt("board_category"));
+						dto.setBoard_regdate(rs1.getString("board_regdate"));
+
+						list.add(dto);
+					}
+					rs1.close();
+				}
+
+				return list;
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+
+		} else if (field.equals("name")) { // 회사명 검색의 경우
+			sql = "select company_target from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
+					+ "where company_name like ?) where rnum >= ? and rnum <= ? ";
+		} else if (field.equals("nick")) { // 작성회원 검색의 경우
+			sql = "select company_target from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
+					+ "where company_target in" + "(select board_num from okky_board where board_writer in "
+					+ "(select mem_num from okky_member where mem_nick like ? )))" + "where rnum >= ? and rnum <= ?";
+		} else if (field.equals("check")) { // 상태 검색의 경우
+			sql = "select company_target from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
+					+ "where company_check like ?)" + "where rnum >= ? and rnum <= ?";
+		}
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + data + "%");
+			pstmt.setInt(2, startNo);
+			pstmt.setInt(3, endNo);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				sql = "select * from okky_board where board_num = ? order by board_num desc";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, rs.getInt(1));
+				ResultSet rs1 = pstmt.executeQuery();
+				
+				while(rs1.next()) {
+					BoardDTO dto = new BoardDTO();
+
+					dto.setBoard_num(rs1.getInt("board_num"));
+					dto.setBoard_title(rs1.getString("board_title"));
+					dto.setBoard_writer(rs1.getInt("board_writer"));
+					dto.setBoard_content(rs1.getString("board_content"));
+					dto.setBoard_hit(rs1.getInt("board_hit"));
+					dto.setBoard_like(rs1.getInt("board_like"));
+					dto.setBoard_scrap(rs1.getInt("board_scrap"));
+					dto.setBoard_category(rs1.getInt("board_category"));
+					dto.setBoard_regdate(rs1.getString("board_regdate"));
+
+					list.add(dto);
+				}
+				rs1.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+	}
+
 }

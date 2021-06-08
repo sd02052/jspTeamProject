@@ -62,9 +62,7 @@ create table okky_like(
 	like_num number(5) primary key,			-- 좋아요 번호
 	like_target number(5) not null,			-- 좋아요 눌려진 타겟 번호
 	like_writer number(5) not null,			-- 좋아요 누른 사람
-	like_flag number(2) not null,			-- 좋아요 눌려진 타겟 종류(1:게시물, 2:댓글, 3:스크랩)
-	constraint fk_target2 foreign key(like_target) references okky_board(board_num) on delete cascade,
-    constraint fk_target3 foreign key(like_target) references okky_comment(com_num) on delete cascade
+	like_flag number(2) not null			-- 좋아요 눌려진 타겟 종류(1:게시물, 2:댓글, 3:스크랩)
 );
 
 create table okky_follow(

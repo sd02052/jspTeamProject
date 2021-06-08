@@ -20,14 +20,16 @@ public class SearchVerifyAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		String find_field = request.getParameter("field");
-		String find_data = request.getParameter("data");
+		String data = request.getParameter("data");
+		
+		String find_data = data;
 
 		if (find_field.equals("check")) {
-			if (find_data.equals("대기")) {
+			if (data.equals("대기")) {
 				find_data = "0";
-			} else if (find_data.equals("승인")) {
+			} else if (data.equals("승인")) {
 				find_data = "1";
-			} else if (find_data.equals("거절")) {
+			} else if (data.equals("거절")) {
 				find_data = "2";
 			}
 		}
@@ -79,14 +81,16 @@ public class SearchVerifyAction implements Action {
 		List<MemberDTO> memList = comDAO.getSearchMemberList(find_field, find_data, page, rowsize);
 
 		// 회사 테이블의 참조번호와 동일한 글번호를 가지는 게시글 정보를 조회하는 메서드
-		//List<BoardDTO> boardList = boardDAO.getSearchBoardList(find_field, find_data, page, rowsize);
+		List<BoardDTO> boardList = boardDAO.getSearchBoardList(find_field, find_data, page, rowsize);
+
+		find_data = data;	// 상태 검색어 복구
 
 		// 5) 작업했던 값들을 키로 저장하여 view 페이지로 넘기기
 		request.setAttribute("memList", memList);
-		//request.setAttribute("boardList", boardList);
+		request.setAttribute("boardList", boardList);
 
 		request.setAttribute("find_field", find_field);
-		request.setAttribute("find_date", find_data);
+		request.setAttribute("find_data", find_data);
 
 		request.setAttribute("page", page);
 		request.setAttribute("rowsize", rowsize);

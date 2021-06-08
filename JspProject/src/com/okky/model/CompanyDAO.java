@@ -298,6 +298,17 @@ public class CompanyDAO {
 
 		openConn();
 		if (field.equals("all")) { // 전체검색의 경우(회사명, 작성회원, 상태)
+
+			String check_data = "";
+
+			if (data.equals("대기")) {
+				check_data = "0";
+			} else if (data.equals("승인")) {
+				check_data = "1";
+			} else if (data.equals("거절")) {
+				check_data = "2";
+			}
+
 			sql = "select * from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
 					+ "where company_name like ? or company_check like ? or company_target in "
 					+ "(select board_num from okky_board where board_writer in "
@@ -307,7 +318,7 @@ public class CompanyDAO {
 				pstmt = con.prepareStatement(sql);
 
 				pstmt.setString(1, "%" + data + "%");
-				pstmt.setString(2, "%" + data + "%");
+				pstmt.setString(2, check_data);
 				pstmt.setString(3, "%" + data + "%");
 				pstmt.setInt(4, startNo);
 				pstmt.setInt(5, endNo);
@@ -399,12 +410,23 @@ public class CompanyDAO {
 	// okky_company의 검색해서 나온 글 작성자를 조회하는 메서드
 	public List<MemberDTO> getSearchMemberList(String field, String data, int page, int rowsize) {
 		List<MemberDTO> list = new ArrayList<>();
-		
+
 		int startNo = (page * rowsize) - (rowsize - 1); // 해당 페이지에서 시작 번호
 		int endNo = (page * rowsize); // 해당 페이지에서 마지막 번호
 
 		openConn();
 		if (field.equals("all")) { // 전체검색의 경우(회사명, 작성회원, 상태)
+
+			String check_data = "";
+
+			if (data.equals("대기")) {
+				check_data = "0";
+			} else if (data.equals("승인")) {
+				check_data = "1";
+			} else if (data.equals("거절")) {
+				check_data = "2";
+			}
+
 			sql = "select company_num from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
 					+ "where company_name like ? or company_check like ? or company_target in "
 					+ "(select board_num from okky_board where board_writer in "
@@ -414,21 +436,21 @@ public class CompanyDAO {
 				pstmt = con.prepareStatement(sql);
 
 				pstmt.setString(1, "%" + data + "%");
-				pstmt.setString(2, "%" + data + "%");
+				pstmt.setString(2, check_data);
 				pstmt.setString(3, "%" + data + "%");
 				pstmt.setInt(4, startNo);
 				pstmt.setInt(5, endNo);
 
 				rs = pstmt.executeQuery();
-				
+
 				while (rs.next()) {
 					sql = "select * from okky_member where mem_company = ? order by mem_num desc";
-					
+
 					pstmt = con.prepareStatement(sql);
-					pstmt.setInt(1, rs.getInt(2));
+					pstmt.setInt(1, rs.getInt(1));
 					ResultSet rs1 = pstmt.executeQuery();
-					
-					while(rs1.next()) {
+
+					while (rs1.next()) {
 						MemberDTO dto = new MemberDTO();
 
 						dto.setMem_num(rs1.getInt("mem_num"));
@@ -458,14 +480,14 @@ public class CompanyDAO {
 			}
 
 		} else if (field.equals("name")) { // 회사명 검색의 경우
-			sql = "select * from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
+			sql = "select company_num from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
 					+ "where company_name like ?) where rnum >= ? and rnum <= ? ";
 		} else if (field.equals("nick")) { // 작성회원 검색의 경우
-			sql = "select * from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
+			sql = "select company_num from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
 					+ "where company_target in" + "(select board_num from okky_board where board_writer in "
 					+ "(select mem_num from okky_member where mem_nick like ? )))" + "where rnum >= ? and rnum <= ?";
 		} else if (field.equals("check")) { // 상태 검색의 경우
-			sql = "select * from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
+			sql = "select company_num from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
 					+ "where company_check like ?)" + "where rnum >= ? and rnum <= ?";
 		}
 
@@ -479,12 +501,12 @@ public class CompanyDAO {
 
 			while (rs.next()) {
 				sql = "select * from okky_member where mem_company = ? order by mem_num desc";
-				
+
 				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, rs.getInt(2));
+				pstmt.setInt(1, rs.getInt(1));
 				ResultSet rs1 = pstmt.executeQuery();
-				
-				while(rs1.next()) {
+
+				while (rs1.next()) {
 					MemberDTO dto = new MemberDTO();
 
 					dto.setMem_num(rs1.getInt("mem_num"));
@@ -509,8 +531,8 @@ public class CompanyDAO {
 		} finally {
 			closeConn(rs, pstmt, con);
 		}
-			
+
 		return list;
 	}
-	
+
 }

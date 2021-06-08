@@ -16,10 +16,28 @@ insert into okky_member values(10, 'mem10@mem', 'mem10', '1111', 'test', 'mem10@
 insert into okky_member values(11, 'mem11@mem', 'mem11', '1111', 'test', 'mem11@gmail.com', sysdate, default, default, 300, 11);
 insert into okky_member values(12, 'mem12@mem', 'mem12', '1111', 'test', 'mem12@gmail.com', sysdate, default, default, 1250, 12);
 
+set define off; -- 카테고리 추가시 잠깐 필요한 기능
 
 -- 카테고리 테이블 레코드
-insert into okky_category values(1, '카테고리1', 1, 1);
-insert into okky_category values(2, '카테고리2', 2, 1);
+insert into okky_category values(1, 'Q&A', 1, 0);
+insert into okky_category values(2, 'Tech Q&A', 1, 1);
+insert into okky_category values(3, 'Blockchain Q&A', 1, 2);
+insert into okky_category values(4, 'Tech', 2, 0);
+insert into okky_category values(5, 'IT News & 정보', 2, 1);
+insert into okky_category values(6, 'Tips & 강좌', 2, 2);
+insert into okky_category values(7, '커뮤니티', 3, 0);
+insert into okky_category values(8, '공지사항', 3, 1);
+insert into okky_category values(9, '사는얘기', 3, 2);
+insert into okky_category values(10, '포럼', 3, 3);
+insert into okky_category values(11, 'IT 행사', 3, 4);
+insert into okky_category values(12, '기술 서적 리뷰', 3, 5);
+insert into okky_category values(13, '정기모임/스터디', 3, 6);
+insert into okky_category values(14, '학원/홍보', 3, 7);
+insert into okky_category values(15, '칼럼', 4, 0);
+insert into okky_category values(16, 'Jobs', 5, 0);
+insert into okky_category values(17, '구인', 5, 1);
+insert into okky_category values(18, '구직', 5, 2);
+insert into okky_category values(19, '좋은회사/나쁜회사', 5, 3);
 
 
 -- 게시판 테이블 레코드

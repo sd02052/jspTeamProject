@@ -60,7 +60,7 @@ $(function(){
 								<form method="post" action="<%=request.getContextPath() %>/search_verify.do" class="from-control">				
 									<div class="input-group">
 										<span class="input-group-btn">
-											<select name="field" class="selectpicker btn btn-default dropdown-toggle">	
+											<select name="field" class="btn btn-default dropdown-toggle">	
 												<option value="all">-전체검색-</option>
 												<option value="name">회사명</option>
 												<option value="nick">등록회원</option>

@@ -12,6 +12,7 @@ import com.okky.model.BoardDAO;
 import com.okky.model.BoardDTO;
 import com.okky.model.CompanyDAO;
 import com.okky.model.CompanyDTO;
+import com.okky.model.MemberDAO;
 import com.okky.model.MemberDTO;
 
 public class SearchVerifyAction implements Action {
@@ -36,6 +37,7 @@ public class SearchVerifyAction implements Action {
 
 		CompanyDAO comDAO = CompanyDAO.getInstance();
 		BoardDAO boardDAO = BoardDAO.getInstance();
+		MemberDAO memDAO = MemberDAO.getInstance();
 
 		// 페이징 작업
 		int rowsize = 10; // 한 페이지당 보여질 게시물의 수
@@ -78,7 +80,7 @@ public class SearchVerifyAction implements Action {
 		List<CompanyDTO> pageList = comDAO.getSearchCompanyList(find_field, find_data, page, rowsize);
 
 		// 회사 테이블의 회사번호와 동일한 회사번호를 가지는 멤버 정보를 조회하는 메서드
-		List<MemberDTO> memList = comDAO.getSearchMemberList(find_field, find_data, page, rowsize);
+		List<MemberDTO> memList = memDAO.getSearchCompanyMemberList(find_field, find_data, page, rowsize);
 
 		// 회사 테이블의 참조번호와 동일한 글번호를 가지는 게시글 정보를 조회하는 메서드
 		List<BoardDTO> boardList = boardDAO.getSearchBoardList(find_field, find_data, page, rowsize);

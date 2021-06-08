@@ -104,7 +104,7 @@ $(function(){
 										<li class="admin-verify-list-li list-group-item list-group-item-question list-group-has-note clearfix">
 											<div class="col-xs-1">${comDTO.getCompany_num() }</div>				
 											<div class="col-xs-3">
-												<a href="<%=request.getContextPath() %>/view/admin/admin_verify_cont.jsp">${comDTO.getCompany_name() }</a>
+												<a href="<%=request.getContextPath() %>/admin_verify_cont.do?num=${comDTO.getCompany_num() }">${comDTO.getCompany_name() }</a>
 											</div>		
 											<div class="col-xs-2">${comDTO.getCompany_license_num() }</div>		
 												<div class="cont-member col-xs-3">			
@@ -121,7 +121,6 @@ $(function(){
 												</div>	
 	
 											<div class="cont-regdate col-xs-2">${boardList[status.index].getBoard_regdate().substring(0,10) }</div>
-											
 											<c:if test="${comDTO.getCompany_check() eq 0 }">			
 												<div class="col-xs-1"><span class="badge badge-waitting">대기</span></div>
 											</c:if>	

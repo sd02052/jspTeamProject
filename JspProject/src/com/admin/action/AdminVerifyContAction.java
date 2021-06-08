@@ -19,8 +19,6 @@ public class AdminVerifyContAction implements Action {
 		
 		int num = Integer.parseInt(request.getParameter("num").trim());
 		
-		System.out.println("num >> " + num);
-		
 		CompanyDAO comDAO = CompanyDAO.getInstance();
 		MemberDAO memDAO = MemberDAO.getInstance();
 		

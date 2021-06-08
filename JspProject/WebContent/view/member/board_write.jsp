@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Insert title here</title>
-        <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/style/style.css">
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -109,6 +109,10 @@
             .div1 {
                 text-align: center;
             }
+
+            .noresize {
+                resize: vertical;
+            }
         </style>
 
     </head>
@@ -128,7 +132,7 @@
                             </div>
                             <br>
 
-                            <div class="col-xs-12" style="border-style: solid; border-color: gray;">
+                            <div class="col-xs-12" style="border: 1px solid gray;">
                                 <ul class="list-inline">
                                     <li class="list-unstyled li1  img1"></li>
                                     <a class="avatar-photo text-left"> <img width="30" height="30" class="img-circle "
@@ -138,21 +142,18 @@
                                     <li class="list-unstyled li1 a2">
                                         <div class="text-left">
                                             <span class="list-group-item-text article-id font">가나다라</span>
-                                            <p class="span"><i class="fas fa-bolt i1"></i>0</p>
+                                            <p class="span">
+                                                <i class="fas fa-bolt i1"></i>0
+                                            </p>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
-                            <div class="col-xs-12 d" style="border-style: solid; border-color: gray;">
-
-
-
+                            <div class="col-xs-12 d" style="border: 1px solid gray;">
                                 <form class="form-horizontal">
                                     <div class="form-group">
 
-                                        <br>
-
-                                        <label for="inputEmail3" class="col-md-2 control-label"></label>
+                                        <br> <label for="inputEmail3" class="col-md-2 control-label"></label>
                                         <div class="col-sm-8">
                                             <select class="form-control">
                                                 <option>게시판을 선택해 주세요.</option>
@@ -178,22 +179,14 @@
                                                 placeholder="Tags.">
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 " style="border-style: solid; border-color: gray;">
 
+                                    <div class="row">
+                                        <label for="inputEmail3" class="col-md-2 control-label"></label>
+                                        <div class="col-sm-8 ">
+                                            <textarea class="form-control noresize" rows="15"></textarea>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <textarea class="form-control" rows="3"></textarea>
-                                        </div>
-                                    </div>
-
-
                             </div>
-
-
-
                             </form>
                         </div>
                     </div>

@@ -131,7 +131,7 @@
                                 </div>
                             </div>
                             <br>
-                            <div class="col-xs-12" style="border-style: solid; border-color: gray;">
+                            <div class="col-xs-12" style="border: 1px solid gray;">
                                 <ul class="list-inline">
                                     <li class="list-unstyled li1 right"><a class="li1"> <i
                                                 class="fas fa-comment img"></i> 11
@@ -156,7 +156,7 @@
                             </div>
 
 
-                            <div class="col-xs-10" style="border-style: solid; border-color: gray; padding: 15px;">
+                            <div class="col-xs-10" style="border: 1px solid gray; padding: 15px;">
                                 <span class="list-group-item-text article-id live">#953490</span>
                                 <a class="list-group-item-text item-tag label label-info padding">
                                     <i class="fas fa-comment"></i> 사는얘기
@@ -173,7 +173,7 @@
                                 <p>vwxyz</p>
                             </div>
 
-                            <div class="col-xs-2 div1" style="border-style: solid; border-color: gray;">
+                            <div class="col-xs-2 div1" style="border: 1px solid gray;">
                                 <br> <br> <br>
                                 <button type="button" class="btn btn-link btn2">
                                     <i class="fas fa-angle-up"></i>
@@ -205,9 +205,9 @@
                             <div class="class=" col-xs-12>
                                 <ul class="list-group">
                                     <li class="list-group-item note-title"
-                                        style="border-color: gray; background-color: #f2f2f2;">
+                                        style="border: 1px solid gray; background-color: #f2f2f2;">
                                         <h3 class="panel-title">
-                                            댓글 <span>6</span>
+                                            댓글 <span>0</span>
                                         </h3>
                                     </li>
                                     <li class="list-group-item note-item clearfix"></li>

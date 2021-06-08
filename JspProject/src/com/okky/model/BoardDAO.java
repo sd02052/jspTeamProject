@@ -69,20 +69,25 @@ public class BoardDAO {
 		}
 	}
 	
-	public List<BoardDTO> getBoardList(List<Integer> target) {
+	public List<BoardDTO> getBoardList(int page, int rowsize) {
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
-		int count = 0;
+		
+		int startNo = (page * rowsize) - (rowsize - 1); // 해당 페이지에서 시작 번호
+		int endNo = (page * rowsize); // 해당 페이지에서 마지막 번호
 		
 		try {
 			openConn();
-			sql = "select company_target from okky_company";
+			sql = "select company_target from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c)"
+					+ "where rnum >= ? and rnum <= ?";
 			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startNo);
+			pstmt.setInt(2, endNo);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				sql = "select * from okky_board where board_num = ?";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, target.get(count++));
+				pstmt.setInt(1, rs.getInt(1));
 				ResultSet rs1 = pstmt.executeQuery();
 				
 				while(rs1.next()) {

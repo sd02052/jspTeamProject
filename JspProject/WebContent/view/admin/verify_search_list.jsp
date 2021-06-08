@@ -157,7 +157,7 @@ $(function(){
 						  
 						  <c:if test="${page > 1 }">
 							    <li>
-							      <a href="admin_verify_list.do?page=1" aria-label="Previous">
+							      <a href="verify_search_list.do?page=1" aria-label="Previous">
 							        <span aria-hidden="true">&laquo;</span>
 							      </a>
 							    </li>
@@ -173,17 +173,17 @@ $(function(){
 						    
 						    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
 							    <c:if test="${i == page }">
-							   		<li class="active"><a href="admin_verify_list.do?page=${i }">${i }</a></li>
+							   		<li class="active"><a href="verify_search_list.do?page=${i }">${i }</a></li>
 							    </c:if>
 							    
 							    <c:if test="${i != page }">
-								    <li><a href="admin_verify_list.do?page=${i }">${i }</a></li>
+								    <li><a href="verify_search_list.do?page=${i }">${i }</a></li>
 							    </c:if>
 						    </c:forEach>
 						    
 						    <c:if test="${page < allPage }">
 							    <li>
-							      <a href="admin_verify_list.do?page=${allPage }" aria-label="Next">
+							      <a href="verify_search_list.do?page=${allPage }" aria-label="Next">
 							        <span aria-hidden="true">&raquo;</span>
 							      </a>
 							    </li>

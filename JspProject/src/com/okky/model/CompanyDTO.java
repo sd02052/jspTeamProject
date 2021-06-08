@@ -10,7 +10,7 @@ public class CompanyDTO {
 	private String company_charge_phone;
 	private String company_charge_email;
 	private String company_charge_name;
-	private int company_emp;
+	private String company_emp;
 	private String company_homepage;
 	private String company_logo;
 	private String company_content;
@@ -99,20 +99,20 @@ public class CompanyDTO {
 		this.company_charge_name = company_charge_name;
 	}
 
-	public int getCompany_emp() {
-		return company_emp;
-	}
-
-	public void setCompany_emp(int company_emp) {
-		this.company_emp = company_emp;
-	}
-
 	public String getCompany_homepage() {
 		return company_homepage;
 	}
 
 	public void setCompany_homepage(String company_homepage) {
 		this.company_homepage = company_homepage;
+	}
+
+	public String getCompany_emp() {
+		return company_emp;
+	}
+
+	public void setCompany_emp(String company_emp) {
+		this.company_emp = company_emp;
 	}
 
 	public String getCompany_logo() {

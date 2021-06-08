@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="<%=request.getContextPath()%>/style/style.css">
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
@@ -188,8 +188,7 @@
                                     </div>
                                     <div class="col-xs-12 col-md-3">
                                         <br> <br>
-                                        <button type="button" class="btn btn-success"
-                                            style="float: right; background-color: snow;">
+                                        <button type="button" class="btn btn-success" style="float: right;">
                                             </i>취소
                                         </button>
                                     </div>

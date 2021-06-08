@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
         <style type="text/css">
@@ -147,8 +147,7 @@
                                     <li class="list-unstyled li1 a2">
                                         <div class="text-left">
                                             <span class="list-group-item-text article-id font">#953490</span><i
-                                                class="fas fa-bolt i1"></i>
-                                            2k
+                                                class="fas fa-bolt i1"></i> 2k
                                             <p class="span">2021-05-27 09:27:16</p>
                                         </div>
                                     </li>
@@ -204,7 +203,9 @@
                         <div class="row" style="border: 1px solid;">
                             <div class="col-xs-12"
                                 style="border: 1px solid gray; background-color: #f2f2f2; border-left: honeydew; border-top: honeydew; border-right: honeydew;">
-                                <h4>댓글&nbsp;&nbsp;<span>0</span></h4>
+                                <h4>
+                                    댓글&nbsp;&nbsp;<span>0</span>
+                                </h4>
                             </div>
 
                             <div class="col-xs-10" style="margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">
@@ -216,16 +217,14 @@
                                     </li>
                                     <li class="list-unstyled li1 a2">
                                         <div class="text-left">
-                                            <p style="margin-bottom : 0;">가나다라마바</p>
+                                            <p style="margin-bottom: 0;">가나다라마바</p>
                                             <span class="list-group-item-text article-id font">#953490</span><i
-                                                class="fas fa-bolt i1"></i>
-                                            2k
+                                                class="fas fa-bolt i1"></i> 2k
                                         </div>
                                     </li>
                                 </ul>
                                 <div class="row">
-                                    <div class="col-sm-8 "
-                                        style=" padding: 0px 0px 0px 10px; margin: 0px 0px 0px 10px;">
+                                    <div class="col-sm-8 " style="padding: 0px 0px 0px 10px; margin: 0px 0px 0px 10px;">
                                         <textarea class="form-control noresize" rows="5"></textarea>
                                     </div>
                                 </div>

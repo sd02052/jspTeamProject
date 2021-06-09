@@ -16,9 +16,9 @@ insert into okky_member values(10, 'mem10@mem', 'mem10', '1111', 'test', 'mem10@
 insert into okky_member values(11, 'mem11@mem', 'mem11', '1111', 'test', 'mem11@gmail.com', sysdate, default, default, 300, 11);
 insert into okky_member values(12, 'mem12@mem', 'mem12', '1111', 'test', 'mem12@gmail.com', sysdate, default, default, 1250, 12);
 
-set define off; -- 카테고리 추가시 잠깐 필요한 기능
 
 -- 카테고리 테이블 레코드
+set define off;  -- & 대체문자 인식 해제
 insert into okky_category values(1, 'Q&A', 1, 0);
 insert into okky_category values(2, 'Tech Q&A', 1, 1);
 insert into okky_category values(3, 'Blockchain Q&A', 1, 2);
@@ -41,18 +41,18 @@ insert into okky_category values(19, '좋은회사/나쁜회사', 5, 3);
 
 
 -- 게시판 테이블 레코드
-insert into okky_board values(1, '제목1', 1, '내용1', default, default, default, 1, sysdate, default);
-insert into okky_board values(2, '제목2', 2, '내용2', default, default, default, 1, sysdate, default);
-insert into okky_board values(3, '제목3', 3, '내용3', default, default, default, 1, sysdate, default);
-insert into okky_board values(4, '제목4', 4, '내용4', default, default, default, 1, sysdate, default);
-insert into okky_board values(5, '제목5', 5, '내용5', default, default, default, 1, sysdate, default);
-insert into okky_board values(6, '제목6', 6, '내용6', default, default, default, 1, sysdate, default);
-insert into okky_board values(7, '제목7', 7, '내용7', default, default, default, 1, sysdate, default);
-insert into okky_board values(8, '제목8', 8, '내용8', default, default, default, 1, sysdate, default);
-insert into okky_board values(9, '제목9', 9, '내용9', default, default, default, 1, sysdate, default);
-insert into okky_board values(10, '제목10', 10, '내용10', default, default, default, 1, sysdate, default);
-insert into okky_board values(11, '제목11', 11, '내용11', default, default, default, 1, sysdate, default);
-insert into okky_board values(12, '제목12', 12, '내용12', default, default, default, 1, sysdate, default);
+insert into okky_board values(1, '제목1', 1, '내용1', default, default, default, 2, sysdate, default);
+insert into okky_board values(2, '제목2', 2, '내용2', default, default, default, 2, sysdate, default);
+insert into okky_board values(3, '제목3', 3, '내용3', default, default, default, 3, sysdate, default);
+insert into okky_board values(4, '제목4', 4, '내용4', default, default, default, 5, sysdate, default);
+insert into okky_board values(5, '제목5', 5, '내용5', default, default, default, 6, sysdate, default);
+insert into okky_board values(6, '제목6', 6, '내용6', default, default, default, 8, sysdate, default);
+insert into okky_board values(7, '제목7', 7, '내용7', default, default, default, 9, sysdate, default);
+insert into okky_board values(8, '제목8', 8, '내용8', default, default, default, 10, sysdate, default);
+insert into okky_board values(9, '제목9', 9, '내용9', default, default, default, 15, sysdate, default);
+insert into okky_board values(10, '제목10', 10, '내용10', default, default, default, 14, sysdate, default);
+insert into okky_board values(11, '제목11', 11, '내용11', default, default, default, 12, sysdate, default);
+insert into okky_board values(12, '제목12', 12, '내용12', default, default, default, 12, sysdate, default);
 
 
 -- 회사 테이블 레코드

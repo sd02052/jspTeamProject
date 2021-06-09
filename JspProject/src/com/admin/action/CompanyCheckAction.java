@@ -15,22 +15,21 @@ public class CompanyCheckAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		int num = Integer.parseInt(request.getParameter("num").trim());
-		int check = Integer.parseInt(request.getParameter("check").trim());
+		System.out.println("parameter2 >>> " + request.getParameter("num"));
 		
+		int company_num = Integer.parseInt(request.getParameter("num").trim());
+		int check = Integer.parseInt(request.getParameter("check").trim());
 		
 		CompanyDAO dao = CompanyDAO.getInstance();
 		
-		int result = dao.updateCompanyCheck(num, check);
+		int result = dao.updateCompanyCheck(company_num, check);
 		
 		PrintWriter out = response.getWriter();
 		ActionForward foward = new ActionForward();
 		
-		if(result > 0) {
-			request.setAttribute("num", num);
-			
+		if(result > 0) {			
 			foward.setRedirect(true);
-			foward.setPath("admin_verify_cont.do");
+			foward.setPath("admin_verify_cont.do?num="+company_num);
 		}else {
 			out.println("<script>");
 			out.println("alert('인증상태 변경 실패')");

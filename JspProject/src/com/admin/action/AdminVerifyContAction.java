@@ -17,12 +17,14 @@ public class AdminVerifyContAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
+		System.out.println("parameter1 >> " + request.getParameter("num"));
+		
 		int num = Integer.parseInt(request.getParameter("num").trim());
 		
 		CompanyDAO comDAO = CompanyDAO.getInstance();
 		MemberDAO memDAO = MemberDAO.getInstance();
 		
-		// 특정 번호에 해당하는 회사 정보를 가져오는 메서드
+		// �듅�젙 踰덊샇�뿉 �빐�떦�븯�뒗 �쉶�궗 �젙蹂대�� 媛��졇�삤�뒗 硫붿꽌�뱶
 		CompanyDTO comList = comDAO.getCompanyList(num);
 		MemberDTO memList = memDAO.getMemberList(num);
 		

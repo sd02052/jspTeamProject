@@ -30,7 +30,7 @@ public class MemberBoardListAction implements Action {
 		
 		List<BoardDTO> list = dao1.getBoardList(cate_num);
 		List<MemberDTO> list2 = dao1.getMemberList(list);
-		
+		List<CategoryDTO> list3 = dao1.getCategoryAllList(list);
 		
 		CategoryDAO dao2 = CategoryDAO.getInstance();
 		
@@ -38,6 +38,7 @@ public class MemberBoardListAction implements Action {
 		
 		request.setAttribute("boardList", list);
 		request.setAttribute("memberList", list2);
+		request.setAttribute("categoryList", list3);
 		request.setAttribute("category", category);
 		request.setAttribute("big_category", big_category);
 		request.setAttribute("small_category", small_category);

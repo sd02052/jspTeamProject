@@ -172,7 +172,7 @@
 									<div class="col-xs-6">
 										<div class="row">
 											<span class="list-group-item-text article-id font">#${dto.getBoard_num() }</span>
-											<a class="list-group-item-text item-tag label label-info padding">${cate.getCate_name() }</a>
+											<a class="list-group-item-text item-tag label label-info padding">${categoryList[status.index].getCate_name()}</a>
 										</div>
 										<div class="row">
 											<h5 class="list-group-item-heading list-group-item-evaluate h">

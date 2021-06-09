@@ -14,6 +14,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
+
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../../include/side.jsp" />
@@ -21,26 +22,33 @@
 			<div style="width: 805px; min-height: 800px;">
 				<div id="main" class="content clearfix" role="main">
 					<div class="col-md-6 main-block-left">
-						<!-- Editor's Choice -->
+					
+						<!-- 공지사항 -->
 						<div class="main-block">
 							<h4 class="main-header">
-								<i class="fas fa-flag"></i> Editor's Choice
+								<i class="fas fa-flag"></i> 공지사항
 							</h4>
 							<div class="panel panel-default">
 								<ul class="list-group">
+								<c:if test="${!empty noticeList }">
+								<c:forEach items="${noticeList }" var="dto" varStatus="status">
+									<c:if test="${dto.getBoard_comment() != 0 }">
 									<li class="list-group-item list-group-has-note clearfix">
+									</c:if>
+									<c:if test="${dto.getBoard_comment() == 0 }">
+									<li class="list-group-item list-group-no-note clearfix">
+									</c:if>
 										<div class="list-title-wrapper">
 											<h5 class="list-group-item-heading">
-												<a href="">[OKKY Jobs] 프리랜서 개발자 대상 설문조사 결과 공유 !</a>
+												<a href="">${dto.getBoard_title() }</a>
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo"> <img
-															src="../../images/29a87623405c294d79bd2b4728996363.png">
+														<a href="" class="avatar-photo"> <img src="../../images/29a87623405c294d79bd2b4728996363.png">
 														</a>
 														<div class="avatar-info">
-															<a class="nickname" href="">(사용자1)</a>
+															<a class="nickname" href="">${noticeMember[status.index].getMem_nick() }</a>
 															<div class="activity">
-																<span class=""><i class="fas fa-bolt"></i> 73</span>
+																<span class=""><i class="fas fa-bolt"></i> ${noticeMember[status.index].getMem_score() }</span>
 															</div>
 														</div>
 													</div>
@@ -48,52 +56,23 @@
 											</h5>
 										</div>
 									</li>
-									<li class="list-group-item list-group-has-note clearfix">
+								</c:forEach>
+								</c:if>
+								<c:if test="${empty noticeList }">
+									<li class="list-group-item clearfix">
 										<div class="list-title-wrapper">
 											<h5 class="list-group-item-heading">
-												<a href="">OKKY 소개, 영상으로 만나보세요.</a>
-												<div class="list-group-item-author pull-right clearfix">
-													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo"> <img
-															src="../../images/29a87623405c294d79bd2b4728996363.png">
-														</a>
-														<div class="avatar-info">
-															<a class="nickname" href="">(사용자1)</a>
-															<div class="activity">
-																<span class=""><i class="fas fa-bolt"></i> 73</span>
-															</div>
-														</div>
-													</div>
-												</div>
+												등록된 게시물이 없습니다.
 											</h5>
 										</div>
 									</li>
-									<li class="list-group-item list-group-has-note clearfix">
-										<div class="list-title-wrapper">
-											<h5 class="list-group-item-heading">
-												<a href="">개발자 포트폴리오용 테마 템플릿을 만들어 봤습니다.</a>
-												<div class="list-group-item-author pull-right clearfix">
-													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo"> <img
-															src="../../images/29a87623405c294d79bd2b4728996363.png">
-														</a>
-														<div class="avatar-info">
-															<a class="nickname" href="">(사용자1)</a>
-															<div class="activity">
-																<span class=""><i class="fas fa-bolt"></i> 73</span>
-															</div>
-														</div>
-													</div>
-												</div>
-											</h5>
-										</div>
-									</li>
+								</c:if>
 								</ul>
 
 							</div>
 						</div>
 					</div>
-					<!-- /Editor's Choice -->
+					<!-- 공지사항 -->
 
 					<div class="col-md-6 main-block-right">
 						<!-- Weekly Best -->
@@ -181,19 +160,26 @@
 							</h4>
 							<div class="panel panel-default">
 								<ul class="list-group">
+								<c:if test="${!empty qnaList }">
+									<c:forEach items="${qnaList }" var="dto" varStatus="status">
+									<c:if test="${dto.getBoard_comment() != 0 }">
 									<li class="list-group-item list-group-has-note clearfix">
+									</c:if>
+									<c:if test="${dto.getBoard_comment() == 0 }">
+									<li class="list-group-item list-group-no-note clearfix">
+									</c:if>
 										<div class="list-title-wrapper">
 											<h5 class="list-group-item-heading">
-												<a href="">리액트 네비게이션 bottom tabs 의존성 에러</a>
+												<a href="">${dto.getBoard_title() }</a>
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
 														<a href="" class="avatar-photo"> <img
 															src="../../images/29a87623405c294d79bd2b4728996363.png">
 														</a>
 														<div class="avatar-info">
-															<a class="nickname" href="">(사용자1)</a>
+															<a class="nickname" href="">${qnaMember[status.index].getMem_nick() }</a>
 															<div class="activity">
-																<span class=""><i class="fas fa-bolt"></i> 73</span>
+																<span class=""><i class="fas fa-bolt"></i> ${qnaMember[status.index].getMem_score() }</span>
 															</div>
 														</div>
 													</div>
@@ -201,47 +187,17 @@
 											</h5>
 										</div>
 									</li>
-									<li class="list-group-item list-group-has-note clearfix">
+									</c:forEach>
+								</c:if>	
+								<c:if test="${empty qnaList }">
+									<li class="list-group-item clearfix">
 										<div class="list-title-wrapper">
 											<h5 class="list-group-item-heading">
-												<a href="">암호화 알고리즘중에 암호화하면 글자수가 줄어드는게 있나요?.</a>
-												<div class="list-group-item-author pull-right clearfix">
-													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo"> <img
-															src="../../images/29a87623405c294d79bd2b4728996363.png">
-														</a>
-														<div class="avatar-info">
-															<a class="nickname" href="">(사용자1)</a>
-															<div class="activity">
-																<span class=""><i class="fas fa-bolt"></i> 73</span>
-															</div>
-														</div>
-													</div>
-												</div>
+												등록된 게시물이 없습니다.
 											</h5>
 										</div>
 									</li>
-									<li class="list-group-item list-group-has-note clearfix">
-										<div class="list-title-wrapper">
-											<h5 class="list-group-item-heading">
-												<a href="">스프링부트 프로젝트 만들면 도처에 생성되는 xml도 일단 모듈 혹은 인스턴스 건
-													데이터통신에 활용된다고 이해하면될까요?</a>
-												<div class="list-group-item-author pull-right clearfix">
-													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo"> <img
-															src="../../images/29a87623405c294d79bd2b4728996363.png">
-														</a>
-														<div class="avatar-info">
-															<a class="nickname" href="">(사용자1)</a>
-															<div class="activity">
-																<span class=""><i class="fas fa-bolt"></i> 73</span>
-															</div>
-														</div>
-													</div>
-												</div>
-											</h5>
-										</div>
-									</li>
+								</c:if>
 								</ul>
 							</div>
 						</div>
@@ -255,19 +211,27 @@
 							</h4>
 							<div class="panel panel-default">
 								<ul class="list-group">
-									<li class="list-group-item list-group-has-note clearfix">
+								<c:if test="${!empty communityList }">
+									<c:forEach items="${communityList }" var="dto" varStatus="status">
+									<c:if test="${dto.getBoard_category() != 8 && dto.getBoard_category() != 14}">
+										<c:if test="${dto.getBoard_comment() != 0 }">
+										<li class="list-group-item list-group-has-note clearfix">
+										</c:if>
+										<c:if test="${dto.getBoard_comment() == 0 }">
+										<li class="list-group-item list-group-no-note clearfix">
+										</c:if>
 										<div class="list-title-wrapper">
 											<h5 class="list-group-item-heading">
-												<a href="">[서적문의] 객체 지향 프로그래밍 관련 서적 추천 부탁드립니다</a>
+												<a href="#">${dto.getBoard_title() }</a>
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
 														<a href="" class="avatar-photo"> <img
 															src="../../images/29a87623405c294d79bd2b4728996363.png">
 														</a>
 														<div class="avatar-info">
-															<a class="nickname" href="">(사용자1)</a>
+															<a class="nickname" href="">${communityMember[status.index].getMem_nick() }</a>
 															<div class="activity">
-																<span class=""><i class="fas fa-bolt"></i> 73</span>
+																<span class=""><i class="fas fa-bolt"></i> ${communityMember[status.index].getMem_score() }</span>
 															</div>
 														</div>
 													</div>
@@ -275,46 +239,18 @@
 											</h5>
 										</div>
 									</li>
-									<li class="list-group-item list-group-has-note clearfix">
+									</c:if>
+									</c:forEach>
+								</c:if>
+								<c:if test="${empty communityList }">
+									<li class="list-group-item clearfix">
 										<div class="list-title-wrapper">
 											<h5 class="list-group-item-heading">
-												<a href="">[서울] 웹 개발 프로젝트 (UI/UX Web Designer)</a>
-												<div class="list-group-item-author pull-right clearfix">
-													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo"> <img
-															src="../../images/29a87623405c294d79bd2b4728996363.png">
-														</a>
-														<div class="avatar-info">
-															<a class="nickname" href="">(사용자1)</a>
-															<div class="activity">
-																<span class=""><i class="fas fa-bolt"></i> 73</span>
-															</div>
-														</div>
-													</div>
-												</div>
+												등록된 게시물이 없습니다.
 											</h5>
 										</div>
 									</li>
-									<li class="list-group-item list-group-has-note clearfix">
-										<div class="list-title-wrapper">
-											<h5 class="list-group-item-heading">
-												<a href="">강화학습 주식 트레이딩 프로그램 개발 스터디</a>
-												<div class="list-group-item-author pull-right clearfix">
-													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo"> <img
-															src="../../images/29a87623405c294d79bd2b4728996363.png">
-														</a>
-														<div class="avatar-info">
-															<a class="nickname" href="">(사용자1)</a>
-															<div class="activity">
-																<span class=""><i class="fas fa-bolt"></i> 73</span>
-															</div>
-														</div>
-													</div>
-												</div>
-											</h5>
-										</div>
-									</li>
+								</c:if>
 								</ul>
 							</div>
 						</div>
@@ -332,54 +268,36 @@
 							</h4>
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<div class="article-middle-block clearfix">
-										<div class="list-tag clearfix">
-											<a href=""
-												class="list-group-item-text item-tag label label-info">
-												<i class="fas fa-code"></i> IT News & 정보
-											</a>
-										</div>
-										<h5>
-											<a href="">마이크로소프트, Windows 패키지 관리자 1.0 공개</a>
-										</h5>
-										<div class="list-group-item-author pull-right clearfix">
-											<div class="avatar clearfix avatar-x-small">
-												<a href="" class="avatar-photo"> <img
-													src="../../images/29a87623405c294d79bd2b4728996363.png">
-												</a>
-												<div class="avatar-info">
-													<a class="nickname" href="">(사용자1)</a>
-													<div class="activity">
-														<span class=""><i class="fas fa-bolt"></i> 73</span>
+									<c:if test="${!empty techList }">
+										<c:forEach items="${techList }" var="dto" varStatus="status">
+											<div class="article-middle-block clearfix">
+												<div class="list-tag clearfix">
+													<a href="" class="list-group-item-text item-tag label label-info"> <i class="fas fa-code"></i> ${techCategory[status.index].getCate_name() }
+													</a>
+												</div>
+												<h5>
+													<a href="">${dto.getBoard_title() }</a>
+												</h5>
+												<div class="list-group-item-author pull-right clearfix">
+													<div class="avatar clearfix avatar-x-small">
+														<a href="" class="avatar-photo"> <img src="../../images/29a87623405c294d79bd2b4728996363.png">
+														</a>
+														<div class="avatar-info">
+															<a class="nickname" href="">${techMember[status.index].getMem_nick() }</a>
+															<div class="activity">
+																<span class=""><i class="fas fa-bolt"></i> ${techMember[status.index].getMem_score() }</span>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
+										</c:forEach>
+									</c:if>
+									<c:if test="${empty techList }">
+										<div class="list-title-wrapper">
+											<h5 class="list-group-item-heading">등록된 게시물이 없습니다.</h5>
 										</div>
-									</div>
-									<div class="article-middle-block clearfix">
-										<div class="list-tag clearfix">
-											<a href=""
-												class="list-group-item-text item-tag label label-info">
-												<i class="fas fa-code"></i> Tips & 강좌
-											</a>
-										</div>
-										<h5>
-											<a href="">[JPA] 데이터베이스 기반 엔티티 클래스 원터치로 자동 생성하기 !</a>
-										</h5>
-										<div class="list-group-item-author pull-right clearfix">
-											<div class="avatar clearfix avatar-x-small">
-												<a href="" class="avatar-photo"> <img
-													src="../../images/29a87623405c294d79bd2b4728996363.png">
-												</a>
-												<div class="avatar-info">
-													<a class="nickname" href="">(사용자1)</a>
-													<div class="activity">
-														<span class=""><i class="fas fa-bolt"></i> 73</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+									</c:if>
 								</div>
 							</div>
 						</div>
@@ -394,32 +312,36 @@
 							</h4>
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<div class="article-middle-block clearfix">
-										<div class="list-tag clearfix">
-											<a href=""
-												class="list-group-item-text item-tag label label-gray">
-												kenu </a>
-										</div>
-										<h5>
-											<a href="">오픈 소스 시작해 보려면</a>
-										</h5>
-										<p class="main-block-desc">글자 그대로 프로그램 소스를 공개하는 것 외에, 소스
-											코드 저장소를 중심으로 한 여러 사람들의 상호작용을 통해 소프트웨어를 발전시키고, 참여자의 기술적, 사회적
-											성장을 가능하게...</p>
-										<div class="list-group-item-author pull-right clearfix">
-											<div class="avatar clearfix avatar-x-small">
-												<a href="" class="avatar-photo"> <img
-													src="../../images/29a87623405c294d79bd2b4728996363.png">
-												</a>
-												<div class="avatar-info">
-													<a class="nickname" href="">(사용자1)</a>
-													<div class="activity">
-														<span class=""><i class="fas fa-bolt"></i> 73</span>
+									<c:if test="${!empty columnList }">
+										<c:forEach items="${columnList }" var="dto" varStatus="status">
+											<div class="article-middle-block clearfix">
+												<div class="list-tag clearfix">
+													<a href="" class="list-group-item-text item-tag label label-info"><i class="fas fa-quote-left"></i> ${columnCategory[status.index].getCate_name() } </a>
+												</div>
+												<h5>
+													<a href="">${dto.getBoard_title() }</a>
+												</h5>
+												<p class="main-block-desc"><a href="#">${dto.getBoard_content() }</a></p>
+												<div class="list-group-item-author pull-right clearfix">
+													<div class="avatar clearfix avatar-x-small">
+														<a href="" class="avatar-photo"> <img src="../../images/29a87623405c294d79bd2b4728996363.png">
+														</a>
+														<div class="avatar-info">
+															<a class="nickname" href="">${columnMember[status.index].getMem_nick() }</a>
+															<div class="activity">
+																<span class=""><i class="fas fa-bolt"></i> ${columnMember[status.index].getMem_score() }</span>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
+										</c:forEach>
+									</c:if>
+									<c:if test="${empty columnList }">
+										<div class="list-title-wrapper">
+											<h5 class="list-group-item-heading">등록된 게시물이 없습니다.</h5>
 										</div>
-									</div>
+									</c:if>
 								</div>
 							</div>
 						</div>
@@ -434,26 +356,41 @@
 							</h4>
 							<div class="panel panel-default">
 								<ul class="list-group">
-									<li class="list-group-item list-group-has-note clearfix">
-										<div class="list-title-wrapper">
-											<h5 class="list-group-item-heading">
-												<a href="">C언어 자료구조, 소프트웨어학과/컴퓨터공학과전공대비학원</a>
-												<div class="list-group-item-author pull-right clearfix">
-													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo"> <img
-															src="../../images/29a87623405c294d79bd2b4728996363.png">
-														</a>
-														<div class="avatar-info">
-															<a class="nickname" href="">(사용자1)</a>
-															<div class="activity">
-																<span class=""><i class="fas fa-bolt"></i> 73</span>
+									<c:if test="${!empty academyList }">
+										<c:forEach items="${academyList }" var="dto" varStatus="status">
+											<c:if test="${dto.getBoard_comment() != 0 }">
+												<li class="list-group-item list-group-has-note clearfix">
+											</c:if>
+											<c:if test="${dto.getBoard_comment() == 0 }">
+												<li class="list-group-item list-group-no-note clearfix">
+											</c:if>
+											<div class="list-title-wrapper">
+												<h5 class="list-group-item-heading">
+													<a href="">${dto.getBoard_title() }</a>
+													<div class="list-group-item-author pull-right clearfix">
+														<div class="avatar clearfix avatar-x-small">
+															<a href="" class="avatar-photo"> <img src="../../images/29a87623405c294d79bd2b4728996363.png">
+															</a>
+															<div class="avatar-info">
+																<a class="nickname" href="">${academyMember[status.index].getMem_nick() }</a>
+																<div class="activity">
+																	<span class=""><i class="fas fa-bolt"></i> ${academyMember[status.index].getMem_score() }</span>
+																</div>
 															</div>
 														</div>
 													</div>
-												</div>
-											</h5>
-										</div>
-									</li>
+												</h5>
+											</div>
+											</li>
+										</c:forEach>
+									</c:if>
+									<c:if test="${empty academyList }">
+										<li class="list-group-item clearfix">
+											<div class="list-title-wrapper">
+												<h5 class="list-group-item-heading">등록된 게시물이 없습니다.</h5>
+											</div>
+										</li>
+									</c:if>
 								</ul>
 							</div>
 						</div>

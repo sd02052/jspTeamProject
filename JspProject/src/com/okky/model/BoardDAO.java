@@ -177,22 +177,22 @@ public class BoardDAO {
 		}
 	}
 
-	public List<MemberDTO> getMemberList(List<BoardDTO> boardList){
+	public List<MemberDTO> getMemberList(List<BoardDTO> boardList) {
 		List<MemberDTO> list = new ArrayList<MemberDTO>();
-		
+
 		try {
 			openConn();
-			
-			for(int i = 0; i < boardList.size(); i++) {
-				int board_writer =  boardList.get(i).getBoard_writer();
+
+			for (int i = 0; i < boardList.size(); i++) {
+				int board_writer = boardList.get(i).getBoard_writer();
 				sql = "select * from okky_member where mem_num = ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, board_writer);
 				rs = pstmt.executeQuery();
-				
-				while(rs.next()) {
+
+				while (rs.next()) {
 					MemberDTO dto = new MemberDTO();
-					
+
 					dto.setMem_num(rs.getInt("mem_num"));
 					dto.setMem_id(rs.getString("mem_id"));
 					dto.setMem_nick(rs.getString("mem_nick"));
@@ -204,7 +204,7 @@ public class BoardDAO {
 					dto.setMem_check(rs.getString("mem_check"));
 					dto.setMem_score(rs.getInt("mem_score"));
 					dto.setMem_company(rs.getInt("mem_company"));
-					
+
 					list.add(dto);
 				}
 			}
@@ -216,7 +216,7 @@ public class BoardDAO {
 		}
 		return list;
 	}
-	
+
 	public List<BoardDTO> getBoardListAll(int num) {
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
 		try {
@@ -239,7 +239,7 @@ public class BoardDAO {
 				dto.setBoard_category(rs.getInt("board_category"));
 				dto.setBoard_regdate(rs.getString("board_regdate"));
 				dto.setBoard_comment(rs.getInt("board_comment"));
-				
+
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -250,7 +250,7 @@ public class BoardDAO {
 		}
 		return list;
 	}
-	
+
 	public List<BoardDTO> getBoardList(int num) {
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
 		try {
@@ -273,8 +273,41 @@ public class BoardDAO {
 				dto.setBoard_category(rs.getInt("board_category"));
 				dto.setBoard_regdate(rs.getString("board_regdate"));
 				dto.setBoard_comment(rs.getInt("board_comment"));
-				
+
 				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+	}
+
+	public List<CategoryDTO> getCategoryAllList(List<BoardDTO> boardList) {
+		List<CategoryDTO> list = new ArrayList<CategoryDTO>();
+
+		try {
+			openConn();
+
+			for (int i = 0; i < boardList.size(); i++) {
+				int board_category = boardList.get(i).getBoard_category();
+				sql = "select * from okky_category where cate_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, board_category);
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					CategoryDTO dto = new CategoryDTO();
+
+					dto.setCate_num(rs.getInt("cate_num"));
+					dto.setCate_name(rs.getString("cate_name"));
+					dto.setCate_group(rs.getInt("cate_group"));
+					dto.setCate_step(rs.getInt("cate_step"));
+
+					list.add(dto);
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

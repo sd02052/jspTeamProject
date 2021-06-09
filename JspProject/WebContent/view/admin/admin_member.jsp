@@ -120,7 +120,10 @@ $(function(){
 													등록된 회원이 없습니다.
 											</li>
 										</c:if>
+<<<<<<< HEAD
 									</ul>
+=======
+>>>>>>> refs/remotes/origin/master
 									<button type="submit" class="btn btn-default">강제탈퇴</button>
 								</form>
 							</div>

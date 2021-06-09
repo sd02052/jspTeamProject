@@ -66,4 +66,30 @@ public class CategoryDAO {
 			e.printStackTrace();
 		}
 	}
+
+	public CategoryDTO getCategory(int num) {
+		CategoryDTO dto = new CategoryDTO();
+
+		try {
+			openConn();
+
+			sql = "select * from okky_category where cate_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				dto.setCate_num(rs.getInt("cate_num"));
+				dto.setCate_name(rs.getString("cate_name"));
+				dto.setCate_group(rs.getInt("cate_group"));
+				dto.setCate_step(rs.getInt("cate_step"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return dto;
+	}
 }

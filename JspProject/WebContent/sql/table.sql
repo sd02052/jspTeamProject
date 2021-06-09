@@ -35,6 +35,7 @@ create table okky_board(
     board_scrap number(5) default 0,		-- 게시글 스크랩 수
     board_category number(5) not null,		-- 게시글 카테고리
     board_regdate date,						-- 게시글 작성일자
+    board_comment number(5) default 0,
     constraint fk_writer foreign key(board_writer) references okky_member(mem_num) on delete cascade,
     constraint fk_category foreign key(board_category) references okky_category(cate_num) on delete cascade
 );

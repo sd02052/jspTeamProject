@@ -1,4 +1,10 @@
+<%@page import="java.util.List"%>
+<%@page import="com.okky.model.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	MemberDTO dto = (MemberDTO)request.getAttribute("loginUser");
+	List<String> tagList = (List<String>) request.getAttribute("tagList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +23,8 @@
 		<div class="main">
 			<jsp:include page="../../include/side.jsp" />
 				<div style="width: 805px; min-height: 800px;">
+				
+					
 				    <div id="create-user" class="content clearfix" role="main">
 				    	<h3 class="content-header">회원 정보 수정</h3>
 				        <div class="col-md-6 main-block-left">
@@ -28,16 +36,26 @@
 				                    </div>
 				                </div>
 				    
-				                <form class="form-signin panel-body">
+				                <form class="form-signin panel-body" action="<%=request.getContextPath() %>/view/member/test.jsp">
 				                    <div class="form-group">
 				                        <label for="exampleInputEmail1">닉네임</label>
-				                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="(멤버 닉네임 들어감)">
+				                        <input type="text" class="form-control" id="exampleInputEmail1" value="<%=dto.getMem_nick() %>">
 				                    </div>
 				                    <div class="form-group">
 				                        <label for="exampleInputText1">관심있는 기술 태그 입력</label>
 				                        <p class="help-block">사용 중인 기술이나 관심있는 기술 태그를 선택해주세요.</p>
 				                        <div class="tagsinput-wrap">
-				                            <input type="text" value="" data-role="tagsinput" />
+				                            <input type="text" name="test1" value="
+				                            <%
+				                            	if(tagList.size() != 0){
+				                            		for(int i=0; i < tagList.size(); i++){
+				                            			%>
+				                            			<%=tagList.get(i) %>,
+				                            			<%
+				                            		}
+				                            	}
+				                            %>
+				                            " data-role="tagsinput" />
 				                        </div>
 				                    </div>
 				                    <div class="checkbox">
@@ -59,7 +77,7 @@
 				                <form class="form-signin panel-body">
 				                    <div class="email-edit">
 				                        <label for="exampleInputEmail1">이메일 주소</label>
-				                        <input type="email" id="email" class="form-control" placeholder="(회원 이메일)" required>
+				                        <input type="email" id="email" class="form-control" value="<%=dto.getMem_email() %>" required>
 				                        <button class="btn btn-primary" type="submit">인증</button>
 				                    </div>
 				                </form>
@@ -87,6 +105,7 @@
 				        </div>
 				    </div> <!-- /container -->
 			    </div>
+			    
 			<jsp:include page="../../include/footer.jsp" />
 		</div>
 	</div>

@@ -460,15 +460,53 @@ public class BoardDAO {
 		return list;
 	}
 	
-	// 특정 회원이 작성한 게시물 내용을 불러오는 메서드
-	public List<BoardDTO> getMemberBoardList(int num) {
+	// 회원 활동 상세 페이지에 들어갈 글의 수를 조회하는 메서드
+	public int getSearchListCount(int num) {
+		int count = 0;
+		
+		try {
+			openConn();
+			sql = "select count(*) from okky_board "
+					+ "where board_writer = ? "
+					+ "or board_num in (select com_target from okky_comment where com_writer = ?) "
+					+ "or board_num in (select like_target from okky_like where like_writer = ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.setInt(2, num);
+			pstmt.setInt(3, num);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return count;
+	}
+	
+
+	// 회원의 활동내역과 관련한 모든 글을 불러오는 메서드
+	public List<BoardDTO> getMemberBoardList(int num, int startNo, int endNo) {
 		List<BoardDTO> list = new ArrayList<>();
 		
 		try {
 			openConn();
-			sql = "select * from okky_board where board_writer = ?";
+			sql = "select * from (select row_number() over(order by board_num desc) rnum, b.* from okky_board b "
+					+ "where board_writer = ? " + "or board_num in (select com_target from okky_comment where com_writer = ?) "
+					+ "or board_num in (select like_target from okky_like where like_writer = ?)) "
+					+ "where rnum >= ? and rnum <= ?";
+			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
+			pstmt.setInt(2, num);
+			pstmt.setInt(3, num);
+			pstmt.setInt(4, startNo);
+			pstmt.setInt(5, endNo);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {

@@ -590,5 +590,45 @@ public class MemberDAO {
 		}
 		return res;
 	}
+	
+	public List<MemberDTO> getMemberList(List<BoardDTO> boardList) {
+		List<MemberDTO> list = new ArrayList<MemberDTO>();
+
+		try {
+			openConn();
+
+			for (int i = 0; i < boardList.size(); i++) {
+				int board_writer = boardList.get(i).getBoard_writer();
+				sql = "select * from okky_member where mem_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, board_writer);
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					MemberDTO dto = new MemberDTO();
+
+					dto.setMem_num(rs.getInt("mem_num"));
+					dto.setMem_id(rs.getString("mem_id"));
+					dto.setMem_nick(rs.getString("mem_nick"));
+					dto.setMem_pwd(rs.getString("mem_pwd"));
+					dto.setMem_image(rs.getString("mem_image"));
+					dto.setMem_email(rs.getString("mem_email"));
+					dto.setMem_regdate(rs.getString("mem_regdate"));
+					dto.setMem_emailCheck(rs.getString("mem_emailcheck"));
+					dto.setMem_check(rs.getString("mem_check"));
+					dto.setMem_score(rs.getInt("mem_score"));
+					dto.setMem_company(rs.getInt("mem_company"));
+
+					list.add(dto);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+	}
 
 }

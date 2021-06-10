@@ -22,6 +22,14 @@ $(function(){
 	$("#menu6-1").css("color","#fff");
 });
 </script>
+<style type="text/css">
+
+.search-btn2 {
+	border-radius: 0;
+	border-left: 0px;
+}
+
+</style>
 </head>
 <body>
 
@@ -44,7 +52,7 @@ $(function(){
 								<form method="post" action="<%=request.getContextPath() %>/search_member.do" class="">				
 									<div class="input-group">
 										<span class="search-list input-group-btn">
-											<select name="field" class="btn btn-default dropdown-toggle">
+											<select name="field" class="search-btn btn btn-default dropdown-toggle">
 												<option value="all" <c:if test="${find_field.equals('all') }">selected="selected"</c:if>>-전체검색-</option>
 												<option value="id" <c:if test="${find_field.equals('id') }">selected="selected"</c:if>>아이디</option>
 												<option value="nick" <c:if test="${find_field.equals('nick') }">selected="selected"</c:if>>닉네임</option>
@@ -53,7 +61,7 @@ $(function(){
 										</span>
 										<input type="text" class="form-control" name="data" placeholder="${find_data }" aria-describedby="basic-addon2">
 										<span class="input-group-btn">
-											<button type="submit" class="btn btn-default">
+											<button type="submit" class="search-btn2 btn btn-default">
 												<i class="fas fa-search"></i>
 											</button>
 										</span>

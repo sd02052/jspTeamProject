@@ -198,37 +198,37 @@ public class MemberDAO {
 		}
 		return list;
 	}
-	
+
 	// 회원 가입(멤버추가)
 	public int signUp(MemberDTO dto) {
 
 		int result = 0, count = 0;
-		
+
 		try {
-			
+
 			openConn();
-			
+
 			sql = "select count(*) from okky_member";
-			
+
 			pstmt = con.prepareStatement(sql);
-			
+
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				count = rs.getInt(1) + 1;
 			}
-			
+
 			sql = "insert into okky_member values(?,?,?,?,?,?,sysdate,default,default,default,default)";
-			
+
 			pstmt = con.prepareStatement(sql);
-			
+
 			pstmt.setInt(1, count);
 			pstmt.setString(2, dto.getMem_id());
 			pstmt.setString(3, dto.getMem_nick());
 			pstmt.setString(4, dto.getMem_pwd());
 			pstmt.setString(5, dto.getMem_image());
 			pstmt.setString(6, dto.getMem_email());
-			
+
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -711,4 +711,28 @@ public class MemberDAO {
 		}
 		return list;
 	}
+
+	// 회원을 강제탈퇴시키는 메서드
+	public int updateMemberCheck(String[] num) {
+
+		int res = 0;
+
+		try {
+			openConn();
+			
+			System.out.println("num.length >> " + num.length);
+
+			for (int i = 0; i < num.length; i++) {
+				sql = "update okky_member set mem_check = 'yes' where mem_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, num[i]);
+				res = pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return res;
+	}
+
 }

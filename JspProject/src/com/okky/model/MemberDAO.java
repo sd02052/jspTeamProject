@@ -726,7 +726,7 @@ public class MemberDAO {
 			closeConn(rs, pstmt, con);
 		}
 	}
-	
+
 	public void commentDownScore(int num) {
 		try {
 			openConn();
@@ -741,4 +741,26 @@ public class MemberDAO {
 			closeConn(rs, pstmt, con);
 		}
 	}
+
+	// 회원을 강제탈퇴시키는 메서드
+	public int updateMemberCheck(String[] num) {
+
+		int res = 0;
+
+		try {
+			openConn();
+
+			for (int i = 0; i < num.length; i++) {
+				sql = "update okky_member set mem_check = 'yes' where mem_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, num[i]);
+				res = pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return res;
+	}
+
 }

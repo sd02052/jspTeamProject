@@ -13,9 +13,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 
-function checkAll(){
-	
-}
+function checkAll() {  /* 체크박스 전체선택 함수 */
+	$("input[name=check]").prop("checked", $("#checkAll").prop("checked"));
+};
 
 $(function(){
 	$("#menu6").css("border-right","5px solid #e67d3e");
@@ -44,7 +44,7 @@ $(function(){
 								<form method="post" action="<%=request.getContextPath() %>/search_member.do" class="">				
 									<div class="input-group">
 										<span class="search-list input-group-btn">
-											<select name="field" class="btn btn-default dropdown-toggle">
+											<select name="field" class="search-btn btn btn-default dropdown-toggle">
 												<option value="all">-전체검색-</option>
 												<option value="id">아이디</option>
 												<option value="nick">닉네임</option>
@@ -68,7 +68,7 @@ $(function(){
 							<div class="col-xs-12">
 								<ul class=" list-group list-title mem-list-title">
 									<li class="member-list-title list-group-item list-group-item-question list-group-has-note clearfix ">
-										<div class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></div>				
+										<div class="col-xs-1"><input type="checkbox" name="checkAll" id="checkAll" onclick="checkAll()"></div>	
 										<div class="col-xs-1">#</div>
 										<div class="col-xs-2">아이디</div>					
 										<div class="col-xs-3">닉네임</div>					
@@ -81,15 +81,15 @@ $(function(){
 						</div>	
 						<div class="row">
 							<div class="col-xs-12">
-								<form name="mem_magage" method="post" action="">
-
+								<form name="mem_magage" method="post" action="<%=request.getContextPath() %>/member_check.do">
+									<input type="hidden" name="page" value="${page }">
 									<ul class="list-group list-title">
 									
 										<c:set var="list" value="${List }" />
 										<c:if test="${!empty list }">
 											<c:forEach items="${list }" var="dto">
 												<li class="member-list list-group-item list-group-item-question list-group-has-note clearfix ">
-													<div class="col-xs-1"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"></div>				
+													<div class="col-xs-1"><input type="checkbox" name="check" value="${dto.getMem_num() }"></div>				
 													<div class="col-xs-1">${dto.getMem_num() }</div>
 													<div class="col-xs-2">${dto.getMem_id() }</div>					
 													<div class="cont-member col-xs-3">	
@@ -121,6 +121,7 @@ $(function(){
 											</li>
 										</c:if>
 									</ul>
+									<button type="submit" class="btn btn-default">강제탈퇴</button>
 									<button type="submit" class="btn btn-default">강제탈퇴</button>
 								</form>
 							</div>

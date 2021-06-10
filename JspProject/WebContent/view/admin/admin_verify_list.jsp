@@ -60,7 +60,7 @@ $(function(){
 								<form method="post" action="<%=request.getContextPath() %>/search_verify.do" class="from-control">				
 									<div class="input-group">
 										<span class="input-group-btn">
-											<select name="field" class="btn btn-default dropdown-toggle">	
+											<select name="field" class="search-btn btn btn-default dropdown-toggle">	
 												<option value="all">-전체검색-</option>
 												<option value="name">회사명</option>
 												<option value="nick">등록회원</option>
@@ -102,12 +102,12 @@ $(function(){
 								<c:if test="${!empty List }">
 									<c:forEach items="${List }" var="comDTO" varStatus="status">
 										<li class="admin-verify-list-li list-group-item list-group-item-question list-group-has-note clearfix">
-											<div class="col-xs-1">${comDTO.getCompany_num() }</div>				
-											<div class="col-xs-3">
+											<div class="col-xs-1 margin-auto">${comDTO.getCompany_num() }</div>				
+											<div class="col-xs-3 margin-auto">
 												<a href="<%=request.getContextPath() %>/admin_verify_cont.do?num=${comDTO.getCompany_num() }">${comDTO.getCompany_name() }</a>
 											</div>		
-											<div class="col-xs-2">${comDTO.getCompany_license_num() }</div>		
-												<div class="cont-member col-xs-3">			
+											<div class="col-xs-2 margin-auto">${comDTO.getCompany_license_num() }</div>		
+												<div class="cont-member col-xs-3 margin-auto">			
 													<div>
 														<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
 															<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
@@ -122,13 +122,13 @@ $(function(){
 	
 											<div class="cont-regdate col-xs-2">${boardList[status.index].getBoard_regdate().substring(0,10) }</div>
 											<c:if test="${comDTO.getCompany_check() eq 0 }">			
-												<div class="col-xs-1"><span class="badge badge-waitting">대기</span></div>
+												<div class="col-xs-1 margin-auto"><span class="badge badge-waitting">대기</span></div>
 											</c:if>	
 											<c:if test="${comDTO.getCompany_check() eq 1 }">			
-												<div class="col-xs-1"><span class="badge badge-success">승인</span></div>
+												<div class="col-xs-1 margin-auto"><span class="badge badge-success">승인</span></div>
 											</c:if>	
 											<c:if test="${comDTO.getCompany_check() eq 2 }">			
-												<div class="col-xs-1"><span class="badge badge-reject">거절</span></div>
+												<div class="col-xs-1 margin-auto"><span class="badge badge-reject">거절</span></div>
 											</c:if>	
 										</li>
 								
@@ -140,11 +140,7 @@ $(function(){
 										조회된 회사 인증 목록이 없습니다.
 									</li>
 								</c:if>
-								
-									
-								
-								
-								
+
 								
 								</ul>
 							</div>

@@ -38,6 +38,11 @@ $(function(){
     background-color: #ccc;
 }
 
+.search-btn2 {
+	border-radius: 0;
+	border-left: 0px;
+}
+
 </style>
 </head>
 <body>
@@ -59,18 +64,16 @@ $(function(){
 								<form method="post" action="<%=request.getContextPath() %>/search_verify.do" class="from-control">				
 									<div class="input-group">
 										<span class="input-group-btn">
-											<select name="field" class="selectpicker btn btn-default dropdown-toggle">	
-											
-											
+											<select name="field" class="search-btn btn btn-default dropdown-toggle">	
 												<option value="all" <c:if test="${find_field.equals('all') }">selected="selected"</c:if>>-전체검색-</option>
 												<option value="name" <c:if test="${find_field.equals('name') }">selected="selected"</c:if>>회사명</option>
 												<option value="nick" <c:if test="${find_field.equals('nick') }">selected="selected"</c:if>>등록회원</option>
 												<option value="check" <c:if test="${find_field.equals('check') }">selected="selected"</c:if>>상태</option>
 											</select>
 										</span>
-										<input type="text" class="form-control" name="data" placeholder="${find_data }" aria-describedby="basic-addon2">
+										<input type="text" class="search-text form-control" name="data" placeholder="${find_data }" aria-describedby="basic-addon2">
 										<span class="input-group-btn">
-											<button type="submit" class="btn btn-default">
+											<button type="submit" class="search-btn2 btn btn-default">
 												<i class="fas fa-search"></i>
 											</button>
 										</span>
@@ -110,7 +113,7 @@ $(function(){
 										<li class="admin-verify-list-li list-group-item list-group-item-question list-group-has-note clearfix">
 											<div class="col-xs-1">${comDTO.getCompany_num() }</div>				
 											<div class="col-xs-3">
-												<a href="<%=request.getContextPath() %>/view/admin/admin_verify_cont.jsp">${comDTO.getCompany_name() }</a>
+												<a href="<%=request.getContextPath() %>/admin_verify_cont.do?num=${comDTO.getCompany_num() }">${comDTO.getCompany_name() }</a>
 											</div>		
 											<div class="col-xs-2">${comDTO.getCompany_license_num() }</div>		
 												<div class="cont-member col-xs-3">			

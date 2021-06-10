@@ -6,9 +6,9 @@
 <meta charset="UTF-8">
 <title>OKKY - (글제목)</title>
 <link rel="stylesheet"
-	href="<%=request.getContextPath() %>/style/style.css">
+	href="<%=request.getContextPath()%>/style/style.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath() %>/style/content.css">
+	href="<%=request.getContextPath()%>/style/content.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -35,13 +35,11 @@
 }
 </style>
 <script type="text/javascript">
+	$(document).ready(function() {
 
-$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip();
 
-  $('[data-toggle="tooltip"]').tooltip();   
-
-});
-
+	});
 </script>
 </head>
 <body>
@@ -74,7 +72,7 @@ $(document).ready(function(){
 											<a
 												href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
 												<img
-												src="<%=request.getContextPath() %>/images/profile00.png"
+												src="<%=request.getContextPath()%>/images/profile00.png"
 												class="cont-mem-logo img-circle">
 											</a>
 
@@ -155,7 +153,7 @@ $(document).ready(function(){
 										<a
 											href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
 											<img
-											src="<%=request.getContextPath() %>/images/profile01.png"
+											src="<%=request.getContextPath()%>/images/profile01.png"
 											class="cont-mem-logo img-circle">
 										</a>
 
@@ -193,7 +191,7 @@ $(document).ready(function(){
 										<a
 											href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
 											<img
-											src="<%=request.getContextPath() %>/images/profile00.png"
+											src="<%=request.getContextPath()%>/images/profile00.png"
 											class="cont-mem-logo img-circle">
 										</a>
 
@@ -255,7 +253,7 @@ $(document).ready(function(){
 											<a
 												href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
 												<img
-												src="<%=request.getContextPath() %>/images/profile00.png"
+												src="<%=request.getContextPath()%>/images/profile00.png"
 												class="cont-mem-logo img-circle">
 											</a>
 

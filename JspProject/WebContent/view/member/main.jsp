@@ -107,7 +107,7 @@
 										<div class="list-title-wrapper">
 											<h5 class="list-group-item-heading">
 												<a href="">'껍데기 만드는 일 할 사람은 널렸다'</a>
-												<div class="list-group-item-author pull-right clearfix">
+<!-- 												<div class="list-group-item-author pull-right clearfix"> -->
 													<div class="avatar clearfix avatar-x-small">
 														<a href="" class="avatar-photo"> <img
 															src="../../images/29a87623405c294d79bd2b4728996363.png">

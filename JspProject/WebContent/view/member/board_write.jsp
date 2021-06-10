@@ -146,6 +146,7 @@
 									src="//www.gravatar.com/avatar/b66da5ef6099211f5db8f5f7a3b4c36b?d=identicon&s=30">
 								</a>
 								</li>
+								
 								<li class="list-unstyled li1 a2">
 									<div class="text-left">
 										<span class="list-group-item-text article-id font">가나다라</span>
@@ -156,6 +157,7 @@
 								</li>
 							</ul>
 						</div>
+						
 						<div class="col-xs-12 d" style="border: 1px solid gray;">
 							<form class="form-horizontal">
 								<div class="form-group">
@@ -165,10 +167,8 @@
 									<div class="col-sm-8">
 										<select class="form-control">
 											<option>게시판을 선택해 주세요.</option>
-											<option>2</option>
-											<option>3</option>
-											<option>4</option>
-											<option>5</option>
+											<option vlaue="1">Tech Q&A</option>
+											<option vlaue="2">Blockchain Q&A</option>
 										</select>
 									</div>
 								</div>
@@ -203,7 +203,8 @@
 								</div>
 								<div class="col-xs-12 col-md-8">
 									<br> <br>
-									<button type="button" class="btn btn-success"
+									<button type="button" class="btn btn-success" 
+									onclick="location.href='/JspProject/member_board_Receip.do'"
 										style="float: right;">등록</button>
 								</div>
 						</div>

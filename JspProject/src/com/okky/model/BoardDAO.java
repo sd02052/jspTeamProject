@@ -284,4 +284,9 @@ public class BoardDAO {
 		}
 		return list;
 	}
+	
+	public void getBoardPost() {
+		
+	}
+	
 }

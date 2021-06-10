@@ -720,8 +720,6 @@ public class MemberDAO {
 		try {
 			openConn();
 			
-			System.out.println("num.length >> " + num.length);
-
 			for (int i = 0; i < num.length; i++) {
 				sql = "update okky_member set mem_check = 'yes' where mem_num = ?";
 				pstmt = con.prepareStatement(sql);

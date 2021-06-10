@@ -64,8 +64,6 @@ function commentEditCancle(){
 	$(".buttons").css("display","none");
 	$(".com-content").css("display","block");
 	$(".com-edit-area").css("display","none");
-	$(".com-edit-area").css("display","none");
-	document.getElementById("editForm").reset();
 };
 </script>
 </head>
@@ -166,6 +164,9 @@ function commentEditCancle(){
 							<c:if test="${!empty commentList }">
 								<c:forEach items="${commentList }" var="dto" varStatus="status">
 										<!-- 다른 회원이 작성한 댓글 -->
+										<form method="post" action="<%=request.getContextPath() %>/member_commnet_edit.do">
+										<input type="hidden" name="com_num" value="${dto.getCom_num() }">
+										<input type="hidden" name="com_target" value="${dto.getCom_target() }">
 										<tr>
 											<td class="col-md-10">
 												<div class="cont-member pull-left">
@@ -183,11 +184,10 @@ function commentEditCancle(){
 												<div class="com-content pull-left">
 													<p>${dto.getCom_content() }</p>
 												</div>
-												<form id="editForm">
-													<textarea class="form-control com-edit-area" name="com_content" rows="3" style="display: none;">${dto.getCom_content() }</textarea>
-												</form>
+												
+													<textarea class="form-control com-edit-area" name="com_content" rows="3" style="display: none;" value="${dto.getCom_content() }">${dto.getCom_content() }</textarea>
+												
 											</td>
-
 											<td class="col-md-2">
 												<div class="cont-recommend">
 													<a href=""> <i class="img fas fa-angle-up" data-toggle="tooltip" data-placement="left" title="추천"></i>
@@ -222,6 +222,7 @@ function commentEditCancle(){
 											</c:if>
 											</td>
 										</tr>
+										</form>
 								</c:forEach>
 							</c:if>
 

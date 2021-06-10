@@ -256,4 +256,25 @@ public class CommentDAO {
 		}
 		return result;
 	}
+	
+	public int editComment(int num, String content) {
+		int result = 0;
+		
+		try {
+			openConn();
+			
+			sql = "update okky_comment set com_content = ?, com_regdate = sysdate where com_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, content);
+			pstmt.setInt(2, num);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+		
+	}
 }

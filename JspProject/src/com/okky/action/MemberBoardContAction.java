@@ -24,13 +24,18 @@ public class MemberBoardContAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
 		int board_num = Integer.parseInt(request.getParameter("num").trim());
-		int mem_num = (int) session.getAttribute("loginNum");
+		
+		if(session.getAttribute("loginNum") != null) {
+			int mem_num = (int) session.getAttribute("loginNum");
+			MemberDAO dao3 = MemberDAO.getInstance();
+			MemberDTO login_mem = dao3.getMember(mem_num);
+			request.setAttribute("login_mem", login_mem);
+		}
+		
 		BoardDAO dao = BoardDAO.getInstance();
 		CategoryDAO dao1 = CategoryDAO.getInstance();
 		CommentDAO dao2 = CommentDAO.getInstance();
-		MemberDAO dao3 = MemberDAO.getInstance();
 		
-		MemberDTO login_mem = dao3.getMember(mem_num);
 		BoardDTO board_dto = dao.getBoardCont(board_num);
 		MemberDTO board_writer = dao.getWriter(board_num);
 		dao.boardHit(board_num);
@@ -102,7 +107,6 @@ public class MemberBoardContAction implements Action {
 		request.setAttribute("category", category);
 		request.setAttribute("commentList", comment_list);
 		request.setAttribute("commentWriterList", comment_writer_list);
-		request.setAttribute("login_mem", login_mem);
 		
 		
 		ActionForward forward = new ActionForward();

@@ -18,7 +18,6 @@
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../../include/side.jsp" />
-
 			<div style="width: 805px; min-height: 800px;">
 				<div id="main" class="content clearfix" role="main">
 					<div class="col-md-6 main-block-left">
@@ -88,8 +87,8 @@
 												<a href="">'껍데기 만드는 일 할 사람은 널렸다'</a>
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo"> <img
-															src="../../images/29a87623405c294d79bd2b4728996363.png">
+														<a href="" class="avatar-photo">
+															<img src="../../images/29a87623405c294d79bd2b4728996363.png">
 														</a>
 														<div class="avatar-info">
 															<a class="nickname" href="">(사용자1)</a>
@@ -108,8 +107,8 @@
 												<a href="">OKKY 소개, 영상으로 만나보세요.</a>
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo"> <img
-															src="../../images/29a87623405c294d79bd2b4728996363.png">
+														<a href="" class="avatar-photo"> 
+															<img src="../../images/29a87623405c294d79bd2b4728996363.png">
 														</a>
 														<div class="avatar-info">
 															<a class="nickname" href="">(사용자1)</a>
@@ -128,8 +127,8 @@
 												<a href="">대표가 임금체불 합의하자고 연락이 왔습니다.</a>
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo"> <img
-															src="../../images/29a87623405c294d79bd2b4728996363.png">
+														<a href="" class="avatar-photo"> 
+															<img src="../../images/29a87623405c294d79bd2b4728996363.png">
 														</a>
 														<div class="avatar-info">
 															<a class="nickname" href="">(사용자1)</a>

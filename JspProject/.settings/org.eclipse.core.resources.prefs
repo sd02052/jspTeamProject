@@ -2,10 +2,4 @@
 <<<<<<<=HEAD
 >>>>>>>=branch 'SeongWook' of https\://github.com/sd02052/jspTeamProject.git
 eclipse.preferences.version=1
-<<<<<<< HEAD
-encoding//WebContent/sql/table.sql=UTF-8
-=======
-encoding//WebContent/view/member/board.jsp=UTF-8
->>>>>>> branch 'sikchang' of https://github.com/sd02052/jspTeamProject.git
 encoding//src/com/okky/controller/mapping.properties=UTF-8
-encoding/<project>=UTF-8

@@ -8,15 +8,36 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.okky.controller.Action;
 import com.okky.controller.ActionForward;
+import com.okky.model.BoardDAO;
+import com.okky.model.BoardDTO;
+import com.okky.model.CompanyDAO;
+import com.okky.model.CompanyDTO;
 import com.okky.model.MemberDAO;
 import com.okky.model.MemberDTO;
 
-public class AdminMemberListAction implements Action {
+public class SearchVerifyAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		MemberDAO dao = MemberDAO.getInstance();
+		String find_field = request.getParameter("field");
+		String data = request.getParameter("data");
+		
+		String find_data = data;
+
+		if (find_field.equals("check")) {
+			if (data.equals("대기")) {
+				find_data = "0";
+			} else if (data.equals("승인")) {
+				find_data = "1";
+			} else if (data.equals("거절")) {
+				find_data = "2";
+			}
+		}
+
+		CompanyDAO comDAO = CompanyDAO.getInstance();
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		MemberDAO memDAO = MemberDAO.getInstance();
 
 		// 페이징 작업
 		int rowsize = 10; // 한 페이지당 보여질 게시물의 수
@@ -44,7 +65,7 @@ public class AdminMemberListAction implements Action {
 		// 해당 페이지의 마지막 블럭
 		int endBlock = (((page - 1) / block) * block) + block;
 
-		totalRecord = dao.getListCount();
+		totalRecord = comDAO.getSearchListCount(find_field, find_data);
 
 		// 3) 전체 페이지 수 구하기
 		// Math.ceil() : 나머지가 있으면 무조건 올림하는 메서드
@@ -55,9 +76,23 @@ public class AdminMemberListAction implements Action {
 			endBlock = allPage;
 		}
 
-		List<MemberDTO> pageList = dao.getMemberList(page, rowsize);
+		// 회사테이블을 검색하여 조회하는 메서드
+		List<CompanyDTO> pageList = comDAO.getSearchCompanyList(find_field, find_data, page, rowsize);
+
+		// 회사 테이블의 회사번호와 동일한 회사번호를 가지는 멤버 정보를 조회하는 메서드
+		List<MemberDTO> memList = memDAO.getSearchCompanyMemberList(find_field, find_data, page, rowsize);
+
+		// 회사 테이블의 참조번호와 동일한 글번호를 가지는 게시글 정보를 조회하는 메서드
+		List<BoardDTO> boardList = boardDAO.getSearchBoardList(find_field, find_data, page, rowsize);
+
+		find_data = data;	// 상태 검색어 복구
 
 		// 5) 작업했던 값들을 키로 저장하여 view 페이지로 넘기기
+		request.setAttribute("memList", memList);
+		request.setAttribute("boardList", boardList);
+
+		request.setAttribute("find_field", find_field);
+		request.setAttribute("find_data", find_data);
 
 		request.setAttribute("page", page);
 		request.setAttribute("rowsize", rowsize);
@@ -72,7 +107,7 @@ public class AdminMemberListAction implements Action {
 
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);
-		forward.setPath("view/admin/admin_member.jsp");
+		forward.setPath("view/admin/verify_search_list.jsp");
 
 		return forward;
 	}

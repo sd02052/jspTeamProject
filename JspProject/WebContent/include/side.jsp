@@ -113,7 +113,7 @@
 				<div class="avatar clearfix avatar-medium">
 				
 				<% if(dto1 != null){ %> <!-- 사용자로 로그인 후 -->
-					<a href="#" class="avatar-photo"><img src="https://lh3.googleusercontent.com/a/AATXAJxAd1fAgDKwhOBObrDhui25mDjfXTPhhjFs_Nv7=s96-c"></a>
+					<a href="#" class="avatar-photo"><img src="<%=request.getContextPath() %>/images/<%=dto1.getMem_image() %>"></a>
 					<div class="avatar-info">
 						<a class="nickname" href="<%=request.getContextPath() %>/view/member/member_personal.jsp"><%=dto1.getMem_nick() %></a>
 						<div class="activity block">
@@ -222,7 +222,7 @@
 				<div id="demo6" class="collapse">
 					<ul>
 						<li><a id="menu6-1" href="<%=request.getContextPath() %>/admin_member_list.do">회원 관리</a></li>
-						<li><a id="menu6-2" href="<%=request.getContextPath() %>/view/admin/admin_verify_list.jsp">회사 인증관리</a></li>
+						<li><a id="menu6-2" href="<%=request.getContextPath() %>/admin_verify_list.do">회사 인증관리</a></li>
 					</ul>
 				</div>
 			</li>

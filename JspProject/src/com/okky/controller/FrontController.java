@@ -23,10 +23,6 @@ public class FrontController extends HttpServlet {
 		String uri = request.getRequestURI();
 		String path = request.getContextPath();
 		String command = uri.substring(path.length() + 1);
-		
-		System.out.println("uri >> " + uri);
-		System.out.println("path >> " + path);
-		System.out.println("command >> " + command);
 
 		Action action = null;
 		ActionForward forward = null;
@@ -34,11 +30,9 @@ public class FrontController extends HttpServlet {
 		Properties prop = new Properties();
 
 		FileInputStream fis = new FileInputStream(
-				"C:\\Users\\SIST\\git\\jspTeamProject\\JspProject\\src\\com\\okky\\controller\\mapping.properties");
+				"C:\\Users\\SOS\\git\\jspTeamProject\\JspProject\\src\\com\\okky\\controller\\mapping.properties");
 		prop.load(fis);
 		String value = prop.getProperty(command);
-		
-		System.out.println("value >> " + value);
 
 		if (value.substring(0, 7).equals("execute")) {
 			StringTokenizer st = new StringTokenizer(value, "|");

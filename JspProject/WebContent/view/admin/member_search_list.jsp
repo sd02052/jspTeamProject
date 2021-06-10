@@ -45,16 +45,21 @@ $(function(){
 									<div class="input-group">
 										<span class="search-list input-group-btn">
 											<select name="field" class="btn btn-default dropdown-toggle">
-												<option value="all">-전체검색-</option>
-												<option value="id">아이디</option>
-												<option value="nick">닉네임</option>
-												<option value="check">상태</option>
+												<option value="all" <c:if test="${find_field.equals('all') }">selected="selected"</c:if>>-전체검색-</option>
+												<option value="id" <c:if test="${find_field.equals('id') }">selected="selected"</c:if>>아이디</option>
+												<option value="nick" <c:if test="${find_field.equals('nick') }">selected="selected"</c:if>>닉네임</option>
+												<option value="check" <c:if test="${find_field.equals('check') }">selected="selected"</c:if>>상태</option>
 											</select>
 										</span>
-										<input type="text" class="form-control" name="data" placeholder="검색어" aria-describedby="basic-addon2">
+										<input type="text" class="form-control" name="data" placeholder="${find_data }" aria-describedby="basic-addon2">
 										<span class="input-group-btn">
 											<button type="submit" class="btn btn-default">
 												<i class="fas fa-search"></i>
+											</button>
+										</span>
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/admin_member_list.do'">
+												<i class="fas fa-times-circle"></i>&nbsp;clear
 											</button>
 										</span>
 									</div>				
@@ -117,22 +122,25 @@ $(function(){
 										</c:if>
 										<c:if test="${empty list }">
 											<li class="list-group-item list-group-item-question list-group-has-note clearfix">
-													등록된 회원이 없습니다.
+													검색된 회원이 없습니다.
 											</li>
 										</c:if>
+										
+										
 									</ul>
 									<button type="submit" class="btn btn-default">강제탈퇴</button>
 								</form>
 							</div>
 						</div>
 	
+					<c:if test="${!empty List }">
 						<nav>
 						<div align="center">
 						  <ul class="pagination">
 						  
 						  <c:if test="${page > 1 }">
 							    <li>
-							      <a href="admin_member_list.do?page=1" aria-label="Previous">
+							      <a href="search_member.do?page=1&field=${find_field }&data=${find_data }" aria-label="Previous">
 							        <span aria-hidden="true">&laquo;</span>
 							      </a>
 							    </li>
@@ -148,17 +156,17 @@ $(function(){
 						    
 						    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
 							    <c:if test="${i == page }">
-							   		<li class="active"><a href="admin_verify_list.do?page=${i }">${i }</a></li>
+							   		<li class="active"><a href="search_member.do?page=${i }&field=${find_field }&data=${find_data }">${i }</a></li>
 							    </c:if>
 							    
 							    <c:if test="${i != page }">
-								    <li><a href="admin_member_list.do?page=${i }">${i }</a></li>
+								    <li><a href="search_member.do?page=${i }&field=${find_field }&data=${find_data }">${i }</a></li>
 							    </c:if>
 						    </c:forEach>
 						    
 						    <c:if test="${page < allPage }">
 							    <li>
-							      <a href="admin_member_list.do?page=${allPage }" aria-label="Next">
+							      <a href="search_member.do?page=${allPage }" aria-label="Next">
 							        <span aria-hidden="true">&raquo;</span>
 							      </a>
 							    </li>
@@ -174,6 +182,7 @@ $(function(){
 						  </ul>
 						  </div>
 						</nav>
+					</c:if>
 
 					</div>
 				</div>

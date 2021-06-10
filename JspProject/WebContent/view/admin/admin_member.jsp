@@ -13,22 +13,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 
-function checkAll() {
+function checkAll() {  /* 체크박스 전체선택 함수 */
 	$("input[name=check]").prop("checked", $("#checkAll").prop("checked"));
 };
-
-/* function checking() {
-	
-	let num = new Array();
-	
-	$("input:checkbox[name=check]:checked").each(function() {
-		numArray.push(this.value)
-		out.println("num>>"+num);
-		href.location("member_check.do?num="+num);
-	});
-	
-
-}; */
 
 $(function(){
 	$("#menu6").css("border-right","5px solid #e67d3e");
@@ -134,7 +121,8 @@ $(function(){
 											</li>
 										</c:if>
 									</ul>
-									<button type="submit" class="btn btn-default" <%--onclick="checking()"--%>>강제탈퇴</button>
+									<button type="submit" class="btn btn-default">강제탈퇴</button>
+									<button type="submit" class="btn btn-default">강제탈퇴</button>
 								</form>
 							</div>
 						</div>

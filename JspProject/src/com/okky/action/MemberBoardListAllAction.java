@@ -21,31 +21,32 @@ public class MemberBoardListAllAction implements Action {
 		int cate_num = Integer.parseInt(request.getParameter("cate_num"));
 		String big_category = request.getParameter("big").trim();
 		String small_category = request.getParameter("small").trim();
-		
+
 		BoardDAO dao1 = BoardDAO.getInstance();
-		
+
 		dao1.setBoardLike();
 		dao1.setBoardScrap();
 		dao1.setBoardComment();
-		
+
 		List<BoardDTO> list = dao1.getBoardListAll(cate_num);
 		List<MemberDTO> list2 = dao1.getMemberList(list);
-		
-		
+		List<CategoryDTO> list3 = dao1.getCategoryAllList(list);
+
 		CategoryDAO dao2 = CategoryDAO.getInstance();
-		
-		CategoryDTO category = dao2.getCategory(cate_num);
-		
+
+		CategoryDTO category = dao2.getCategoryAll(cate_num);
+
 		request.setAttribute("boardList", list);
 		request.setAttribute("memberList", list2);
+		request.setAttribute("categoryList", list3);
 		request.setAttribute("category", category);
 		request.setAttribute("big_category", big_category);
 		request.setAttribute("small_category", small_category);
-		
+
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);
 		forward.setPath("view/member/board.jsp");
-		
+
 		return forward;
 	}
 

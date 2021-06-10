@@ -110,6 +110,9 @@
   .list-group-has-note {
     border-left: 3px #3a93de solid !important;
   }
+  .list-group-no-note {
+    border-left: 3px #ddd solid !important;
+  }
   .list-group-item {
     padding: 6px 10px !important;
   }

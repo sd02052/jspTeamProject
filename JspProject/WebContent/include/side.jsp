@@ -68,7 +68,7 @@
 	<div class="sidebar">
 		<h1>
 			<div class="logo">
-				<a href="<%=request.getContextPath() %>/view/member/main.jsp">
+				<a href="<%=request.getContextPath() %>/view/member/start.jsp">
 					<img src="<%=request.getContextPath() %>/images/okjsp_logo.png">
 				</a>
 			</div>
@@ -113,7 +113,7 @@
 				<div class="avatar clearfix avatar-medium">
 				
 				<% if(dto1 != null){ %> <!-- 사용자로 로그인 후 -->
-					<a href="#" class="avatar-photo"><img src="https://lh3.googleusercontent.com/a/AATXAJxAd1fAgDKwhOBObrDhui25mDjfXTPhhjFs_Nv7=s96-c"></a>
+					<a href="#" class="avatar-photo"><img src="<%=request.getContextPath() %>/images/<%=dto1.getMem_image() %>"></a>
 					<div class="avatar-info">
 						<a class="nickname" href="<%=request.getContextPath() %>/view/member/member_personal.jsp"><%=dto1.getMem_nick() %></a>
 						<div class="activity block">
@@ -179,12 +179,12 @@
 					<ul>
 						<li><a id="menu3-1" href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=3&big='menu3'&small='menu3-1'">All</a></li>
 						<li><a id="menu3-2" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=8&big='menu3'&small='menu3-2'">공지사항</a></li>
-						<li><a id="menu3-3" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=9&big='menu3'&small='menu3-2'">사는얘기</a></li>
-						<li><a id="menu3-4" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=10&big='menu3'&small='menu3-3'">포럼</a></li>
-						<li><a id="menu3-5" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=11&big='menu3'&small='menu3-4'">IT 행사</a></li>
-						<li><a id="menu3-6" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=12&big='menu3'&small='menu3-5'">기술 서적 리뷰</a></li>
-						<li><a id="menu3-7" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=13&big='menu3'&small='menu3-6'">정기모임/스터디</a></li>
-						<li><a id="menu3-8" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=14&big='menu3'&small='menu3-7'">학원/홍보</a></li>
+						<li><a id="menu3-3" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=9&big='menu3'&small='menu3-3'">사는얘기</a></li>
+						<li><a id="menu3-4" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=10&big='menu3'&small='menu3-4'">포럼</a></li>
+						<li><a id="menu3-5" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=11&big='menu3'&small='menu3-5'">IT 행사</a></li>
+						<li><a id="menu3-6" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=12&big='menu3'&small='menu3-6'">기술 서적 리뷰</a></li>
+						<li><a id="menu3-7" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=13&big='menu3'&small='menu3-7'">정기모임/스터디</a></li>
+						<li><a id="menu3-8" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=14&big='menu3'&small='menu3-8'">학원/홍보</a></li>
 					</ul>
 				</div>
 			</li>
@@ -195,7 +195,7 @@
 				</a>
 				<div id="demo4" class="collapse">
 					<ul>
-						<li><a id="menu4-1" href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=4">All</a></li>
+						<li><a id="menu4-1" href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=4&big='menu4'&small='menu4-1'">All</a></li>
 					</ul>
 				</div>
 			</li>

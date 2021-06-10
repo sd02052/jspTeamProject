@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,14 +35,38 @@
 	padding: 3px 8px;
 }
 </style>
+<c:set var="big_category" value="${big_category }" />
+<c:set var="small_cattegory" value="${small_category }" />
 <script type="text/javascript">
-
+$(function(){
+	$("#"+${big_category }).css("border-right","5px solid #e67d3e");
+	$("#"+${small_category }).css("color","#fff");
+});
+</script>
+<script type="text/javascript">
 $(document).ready(function(){
 
   $('[data-toggle="tooltip"]').tooltip();   
 
 });
-
+</script>
+<script type="text/javascript">
+function commentEdit(){
+	$(".dropdown").css("display","none");
+	$(".buttons").css("display","block");
+	$(".com-content").css("display","none");
+	$(".com-edit-area").css("display","block");
+};
+</script>
+<script type="text/javascript">
+function commentEditCancle(){
+	$(".dropdown").css("display","block");
+	$(".buttons").css("display","none");
+	$(".com-content").css("display","block");
+	$(".com-edit-area").css("display","none");
+	$(".com-edit-area").css("display","none");
+	document.getElementById("editForm").reset();
+};
 </script>
 </head>
 <body>
@@ -54,12 +79,7 @@ $(document).ready(function(){
 				<div id="article" class="div">
 
 					<div class="nav">
-						<h4>(카테고리명)</h4>
-						<button type="button"
-							class="btn-write create btn btn-success btn-wide pull-right"
-							onclick="location.href='<%=request.getContextPath()%>/view/member/board_write'">
-							<i class="fas fa-pencil-alt"></i>&nbsp;새 글 쓰기
-						</button>
+						<h4>${category.getCate_name() }</h4>
 					</div>
 
 					<br>
@@ -71,28 +91,24 @@ $(document).ready(function(){
 								<td colspan="12">
 									<div class="cont-header">
 										<div class="cont-member pull-left">
-											<a
-												href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
-												<img
-												src="<%=request.getContextPath() %>/images/profile00.png"
-												class="cont-mem-logo img-circle">
+											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
+												<img src="<%=request.getContextPath() %>/images/${writer.getMem_image() }" class="cont-mem-logo img-circle">
 											</a>
 
-
 											<div class="cont-mem-info">
-												<a class="cont-mem-nick"
-													href="<%=request.getContextPath()%>/view/member/member_personal.jsp">(글작성자
-													닉네임)</a> <span class="cont-activity"><i
-													class="activity-img fas fa-bolt"></i>&nbsp;(활동점수)</span><br>
+												<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
+												${writer.getMem_nick() }</a> 
+												<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${writer.getMem_score() }</span>
+												<br>
 
-												<div class="cont-regdate">(작성일자)</div>
+												<div class="cont-regdate">${dto.getBoard_regdate() }</div>
 
 											</div>
 										</div>
 
 										<div class="cont-wrapper pull-right">
-											<i class="comment-img fas fa-comment"></i>&nbsp;(댓글수)&nbsp;&nbsp;
-											<i class="hit-img far fa-eye"></i>&nbsp;(조회수)
+											<i class="comment-img fas fa-comment"></i>&nbsp;${dto.getBoard_comment() }&nbsp;&nbsp;
+											<i class="hit-img far fa-eye"></i>&nbsp;${dto.getBoard_hit() }
 										</div>
 
 									</div>
@@ -101,12 +117,11 @@ $(document).ready(function(){
 							<tr>
 								<td class="col-md-10">
 									<div class="cont-content">
-										<span class="cont-num">#(글번호)</span> <a href=""> <span
-											class="label label-info"><i
-												class="comment-img fas fa-comment"></i>&nbsp;(카테고리명)</span>
-										</a><br> <span class="cont-title">(글제목)</span>
+										<span class="cont-num"># ${dto.getBoard_num() }</span> <a href=""> <span
+											class="label label-info">${category.getCate_name() }</span>
+										</a><br> <span class="cont-title">${dto.getBoard_title() }</span>
 										<hr>
-										<p>(글 내용)</p>
+										<p>${dto.getBoard_content() }</p>
 									</div>
 								</td>
 
@@ -116,7 +131,7 @@ $(document).ready(function(){
 											<a href=""> <i class="img fas fa-angle-up fa-2x"
 												data-toggle="tooltip" data-placement="left" title="추천"></i>
 											</a>
-											<p class="recommend-count">(추천 수)</p>
+											<p class="recommend-count">${dto.getBoard_like() }</p>
 											<a href=""> <i class="img fas fa-angle-down fa-2x"
 												data-toggle="tooltip" data-placement="left" title="반대"></i>
 											</a>
@@ -125,7 +140,7 @@ $(document).ready(function(){
 										<div class="cont-scrap">
 											<a href=""> <i class="img fas fa-bookmark fa-2x"
 												data-toggle="tooltip" data-placement="left" title="스크랩"></i><br>
-											</a> <span class="badge-scrap badge">(스크랩 수)</span>
+											</a> <span class="badge-scrap badge">${dto.getBoard_scrap() }</span>
 										</div>
 										<div class="cont-facebook">
 											<a href=""> <i
@@ -145,153 +160,113 @@ $(document).ready(function(){
 						<table class="table table-bordered">
 							<tr>
 								<td colspan="12" class="active"><span class="comment-title">댓글
-										(댓글 수)</span></td>
+										${dto.getBoard_comment() }</span></td>
 							</tr>
 
-							<!-- 다른 회원이 작성한 댓글 -->
-							<tr>
-								<td class="col-md-10">
-									<div class="cont-member pull-left">
-										<a
-											href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
-											<img
-											src="<%=request.getContextPath() %>/images/profile01.png"
-											class="cont-mem-logo img-circle">
-										</a>
+							<c:if test="${!empty commentList }">
+								<c:forEach items="${commentList }" var="dto" varStatus="status">
+										<!-- 다른 회원이 작성한 댓글 -->
+										<tr>
+											<td class="col-md-10">
+												<div class="cont-member pull-left">
+													<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"> <img src="<%=request.getContextPath()%>/images/${commentWriterList[status.index].getMem_image() }" class="cont-mem-logo img-circle">
+													</a>
 
-										<div class="cont-mem-info">
-											<a class="cont-mem-nick"
-												href="<%=request.getContextPath()%>/view/member/member_personal.jsp">(댓글작성자
-												닉네임)</a> <span class="cont-activity"><i
-												class="activity-img fas fa-bolt"></i>&nbsp;(활동점수)</span><br>
+													<div class="cont-mem-info">
+														<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp"> ${commentWriterList[status.index].getMem_nick() }</a> <span class="cont-activity"> <i class="activity-img fas fa-bolt"></i>&nbsp;${commentWriterList[status.index].getMem_score() }
+														</span> <br>
+														<div class="cont-regdate">${dto.getCom_regdate() }</div>
+													</div>
+												</div>
+												<br> <br> <br>
+												<c:set var="content" value="${dto.getCom_content() }" />
+												<div class="com-content pull-left">
+													<p>${dto.getCom_content() }</p>
+												</div>
+												<form id="editForm">
+													<textarea class="form-control com-edit-area" name="com_content" rows="3" style="display: none;">${dto.getCom_content() }</textarea>
+												</form>
+											</td>
 
-											<div class="cont-regdate">(작성일자)</div>
-										</div>
-									</div> <br> <br> <br>
-									<div class="com-content pull-left">
-										<p>(댓글 내용)</p>
-									</div>
-								</td>
+											<td class="col-md-2">
+												<div class="cont-recommend">
+													<a href=""> <i class="img fas fa-angle-up" data-toggle="tooltip" data-placement="left" title="추천"></i>
+													</a>
+													<p class="com-recommend-count">${dto.getCom_like() }</p>
+													<a href=""> <i class="img fas fa-angle-down" data-toggle="tooltip" data-placement="left" title="반대"></i>
+													</a>
+												</div>
+												<c:if test="${loginNum == dto.getCom_writer() }"> <!-- 자신이 작성한 댓글일 경우 -->
+												<div class="com-edit dropdown">
+													<button class="com-edit-btn btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+														<i class="facebook-img fas fa-cog" data-toggle="tooltip" data-placement="left" title="게시물 설정"></i>
+													</button>
+													<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+														<li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="commentEdit()"> 
+														<i class="fas fa-edit"></i>&nbsp;수정
+														</a></li>
+														<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_comment_delete.do?num=${dto.getCom_num()}&board_num=${dto.getCom_target()}" onclick="return confirm('댓글을 삭제 하시겠습니까?');"> 
+														<i class="fas fa-trash-alt"></i>&nbsp;삭제
+														</a></li>
+													</ul>
+												</div>
+												
+												<div class="buttons" style="display: none;" align="center">
+													<p>
+														<a href="javascript:commentEditCancle();" class="btn btn-default btn-wide note-edit-cancel-btn" onclick="return confirm('수정중이던 내용을 취소하시겠습니까?');">취소</a>
+													</p>
+													<p>
+														<input type="submit" name="create" class="btn btn-success btn-wide" value="저장" id="create">
+													</p>
+												</div>
+											</c:if>
+											</td>
+										</tr>
+								</c:forEach>
+							</c:if>
 
-								<td class="col-md-2">
-									<div class="cont-recommend">
-										<a href=""> <i class="img fas fa-angle-up"
-											data-toggle="tooltip" data-placement="left" title="추천"></i>
-										</a>
-										<p class="com-recommend-count">(추천 수)</p>
-										<a href=""> <i class="img fas fa-angle-down"
-											data-toggle="tooltip" data-placement="left" title="반대"></i>
-										</a>
-									</div>
-								</td>
-							</tr>
-
-							<!-- 로그인한 회원이 작성한 댓글 -->
-							<tr>
-								<td class="col-md-10">
-									<div class="cont-member pull-left">
-										<a
-											href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
-											<img
-											src="<%=request.getContextPath() %>/images/profile00.png"
-											class="cont-mem-logo img-circle">
-										</a>
-
-										<div class="cont-mem-info">
-											<a class="cont-mem-nick"
-												href="<%=request.getContextPath()%>/view/member/member_personal.jsp">(로그인한
-												회원 닉네임)</a> <span class="cont-activity"><i
-												class="activity-img fas fa-bolt"></i>&nbsp;(활동점수)</span><br>
-
-											<div class="cont-regdate">(작성일자)</div>
-										</div>
-									</div> <br> <br> <br>
-									<div class="com-content pull-left">
-										<p>(로그인한 회원이 작성한 댓글 내용)</p>
-									</div>
-								</td>
-
-								<td class="col-md-2">
-									<div class="cont-recommend">
-										<a href=""> <i class="img fas fa-angle-up"
-											data-toggle="tooltip" data-placement="left" title="추천"></i>
-										</a>
-										<p class="com-recommend-count">(추천 수)</p>
-										<a href=""> <i class="img fas fa-angle-down"
-											data-toggle="tooltip" data-placement="left" title="반대"></i>
-										</a>
-									</div>
-
-									<div class="com-edit dropdown">
-										<button class="com-edit-btn btn dropdown-toggle" type="button"
-											id="dropdownMenu1" data-toggle="dropdown"
-											aria-expanded="true">
-											<i class="facebook-img fas fa-cog" data-toggle="tooltip"
-												data-placement="left" title="게시물 설정"></i>
-										</button>
-
-										<ul class="dropdown-menu" role="menu"
-											aria-labelledby="dropdownMenu1">
-											<li role="presentation"><a role="menuitem" tabindex="-1"
-												href="#"> <i class="fas fa-edit"></i>&nbsp;수정
-											</a></li>
-											<li role="presentation"><a role="menuitem" tabindex="-1"
-												href="#"> <i class="fas fa-trash-alt"></i>&nbsp;삭제
-											</a></li>
-										</ul>
-									</div>
-								</td>
-							</tr>
-
+							<c:if test="${loginNum != null}">
 							<!-- 댓글 작성창 -->
-
 							<tr>
 								<td colspan="10">
-									<form method="post" action="">
-										<input type="hidden" name="com_writer"> <input
-											type="hidden" name="com_target">
-
+									<form method="post" action="<%=request.getContextPath() %>/member_comment_write.do">
+										<input type="hidden" name="com_writer" value="${loginNum}"> <input
+											type="hidden" name="com_target" value="${dto.getBoard_num() }">
 										<div class="cont-member pull-left">
 											<a
 												href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
 												<img
-												src="<%=request.getContextPath() %>/images/profile00.png"
+												src="<%=request.getContextPath() %>/images/${login_mem.getMem_image() }"
 												class="cont-mem-logo img-circle">
 											</a>
 
 											<div class="cont-mem-info">
 												<a class="cont-mem-nick"
-													href="<%=request.getContextPath()%>/view/member/member_personal.jsp">(로그인한
-													회원 닉네임)</a> <span class="cont-activity"><i
-													class="activity-img fas fa-bolt"></i>&nbsp;(활동점수)</span><br>
-
-												<div class="cont-regdate">(작성일자)</div>
+													href="<%=request.getContextPath()%>/view/member/member_personal.jsp">${login_mem.getMem_nick() }</a> <br><span class="cont-activity"><i
+													class="activity-img fas fa-bolt"></i>&nbsp;${login_mem.getMem_score() }</span><br>
 											</div>
 										</div>
-
 										<br> <br> <br>
-
 										<textarea class="form-control" name="com_content"
 											placeholder="댓글 쓰기" rows="3"></textarea>
 										<br> <input type="submit"
 											class="btn btn-success comment-submit pull-right" value="등록">
 									</form>
 							</tr>
+							</c:if>
 						</table>
-
+						
+						<c:if test="${loginNum == null}">
 						<%-- 로그인 하지 않은 경우 댓글창 --%>
 						<table class="table table-bordered">
 							<tr>
-								<td colspan="12" class="active"><span class="comment-title">댓글
-										(댓글 수)</span></td>
-							</tr>
-							<tr>
-								<td><span> <a
+								<td align="center"><span> <a
 										href="<%=request.getContextPath()%>/view/member/login.jsp">로그인</a>
 										을 하시면 답변을 등록할 수 있습니다.
 								</span></td>
 							</tr>
 						</table>
+						</c:if>
 					</div>
 				</div>
 			</div>

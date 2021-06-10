@@ -198,37 +198,37 @@ public class MemberDAO {
 		}
 		return list;
 	}
-	
+
 	// 회원 가입(멤버추가)
 	public int signUp(MemberDTO dto) {
 
 		int result = 0, count = 0;
-		
+
 		try {
-			
+
 			openConn();
-			
+
 			sql = "select count(*) from okky_member";
-			
+
 			pstmt = con.prepareStatement(sql);
-			
+
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				count = rs.getInt(1) + 1;
 			}
-			
+
 			sql = "insert into okky_member values(?,?,?,?,?,?,sysdate,default,default,default,default)";
-			
+
 			pstmt = con.prepareStatement(sql);
-			
+
 			pstmt.setInt(1, count);
 			pstmt.setString(2, dto.getMem_id());
 			pstmt.setString(3, dto.getMem_nick());
 			pstmt.setString(4, dto.getMem_pwd());
 			pstmt.setString(5, dto.getMem_image());
 			pstmt.setString(6, dto.getMem_email());
-			
+
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -710,5 +710,35 @@ public class MemberDAO {
 			closeConn(rs, pstmt, con);
 		}
 		return list;
+	}
+
+	public void commentUpScore(int num) {
+		try {
+			openConn();
+			sql = "update okky_member set mem_score = mem_score + 2 where mem_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+	}
+	
+	public void commentDownScore(int num) {
+		try {
+			openConn();
+			sql = "update okky_member set mem_score = mem_score - 2 where mem_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
 	}
 }

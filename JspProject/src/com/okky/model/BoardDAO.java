@@ -121,13 +121,13 @@ public class BoardDAO {
 	// 검색해서 나온 회사번호와 동일한 글번호에 해당하는 정보를 조회하는 메서드
 	public List<BoardDTO> getSearchBoardList(String field, String data, int page, int rowsize) {
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
-		
+
 		int startNo = (page * rowsize) - (rowsize - 1); // 해당 페이지에서 시작 번호
 		int endNo = (page * rowsize); // 해당 페이지에서 마지막 번호
 
 		openConn();
 		if (field.equals("all")) { // 전체검색의 경우(회사명, 작성회원, 상태)
-			
+
 			String check_data = "";
 
 			if (data.equals("대기")) {
@@ -137,7 +137,7 @@ public class BoardDAO {
 			} else if (data.equals("거절")) {
 				check_data = "2";
 			}
-			
+
 			sql = "select company_target from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
 					+ "where company_name like ? or company_check like ? or company_target in "
 					+ "(select board_num from okky_board where board_writer in "
@@ -153,15 +153,15 @@ public class BoardDAO {
 				pstmt.setInt(5, endNo);
 
 				rs = pstmt.executeQuery();
-				
+
 				while (rs.next()) {
 					sql = "select * from okky_board where board_num = ? order by board_num desc";
-					
+
 					pstmt = con.prepareStatement(sql);
 					pstmt.setInt(1, rs.getInt(1));
 					ResultSet rs1 = pstmt.executeQuery();
-					
-					while(rs1.next()) {
+
+					while (rs1.next()) {
 						BoardDTO dto = new BoardDTO();
 
 						dto.setBoard_num(rs1.getInt("board_num"));
@@ -210,12 +210,12 @@ public class BoardDAO {
 
 			while (rs.next()) {
 				sql = "select * from okky_board where board_num = ? order by board_num desc";
-				
+
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, rs.getInt(1));
 				ResultSet rs1 = pstmt.executeQuery();
-				
-				while(rs1.next()) {
+
+				while (rs1.next()) {
 					BoardDTO dto = new BoardDTO();
 
 					dto.setBoard_num(rs1.getInt("board_num"));
@@ -239,6 +239,21 @@ public class BoardDAO {
 			closeConn(rs, pstmt, con);
 		}
 		return list;
+	}
+
+	public void boardHit(int num) {
+		try {
+			openConn();
+			sql = "update okky_board set board_hit = board_hit + 1 where board_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
 	}
 
 	public void setBoardLike() {
@@ -489,4 +504,75 @@ public class BoardDAO {
 		}
 		return list;
 	}
+
+	public BoardDTO getBoardCont(int num) {
+		BoardDTO dto = new BoardDTO();
+
+		try {
+			openConn();
+			sql = "select * from okky_board where board_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				dto.setBoard_num(rs.getInt("board_num"));
+				dto.setBoard_title(rs.getString("board_title"));
+				dto.setBoard_writer(rs.getInt("board_writer"));
+				dto.setBoard_content(rs.getString("board_content"));
+				dto.setBoard_hit(rs.getInt("board_hit"));
+				dto.setBoard_like(rs.getInt("board_like"));
+				dto.setBoard_scrap(rs.getInt("board_scrap"));
+				dto.setBoard_category(rs.getInt("board_category"));
+				dto.setBoard_regdate(rs.getString("board_regdate"));
+				dto.setBoard_comment(rs.getInt("board_comment"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return dto;
+	}
+
+	public MemberDTO getWriter(int num) {
+		MemberDTO dto = new MemberDTO();
+
+		try {
+			openConn();
+			sql = "select board_writer from okky_board where board_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				int board_writer = rs.getInt("board_writer");
+				sql = "select * from okky_member where mem_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, board_writer);
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					dto.setMem_num(rs.getInt("mem_num"));
+					dto.setMem_id(rs.getString("mem_id"));
+					dto.setMem_nick(rs.getString("mem_nick"));
+					dto.setMem_pwd(rs.getString("mem_pwd"));
+					dto.setMem_image(rs.getString("mem_image"));
+					dto.setMem_email(rs.getString("mem_email"));
+					dto.setMem_regdate(rs.getString("mem_regdate"));
+					dto.setMem_emailCheck(rs.getString("mem_emailcheck"));
+					dto.setMem_check(rs.getString("mem_check"));
+					dto.setMem_score(rs.getInt("mem_score"));
+					dto.setMem_company(rs.getInt("mem_company"));
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return dto;
+	}
+
 }

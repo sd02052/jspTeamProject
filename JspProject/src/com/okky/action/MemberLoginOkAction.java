@@ -35,6 +35,7 @@ public class MemberLoginOkAction implements Action {
 				MemberDTO dto = dao.getMember(login_id);
 				
 				session.setAttribute("loginNum", dto.getMem_num());
+				session.setAttribute("loginMember", dto);
 				session.setAttribute("loginType", loginType);
 				
 				forward.setRedirect(false);

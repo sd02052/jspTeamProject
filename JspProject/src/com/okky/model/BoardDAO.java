@@ -459,5 +459,43 @@ public class BoardDAO {
 		}
 		return list;
 	}
+	
+	// 특정 회원이 작성한 게시물 내용을 불러오는 메서드
+	public List<BoardDTO> getMemberBoardList(int num) {
+		List<BoardDTO> list = new ArrayList<>();
+		
+		try {
+			openConn();
+			sql = "select * from okky_board where board_writer = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
+				
+				dto.setBoard_num(rs.getInt("board_num"));
+				dto.setBoard_title(rs.getString("board_title"));
+				dto.setBoard_writer(rs.getInt("board_writer"));
+				dto.setBoard_content(rs.getString("board_content"));
+				dto.setBoard_hit(rs.getInt("board_hit"));
+				dto.setBoard_like(rs.getInt("board_like"));
+				dto.setBoard_scrap(rs.getInt("board_scrap"));
+				dto.setBoard_category(rs.getInt("board_category"));
+				dto.setBoard_regdate(rs.getString("board_regdate"));
+				dto.setBoard_comment(rs.getInt("board_comment"));
+				
+				list.add(dto);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+		return list;
+	}
 
 }

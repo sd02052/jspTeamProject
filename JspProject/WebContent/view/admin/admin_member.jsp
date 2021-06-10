@@ -93,10 +93,10 @@ $(function(){
 													<div class="col-xs-2">${dto.getMem_id() }</div>					
 													<div class="cont-member col-xs-3">	
 														<div>
-															<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
+															<a href="<%=request.getContextPath()%>/member_personal.do?num=${dto.getMem_num()}">
 																<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
 															<div class="cont-mem-info">
-															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">${dto.getMem_nick() }</a><br>
+															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${dto.getMem_num()}">${dto.getMem_nick() }</a><br>
 															<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${dto.getMem_score() }</span>
 															</div>
 															

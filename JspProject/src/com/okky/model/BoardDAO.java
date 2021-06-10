@@ -232,12 +232,12 @@ public class BoardDAO {
 
 				dto.setBoard_num(rs.getInt("board_num"));
 				dto.setBoard_title(rs.getString("board_title"));
-				dto.setBoard_writer(rs.getInt("board_writer"));
+				dto.setBoard_writer(rs.getString("board_writer"));
 				dto.setBoard_content(rs.getString("board_content"));
 				dto.setBoard_hit(rs.getInt("board_hit"));
 				dto.setBoard_like(rs.getInt("board_like"));
 				dto.setBoard_scrap(rs.getInt("board_scrap"));
-				dto.setBoard_category(rs.getInt("board_category"));
+				dto.setBoard_category(rs.getString("board_category"));
 				dto.setBoard_regdate(rs.getString("board_regdate"));
 				dto.setBoard_comment(rs.getInt("board_comment"));
 
@@ -286,35 +286,39 @@ public class BoardDAO {
 		return list;
 	}
 
-	public void getBoardPost(BoardDTO dto) {
-		
+	public int getBoardPost(BoardDTO dto) {
 		int result = 0, board_num = 0;
-
+		
 		try {
 			openConn();
+			sql = "select max(board_num) from okky_board";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+		
+
+			if(rs.next()) {
+				board_num = rs.getInt(1) + 1;
+			}
+			
 
 			sql = "insert into okky_board (board_num,board_title,board_writer,board_content,board_category,board_regdate)"
 					+ "values (?,?,?,?,?,SYSDATE)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, board_num);
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				board_num = rs.getInt(1) + 1;
-			}
-
-				pstmt.setInt(1, board_num);
-				pstmt.setString(2, dto.getBoard_title());
-				pstmt.setInt(3, dto.getBoard_writer());
-				pstmt.setString(4, dto.getBoard_content());
-				pstmt.setInt(8, dto.getBoard_category());
-				pstmt.setString(9, dto.getBoard_regdate());
+			pstmt.setString(2, dto.getBoard_title());
+			pstmt.setString(3, dto.getBoard_writer());
+			pstmt.setString(4, dto.getBoard_content());
+			pstmt.setString(8, dto.getBoard_category());
+			pstmt.setString(9, dto.getBoard_regdate());
 
 				result = pstmt.executeUpdate();
+				
+				rs.close(); pstmt.close(); con.close();
 
 		} catch (SQLException e) {
 			// TODO: handle exception
 		}
+		return result;
 	}
 
 }

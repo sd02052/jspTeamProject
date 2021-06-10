@@ -158,28 +158,32 @@
 							</ul>
 						</div>
 						
-						<div class="col-xs-12 d" style="border: 1px solid gray;">
-							<form action="getBoardPost" method="post" class="form-horizontal">
+						<form action="member_board_post.do" method="post" class="form-horizontal">
+						<input type="hidden" name="board_writer" />
+							<div class="col-xs-12 d" style="border: 1px solid gray;">
 								<div class="form-group">
 
 									<br> <label for="inputEmail3"
 										class="col-md-2 control-label"></label>
 									<div class="col-sm-8">
-										<select class="form-control">
+										<select class="form-control" name="category">
 											<option>게시판을 선택해 주세요.</option>
-											<option vlaue="1">Tech Q&A</option>
-											<option vlaue="2">Blockchain Q&A</option>
+											<option vlaue="Tech">Tech Q&A</option>
+											<option vlaue="Blockchain">Blockchain Q&A</option>
 										</select>
 									</div>
 								</div>
-
+								
+								<!-- 제목 카테고리 내용 어떻게보내야 하는지 정한다. -->
 								<div class="form-group">
 									<label for="inputEmail3" class="col-md-2 control-label"></label>
 									<div class="col-sm-8">
 										<input type="text" class="form-control" id="inputEmail3"
-											placeholder="제목을 입력해 주세요.">
+											placeholder="제목을 입력해 주세요." name="title">
 									</div>
 								</div>
+								
+								<!-- 태그는 DB에 없어 잠시 빼놓음 -->
 								<div class="form-group">
 									<label for="inputPassword3" class="col-md-2 control-label"></label>
 									<div class="col-sm-8">
@@ -191,7 +195,7 @@
 								<div class="row">
 									<label for="inputEmail3" class="col-md-2 control-label"></label>
 									<div class="col-sm-8 ">
-										<textarea class="form-control noresize" rows="15"></textarea>
+										<textarea class="form-control noresize" rows="15" name="content"></textarea>
 									</div>
 								</div>
 								<div class="col-xs-12 col-md-3">
@@ -203,7 +207,7 @@
 								</div>
 								<div class="col-xs-12 col-md-8">
 									<br> <br>
-									<button type="submit" class="btn btn-success" 
+									<button type="submit" class="btn btn-success"									
 										style="float: right;">등록</button>
 								</div>
 						</div>

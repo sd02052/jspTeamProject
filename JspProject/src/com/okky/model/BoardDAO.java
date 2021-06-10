@@ -22,6 +22,7 @@ public class BoardDAO {
 	public static final int ADMIN_LOGIN_NONEXIST = -2;
 
 	private static BoardDAO instance = null;
+	public static BoardDAO getBoardPost;
 
 	private BoardDAO() {
 
@@ -177,22 +178,22 @@ public class BoardDAO {
 		}
 	}
 
-	public List<MemberDTO> getMemberList(List<BoardDTO> boardList){
+	public List<MemberDTO> getMemberList(List<BoardDTO> boardList) {
 		List<MemberDTO> list = new ArrayList<MemberDTO>();
-		
+
 		try {
 			openConn();
-			
-			for(int i = 0; i < boardList.size(); i++) {
-				int board_writer =  boardList.get(i).getBoard_writer();
+
+			for (int i = 0; i < boardList.size(); i++) {
+				int board_writer = boardList.get(i).getBoard_writer();
 				sql = "select * from okky_member where mem_num = ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, board_writer);
 				rs = pstmt.executeQuery();
-				
-				while(rs.next()) {
+
+				while (rs.next()) {
 					MemberDTO dto = new MemberDTO();
-					
+
 					dto.setMem_num(rs.getInt("mem_num"));
 					dto.setMem_id(rs.getString("mem_id"));
 					dto.setMem_nick(rs.getString("mem_nick"));
@@ -204,7 +205,7 @@ public class BoardDAO {
 					dto.setMem_check(rs.getString("mem_check"));
 					dto.setMem_score(rs.getInt("mem_score"));
 					dto.setMem_company(rs.getInt("mem_company"));
-					
+
 					list.add(dto);
 				}
 			}
@@ -216,7 +217,7 @@ public class BoardDAO {
 		}
 		return list;
 	}
-	
+
 	public List<BoardDTO> getBoardListAll(int num) {
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
 		try {
@@ -239,7 +240,7 @@ public class BoardDAO {
 				dto.setBoard_category(rs.getInt("board_category"));
 				dto.setBoard_regdate(rs.getString("board_regdate"));
 				dto.setBoard_comment(rs.getInt("board_comment"));
-				
+
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -250,7 +251,7 @@ public class BoardDAO {
 		}
 		return list;
 	}
-	
+
 	public List<BoardDTO> getBoardList(int num) {
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
 		try {
@@ -273,7 +274,7 @@ public class BoardDAO {
 				dto.setBoard_category(rs.getInt("board_category"));
 				dto.setBoard_regdate(rs.getString("board_regdate"));
 				dto.setBoard_comment(rs.getInt("board_comment"));
-				
+
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -284,9 +285,36 @@ public class BoardDAO {
 		}
 		return list;
 	}
-	
-	public void getBoardPost() {
+
+	public void getBoardPost(BoardDTO dto) {
 		
+		int result = 0, board_num = 0;
+
+		try {
+			openConn();
+
+			sql = "insert into okky_board (board_num,board_title,board_writer,board_content,board_category,board_regdate)"
+					+ "values (?,?,?,?,?,SYSDATE)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, board_num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				board_num = rs.getInt(1) + 1;
+			}
+
+				pstmt.setInt(1, board_num);
+				pstmt.setString(2, dto.getBoard_title());
+				pstmt.setInt(3, dto.getBoard_writer());
+				pstmt.setString(4, dto.getBoard_content());
+				pstmt.setInt(8, dto.getBoard_category());
+				pstmt.setString(9, dto.getBoard_regdate());
+
+				result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
 	}
-	
+
 }

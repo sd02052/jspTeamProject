@@ -159,7 +159,7 @@
 						</div>
 						
 						<div class="col-xs-12 d" style="border: 1px solid gray;">
-							<form class="form-horizontal">
+							<form action="getBoardPost" method="post" class="form-horizontal">
 								<div class="form-group">
 
 									<br> <label for="inputEmail3"
@@ -203,8 +203,7 @@
 								</div>
 								<div class="col-xs-12 col-md-8">
 									<br> <br>
-									<button type="button" class="btn btn-success" 
-									onclick="location.href='/JspProject/member_board_Receip.do'"
+									<button type="submit" class="btn btn-success" 
 										style="float: right;">등록</button>
 								</div>
 						</div>

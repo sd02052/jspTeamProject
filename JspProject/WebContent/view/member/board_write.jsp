@@ -168,13 +168,13 @@
 									<div class="col-sm-8">
 										<select class="form-control" name="category">
 											<option>게시판을 선택해 주세요.</option>
-											<option vlaue="Tech">Tech Q&A</option>
-											<option vlaue="Blockchain">Blockchain Q&A</option>
+											<option vlaue="1">Tech Q&A</option>
+											<option vlaue="2">Blockchain Q&A</option>
 										</select>
 									</div>
 								</div>
 								
-								<!-- 제목 카테고리 내용 어떻게보내야 하는지 정한다. -->
+								<!-- 제목,카테고리,내용을 어떻게보내야 하는지 정한다. -->
 								<div class="form-group">
 									<label for="inputEmail3" class="col-md-2 control-label"></label>
 									<div class="col-sm-8">

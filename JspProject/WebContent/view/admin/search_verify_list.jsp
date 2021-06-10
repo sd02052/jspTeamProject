@@ -160,57 +160,57 @@ $(function(){
 							</div>
 						</div>
 		
-				<c:if test="${!empty List }">
-						<nav>
-						<div align="center">
-						  <ul class="pagination">
-						  
-						  <c:if test="${page > 1 }">
-							    <li>
-							      <a href="search_verify.do?page=1&field=${find_field }&data=${find_data }" aria-label="Previous">
-							        <span aria-hidden="true">&laquo;</span>
-							      </a>
-							    </li>
-						   </c:if>
-						   
-						   <c:if test="${page eq 1 }">
-							    <li>
-							      <a aria-label="Previous">
-							        <span aria-hidden="true">&laquo;</span>
-							      </a>
-							    </li>
-						   </c:if>
-						    
-						    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
-							    <c:if test="${i == page }">
-							   		<li class="active"><a href="search_verify.do?page=${i }&field=${find_field }&data=${find_data }">${i }</a></li>
+						<c:if test="${!empty List }">
+							<nav>
+							<div align="center">
+							  <ul class="pagination">
+							  
+							  <c:if test="${page > 1 }">
+								    <li>
+								      <a href="search_verify.do?page=1&field=${find_field }&data=${find_data }" aria-label="Previous">
+								        <span aria-hidden="true">&laquo;</span>
+								      </a>
+								    </li>
+							   </c:if>
+							   
+							   <c:if test="${page eq 1 }">
+								    <li>
+								      <a aria-label="Previous">
+								        <span aria-hidden="true">&laquo;</span>
+								      </a>
+								    </li>
+							   </c:if>
+							    
+							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
+								    <c:if test="${i == page }">
+								   		<li class="active"><a href="search_verify.do?page=${i }&field=${find_field }&data=${find_data }">${i }</a></li>
+								    </c:if>
+								    
+								    <c:if test="${i != page }">
+									    <li><a href="search_verify.do?page=${i }&field=${find_field }&data=${find_data }">${i }</a></li>
+								    </c:if>
+							    </c:forEach>
+							    
+							    <c:if test="${page < allPage }">
+								    <li>
+								      <a href="search_verify.do?page=${allPage }&field=${find_field }&data=${find_data }" aria-label="Next">
+								        <span aria-hidden="true">&raquo;</span>
+								      </a>
+								    </li>
 							    </c:if>
 							    
-							    <c:if test="${i != page }">
-								    <li><a href="search_verify.do?page=${i }&field=${find_field }&data=${find_data }">${i }</a></li>
+							    <c:if test="${page eq allPage }">
+								    <li>
+								      <a aria-label="Next">
+								        <span aria-hidden="true">&raquo;</span>
+								      </a>
+								    </li>
 							    </c:if>
-						    </c:forEach>
-						    
-						    <c:if test="${page < allPage }">
-							    <li>
-							      <a href="search_verify.do?page=${allPage }&field=${find_field }&data=${find_data }" aria-label="Next">
-							        <span aria-hidden="true">&raquo;</span>
-							      </a>
-							    </li>
-						    </c:if>
-						    
-						    <c:if test="${page eq allPage }">
-							    <li>
-							      <a aria-label="Next">
-							        <span aria-hidden="true">&raquo;</span>
-							      </a>
-							    </li>
-						    </c:if>
-						  </ul>
-						  </div>
-						</nav>
-					</c:if>
-		
+							  </ul>
+							  </div>
+							</nav>
+						</c:if>
+			
 					</div>
 				</div>
 			<jsp:include page="../../include/footer.jsp" />

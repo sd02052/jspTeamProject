@@ -217,6 +217,115 @@
 						
 					</div>
 					<!-- 본문 끝 -->
+					
+					<%-- 카테고리가 all 인 경우 --%>
+					<c:if test="${cate.getCate_step() eq 0 }">
+					<c:if test="${!empty list }">
+						<nav>
+							<div align="center">
+							  <ul class="pagination">
+							  
+							  <c:if test="${page > 1 }">
+								    <li>
+								      <a href="member_board_list_all.do?page=1&cate_num=${cate_num }&big=${big_category }&small=${small_category }" aria-label="Previous">
+								        <span aria-hidden="true">&laquo;</span>
+								      </a>
+								    </li>
+							   </c:if>
+							   
+							   <c:if test="${page eq 1 }">
+								    <li>
+								      <a aria-label="Previous">
+								        <span aria-hidden="true">&laquo;</span>
+								      </a>
+								    </li>
+							   </c:if>
+							    
+							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
+								    <c:if test="${i == page }">
+								   		<li class="active"><a href="member_board_list_all.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }">${i }</a></li>
+								    </c:if>
+								    
+								    <c:if test="${i != page }">
+									    <li><a href="member_board_list_all.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }">${i }</a></li>
+								    </c:if>
+							    </c:forEach>
+							    
+							    <c:if test="${page < allPage }">
+								    <li>
+								      <a href="member_board_list_all.do?page=${allPage }&cate_num=${cate_num }&big=${big_category }&small=${small_category }" aria-label="Next">
+								        <span aria-hidden="true">&raquo;</span>
+								      </a>
+								    </li>
+							    </c:if>
+							    
+							    <c:if test="${page eq allPage }">
+								    <li>
+								      <a aria-label="Next">
+								        <span aria-hidden="true">&raquo;</span>
+								      </a>
+								    </li>
+							    </c:if>
+							  </ul>
+							  </div>
+						</nav>
+					</c:if>
+				</c:if>
+				
+				<%-- 세부 카테고리인 경우 --%>
+				<c:if test="${cate.getCate_step() ne 0 }">
+					<c:if test="${!empty list }">
+						<nav>
+							<div align="center">
+							  <ul class="pagination">
+							  
+							  <c:if test="${page > 1 }">
+								    <li>
+								      <a href="member_board_list.do?page=1&cate_num=${cate_num }&big=${big_category }&small=${small_category }" aria-label="Previous">
+								        <span aria-hidden="true">&laquo;</span>
+								      </a>
+								    </li>
+							   </c:if>
+							   
+							   <c:if test="${page eq 1 }">
+								    <li>
+								      <a aria-label="Previous">
+								        <span aria-hidden="true">&laquo;</span>
+								      </a>
+								    </li>
+							   </c:if>
+							    
+							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
+								    <c:if test="${i == page }">
+								   		<li class="active"><a href="member_board_list.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }">${i }</a></li>
+								    </c:if>
+								    
+								    <c:if test="${i != page }">
+									    <li><a href="member_board_list.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }">${i }</a></li>
+								    </c:if>
+							    </c:forEach>
+							    
+							    <c:if test="${page < allPage }">
+								    <li>
+								      <a href="member_board_list.do?page=${allPage }&cate_num=${cate_num }&big=${big_category }&small=${small_category }" aria-label="Next">
+								        <span aria-hidden="true">&raquo;</span>
+								      </a>
+								    </li>
+							    </c:if>
+							    
+							    <c:if test="${page eq allPage }">
+								    <li>
+								      <a aria-label="Next">
+								        <span aria-hidden="true">&raquo;</span>
+								      </a>
+								    </li>
+							    </c:if>
+							  </ul>
+							  </div>
+						</nav>
+					</c:if>
+				</c:if>
+					
 				</div>
 			</div>
 			<jsp:include page="../../include/footer.jsp" />

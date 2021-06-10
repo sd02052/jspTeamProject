@@ -171,11 +171,8 @@ public class CompanyDAO {
 	}
 
 	// okky_company 테이블에서 페이지에 해당하는 글 목록을 가져오는 메서드
-	public List<CompanyDTO> getCompanyList(int page, int rowsize) {
+	public List<CompanyDTO> getCompanyList(int startNo, int endNo) {
 		List<CompanyDTO> list = new ArrayList<>();
-
-		int startNo = (page * rowsize) - (rowsize - 1); // 해당 페이지에서 시작 번호
-		int endNo = (page * rowsize); // 해당 페이지에서 마지막 번호
 
 		try {
 			openConn();
@@ -283,11 +280,8 @@ public class CompanyDAO {
 	}
 
 	// okky_company 에서 페이지에 맞는 검색결과를 조회하는 메서드
-	public List<CompanyDTO> getSearchCompanyList(String field, String data, int page, int rowsize) {
+	public List<CompanyDTO> getSearchCompanyList(String field, String data, int startNo, int endNo) {
 		List<CompanyDTO> list = new ArrayList<>();
-
-		int startNo = (page * rowsize) - (rowsize - 1); // 해당 페이지에서 시작 번호
-		int endNo = (page * rowsize); // 해당 페이지에서 마지막 번호
 
 		openConn();
 		if (field.equals("all")) { // 전체검색의 경우(회사명, 작성회원, 상태)

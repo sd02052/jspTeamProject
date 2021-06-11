@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +28,7 @@
 				                </div>
 				                <div class="user-info col-sm-9">
 				                    <div class="clearfix">
-				                        <h2 class="pull-left">NickName</h2>
+				                        <h2 class="pull-left">${memDTO.getMem_nick() }</h2>
 				                        <button class="btn btn-success pull-right btn-wide disabled">
 				                            <i class="fas fa-plus"></i>팔로우
 				                        </button>
@@ -35,7 +36,7 @@
 				                    <div class="user-points">
 				                        <div class="user-point">
 				                            <div class="user-point-label"><i class="fas fa-bolt"></i> 활동점수</div>
-				                            <div class="user-point-num">0</div>
+				                            <div class="user-point-num">${memDTO.getMem_score() }</div>
 				                        </div>
 				                        <div class="user-point">
 				                            <div class="user-point-label"><i class="fas fa-user"></i> 팔로잉</div>
@@ -51,74 +52,49 @@
 				            </form>
 				        </div>
 				
-				        <div class="col-sm-2 user-info-nav pull-right"> <!-- activity Chech -->
+				        <div class="col-sm-2 user-info-nav pull-right"> <!-- activity Check -->
 				            <ul class="nav">
 				                <li><a href="">최근 활동</a></li>
-				                <li><a href="">게시물</a></li>
+				                <li><a href="">게시물</a><span class="badge badge-muted">${boardList.size() }</span></li>
 				                <li><a href="">스크랩</a></li>
 				            </ul>
 				        </div> <!-- /activity Check-->
 				
 				        <div class="col-sm-10 main-block-left pull-left"> <!-- activity List -->
 				            <ul class="list-group">
+				           	 <c:if test="${!empty boardList }">
+				     		   <c:forEach items="${boardList }" var="board" varStatus="status">
 				                <li class="list-group-item list-group-has-note list-group-item-small">
 				                    <div class="list-icon-wrapper pull-left">
 				                        <i class="fas fa-angle-up"></i>
 				                    </div>
 				                    <div class="list-title-wrapper list-activity">
 				                        <div class="list-activity-desc">
-				                            <span class="list-activity-desc-text">(게시물번호) 게시물을 추천 하였습니다.</span>
-				                            <span class="date">(게시물 작성 일자)</span>
+				                            <span class="list-activity-desc-text">#${board.getBoard_num() } 게시물을 추천 하였습니다.</span>
+				                            <span class="date">${board.getBoard_regdate() }</span>
 				                        </div>
 				
 				                        <h5 class="list-group-item-heading">
-				                            <a href="">신입 개발자를 위한 간단한 포트폴리오 작성 팁</a>
+				                            <a href="">${board.getBoard_title() }</a>
 				                            <div class="list-group-item-author pull-right clearfix">
 				                                <div class="avatar clearfix avatar-x-small">
 				                                    <a href="" class="avatar-photo">
 				                                        <img src="<%=request.getContextPath() %>/images/437ec94ff99317bcb4a15730e1b5cf61.png">
 				                                    </a>
 				                                    <div class="avatar-info">
-				                                        <a class="nickname" href="">(사용자1)</a>
+				                                        <a class="nickname" href="">${memList[status.index].getMem_nick() }</a>
 				                                        <div class="activity">
-				                                            <span class=""><i class="fas fa-bolt"></i> 73</span>
+				                                            <span class=""><i class="fas fa-bolt"></i>&nbsp;${memList[status.index].getMem_score() }</span>
 				                                        </div>
 				                                    </div>
 				                                </div>
 				                            </div>
 				                        </h5>
-				                        
+
 				                    </div>
 				                </li>
-				
-				                <li class="list-group-item list-group-has-note list-group-item-small">
-				                    <div class="list-icon-wrapper pull-left">
-				                        <i class="fas fa-angle-up"></i>
-				                    </div>
-				                    <div class="list-title-wrapper list-activity">
-				                        <div class="list-activity-desc">
-				                            <span class="list-activity-desc-text">(게시물번호) 게시물을 추천 하였습니다.</span>
-				                            <span class="date">(게시물 작성 일자)</span>
-				                        </div>
-				
-				                        <h5 class="list-group-item-heading">
-				                            <a href="">신입 개발자를 위한 간단한 포트폴리오 작성 팁</a>
-				                            <div class="list-group-item-author pull-right clearfix">
-				                                <div class="avatar clearfix avatar-x-small">
-				                                    <a href="" class="avatar-photo">
-				                                        <img src="<%=request.getContextPath() %>/images/437ec94ff99317bcb4a15730e1b5cf61.png">
-				                                    </a>
-				                                    <div class="avatar-info">
-				                                        <a class="nickname" href="">(사용자1)</a>
-				                                        <div class="activity">
-				                                            <span class=""><i class="fas fa-bolt"></i> 73</span>
-				                                        </div>
-				                                    </div>
-				                                </div>
-				                            </div>
-				                        </h5>
-				                    </div>
-				                </li>
+				           </c:forEach>
+				           </c:if>
 				            </ul>
 				            
 				            <div style="text-align: center;">

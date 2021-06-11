@@ -10,16 +10,6 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-/* 
-	function checkBox() {
-		if($("mem_emailCheck").is(":checked") == true) {
-			$("mem_emailCheck").val("yes");
-		}else if($("mem_emailCheck").is(":checked") == false) {
-			$("mem_emailCheck").val("no");
-		}
-	}; */
-</script>
 </head>
 <body>
 	<div class="layout_container">
@@ -41,7 +31,7 @@
 				                    <input type="text" id="inputNickname" name="mem_nick" class="form-control" placeholder="닉네임" required>
 				                    <div class="checkbox">
 				                        <label>
-				                            <input type="checkbox" name="mem_emailCheck" id="mem_emailCheck" checked> 이메일 수신 동의
+				                            <input type="checkbox" name="mem_emailCheck" value="yes" checked> 이메일 수신 동의
 				                        </label>
 				                    </div>
 				        	

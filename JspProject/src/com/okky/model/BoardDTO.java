@@ -10,7 +10,8 @@ public class BoardDTO {
 	private int board_scrap;
 	private int board_category;
 	private String board_regdate;
-
+	private int board_comment;
+	
 	public int getBoard_num() {
 		return board_num;
 	}
@@ -83,4 +84,11 @@ public class BoardDTO {
 		this.board_regdate = board_regdate;
 	}
 
+	public int getBoard_comment() {
+		return board_comment;
+	}
+
+	public void setBoard_comment(int board_comment) {
+		this.board_comment = board_comment;
+	}
 }

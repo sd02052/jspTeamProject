@@ -38,6 +38,11 @@ $(function(){
     background-color: #ccc;
 }
 
+.search-btn2 {
+	border-radius: 0;
+	border-left: 0px;
+}
+
 </style>
 </head>
 <body>
@@ -52,7 +57,6 @@ $(function(){
 						<div class="nav">		
 							<h4>회사인증관리</h4>
 						</div>
-			
 						<div class="row">
 							<div class="col-xs-6"></div>		
 							
@@ -61,16 +65,21 @@ $(function(){
 									<div class="input-group">
 										<span class="input-group-btn">
 											<select name="field" class="search-btn btn btn-default dropdown-toggle">	
-												<option value="all">-전체검색-</option>
-												<option value="name">회사명</option>
-												<option value="nick">등록회원</option>
-												<option value="check">상태</option>
+												<option value="all" <c:if test="${find_field.equals('all') }">selected="selected"</c:if>>-전체검색-</option>
+												<option value="name" <c:if test="${find_field.equals('name') }">selected="selected"</c:if>>회사명</option>
+												<option value="nick" <c:if test="${find_field.equals('nick') }">selected="selected"</c:if>>등록회원</option>
+												<option value="check" <c:if test="${find_field.equals('check') }">selected="selected"</c:if>>상태</option>
 											</select>
 										</span>
-										<input type="text" class="form-control" name="data" placeholder="검색어" aria-describedby="basic-addon2">
+										<input type="text" class="search-text form-control" name="data" placeholder="${find_data }" aria-describedby="basic-addon2">
 										<span class="input-group-btn">
-											<button type="submit" class="btn btn-default">
+											<button type="submit" class="search-btn2 btn btn-default">
 												<i class="fas fa-search"></i>
+											</button>
+										</span>
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/admin_verify_list.do'">
+												<i class="fas fa-times-circle"></i>&nbsp;clear
 											</button>
 										</span>
 									</div>				
@@ -102,33 +111,34 @@ $(function(){
 								<c:if test="${!empty List }">
 									<c:forEach items="${List }" var="comDTO" varStatus="status">
 										<li class="admin-verify-list-li list-group-item list-group-item-question list-group-has-note clearfix">
-											<div class="col-xs-1 margin-auto">${comDTO.getCompany_num() }</div>				
-											<div class="col-xs-3 margin-auto">
+											<div class="col-xs-1">${comDTO.getCompany_num() }</div>				
+											<div class="col-xs-3">
 												<a href="<%=request.getContextPath() %>/admin_verify_cont.do?num=${comDTO.getCompany_num() }">${comDTO.getCompany_name() }</a>
 											</div>		
-											<div class="col-xs-2 margin-auto">${comDTO.getCompany_license_num() }</div>		
-												<div class="cont-member col-xs-3 margin-auto">			
+											<div class="col-xs-2">${comDTO.getCompany_license_num() }</div>		
+												<div class="cont-member col-xs-3">			
 													<div>
-														<a href="<%=request.getContextPath()%>/member_personal.do?num=${memList.getMem_num() }">
+														<a href="<%=request.getContextPath()%>/member_personal.do?num=${memList[status.index].getMem_num() }">
 															<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
 															
 														
 														<div class="cont-mem-info">
-															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${memList.getMem_num() }">${memList[status.index].getMem_nick() }</a><br>
+															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${memList[status.index].getMem_num() }">${memList[status.index].getMem_nick() }</a><br>
 															<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${memList[status.index].getMem_score() }</span><br>
 														</div>
 													</div>	
 												</div>	
 	
 											<div class="cont-regdate col-xs-2">${boardList[status.index].getBoard_regdate().substring(0,10) }</div>
+											
 											<c:if test="${comDTO.getCompany_check() eq 0 }">			
-												<div class="col-xs-1 margin-auto"><span class="badge badge-waitting">대기</span></div>
+												<div class="col-xs-1"><span class="badge badge-waitting">대기</span></div>
 											</c:if>	
 											<c:if test="${comDTO.getCompany_check() eq 1 }">			
-												<div class="col-xs-1 margin-auto"><span class="badge badge-success">승인</span></div>
+												<div class="col-xs-1"><span class="badge badge-success">승인</span></div>
 											</c:if>	
 											<c:if test="${comDTO.getCompany_check() eq 2 }">			
-												<div class="col-xs-1 margin-auto"><span class="badge badge-reject">거절</span></div>
+												<div class="col-xs-1"><span class="badge badge-reject">거절</span></div>
 											</c:if>	
 										</li>
 								
@@ -137,10 +147,14 @@ $(function(){
 								
 								<c:if test="${empty List }">
 									<li class="admin-verify-list-li list-group-item list-group-item-question list-group-has-note clearfix">
-										조회된 회사 인증 목록이 없습니다.
+										검색된 목록이 없습니다.
 									</li>
 								</c:if>
-
+								
+									
+								
+								
+								
 								
 								</ul>
 							</div>
@@ -153,7 +167,7 @@ $(function(){
 							  
 							  <c:if test="${page > 1 }">
 								    <li>
-								      <a href="admin_verify_list.do?page=1" aria-label="Previous">
+								      <a href="search_verify.do?page=1&field=${find_field }&data=${find_data }" aria-label="Previous">
 								        <span aria-hidden="true">&laquo;</span>
 								      </a>
 								    </li>
@@ -169,17 +183,17 @@ $(function(){
 							    
 							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
 								    <c:if test="${i == page }">
-								   		<li class="active"><a href="admin_verify_list.do?page=${i }">${i }</a></li>
+								   		<li class="active"><a href="search_verify.do?page=${i }&field=${find_field }&data=${find_data }">${i }</a></li>
 								    </c:if>
 								    
 								    <c:if test="${i != page }">
-									    <li><a href="admin_verify_list.do?page=${i }">${i }</a></li>
+									    <li><a href="search_verify.do?page=${i }&field=${find_field }&data=${find_data }">${i }</a></li>
 								    </c:if>
 							    </c:forEach>
 							    
 							    <c:if test="${page < allPage }">
 								    <li>
-								      <a href="admin_verify_list.do?page=${allPage }" aria-label="Next">
+								      <a href="search_verify.do?page=${allPage }&field=${find_field }&data=${find_data }" aria-label="Next">
 								        <span aria-hidden="true">&raquo;</span>
 								      </a>
 								    </li>
@@ -196,7 +210,7 @@ $(function(){
 							  </div>
 							</nav>
 						</c:if>
-		
+			
 					</div>
 				</div>
 			<jsp:include page="../../include/footer.jsp" />

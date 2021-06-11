@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -66,4 +68,353 @@ public class CompanyDAO {
 			e.printStackTrace();
 		}
 	}
+
+	// okky_company의 전체 목록을 가져오는 메서드
+	public List<CompanyDTO> getCompanyList() {
+		List<CompanyDTO> list = new ArrayList<CompanyDTO>();
+
+		try {
+			openConn();
+			sql = "select * from okky_company order by company_num desc";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				CompanyDTO dto = new CompanyDTO();
+
+				dto.setCompany_num(rs.getInt("company_num"));
+				dto.setCompany_name(rs.getString("company_name"));
+				dto.setCompany_license_num(rs.getString("company_license_num"));
+				dto.setCompany_license_image(rs.getString("company_license_image"));
+				dto.setCompany_boss_phone(rs.getString("company_boss_phone"));
+				dto.setCompany_boss_email(rs.getString("company_boss_email"));
+				dto.setCompany_charge_phone(rs.getString("company_charge_phone"));
+				dto.setCompany_charge_email(rs.getString("company_charge_email"));
+				dto.setCompany_charge_name(rs.getString("company_charge_name"));
+				dto.setCompany_emp(rs.getString("company_emp"));
+				dto.setCompany_homepage(rs.getString("company_homepage"));
+				dto.setCompany_logo(rs.getString("company_logo"));
+				dto.setCompany_content(rs.getString("company_content"));
+				dto.setCompany_check(rs.getInt("company_check"));
+				dto.setCompany_target(rs.getInt("company_target"));
+
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+	}
+
+	// 특정 번호에 해당하는 okky_company의 전체 목록을 가져오는 메서드
+	public CompanyDTO getCompanyList(int num) {
+		CompanyDTO dto = new CompanyDTO();
+
+		try {
+			openConn();
+			sql = "select * from okky_company where company_num = ? order by company_num desc";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+
+				dto.setCompany_num(rs.getInt("company_num"));
+				dto.setCompany_name(rs.getString("company_name"));
+				dto.setCompany_license_num(rs.getString("company_license_num"));
+				dto.setCompany_license_image(rs.getString("company_license_image"));
+				dto.setCompany_boss_phone(rs.getString("company_boss_phone"));
+				dto.setCompany_boss_email(rs.getString("company_boss_email"));
+				dto.setCompany_charge_phone(rs.getString("company_charge_phone"));
+				dto.setCompany_charge_email(rs.getString("company_charge_email"));
+				dto.setCompany_charge_name(rs.getString("company_charge_name"));
+				dto.setCompany_emp(rs.getString("company_emp"));
+				dto.setCompany_homepage(rs.getString("company_homepage"));
+				dto.setCompany_logo(rs.getString("company_logo"));
+				dto.setCompany_content(rs.getString("company_content"));
+				dto.setCompany_check(rs.getInt("company_check"));
+				dto.setCompany_target(rs.getInt("company_target"));
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return dto;
+	}
+
+	// okky_company의 전체 게시글 수를 가져오는 메서드
+	public int getListCount() {
+		int result = 0;
+
+		try {
+			openConn();
+			sql = "select count(*) from okky_company";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	// okky_company 테이블에서 페이지에 해당하는 글 목록을 가져오는 메서드
+	public List<CompanyDTO> getCompanyList(int startNo, int endNo) {
+		List<CompanyDTO> list = new ArrayList<>();
+
+		try {
+			openConn();
+			sql = "select * from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c) "
+					+ "where rnum >= ? and rnum <= ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startNo);
+			pstmt.setInt(2, endNo);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				CompanyDTO dto = new CompanyDTO();
+
+				dto.setCompany_num(rs.getInt("company_num"));
+				dto.setCompany_name(rs.getString("company_name"));
+				dto.setCompany_license_num(rs.getString("company_license_num"));
+				dto.setCompany_license_image(rs.getString("company_license_image"));
+				dto.setCompany_boss_phone(rs.getString("company_boss_phone"));
+				dto.setCompany_boss_email(rs.getString("company_boss_email"));
+				dto.setCompany_charge_phone(rs.getString("company_charge_phone"));
+				dto.setCompany_charge_email(rs.getString("company_charge_email"));
+				dto.setCompany_charge_name(rs.getString("company_charge_name"));
+				dto.setCompany_emp(rs.getString("company_emp"));
+				dto.setCompany_homepage(rs.getString("company_homepage"));
+				dto.setCompany_logo(rs.getString("company_logo"));
+				dto.setCompany_content(rs.getString("company_content"));
+				dto.setCompany_check(rs.getInt("company_check"));
+				dto.setCompany_target(rs.getInt("company_target"));
+
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+
+		return list;
+	}
+
+	// okky_company 테이블에서 페이지에 해당하는 검색 목록의 전체 수를 가져오는 메서드
+	public int getSearchListCount(String field, String data) {
+		int count = 0;
+
+		try {
+			openConn();
+
+			if (field.equals("all")) { // 전체검색의 경우(회사명, 작성회원, 상태)
+
+				String check_data = "";
+
+				if (data.equals("대기")) {
+					check_data = "0";
+				} else if (data.equals("승인")) {
+					check_data = "1";
+				} else if (data.equals("거절")) {
+					check_data = "2";
+				}
+
+				sql = "select count(*) from okky_company where company_name like ? or company_check like ? "
+						+ "or company_target in (select board_num from okky_board "
+						+ "where board_writer in (select mem_num from okky_member where mem_nick like ?))";
+
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%" + data + "%");
+				pstmt.setString(2, "%" + check_data + "%");
+				pstmt.setString(3, "%" + data + "%");
+
+				rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					count = rs.getInt(1);
+				}
+
+				return count;
+
+			} else if (field.equals("name")) { // 회사명 검색의 경우
+				sql = "select count(*) from okky_company where company_name like ?";
+			} else if (field.equals("nick")) { // 작성회원 검색의 경우
+				sql = "select count(*) from okky_company where company_target in "
+						+ "(select board_num from okky_board where board_writer in "
+						+ "(select mem_num from okky_member where mem_nick like ?))";
+			} else if (field.equals("check")) { // 상태 검색의 경우
+				sql = "select count(*) from okky_company where company_check in ?";
+			}
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + data + "%");
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+
+		return count;
+	}
+
+	// okky_company 에서 페이지에 맞는 검색결과를 조회하는 메서드
+	public List<CompanyDTO> getSearchCompanyList(String field, String data, int startNo, int endNo) {
+		List<CompanyDTO> list = new ArrayList<>();
+
+		openConn();
+		if (field.equals("all")) { // 전체검색의 경우(회사명, 작성회원, 상태)
+
+			String check_data = "";
+
+			if (data.equals("대기")) {
+				check_data = "0";
+			} else if (data.equals("승인")) {
+				check_data = "1";
+			} else if (data.equals("거절")) {
+				check_data = "2";
+			}
+
+			sql = "select * from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
+					+ "where company_name like ? or company_check like ? or company_target in "
+					+ "(select board_num from okky_board where board_writer in "
+					+ "(select mem_num from okky_member where mem_nick like ? )))" + "where rnum >= ? and rnum <= ?";
+
+			try {
+				pstmt = con.prepareStatement(sql);
+
+				pstmt.setString(1, "%" + data + "%");
+				pstmt.setString(2, check_data);
+				pstmt.setString(3, "%" + data + "%");
+				pstmt.setInt(4, startNo);
+				pstmt.setInt(5, endNo);
+
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					CompanyDTO dto = new CompanyDTO();
+
+					dto.setCompany_num(rs.getInt("company_num"));
+					dto.setCompany_name(rs.getString("company_name"));
+					dto.setCompany_license_num(rs.getString("company_license_num"));
+					dto.setCompany_license_image(rs.getString("company_license_image"));
+					dto.setCompany_boss_phone(rs.getString("company_boss_phone"));
+					dto.setCompany_boss_email(rs.getString("company_boss_email"));
+					dto.setCompany_charge_phone(rs.getString("company_charge_phone"));
+					dto.setCompany_charge_email(rs.getString("company_charge_email"));
+					dto.setCompany_charge_name(rs.getString("company_charge_name"));
+					dto.setCompany_emp(rs.getString("company_emp"));
+					dto.setCompany_homepage(rs.getString("company_homepage"));
+					dto.setCompany_logo(rs.getString("company_logo"));
+					dto.setCompany_content(rs.getString("company_content"));
+					dto.setCompany_check(rs.getInt("company_check"));
+					dto.setCompany_target(rs.getInt("company_target"));
+
+					list.add(dto);
+				}
+
+				return list;
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+
+		} else if (field.equals("name")) { // 회사명 검색의 경우
+			sql = "select * from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
+					+ "where company_name like ?) where rnum >= ? and rnum <= ?";
+		} else if (field.equals("nick")) { // 작성회원 검색의 경우
+			sql = "select * from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
+					+ "where company_target in" + "(select board_num from okky_board where board_writer in "
+					+ "(select mem_num from okky_member where mem_nick like ? )))" + "where rnum >= ? and rnum <= ?";
+		} else if (field.equals("check")) { // 상태 검색의 경우
+			sql = "select * from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
+					+ "where company_check like ?)" + "where rnum >= ? and rnum <= ?";
+		}
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + data + "%");
+			pstmt.setInt(2, startNo);
+			pstmt.setInt(3, endNo);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				CompanyDTO dto = new CompanyDTO();
+
+				dto.setCompany_num(rs.getInt("company_num"));
+				dto.setCompany_name(rs.getString("company_name"));
+				dto.setCompany_license_num(rs.getString("company_license_num"));
+				dto.setCompany_license_image(rs.getString("company_license_image"));
+				dto.setCompany_boss_phone(rs.getString("company_boss_phone"));
+				dto.setCompany_boss_email(rs.getString("company_boss_email"));
+				dto.setCompany_charge_phone(rs.getString("company_charge_phone"));
+				dto.setCompany_charge_email(rs.getString("company_charge_email"));
+				dto.setCompany_charge_name(rs.getString("company_charge_name"));
+				dto.setCompany_emp(rs.getString("company_emp"));
+				dto.setCompany_homepage(rs.getString("company_homepage"));
+				dto.setCompany_logo(rs.getString("company_logo"));
+				dto.setCompany_content(rs.getString("company_content"));
+				dto.setCompany_check(rs.getInt("company_check"));
+				dto.setCompany_target(rs.getInt("company_target"));
+
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+
+		return list;
+	}
+	
+	// 회사의 인증 상태를 바꾸는 메서드
+	public int updateCompanyCheck(int num, int check) {
+		int result = 0;
+		
+		try {
+			openConn();
+			sql = "update okky_company set company_check = ? where company_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, check);
+			pstmt.setInt(2, num);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+		return result;
+	}
+
+	
 }

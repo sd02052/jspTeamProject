@@ -21,7 +21,16 @@ $(function(){
 	$("#menu6").css("border-right","5px solid #e67d3e");
 	$("#menu6-1").css("color","#fff");
 });
+
 </script>
+<style type="text/css">
+
+.search-btn2 {
+	border-radius: 0;
+	border-left: 0px;
+}
+
+</style>
 </head>
 <body>
 
@@ -41,20 +50,25 @@ $(function(){
 							
 							
 							<div class="col-xs-6">
-								<form method="post" action="<%=request.getContextPath() %>/search_member.do">				
+								<form method="post" action="<%=request.getContextPath() %>/search_member.do" class="">				
 									<div class="input-group">
 										<span class="search-list input-group-btn">
 											<select name="field" class="search-btn btn btn-default dropdown-toggle">
-												<option value="all">-전체검색-</option>
-												<option value="id">아이디</option>
-												<option value="nick">닉네임</option>
-												<option value="check">상태</option>
+												<option value="all" <c:if test="${find_field.equals('all') }">selected="selected"</c:if>>-전체검색-</option>
+												<option value="id" <c:if test="${find_field.equals('id') }">selected="selected"</c:if>>아이디</option>
+												<option value="nick" <c:if test="${find_field.equals('nick') }">selected="selected"</c:if>>닉네임</option>
+												<option value="check" <c:if test="${find_field.equals('check') }">selected="selected"</c:if>>상태</option>
 											</select>
 										</span>
-										<input type="text" class="form-control" name="data" placeholder="검색어" aria-describedby="basic-addon2">
+										<input type="text" class="form-control" name="data" placeholder="${find_data }" aria-describedby="basic-addon2">
 										<span class="input-group-btn">
-											<button type="submit" class="btn btn-default">
+											<button type="submit" class="search-btn2 btn btn-default">
 												<i class="fas fa-search"></i>
+											</button>
+										</span>
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/admin_member_list.do'">
+												<i class="fas fa-times-circle"></i>&nbsp;clear
 											</button>
 										</span>
 									</div>				
@@ -74,7 +88,7 @@ $(function(){
 										<div class="col-xs-2">이메일</div>					
 										<div class="col-xs-2">가입일</div>					
 										<div class="col-xs-1">상태</div>
-										<div class="col-xs-1"><input type="checkbox" name="checkAll" id="checkAll" onclick="checkAll()"></div>
+										<div class="col-xs-1"><input type="checkbox" name="checkAll" id="checkAll" onclick="checkAll()"></div>	
 									</li>
 								</ul>
 							</div>
@@ -82,13 +96,13 @@ $(function(){
 						<div class="row">
 							<div class="col-xs-12">
 								<form name="mem_magage" method="post" action="<%=request.getContextPath() %>/member_check.do"
-									onsubmit="return confirm('정말로 선택된 회원을 강제탈퇴하시겠습니까?')"> 
+									onsubmit="return confirm('정말로 강제탈퇴를 실행하시겠습니까?')"> 
 									<input type="hidden" name="page" value="${page }">
 									<ul class="list-group list-title">
 										<c:set var="list" value="${List }" />
 										<c:if test="${!empty list }">
 											<c:forEach items="${list }" var="dto">
-												<li class="member-list list-group-item list-group-item-question list-group-has-note clearfix ">
+												<li class="member-list list-group-item list-group-item-action clearfix ">
 													<div class="col-xs-1">${dto.getMem_num() }</div>
 													<div class="col-xs-2">${dto.getMem_id() }</div>					
 													<div class="cont-member col-xs-3">	
@@ -121,65 +135,67 @@ $(function(){
 										</c:if>
 										<c:if test="${empty list }">
 											<li class="list-group-item list-group-item-question list-group-has-note clearfix">
-													등록된 회원이 없습니다.
+													검색된 회원이 없습니다.
 											</li>
 										</c:if>
+										
+										
 									</ul>
 									<button type="submit" class="btn btn-default pull-right">강제탈퇴</button>
 								</form>
 							</div>
 						</div>
 	
-						<c:if test="${!empty List }">
-							<nav>
-							<div align="center">
-							  <ul class="pagination">
-							  
-							  <c:if test="${page > 1 }">
-								    <li>
-								      <a href="admin_member_list.do?page=1" aria-label="Previous">
-								        <span aria-hidden="true">&laquo;</span>
-								      </a>
-								    </li>
-							   </c:if>
-							   
-							   <c:if test="${page eq 1 }">
-								    <li>
-								      <a aria-label="Previous">
-								        <span aria-hidden="true">&laquo;</span>
-								      </a>
-								    </li>
-							   </c:if>
-							    
-							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
-								    <c:if test="${i == page }">
-								   		<li class="active"><a href="admin_verify_list.do?page=${i }">${i }</a></li>
-								    </c:if>
-								    
-								    <c:if test="${i != page }">
-									    <li><a href="admin_member_list.do?page=${i }">${i }</a></li>
-								    </c:if>
-							    </c:forEach>
-							    
-							    <c:if test="${page < allPage }">
-								    <li>
-								      <a href="admin_member_list.do?page=${allPage }" aria-label="Next">
-								        <span aria-hidden="true">&raquo;</span>
-								      </a>
-								    </li>
+					<c:if test="${!empty List }">
+						<nav>
+						<div align="center">
+						  <ul class="pagination">
+						  
+						  <c:if test="${page > 1 }">
+							    <li>
+							      <a href="search_member.do?page=1&field=${find_field }&data=${find_data }" aria-label="Previous">
+							        <span aria-hidden="true">&laquo;</span>
+							      </a>
+							    </li>
+						   </c:if>
+						   
+						   <c:if test="${page eq 1 }">
+							    <li>
+							      <a aria-label="Previous">
+							        <span aria-hidden="true">&laquo;</span>
+							      </a>
+							    </li>
+						   </c:if>
+						    
+						    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
+							    <c:if test="${i == page }">
+							   		<li class="active"><a href="search_member.do?page=${i }&field=${find_field }&data=${find_data }">${i }</a></li>
 							    </c:if>
 							    
-							    <c:if test="${page eq allPage }">
-								    <li>
-								      <a aria-label="Next">
-								        <span aria-hidden="true">&raquo;</span>
-								      </a>
-								    </li>
+							    <c:if test="${i != page }">
+								    <li><a href="search_member.do?page=${i }&field=${find_field }&data=${find_data }">${i }</a></li>
 							    </c:if>
-							  </ul>
-							  </div>
-							</nav>
-						</c:if>
+						    </c:forEach>
+						    
+						    <c:if test="${page < allPage }">
+							    <li>
+							      <a href="search_member.do?page=${allPage }" aria-label="Next">
+							        <span aria-hidden="true">&raquo;</span>
+							      </a>
+							    </li>
+						    </c:if>
+						    
+						    <c:if test="${page eq allPage }">
+							    <li>
+							      <a aria-label="Next">
+							        <span aria-hidden="true">&raquo;</span>
+							      </a>
+							    </li>
+						    </c:if>
+						  </ul>
+						  </div>
+						</nav>
+					</c:if>
 
 					</div>
 				</div>

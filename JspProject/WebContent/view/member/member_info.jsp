@@ -18,6 +18,23 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/bootstrap-tagsinput.js"></script>
+<script>
+
+$(function cAll() {
+	// 이메일 수신 동의 여부 (mem_emailCheck의 value값)
+	var ck = $('input:checkbox[id="mem_emailCheck"]').val();
+	
+	if(ck == "yes"){
+		// 이메일 수신 동의가 yes일 경우 체크
+		$("input[type=checkbox]").prop("checked", true);
+	} else {
+		// 이메일 수신 동의가 yes가 아닐 경우
+        $("input[type=checkbox]").prop("checked", false);
+    }
+	
+});
+
+</script>
 </head>
 <body>
 	<div class="layout_container">
@@ -63,13 +80,14 @@
 				                            		
 				                            	}
 				                            %>
-				                            " data-role="tagsinput" />
+				                            " data-role="tagsinput" placeholder="java, c#, javascript, spring"/>
 				                        
 				                    </div>
 				                    <div class="checkbox">
 				                        <label>
-				                            <input type="checkbox" value="emailCheck"> 이메일 수신 동의
+				                            <input type="checkbox" name="mem_emailCheck" id="mem_emailCheck" value="<%=dto.getMem_emailCheck() %>" onclick="cAll();"> 이메일 수신 동의
 				                            
+				                           
 				                        </label>
 				                    </div>
 				                    <button class="btn btn-primary btn-block" type="submit">정보 수정</button>

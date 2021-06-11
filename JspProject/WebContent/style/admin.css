@@ -8,7 +8,7 @@
 /* 회사 목록 */
 .com-list{
 	text-align: center;	
-} 
+}
 
 /* 회원 목록 */
 .mem-list {
@@ -145,4 +145,13 @@
 	text-align: center;
 }
 
+.search-btn {
+	height: 34px;
+	margin: 0;
+	padding: 6px; 12px;
+}
+
+.search-btn2 {
+	border-radius: 0;
+}
 

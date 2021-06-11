@@ -1,3 +1,6 @@
+<%@page import="com.okky.model.CommentDTO"%>
+<%@page import="com.okky.model.CategoryDTO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -51,20 +54,64 @@ $(document).ready(function(){
 });
 </script>
 <script type="text/javascript">
-function commentEdit(){
+<%
+if(session.getAttribute("loginNum") != null){
+	int loginNum = (int)session.getAttribute("loginNum");
+}
+	List<CommentDTO> list = (List<CommentDTO>) request.getAttribute("commentList");
+	for(int i = 0; i < list.size(); i++){
+%>
+function commentEdit<%=list.get(i).getCom_num()%>(){
 	$(".dropdown").css("display","none");
-	$(".buttons").css("display","block");
-	$(".com-content").css("display","none");
-	$(".com-edit-area").css("display","block");
+	$(".buttons-<%=list.get(i).getCom_num()%>").css("display","block");
+	$(".com-content-<%=list.get(i).getCom_num()%>").css("display","none");
+	$(".com-edit-area-<%=list.get(i).getCom_num()%>").css("display","block");
 };
 </script>
 <script type="text/javascript">
-function commentEditCancle(){
+function commentEditCancle<%=list.get(i).getCom_num() %>(){
 	$(".dropdown").css("display","block");
-	$(".buttons").css("display","none");
-	$(".com-content").css("display","block");
-	$(".com-edit-area").css("display","none");
+	$(".buttons-<%=list.get(i).getCom_num()%>").css("display","none");
+	$(".com-content-<%=list.get(i).getCom_num()%>").css("display","block");
+	$(".com-edit-area-<%=list.get(i).getCom_num()%>").css("display","none");
 };
+</script>
+<script type="text/javascript">
+function like<%=list.get(i).getCom_num()%>(){
+	$.ajax({
+		url: "member_comment_like.do",
+		type: "POST",
+		dataType: "text",
+		data: {"com_num" : $("#com-num-<%=list.get(i).getCom_num()%>").val(),
+		"login_num" : $("#loginNum").val()},
+		success:
+			function(data){ //ajax통신 성공시 넘어오는 데이터 통째 이름 =data
+				$("#like-result-<%=list.get(i).getCom_num()%>").html(data.like);
+			},
+		error:
+			function (request, status, error){
+				alert("ajax실패");
+			}
+	});
+}
+function likeCancle<%=list.get(i).getCom_num()%>(){
+	$.ajax({
+		url: "member_comment_like_cancle.do",
+		type: "POST",
+		dataType: "text",
+		data: {"com_num" : $("#com-num-<%=list.get(i).getCom_num()%>").val(),
+		"login_num" : $("#loginNum").val()},
+		success:
+			function(data){ //ajax통신 성공시 넘어오는 데이터 통째 이름 =data
+				$("#like-result-<%=list.get(i).getCom_num()%>").html(data.like);
+			},
+		error:
+			function (request, status, error){
+				alert("ajax실패");
+			}
+	});
+}
+<%} %>
 </script>
 </head>
 <body>
@@ -160,68 +207,83 @@ function commentEditCancle(){
 								<td colspan="12" class="active"><span class="comment-title">댓글
 										${dto.getBoard_comment() }</span></td>
 							</tr>
-
 							<c:if test="${!empty commentList }">
 								<c:forEach items="${commentList }" var="dto" varStatus="status">
 										<!-- 다른 회원이 작성한 댓글 -->
 										<form method="post" action="<%=request.getContextPath() %>/member_commnet_edit.do">
-										<input type="hidden" name="com_num" value="${dto.getCom_num() }">
-										<input type="hidden" name="com_target" value="${dto.getCom_target() }">
-										<tr>
-											<td class="col-md-10">
-												<div class="cont-member pull-left">
-													<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"> <img src="<%=request.getContextPath()%>/images/${commentWriterList[status.index].getMem_image() }" class="cont-mem-logo img-circle">
-													</a>
-
-													<div class="cont-mem-info">
-														<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp"> ${commentWriterList[status.index].getMem_nick() }</a> <span class="cont-activity"> <i class="activity-img fas fa-bolt"></i>&nbsp;${commentWriterList[status.index].getMem_score() }
-														</span> <br>
-														<div class="cont-regdate">${dto.getCom_regdate() }</div>
+											<input type="hidden" name="com_num" value="${dto.getCom_num() }">
+											<input type="hidden" name="com_target" value="${dto.getCom_target() }">
+											<tr>
+												<td class="col-md-10">
+													<div class="cont-member pull-left">
+														<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"> <img src="<%=request.getContextPath()%>/images/${commentWriterList[status.index].getMem_image() }" class="cont-mem-logo img-circle">
+														</a>
+	
+														<div class="cont-mem-info">
+															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp"> ${commentWriterList[status.index].getMem_nick() }</a> <span class="cont-activity"> <i class="activity-img fas fa-bolt"></i>&nbsp;${commentWriterList[status.index].getMem_score() }
+															</span> <br>
+															<div class="cont-regdate">${dto.getCom_regdate() }</div>
+														</div>
+													</div>
+													<br> <br> <br>
+													<div class="com-content-${dto.getCom_num() } pull-left">
+														<p>${dto.getCom_content() }</p>
+													</div>
+													
+														<textarea class="form-control com-edit-area-${dto.getCom_num() }" name="com_content" rows="3" style="display: none;" value="${dto.getCom_content() }">${dto.getCom_content() }</textarea>
+													
+												</td>
+												<td class="col-md-2">
+												<div id="like_form">
+												<input type="hidden" id="com-num-${dto.getCom_num()}" value="${dto.getCom_num() }">
+												<input type="hidden" id="loginNum" value="${loginNum}">
+													<div class="cont-recommend">
+														<c:if test="${loginNum != null }">
+															<c:forEach items="${commentLikeList }" var="likedto">
+																<c:if test="${likedto.getCom_num() == dto.getCom_num() }">
+																	<a href="" onclick="return likeCancle${dto.getCom_num()}()"> <i class="fas fa-thumbs-up" id="up-${dto.getCom_num()}" data-toggle="tooltip" data-placement="left" title="취소"></i>
+																	</a>
+																</c:if>
+															</c:forEach>
+															<c:forEach items="${commentUnLikeList }" var="unlikedto">
+																<c:if test="${unlikedto.getCom_num() == dto.getCom_num() }">
+																	<a href="" onclick="return like${dto.getCom_num()}()"> <i class="img far fa-thumbs-up" id="up-${dto.getCom_num()}" data-toggle="tooltip" data-placement="left" title="추천"></i>
+																	</a>
+																</c:if>
+															</c:forEach>
+														</c:if>
+														<p class="com-recommend-count" id="like-result-${dto.getCom_num() }">${dto.getCom_like() }</p>
+														<%-- <c:if test="${loginNum != null }">
+														<a href=""> <i class="img fas fa-angle-down" data-toggle="tooltip" data-placement="left" title="반대"></i>
+														</a>
+														</c:if> --%>
 													</div>
 												</div>
-												<br> <br> <br>
-												<c:set var="content" value="${dto.getCom_content() }" />
-												<div class="com-content pull-left">
-													<p>${dto.getCom_content() }</p>
-												</div>
-												
-													<textarea class="form-control com-edit-area" name="com_content" rows="3" style="display: none;" value="${dto.getCom_content() }">${dto.getCom_content() }</textarea>
-												
-											</td>
-											<td class="col-md-2">
-												<div class="cont-recommend">
-													<a href=""> <i class="img fas fa-angle-up" data-toggle="tooltip" data-placement="left" title="추천"></i>
-													</a>
-													<p class="com-recommend-count">${dto.getCom_like() }</p>
-													<a href=""> <i class="img fas fa-angle-down" data-toggle="tooltip" data-placement="left" title="반대"></i>
-													</a>
-												</div>
-												<c:if test="${loginNum == dto.getCom_writer() }"> <!-- 자신이 작성한 댓글일 경우 -->
-												<div class="com-edit dropdown">
-													<button class="com-edit-btn btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-														<i class="facebook-img fas fa-cog" data-toggle="tooltip" data-placement="left" title="게시물 설정"></i>
-													</button>
-													<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-														<li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="commentEdit()"> 
-														<i class="fas fa-edit"></i>&nbsp;수정
-														</a></li>
-														<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_comment_delete.do?num=${dto.getCom_num()}&board_num=${dto.getCom_target()}" onclick="return confirm('댓글을 삭제 하시겠습니까?');"> 
-														<i class="fas fa-trash-alt"></i>&nbsp;삭제
-														</a></li>
-													</ul>
-												</div>
-												
-												<div class="buttons" style="display: none;" align="center">
-													<p>
-														<a href="javascript:commentEditCancle();" class="btn btn-default btn-wide note-edit-cancel-btn" onclick="return confirm('수정중이던 내용을 취소하시겠습니까?');">취소</a>
-													</p>
-													<p>
-														<input type="submit" name="create" class="btn btn-success btn-wide" value="저장" id="create">
-													</p>
-												</div>
-											</c:if>
-											</td>
-										</tr>
+													<c:if test="${loginNum == dto.getCom_writer() }"> <!-- 자신이 작성한 댓글일 경우 -->
+													<div class="com-edit dropdown">
+														<button class="com-edit-btn btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+															<i class="facebook-img fas fa-cog" data-toggle="tooltip" data-placement="left" title="게시물 설정"></i>
+														</button>
+														<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+															<li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:commentEdit${dto.getCom_num()}();"> 
+															<i class="fas fa-edit"></i>&nbsp;수정
+															</a></li>
+															<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_comment_delete.do?num=${dto.getCom_num()}&board_num=${dto.getCom_target()}" onclick="return confirm('댓글을 삭제 하시겠습니까?');"> 
+															<i class="fas fa-trash-alt"></i>&nbsp;삭제
+															</a></li>
+														</ul>
+													</div>
+													<div class="buttons-${dto.getCom_num() }" style="display: none;" align="center">
+														<p>
+															<a href="javascript:commentEditCancle${dto.getCom_num() }();" class="btn btn-default btn-wide note-edit-cancel-btn" onclick="return confirm('수정중이던 내용을 취소하시겠습니까?');">취소</a>
+														</p>
+														<p>
+															<input type="submit" name="create" class="btn btn-success btn-wide" value="저장" id="create">
+														</p>
+													</div>
+												</c:if>
+												</td>
+											</tr>
 										</form>
 								</c:forEach>
 							</c:if>

@@ -25,16 +25,21 @@ public class MemberBoardContAction implements Action {
 		HttpSession session = request.getSession();
 		int board_num = Integer.parseInt(request.getParameter("num").trim());
 		
-		if(session.getAttribute("loginNum") != null) {
-			int mem_num = (int) session.getAttribute("loginNum");
-			MemberDAO dao3 = MemberDAO.getInstance();
-			MemberDTO login_mem = dao3.getMember(mem_num);
-			request.setAttribute("login_mem", login_mem);
-		}
 		
 		BoardDAO dao = BoardDAO.getInstance();
 		CategoryDAO dao1 = CategoryDAO.getInstance();
 		CommentDAO dao2 = CommentDAO.getInstance();
+		
+		if(session.getAttribute("loginNum") != null) {
+			int mem_num = (int) session.getAttribute("loginNum");
+			MemberDAO dao3 = MemberDAO.getInstance();
+			MemberDTO login_mem = dao3.getMember(mem_num);
+			List<CommentDTO> like_list = dao2.getCommentLikeList(mem_num);
+			List<CommentDTO> unlike_list = dao2.getCommentUnLikeList(mem_num);
+			request.setAttribute("login_mem", login_mem);
+			request.setAttribute("commentLikeList", like_list);
+			request.setAttribute("commentUnLikeList", unlike_list);
+		}
 		
 		BoardDTO board_dto = dao.getBoardCont(board_num);
 		MemberDTO board_writer = dao.getWriter(board_num);

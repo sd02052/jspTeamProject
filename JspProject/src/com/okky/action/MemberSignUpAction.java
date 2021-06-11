@@ -23,6 +23,7 @@ public class MemberSignUpAction implements Action {
 		String mem_nick = request.getParameter("mem_nick").trim();
 //		String mem_emailCheck = request.getParameter("mem_emailCheck").trim();
 		String mem_image = "dpro.png";
+		
 		MemberDTO dto = new MemberDTO();
 		dto.setMem_id(mem_id);
 		dto.setMem_pwd(mem_pwd);
@@ -38,8 +39,9 @@ public class MemberSignUpAction implements Action {
 		ActionForward forward = new ActionForward();
 		
 		if(check > 0) {
-			forward.setRedirect(true);
-			forward.setPath("main.do");
+			request.setAttribute("mem_id", mem_id);
+			forward.setRedirect(false);
+			forward.setPath("view/member/login.jsp");
 		}else {
 			out.println("<script>");
 			out.println("alert('회원가입실패')");

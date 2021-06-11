@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -42,10 +41,10 @@
 												<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo"> <img src="../../images/29a87623405c294d79bd2b4728996363.png">
+														<a href="<%=request.getContextPath()%>/member_personal.do?num=${noticeMember[status.index].getMem_num() }" class="avatar-photo"> <img src="../../images/29a87623405c294d79bd2b4728996363.png">
 														</a>
 														<div class="avatar-info">
-															<a class="nickname" href="">${noticeMember[status.index].getMem_nick() }</a>
+															<a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=${noticeMember[status.index].getMem_num() }">${noticeMember[status.index].getMem_nick() }</a>
 															<div class="activity">
 																<span class=""><i class="fas fa-bolt"></i> ${noticeMember[status.index].getMem_score() }</span>
 															</div>
@@ -152,9 +151,8 @@
 						<!-- Q&A / 커뮤니티 -->
 						<div class="main-block">
 							<h4 class="main-header">
-								<i class="fas fa-database"></i> Q&A <a href=""
-									class="main-more-btn pull-right"> <i
-									class="fas fa-ellipsis-h"></i>
+								<i class="fas fa-database"></i> Q&A <a href="" class="main-more-btn pull-right"> 
+								<i class="fas fa-ellipsis-h"></i>
 								</a>
 							</h4>
 							<div class="panel panel-default">

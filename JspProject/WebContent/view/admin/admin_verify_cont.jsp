@@ -61,11 +61,11 @@
 									<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
 										<div class="cont-member">			
 													<div>
-														<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
+														<a href="<%=request.getContextPath()%>/member_personal.do?num=${memList.getMem_num() }">
 															<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
 														
 														<div class="cont-mem-info">
-															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">${memList.getMem_nick() }</a><br>
+															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${memList.getMem_num() }">${memList.getMem_nick() }</a><br>
 															<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${memList.getMem_score() }</span><br>
 														</div>
 													</div>	

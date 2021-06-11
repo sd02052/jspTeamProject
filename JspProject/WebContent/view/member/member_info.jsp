@@ -11,6 +11,7 @@
 <meta charset="UTF-8">
 <title>OKKY - All That Developer</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/member_info.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/style/bootstrap-tagsinput.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
@@ -23,8 +24,6 @@
 		<div class="main">
 			<jsp:include page="../../include/side.jsp" />
 				<div style="width: 805px; min-height: 800px;">
-				
-					
 				    <div id="create-user" class="content clearfix" role="main">
 				    	<h3 class="content-header">회원 정보 수정</h3>
 				        <div class="col-md-6 main-block-left">
@@ -36,16 +35,17 @@
 				                    </div>
 				                </div>
 				    
-				                <form class="form-signin panel-body" action="<%=request.getContextPath() %>/view/member/test.jsp">
+				                <form class="form-signin panel-body" action="<%=request.getContextPath() %>/member_info_edit_ok.do">
+				                <input type="hidden" value="${loginNum }" name="num">
 				                    <div class="form-group">
 				                        <label for="exampleInputEmail1">닉네임</label>
-				                        <input type="text" class="form-control" id="exampleInputEmail1" value="<%=dto.getMem_nick() %>">
+				                        <input type="text" class="form-control" name="mem_nick" id="exampleInputEmail1" value="<%=dto.getMem_nick() %>">
 				                    </div>
 				                    <div class="form-group">
 				                        <label for="exampleInputText1">관심있는 기술 태그 입력</label>
 				                        <p class="help-block">사용 중인 기술이나 관심있는 기술 태그를 선택해주세요.</p>
-				                        <div class="tagsinput-wrap">
-				                            <input type="text" name="test1" value="
+				                        
+				                            <input type="text" name="mem_tag" value="
 				                            <%
 				                            	if(tagList.size() != 0){
 				                            		for(int i=0; i < tagList.size(); i++){
@@ -53,14 +53,16 @@
 				                            			<%=tagList.get(i) %>,
 				                            			<%
 				                            		}
+				                            		
 				                            	}
 				                            %>
 				                            " data-role="tagsinput" />
-				                        </div>
+				                        
 				                    </div>
 				                    <div class="checkbox">
 				                        <label>
 				                            <input type="checkbox" value="emailCheck"> 이메일 수신 동의
+				                            
 				                        </label>
 				                    </div>
 				                    <button class="btn btn-primary btn-block" type="submit">정보 수정</button>
@@ -98,8 +100,8 @@
 				
 				            <div class="panel panel-default">
 				                <form class="form-signin panel-body">
-				                    <button class="btn btn-info btn-block" type="submit">비밀번호 변경</button>
-				                    <button class="btn btn-default btn-block" type="submit">회원 탈퇴</button>
+				                    <a href="<%=request.getContextPath() %>/member_pwd_edit.do?num=<%=dto.getMem_num() %>" class="btn btn-info btn-block">비밀번호 변경</a>
+				                    <a href="<%=request.getContextPath() %>/member_withdrawal.do?num=<%=dto.getMem_num() %>" class="btn btn-default btn-block">회원 탈퇴</a>
 				                </form>
 				            </div>
 				        </div>

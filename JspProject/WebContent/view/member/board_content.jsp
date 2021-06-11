@@ -89,12 +89,12 @@ function commentEditCancle(){
 								<td colspan="12">
 									<div class="cont-header">
 										<div class="cont-member pull-left">
-											<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
+											<a href="<%=request.getContextPath()%>/member_personal.do?num=${writer.getMem_num()}">
 												<img src="<%=request.getContextPath() %>/images/${writer.getMem_image() }" class="cont-mem-logo img-circle">
 											</a>
 
 											<div class="cont-mem-info">
-												<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
+												<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${writer.getMem_num() }">
 												${writer.getMem_nick() }</a> 
 												<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${writer.getMem_score() }</span>
 												<br>
@@ -170,11 +170,11 @@ function commentEditCancle(){
 										<tr>
 											<td class="col-md-10">
 												<div class="cont-member pull-left">
-													<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp"> <img src="<%=request.getContextPath()%>/images/${commentWriterList[status.index].getMem_image() }" class="cont-mem-logo img-circle">
+													<a href="<%=request.getContextPath()%>/member_personal.do?num=${commentWriterList[status.index].getMem_num() }"> <img src="<%=request.getContextPath()%>/images/${commentWriterList[status.index].getMem_image() }" class="cont-mem-logo img-circle">
 													</a>
 
 													<div class="cont-mem-info">
-														<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp"> ${commentWriterList[status.index].getMem_nick() }</a> <span class="cont-activity"> <i class="activity-img fas fa-bolt"></i>&nbsp;${commentWriterList[status.index].getMem_score() }
+														<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${commentWriterList[status.index].getMem_num() }"> ${commentWriterList[status.index].getMem_nick() }</a> <span class="cont-activity"> <i class="activity-img fas fa-bolt"></i>&nbsp;${commentWriterList[status.index].getMem_score() }
 														</span> <br>
 														<div class="cont-regdate">${dto.getCom_regdate() }</div>
 													</div>
@@ -235,7 +235,7 @@ function commentEditCancle(){
 											type="hidden" name="com_target" value="${dto.getBoard_num() }">
 										<div class="cont-member pull-left">
 											<a
-												href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
+												href="<%=request.getContextPath()%>/member_personal.do?num=${login_mem.getMem_num() }">
 												<img
 												src="<%=request.getContextPath() %>/images/${login_mem.getMem_image() }"
 												class="cont-mem-logo img-circle">
@@ -243,7 +243,7 @@ function commentEditCancle(){
 
 											<div class="cont-mem-info">
 												<a class="cont-mem-nick"
-													href="<%=request.getContextPath()%>/view/member/member_personal.jsp">${login_mem.getMem_nick() }</a> <br><span class="cont-activity"><i
+													href="<%=request.getContextPath()%>/member_personal.do?num=${login_mem.getMem_num() }">${login_mem.getMem_nick() }</a> <br><span class="cont-activity"><i
 													class="activity-img fas fa-bolt"></i>&nbsp;${login_mem.getMem_score() }</span><br>
 											</div>
 										</div>

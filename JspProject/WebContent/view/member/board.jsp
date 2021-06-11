@@ -189,12 +189,13 @@
 													<li class="list-unstyled li1"><i class="far fa-eye"></i> ${dto.getBoard_hit() }</li>
 
 													<li class="list-unstyled li1  img1"></li>
-													<a class="avatar-photo text-left"> <img width="30" height="30" class="img-circle " src="//www.gravatar.com/avatar/b66da5ef6099211f5db8f5f7a3b4c36b?d=identicon&s=30">
-													</a>
+														<a class="avatar-photo text-left" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }"> 
+															<img width="30" height="30" class="img-circle " src="//www.gravatar.com/avatar/b66da5ef6099211f5db8f5f7a3b4c36b?d=identicon&s=30">
+														</a>
 													</li>
 													<li class="list-unstyled li1 a2">
 														<div>
-															<a class="a1">${memberList[status.index].getMem_nick() }</a> &nbsp;
+															<a class="a1" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }">${memberList[status.index].getMem_nick() }</a> &nbsp;
 															<div style="font-size: 10px; display: inline-block;">
 																<i class="fas fa-bolt i1"></i> ${memberList[status.index].getMem_score() }
 															</div>

@@ -373,6 +373,82 @@ public class BoardDAO {
 		return list;
 	}
 
+	// 특정 회원이 작성한 댓글이 달린 모든 게시글을 조회하는 메서드
+	public List<BoardDTO> getBoardList(List<CommentDTO> comList) {
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
+		try {
+			openConn();
+
+			for (int i = 0; i < comList.size(); i++) {
+				sql = "select * from okky_board where board_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, comList.get(i).getCom_target());
+				rs = pstmt.executeQuery();
+				while (rs.next()) {
+					BoardDTO dto = new BoardDTO();
+
+					dto.setBoard_num(rs.getInt("board_num"));
+					dto.setBoard_title(rs.getString("board_title"));
+					dto.setBoard_writer(rs.getInt("board_writer"));
+					dto.setBoard_content(rs.getString("board_content"));
+					dto.setBoard_hit(rs.getInt("board_hit"));
+					dto.setBoard_like(rs.getInt("board_like"));
+					dto.setBoard_scrap(rs.getInt("board_scrap"));
+					dto.setBoard_category(rs.getInt("board_category"));
+					dto.setBoard_regdate(rs.getString("board_regdate"));
+					dto.setBoard_comment(rs.getInt("board_comment"));
+
+					list.add(dto);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+	}
+
+	// 특정 회원이 스크랩한 모든 글을 조회하는 메서드
+	public List<BoardDTO> getScrapBoardList(List<LikeDTO> likeList) {
+		List<BoardDTO> list = new ArrayList<>();
+
+		try {
+			openConn();
+
+			for (int i = 0; i < likeList.size(); i++) {
+				sql = "select * from okky_board where board_num = ";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, likeList.get(i).getLike_target());
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					BoardDTO dto = new BoardDTO();
+
+					dto.setBoard_num(rs.getInt("board_num"));
+					dto.setBoard_title(rs.getString("board_title"));
+					dto.setBoard_writer(rs.getInt("board_writer"));
+					dto.setBoard_content(rs.getString("board_content"));
+					dto.setBoard_hit(rs.getInt("board_hit"));
+					dto.setBoard_like(rs.getInt("board_like"));
+					dto.setBoard_scrap(rs.getInt("board_scrap"));
+					dto.setBoard_category(rs.getInt("board_category"));
+					dto.setBoard_regdate(rs.getString("board_regdate"));
+					dto.setBoard_comment(rs.getInt("board_comment"));
+
+					list.add(dto);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+	}
+
 	// 카테고리에 맞는 전체 게시글 수를 조회하는 메서드
 	public int getBoardListCount(int num) {
 		int count = 0;
@@ -503,53 +579,6 @@ public class BoardDAO {
 		return count;
 	}
 
-	// 회원의 활동내역과 관련한 모든 글을 불러오는 메서드
-	public List<BoardDTO> getMemberBoardList(int num, int startNo, int endNo) {
-		List<BoardDTO> list = new ArrayList<>();
-
-		try {
-			openConn();
-			sql = "select * from (select row_number() over(order by board_num desc) rnum, b.* from okky_board b "
-					+ "where board_writer = ? "
-					+ "or board_num in (select com_target from okky_comment where com_writer = ?) "
-					+ "or board_num in (select like_target from okky_like where like_writer = ?)) "
-					+ "where rnum >= ? and rnum <= ?";
-
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			pstmt.setInt(2, num);
-			pstmt.setInt(3, num);
-			pstmt.setInt(4, startNo);
-			pstmt.setInt(5, endNo);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				BoardDTO dto = new BoardDTO();
-
-				dto.setBoard_num(rs.getInt("board_num"));
-				dto.setBoard_title(rs.getString("board_title"));
-				dto.setBoard_writer(rs.getInt("board_writer"));
-				dto.setBoard_content(rs.getString("board_content"));
-				dto.setBoard_hit(rs.getInt("board_hit"));
-				dto.setBoard_like(rs.getInt("board_like"));
-				dto.setBoard_scrap(rs.getInt("board_scrap"));
-				dto.setBoard_category(rs.getInt("board_category"));
-				dto.setBoard_regdate(rs.getString("board_regdate"));
-				dto.setBoard_comment(rs.getInt("board_comment"));
-
-				list.add(dto);
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			closeConn(rs, pstmt, con);
-		}
-
-		return list;
-	}
-
 	public BoardDTO getBoardCont(int num) {
 		BoardDTO dto = new BoardDTO();
 
@@ -618,6 +647,44 @@ public class BoardDAO {
 			closeConn(rs, pstmt, con);
 		}
 		return dto;
+	}
+
+	// 특정 회원이 작성한 모든 글 정보를 불러오는 메서드
+	public List<BoardDTO> getMemberBoardList(int num, int startNo, int endNo) {
+		List<BoardDTO> list = new ArrayList<>();
+
+		try {
+			openConn();
+			sql = "select * from (select row_number() over(order by board_regdate) rnum, b.* from okky_board b where board_writer = ?) where rnum >= ? and rnum <= ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.setInt(2, startNo);
+			pstmt.setInt(3, endNo);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				BoardDTO dto = new BoardDTO();
+
+				dto.setBoard_num(rs.getInt("board_num"));
+				dto.setBoard_title(rs.getString("board_title"));
+				dto.setBoard_writer(rs.getInt("board_writer"));
+				dto.setBoard_content(rs.getString("board_content"));
+				dto.setBoard_hit(rs.getInt("board_hit"));
+				dto.setBoard_like(rs.getInt("board_like"));
+				dto.setBoard_scrap(rs.getInt("board_scrap"));
+				dto.setBoard_category(rs.getInt("board_category"));
+				dto.setBoard_regdate(rs.getString("board_regdate"));
+				dto.setBoard_comment(rs.getInt("board_comment"));
+
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
 	}
 
 }

@@ -12,6 +12,27 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+function boardList() {
+	document.getElementById("boardList").style.display = "block";
+	document.getElementById("comList").style.display = "none";
+	document.getElementById("scrapList").style.display = "none";
+};
+
+function comList() {
+	document.getElementById("boardList").style.display = "none";
+	document.getElementById("comList").style.display = "block";
+	document.getElementById("scrapList").style.display = "none";
+};
+
+function scrapList() {
+	document.getElementById("boardList").style.display = "none";
+	document.getElementById("comList").style.display = "none";
+	document.getElementById("scrapList").style.display = "block";
+};
+
+</script>
 </head>
 <body>
 	<div class="layout_container">
@@ -23,7 +44,7 @@
 				            <form class="panel-body">
 				                <div class="avatar clearfix avatar-big col-sm-3 text-center">
 				                    <a href="" class="avatar-photo">
-				                        <img src="<%=request.getContextPath() %>/images/29a87623405c294d79bd2b4728996363.png">
+				                        <img src="<%=request.getContextPath() %>/images/profile/${memDTO.getMem_image() }">
 				                    </a>
 				                </div>
 				                <div class="user-info col-sm-9">
@@ -54,13 +75,15 @@
 				
 				        <div class="col-sm-2 user-info-nav pull-right"> <!-- activity Check -->
 				            <ul class="nav">
-				                <li><a href="">최근 활동</a></li>
-				                <li><a href="">게시물</a><span class="badge badge-muted">${boardList.size() }</span></li>
-				                <li><a href="">스크랩</a></li>
+				                <li><a onclick="boardList()">작성글&nbsp;<span class="badge badge-muted"><c:if test="${!empty boardList }">${boardList.size() }</c:if></span></a></li>
+				                <li><a onclick="comList()">작성댓글&nbsp;<span class="badge badge-muted"><c:if test="${!empty comList }">${comList.size() }</c:if></span></a></li>
+				                <li><a onclick="scrapList()">스크랩&nbsp;<span class="badge badge-muted">${likeList.size() }</span></a></li>
 				            </ul>
 				        </div> <!-- /activity Check-->
 				
+		<!-- 작성글 -->
 				        <div class="col-sm-10 main-block-left pull-left"> <!-- activity List -->
+				        <div class="boardList">
 				            <ul class="list-group">
 				           	 <c:if test="${!empty boardList }">
 				     		   <c:forEach items="${boardList }" var="board" varStatus="status">
@@ -70,21 +93,23 @@
 				                    </div>
 				                    <div class="list-title-wrapper list-activity">
 				                        <div class="list-activity-desc">
-				                            <span class="list-activity-desc-text">#${board.getBoard_num() } 게시물을 추천 하였습니다.</span>
+				                            <span class="list-activity-desc-text">
+				                            	<a class="list-group-item-text item-tag label label-info padding">${cateList[status.index].getCate_name()}</a>
+				                            	게시글에 #${board.getBoard_num() } 게시물을 작성하였습니다.</span></span>
 				                            <span class="date">${board.getBoard_regdate() }</span>
 				                        </div>
 				
 				                        <h5 class="list-group-item-heading">
-				                            <a href="">${board.getBoard_title() }</a>
+				                            <a href="<%=request.getContextPath()%>/member_board_content.do?num=${board.getBoard_num() }">${board.getBoard_title() }</a>
 				                            <div class="list-group-item-author pull-right clearfix">
 				                                <div class="avatar clearfix avatar-x-small">
 				                                    <a href="" class="avatar-photo">
 				                                        <img src="<%=request.getContextPath() %>/images/437ec94ff99317bcb4a15730e1b5cf61.png">
 				                                    </a>
 				                                    <div class="avatar-info">
-				                                        <a class="nickname" href="">${memList[status.index].getMem_nick() }</a>
+				                                        <a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=${memDTO.getMem_nick() }">${memDTO.getMem_nick() }</a>
 				                                        <div class="activity">
-				                                            <span class=""><i class="fas fa-bolt"></i>&nbsp;${memList[status.index].getMem_score() }</span>
+				                                            <span class=""><i class="fas fa-bolt"></i>&nbsp;${memDTO.getMem_score() }</span>
 				                                        </div>
 				                                    </div>
 				                                </div>
@@ -93,9 +118,82 @@
 
 				                    </div>
 				                </li>
-				           </c:forEach>
-				           </c:if>
-				            </ul>
+				           	  </c:forEach>
+				            </c:if>
+				            <c:if test="${empty boardList }">
+				            	<li class="list-group-item list-group-has-note list-group-item-small">
+				            		작성한 글이 없습니다.
+				            	</li>
+				            </c:if>
+				           </ul>
+				           <div id="boardPage" style="text-align: center;">
+					            <nav aria-label="Page navigation example"> <!-- pagination -->
+					                <ul class="pagination">
+					                    <li class="page-item">
+					                        <a class="page-link" href="#" aria-label="Previous">
+					                            <span aria-hidden="true">&laquo;</span>
+					                            <span class="sr-only">Previous</span>
+					                        </a>
+					                    </li>
+					                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+					                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+					                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+					                    <li class="page-item">
+					                        <a class="page-link" href="#" aria-label="Next">
+					                            <span aria-hidden="true">&raquo;</span>
+					                            <span class="sr-only">Next</span>
+					                        </a>
+					                    </li>
+					                </ul>
+					            </nav> <!-- /pagination -->
+					           </div>
+					          </div>
+					            
+					            <!-- 작성댓글 -->
+					      <div id="comList">
+				            <ul class="list-group">
+				           	 <c:if test="${!empty comList }">
+				     		   <c:forEach items="${comList }" var="com" varStatus="status">
+				                <li class="list-group-item list-group-has-note list-group-item-small">
+				                    <div class="list-icon-wrapper pull-left">
+				                        <i class="fas fa-angle-up"></i>
+				                    </div>
+				                    <div class="list-title-wrapper list-activity">
+				                        <div class="list-activity-desc">
+				                            <span class="list-activity-desc-text">
+				                            	#${com.getCom_target() }
+				                            	<a href="<%=request.getContextPath()%>/member_board_content.do?num=${cbList[status.index].getBoard_num() }">${cbList[status.index].getBoard_title() }</a>
+				                            	게시글에 댓글을 남겼습니다.</span></span>
+				                            <span class="date">${com.getCom_regdate() }</span>
+				                        </div>
+				
+				                        <h5 class="list-group-item-heading">
+				                          	 ${com.getCom_content() }
+				                            <div class="list-group-item-author pull-right clearfix">
+				                                <div class="avatar clearfix avatar-x-small">
+				                                    <a href="" class="avatar-photo">
+				                                        <img src="<%=request.getContextPath() %>/images/437ec94ff99317bcb4a15730e1b5cf61.png">
+				                                    </a>
+				                                    <div class="avatar-info">
+				                                        <a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=${lmList[status.index].getMem_nick() }">${lmList[status.index].getMem_nick() }</a>
+				                                        <div class="activity">
+				                                            <span class=""><i class="fas fa-bolt"></i>&nbsp;${lmList[status.index].getMem_score() }</span>
+				                                        </div>
+				                                    </div>
+				                                </div>
+				                            </div>
+				                        </h5>
+
+				                    </div>
+				                </li>
+				           	  </c:forEach>
+				            </c:if>
+				            <c:if test="${empty cbList }">
+				            	<li class="list-group-item list-group-has-note list-group-item-small">
+				            		작성한 댓글이 없습니다.
+				            	</li>
+				            </c:if>
+				           </ul>
 				            
 				            <div style="text-align: center;">
 					            <nav aria-label="Page navigation example"> <!-- pagination -->
@@ -118,6 +216,76 @@
 					                </ul>
 					            </nav> <!-- /pagination -->
 				            </div>
+				            </div>
+				            
+			<!-- 스크랩 -->
+				<div id="scrapList">
+				            <ul id="scrapList" class="list-group">
+				           	 <c:if test="${!empty lbList }">
+				     		   <c:forEach items="${lbList }" var="com" varStatus="status">
+				                <li class="list-group-item list-group-has-note list-group-item-small">
+				                    <div class="list-icon-wrapper pull-left">
+				                        <i class="fas fa-angle-up"></i>
+				                    </div>
+				                    <div class="list-title-wrapper list-activity">
+				                        <div class="list-activity-desc">
+				                            <span class="list-activity-desc-text">
+				                            	#${lbList.getBoard_num() } 게시물을 스크랩하였습니다.</span></span>
+				                            <span class="date">${lbList.getBoard_regdate() }</span>
+				                        </div>
+				
+				                        <h5 class="list-group-item-heading">
+				                            <a href="<%=request.getContextPath()%>/member_board_content.do?num=${lbList.getBoard_num() }">${lbList.getBoard_title() }</a>
+				                            <div class="list-group-item-author pull-right clearfix">
+				                                <div class="avatar clearfix avatar-x-small">
+				                                    <a href="" class="avatar-photo">
+				                                        <img src="<%=request.getContextPath() %>/images/437ec94ff99317bcb4a15730e1b5cf61.png">
+				                                    </a>
+				                                    <div class="avatar-info">
+				                                        <a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=${cmList[status.index].getMem_nick() }">${cmList[status.index].getMem_nick() }</a>
+				                                        <div class="activity">
+				                                            <span class=""><i class="fas fa-bolt"></i>&nbsp;${cmList[status.index].getMem_score() }</span>
+				                                        </div>
+				                                    </div>
+				                                </div>
+				                            </div>
+				                        </h5>
+
+				                    </div>
+				                </li>
+				           	  </c:forEach>
+				            </c:if>
+				            <c:if test="${empty lbList }">
+				            	<li class="list-group-item list-group-has-note list-group-item-small">
+				            		스크랩한 글이 없습니다.
+				            	</li>
+				            </c:if>
+				           </ul>
+				            
+				            <div style="text-align: center;">
+					            <nav aria-label="Page navigation example"> <!-- pagination -->
+					                <ul class="pagination">
+					                    <li class="page-item">
+					                        <a class="page-link" href="#" aria-label="Previous">
+					                            <span aria-hidden="true">&laquo;</span>
+					                            <span class="sr-only">Previous</span>
+					                        </a>
+					                    </li>
+					                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+					                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+					                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+					                    <li class="page-item">
+					                        <a class="page-link" href="#" aria-label="Next">
+					                            <span aria-hidden="true">&raquo;</span>
+					                            <span class="sr-only">Next</span>
+					                        </a>
+					                    </li>
+					                </ul>
+					            </nav> <!-- /pagination -->
+				            </div>
+				            </div>
+				            
+				            
 				        </div> <!-- /activity list -->
 				    </div> <!-- /container -->
 			    </div>

@@ -110,7 +110,7 @@ $(function(){
 												<div class="cont-member col-xs-3 margin-auto">			
 													<div>
 														<a href="<%=request.getContextPath()%>/member_personal.do?num=${memList[status.index].getMem_num() }">
-															<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
+															<img src="<%=request.getContextPath() %>/images/profile/${memList[status.index].getMem_image() }" class="cont-mem-logo img-circle"></a>
 															
 														
 														<div class="cont-mem-info">

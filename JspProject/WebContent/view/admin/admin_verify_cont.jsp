@@ -62,7 +62,7 @@
 										<div class="cont-member">			
 													<div>
 														<a href="<%=request.getContextPath()%>/member_personal.do?num=${memList.getMem_num() }">
-															<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
+															<img src="<%=request.getContextPath() %>/images/profile/${memList.getMem_image() }" class="cont-mem-logo img-circle"></a>
 														
 														<div class="cont-mem-info">
 															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${memList.getMem_num() }">${memList.getMem_nick() }</a><br>

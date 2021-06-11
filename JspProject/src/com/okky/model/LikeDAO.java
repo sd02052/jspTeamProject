@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -66,4 +68,26 @@ public class LikeDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	// 특정회원이 스크랩한 글을 조회하는 메서드
+	public List<LikeDTO> getScrapList(int num, int startNum, int endNum) {
+		List<LikeDTO> list = new ArrayList<LikeDTO>();
+		
+		try {
+			openConn();
+			sql = "select * from (select row_number() over(order by like_num) rnum, l.* from okky_like where like_writer = ? and like_flag = 3) where rnum >= ? and rnum <= ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.setInt(2, startNum);
+			pstmt.setInt(3, endNum);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+	}
+	
+	
 }

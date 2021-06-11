@@ -164,6 +164,38 @@ public class CommentDAO {
 		return list;
 	}
 
+	public List<CommentDTO> getPesonalCommentList(int num) {
+		List<CommentDTO> list = new ArrayList<CommentDTO>();
+
+		try {
+			openConn();
+			sql = "select * from okky_comment where com_writer = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				CommentDTO dto = new CommentDTO();
+
+				dto.setCom_num(rs.getInt("com_num"));
+				dto.setCom_writer(rs.getInt("com_writer"));
+				dto.setCom_content(rs.getString("com_content"));
+				dto.setCom_target(rs.getInt("com_target"));
+				dto.setCom_like(rs.getInt("com_like"));
+				dto.setCom_regdate(rs.getString("com_regdate"));
+				dto.setCom_selected(rs.getString("com_selected"));
+
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+	}
+
 	public List<MemberDTO> getCommentMemberList(List<CommentDTO> commentList) {
 		List<MemberDTO> list = new ArrayList<MemberDTO>();
 
@@ -256,13 +288,13 @@ public class CommentDAO {
 		}
 		return result;
 	}
-	
+
 	public int editComment(int num, String content) {
 		int result = 0;
-		
+
 		try {
 			openConn();
-			
+
 			sql = "update okky_comment set com_content = ?, com_regdate = sysdate where com_num = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, content);
@@ -275,6 +307,40 @@ public class CommentDAO {
 			closeConn(rs, pstmt, con);
 		}
 		return result;
-		
+	}
+
+	// 특정회원이 단 전체 댓글을 조회하는 메서드
+	public List<CommentDTO> getMemberCommentList(int num, int startNo, int endNo) {
+		List<CommentDTO> list = new ArrayList<>();
+
+		try {
+			openConn();
+			sql = "select * from (select row_number() over(order by com_regdate desc) rnum,c.* from okky_comment c where com_writer = ?) where rnum >= ? and rnum <= ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.setInt(2, startNo);
+			pstmt.setInt(3, endNo);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				CommentDTO dto = new CommentDTO();
+
+				dto.setCom_num(rs.getInt("com_num"));
+				dto.setCom_writer(rs.getInt("com_writer"));
+				dto.setCom_content(rs.getString("com_content"));
+				dto.setCom_target(rs.getInt("com_target"));
+				dto.setCom_like(rs.getInt("com_like"));
+				dto.setCom_regdate(rs.getString("com_regdate"));
+				dto.setCom_selected(rs.getString("com_selected"));
+
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
 	}
 }

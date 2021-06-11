@@ -1,0 +1,35 @@
+@charset "UTF-8";
+  .content {
+    width: 805px;
+    min-height: 800px;
+  }
+  .content-header {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #6f7275;
+  }
+  .panel{
+    padding: 4px;
+  }
+  .panel-body-content {
+    padding: 30px 50px !important;
+  }
+  .panel-default{
+    border-color: #ddd;
+  }
+  .panel-heading{
+    background-color: #fff !important;
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius:3px;
+    border-top-right-radius:3px;
+  }
+  .panel-header{
+    text-align: center;
+    color: #6f7275;
+  }
+  .panel-margin-10{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  

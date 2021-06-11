@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -173,9 +172,8 @@
 						<!-- Q&A / 커뮤니티 -->
 						<div class="main-block">
 							<h4 class="main-header">
-								<i class="fas fa-database"></i> Q&A <a href=""
-									class="main-more-btn pull-right"> <i
-									class="fas fa-ellipsis-h"></i>
+								<i class="fas fa-database"></i> Q&A <a href="" class="main-more-btn pull-right"> 
+								<i class="fas fa-ellipsis-h"></i>
 								</a>
 							</h4>
 							<div class="panel panel-default">

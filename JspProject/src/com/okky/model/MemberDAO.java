@@ -253,11 +253,113 @@ public class MemberDAO {
 				list.add(tag);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			closeConn(rs, pstmt, con);
 		}
 		return list;
 	}
+
+	// okky_member 테이블의 회원번호에 해당하는 비밀번호를 수정하는 메서드.
+	public int pwdEdit(MemberDTO dto, String newPassword) {
+		
+		int result = 0;
+		
+		try {
+			
+			openConn();
+			
+			sql = "select * from okky_member where mem_num = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, dto.getMem_num());
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				if(dto.getMem_pwd().equals(rs.getString("mem_pwd"))) {
+					// 비밀번호가 맞을 경우
+					sql= "update okky_member set mem_pwd =? where mem_num = ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, newPassword);
+					pstmt.setInt(2, dto.getMem_num());
+					
+					result = pstmt.executeUpdate();
+					
+				}else { // 비밀번호가 틀린 경우
+					result = -1;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	} // pwdEdit() 메서드 end
+
+	// okky_member 테이블의 회원번호에 해당하는 정보를 수정하는 메서드.
+	public int infoEdit(MemberDTO dto) {
+		
+		int result = 0;
+		
+		try {
+			openConn();
+			
+			sql = "select mem_nick from okky_member";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				if(dto.getMem_nick().equals(rs.getString("mem_nick"))) { // 닉네임 중복
+					result = -1;
+				}else { // 닉네임 사용 가능
+					sql = "update okky_member set mem_nick = ? where mem_num = ?";
+					
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, dto.getMem_nick());
+					pstmt.setInt(2, dto.getMem_num());
+					
+					result = pstmt.executeUpdate();
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	} // infoEdit() 메서드 end
+	
+	// okky_mem_tag 테이블의 회원번호에 해당하는 태그를 수정하는 메서드. 
+	public int infoTagEdit(int mem_num, TagDTO tdto) {
+		int result = 0;
+		return result;
+	} // infoTagEdit() 메서드 end
+
+	// okky_member 테이블의 회원번호에 맞는 회원을 탈퇴시키는 메서드.
+	public int memberWithdrawal(int mem_num) {
+		
+		int result = 0;
+		
+		try {
+			openConn();
+			
+			sql = "update okky_member set mem_check = ? where mem_num = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "yes");
+			pstmt.setInt(2, mem_num);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	} // memberWithdrawal() 메서드 end
 }

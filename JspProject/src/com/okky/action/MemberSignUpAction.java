@@ -23,6 +23,7 @@ public class MemberSignUpAction implements Action {
 		String mem_nick = request.getParameter("mem_nick").trim();
 //		String mem_emailCheck = request.getParameter("mem_emailCheck").trim();
 		String mem_image = "dpro.png";
+		
 		MemberDTO dto = new MemberDTO();
 		dto.setMem_id(mem_id);
 		dto.setMem_pwd(mem_pwd);

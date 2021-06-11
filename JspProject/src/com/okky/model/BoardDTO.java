@@ -8,10 +8,11 @@ public class BoardDTO {
 	private int board_hit;
 	private int board_like;
 	private int board_scrap;
-	private int board_category;
+	// 카테고리 스트링으로 수정 (int -> String)
+	private String board_category;
 	private String board_regdate;
 	private int board_comment;
-	
+
 	@Override
 	public String toString() {
 		return "BoardDTO [board_num=" + board_num + ", board_title=" + board_title + ", board_writer=" + board_writer
@@ -76,11 +77,11 @@ public class BoardDTO {
 		this.board_scrap = board_scrap;
 	}
 
-	public int getBoard_category() {
+	public String getBoard_category() {
 		return board_category;
 	}
 
-	public void setBoard_category(int board_category) {
+	public void setBoard_category(String board_category) {
 		this.board_category = board_category;
 	}
 

@@ -23,22 +23,19 @@ public class Board_PostAction implements Action {
 //		2DB에 넣는다.
 //		3DB에 잘 들어갔는지 확인을 해본다.
 		
-//		1받은걸 확인한다.
-		String board_category = request.getParameter("category").trim();	// 카테고리
-		String board_title = request.getParameter("title").trim();			// 글 제목
-		String board_content = request.getParameter("content").trim();		// 글 내용
+		BoardDTO dto = new BoardDTO();
 		
-//		String board_write = request.getParameter("write").trim(); 작성자		
+//		1받은걸 확인한다.
+		String board_category = request.getParameter("category");	// 카테고리 
+		String board_title = request.getParameter("title");			// 글 제목
+		String board_content = request.getParameter("content");		// 글 내용		
+//		String board_write = request.getParameter("writer").trim(); 작성자		
 		int board_writer = 1;	
 		
-		
-		
-		BoardDTO dto = new BoardDTO();		
-		dto.setBoard_regdate(board_category);
+		dto.setBoard_category(board_category);
 		dto.setBoard_title(board_title);
 		dto.setBoard_content(board_content);
 		dto.setBoard_writer(board_writer); System.out.println(dto);
-		
 		
 		BoardDAO dao = BoardDAO.getInstance();
 		int res = dao.getBoardPost(dto);
@@ -46,21 +43,17 @@ public class Board_PostAction implements Action {
 		PrintWriter out = response.getWriter();
 		ActionForward forward = new ActionForward();
 		
-		if(res > 0) {
-			forward.setRedirect(false);
-			forward.setPath("view/member/board.jsp");
-			System.out.println("게시물 추가 성공");
+		forward.setRedirect(false);
+		forward.setPath("view/member/board.jsp");
+		System.out.println("게시물 추가 성공");
+		/*if(res > 0) {
 		}else {
 			out.println("<script>");
 			out.println("alert('게시물 추가 실패!!!')");
 			out.println("location.href='board_list.do'");
 			out.println("</script>");
-		}
+		}*/
 		
-		
-		
-
-
 		return forward;
 	}
 

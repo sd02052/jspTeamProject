@@ -237,7 +237,7 @@ public class BoardDAO {
 				dto.setBoard_hit(rs.getInt("board_hit"));
 				dto.setBoard_like(rs.getInt("board_like"));
 				dto.setBoard_scrap(rs.getInt("board_scrap"));
-				dto.setBoard_category(rs.getInt("board_category"));
+				dto.setBoard_category(rs.getString("board_category"));
 				dto.setBoard_regdate(rs.getString("board_regdate"));
 				dto.setBoard_comment(rs.getInt("board_comment"));
 
@@ -271,7 +271,7 @@ public class BoardDAO {
 				dto.setBoard_hit(rs.getInt("board_hit"));
 				dto.setBoard_like(rs.getInt("board_like"));
 				dto.setBoard_scrap(rs.getInt("board_scrap"));
-				dto.setBoard_category(rs.getInt("board_category"));
+				dto.setBoard_category(rs.getString("board_category"));
 				dto.setBoard_regdate(rs.getString("board_regdate"));
 				dto.setBoard_comment(rs.getInt("board_comment"));
 
@@ -303,30 +303,31 @@ public class BoardDAO {
 			}
 			
 			System.out.println("2");
+			// (select nvl(max(board_num), 0) + 1 from okky_board 최대숫자 +1
 			sql = "insert into okky_board "
-					/*+ "(board_num, board_title, board_writer, "
-					+ "board_content, board_category, board_regdate) "*/
-					+ "values (?,?,?,?,?,SYSDATE)";
+					+ "(board_num, board_title, board_writer, "
+					+ "board_content, board_category, board_regdate) "
+					+ "values ((select nvl(max(board_num), 0) + 1 from okky_board),?,?,?,?,SYSDATE)";
 			System.out.println("3");
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, board_num);
-			System.out.println("a");
-			pstmt.setString(2, dto.getBoard_title());
+			System.out.println(dto.getBoard_num());
+			pstmt.setString(1, dto.getBoard_title());
 			System.out.println("b");
-			pstmt.setInt(3, dto.getBoard_writer());
+			pstmt.setInt(2, dto.getBoard_writer());
 			System.out.println("c");
-			pstmt.setString(4, dto.getBoard_content());
+			pstmt.setString(3, dto.getBoard_content());
 			System.out.println("d");
-			pstmt.setInt(5, dto.getBoard_category());
-			System.out.println("e");
+			pstmt.setString(4, dto.getBoard_category());
 			System.out.println("4");			
 			
 				result = pstmt.executeUpdate();
+				System.out.println("result 값  : " + result);
 			System.out.println("5");			
 				rs.close(); pstmt.close(); con.close();
 
 		} catch (SQLException e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return result;
 	}

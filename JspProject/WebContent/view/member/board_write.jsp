@@ -168,8 +168,8 @@
 									<div class="col-sm-8">
 										<select class="form-control" name="category">
 											<option>게시판을 선택해 주세요.</option>
-											<option vlaue="1">Tech Q&A</option>
-											<option vlaue="2">Blockchain Q&A</option>
+											<option value="2">Tech Q&A</option> 
+											<option value="3">Blockchain Q&A</option>
 										</select>
 									</div>
 								</div>
@@ -207,8 +207,10 @@
 								</div>
 								<div class="col-xs-12 col-md-8">
 									<br> <br>
-									<button type="submit" class="btn btn-success"									
+									<button type="submit" class="btn btn-success"	
+										
 										style="float: right;">등록</button>
+										<!-- 여기 버튼타입도 버튼에서 서브밋으로 수정해서 경로는 지웠어 자꾸 두개가 되길래 -->
 								</div>
 						</div>
 						</form>

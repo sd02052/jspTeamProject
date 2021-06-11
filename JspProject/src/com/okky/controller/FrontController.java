@@ -34,7 +34,7 @@ public class FrontController extends HttpServlet {
 		Properties prop = new Properties();
 
 		FileInputStream fis = new FileInputStream(
-				"C:\\Users\\201421304\\git\\jspTeamProject\\JspProject\\src\\com\\okky\\controller\\mapping.properties");
+				"C:\\Users\\SIST\\git\\jspTeamProject\\JspProject\\src\\com\\okky\\controller\\mapping.properties");
 		prop.load(fis);
 		String value = prop.getProperty(command);
 		
@@ -66,7 +66,7 @@ public class FrontController extends HttpServlet {
 				response.sendRedirect(forward.getPath());
 			} else {
 				RequestDispatcher rd = request.getRequestDispatcher(forward.getPath());
-				rd.forward(request, response);
+ 				rd.forward(request, response);
 			}
 		}
 	}

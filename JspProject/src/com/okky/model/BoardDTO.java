@@ -8,11 +8,10 @@ public class BoardDTO {
 	private int board_hit;
 	private int board_like;
 	private int board_scrap;
-	// 카테고리 스트링으로 수정 (int -> String)
 	private String board_category;
 	private String board_regdate;
 	private int board_comment;
-
+	
 	@Override
 	public String toString() {
 		return "BoardDTO [board_num=" + board_num + ", board_title=" + board_title + ", board_writer=" + board_writer

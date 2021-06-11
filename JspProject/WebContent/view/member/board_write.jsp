@@ -159,7 +159,8 @@
 						</div>
 						
 						<form action="member_board_post.do" method="post" class="form-horizontal">
-						<input type="hidden" name="board_writer" />
+						<input type="hidden" name="login_mem" value="${loginNum }">
+						<!-- <input type="hidden" name="board_writer" /> -->
 							<div class="col-xs-12 d" style="border: 1px solid gray;">
 								<div class="form-group">
 

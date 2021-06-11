@@ -210,7 +210,6 @@
 									<button type="submit" class="btn btn-success"	
 										
 										style="float: right;">등록</button>
-										<!-- 여기 버튼타입도 버튼에서 서브밋으로 수정해서 경로는 지웠어 자꾸 두개가 되길래 -->
 								</div>
 						</div>
 						</form>

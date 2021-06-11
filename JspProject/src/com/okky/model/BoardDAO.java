@@ -81,7 +81,7 @@ public class BoardDAO {
 
 				sql = "select * from okky_board where board_num = ?";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, company_num);
+				pstmt.setInt(1, pageList.get(i).getCompany_num());
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
@@ -107,6 +107,21 @@ public class BoardDAO {
 			closeConn(rs, pstmt, con);
 		}
 		return list;
+	}
+
+	public void boardHit(int num) {
+		try {
+			openConn();
+			sql = "update okky_board set board_hit = board_hit + 1 where board_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
 	}
 
 	public void setBoardLike() {
@@ -459,25 +474,24 @@ public class BoardDAO {
 		}
 		return list;
 	}
-	
+
 	// 회원 활동 상세 페이지에 들어갈 글의 수를 조회하는 메서드
 	public int getSearchListCount(int num) {
 		int count = 0;
-		
+
 		try {
 			openConn();
-			sql = "select count(*) from okky_board "
-					+ "where board_writer = ? "
+			sql = "select count(*) from okky_board " + "where board_writer = ? "
 					+ "or board_num in (select com_target from okky_comment where com_writer = ?) "
 					+ "or board_num in (select like_target from okky_like where like_writer = ?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setInt(2, num);
 			pstmt.setInt(3, num);
-			
+
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				count = rs.getInt(1);
 			}
 		} catch (SQLException e) {
@@ -488,19 +502,19 @@ public class BoardDAO {
 		}
 		return count;
 	}
-	
 
 	// 회원의 활동내역과 관련한 모든 글을 불러오는 메서드
 	public List<BoardDTO> getMemberBoardList(int num, int startNo, int endNo) {
 		List<BoardDTO> list = new ArrayList<>();
-		
+
 		try {
 			openConn();
 			sql = "select * from (select row_number() over(order by board_num desc) rnum, b.* from okky_board b "
-					+ "where board_writer = ? " + "or board_num in (select com_target from okky_comment where com_writer = ?) "
+					+ "where board_writer = ? "
+					+ "or board_num in (select com_target from okky_comment where com_writer = ?) "
 					+ "or board_num in (select like_target from okky_like where like_writer = ?)) "
 					+ "where rnum >= ? and rnum <= ?";
-			
+
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setInt(2, num);
@@ -508,10 +522,10 @@ public class BoardDAO {
 			pstmt.setInt(4, startNo);
 			pstmt.setInt(5, endNo);
 			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				BoardDTO dto = new BoardDTO();
-				
+
 				dto.setBoard_num(rs.getInt("board_num"));
 				dto.setBoard_title(rs.getString("board_title"));
 				dto.setBoard_writer(rs.getInt("board_writer"));
@@ -522,18 +536,88 @@ public class BoardDAO {
 				dto.setBoard_category(rs.getInt("board_category"));
 				dto.setBoard_regdate(rs.getString("board_regdate"));
 				dto.setBoard_comment(rs.getInt("board_comment"));
-				
+
 				list.add(dto);
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			closeConn(rs, pstmt, con);
 		}
-		
+
 		return list;
+	}
+
+	public BoardDTO getBoardCont(int num) {
+		BoardDTO dto = new BoardDTO();
+
+		try {
+			openConn();
+			sql = "select * from okky_board where board_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				dto.setBoard_num(rs.getInt("board_num"));
+				dto.setBoard_title(rs.getString("board_title"));
+				dto.setBoard_writer(rs.getInt("board_writer"));
+				dto.setBoard_content(rs.getString("board_content"));
+				dto.setBoard_hit(rs.getInt("board_hit"));
+				dto.setBoard_like(rs.getInt("board_like"));
+				dto.setBoard_scrap(rs.getInt("board_scrap"));
+				dto.setBoard_category(rs.getInt("board_category"));
+				dto.setBoard_regdate(rs.getString("board_regdate"));
+				dto.setBoard_comment(rs.getInt("board_comment"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return dto;
+	}
+
+	public MemberDTO getWriter(int num) {
+		MemberDTO dto = new MemberDTO();
+
+		try {
+			openConn();
+			sql = "select board_writer from okky_board where board_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				int board_writer = rs.getInt("board_writer");
+				sql = "select * from okky_member where mem_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, board_writer);
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					dto.setMem_num(rs.getInt("mem_num"));
+					dto.setMem_id(rs.getString("mem_id"));
+					dto.setMem_nick(rs.getString("mem_nick"));
+					dto.setMem_pwd(rs.getString("mem_pwd"));
+					dto.setMem_image(rs.getString("mem_image"));
+					dto.setMem_email(rs.getString("mem_email"));
+					dto.setMem_regdate(rs.getString("mem_regdate"));
+					dto.setMem_emailCheck(rs.getString("mem_emailcheck"));
+					dto.setMem_check(rs.getString("mem_check"));
+					dto.setMem_score(rs.getInt("mem_score"));
+					dto.setMem_company(rs.getInt("mem_company"));
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return dto;
 	}
 
 }

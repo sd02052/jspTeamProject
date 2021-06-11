@@ -19,6 +19,8 @@ insert into okky_member values(12, 'mem12@mem', 'mem12', '1111', 'test', 'mem12@
 
 -- 카테고리 테이블 레코드
 set define off;  -- & 대체문자 인식 해제
+set scan off; 	-- define off가 안 먹힐 때 사용
+
 insert into okky_category values(1, 'Q&A', 1, 0);
 insert into okky_category values(2, 'Tech Q&A', 1, 1);
 insert into okky_category values(3, 'Blockchain Q&A', 1, 2);

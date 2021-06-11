@@ -98,7 +98,7 @@ $(function(){
 								<form name="mem_magage" method="post" action="<%=request.getContextPath() %>/member_check.do"
 									onsubmit="return confirm('정말로 강제탈퇴를 실행하시겠습니까?')"> 
 									<input type="hidden" name="page" value="${page }">
-									<ul class="list-group list-title">
+									<ul class="list-group list-title com-list">
 										<c:set var="list" value="${List }" />
 										<c:if test="${!empty list }">
 											<c:forEach items="${list }" var="dto">
@@ -134,7 +134,7 @@ $(function(){
 										</c:forEach>
 										</c:if>
 										<c:if test="${empty list }">
-											<li class="list-group-item list-group-item-question list-group-has-note clearfix">
+											<li class="list-group-item list-group-item-question list-group-has-note clearfix admin-verify-list-li">
 													검색된 회원이 없습니다.
 											</li>
 										</c:if>
@@ -179,7 +179,7 @@ $(function(){
 						    
 						    <c:if test="${page < allPage }">
 							    <li>
-							      <a href="search_member.do?page=${allPage }" aria-label="Next">
+							      <a href="search_member.do?page=${allPage }&field=${find_field }&data=${find_data }" aria-label="Next">
 							        <span aria-hidden="true">&raquo;</span>
 							      </a>
 							    </li>

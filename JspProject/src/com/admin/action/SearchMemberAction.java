@@ -19,18 +19,8 @@ public class SearchMemberAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		String find_field = request.getParameter("field");
-		String data = request.getParameter("data");
-
-		String find_data = data;
-
-		if (find_field.equals("check")) {
-			if (data.equals("회원")) {
-				find_data = "no";
-			} else if (data.equals("탈퇴")) {
-				find_data = "yes";
-			}
-		}
-
+		String find_data = request.getParameter("data");
+		
 		MemberDAO dao = MemberDAO.getInstance();
 
 		// 페이징 작업
@@ -62,8 +52,6 @@ public class SearchMemberAction implements Action {
 
 		List<MemberDTO> pageList = dao.getSearchMemberList(find_field, find_data, startNo, endNo);
 		
-		find_data = data;	// 상태 검색어 복구
-
 		// 5) 작업했던 값들을 키로 저장하여 view 페이지로 넘기기
 		request.setAttribute("find_field", find_field);
 		request.setAttribute("find_data", find_data);
@@ -83,11 +71,6 @@ public class SearchMemberAction implements Action {
 		forward.setRedirect(false);
 		forward.setPath("view/admin/search_member_list.jsp");
 		
-		System.out.println("List >> " + pageList);
-		System.out.println("totalRecord >> " + totalRecord);
-		System.out.println("field >> " + find_field);
-		System.out.println("data >> " + find_data);
-
 		return forward;
 	}
 

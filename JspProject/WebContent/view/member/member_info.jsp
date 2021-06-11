@@ -29,10 +29,17 @@
 				        <div class="col-md-6 main-block-left">
 				            <div class="panel panel-default">
 				                <div class="panel-heading">
-				                    <div class="profile-wrap">
-				                        <!-- <img src="flower.png" alt="..." class="img-circle"> -->
-				                        <h5 class="panel-header">회원정보프로필(추후수정)</h5>
-				                    </div>
+				                   <div class="avatar clearfix avatar-medium">
+				                   		<a href="" class="avatar-photo">
+				                   			<img src="">
+				                   		</a>
+				                   		<div class="avatar-info">
+				                   			<a class="nickname" href="" title="1">1</a>
+				                   			<div class="activity block">
+				                   				<span class="fas fa-bolt"></span> 0
+				                   			</div>
+				                   		</div>
+				                   </div>
 				                </div>
 				    
 				                <form class="form-signin panel-body" action="<%=request.getContextPath() %>/member_info_edit_ok.do">

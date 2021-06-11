@@ -21,7 +21,7 @@ public class MemberSignUpAction implements Action {
 		String mem_pwd = request.getParameter("mem_pwd").trim();
 		String mem_email = request.getParameter("mem_email").trim();
 		String mem_nick = request.getParameter("mem_nick").trim();
-//		String mem_emailCheck = request.getParameter("mem_emailCheck").trim();
+		//String mem_emailCheck = request.getParameterValues("mem_emailCheck")[0];
 		String mem_image = "dpro.png";
 		
 		MemberDTO dto = new MemberDTO();
@@ -30,7 +30,7 @@ public class MemberSignUpAction implements Action {
 		dto.setMem_email(mem_email);
 		dto.setMem_nick(mem_nick);
 		dto.setMem_image(mem_image);
-//		dto.setMem_emailCheck(mem_emailCheck);
+		//dto.setMem_emailCheck(mem_emailCheck);
 		
 		MemberDAO dao = MemberDAO.getInstance();
 		int check = dao.signUp(dto);

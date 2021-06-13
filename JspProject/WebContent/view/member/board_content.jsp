@@ -42,8 +42,8 @@
 <c:set var="small_cattegory" value="${small_category }" />
 <script type="text/javascript">
 $(function(){
-	$("#"+${big_category }).css("border-right","5px solid #e67d3e");
-	$("#"+${small_category }).css("color","#fff");
+	$("#"+${big_category}).css("border-right","5px solid #e67d3e");
+	$("#"+${small_category}).css("color","#fff");
 });
 </script>
 <script type="text/javascript">
@@ -86,7 +86,7 @@ function like<%=list.get(i).getCom_num()%>(){
 		"login_num" : $("#loginNum").val()},
 		success:
 			function(data){ //ajax통신 성공시 넘어오는 데이터 통째 이름 =data
-				$("#like-result-<%=list.get(i).getCom_num()%>").html(data.like);
+				$("#like-result-<%=list.get(i).getCom_num()%>").html(data);
 			},
 		error:
 			function (request, status, error){
@@ -103,7 +103,7 @@ function likeCancle<%=list.get(i).getCom_num()%>(){
 		"login_num" : $("#loginNum").val()},
 		success:
 			function(data){ //ajax통신 성공시 넘어오는 데이터 통째 이름 =data
-				$("#like-result-<%=list.get(i).getCom_num()%>").html(data.like);
+				$("#like-result-<%=list.get(i).getCom_num()%>").html(data);
 			},
 		error:
 			function (request, status, error){
@@ -111,6 +111,7 @@ function likeCancle<%=list.get(i).getCom_num()%>(){
 			}
 	});
 }
+
 <%} %>
 </script>
 </head>
@@ -253,10 +254,6 @@ function likeCancle<%=list.get(i).getCom_num()%>(){
 															</c:forEach>
 														</c:if>
 														<p class="com-recommend-count" id="like-result-${dto.getCom_num() }">${dto.getCom_like() }</p>
-														<%-- <c:if test="${loginNum != null }">
-														<a href=""> <i class="img fas fa-angle-down" data-toggle="tooltip" data-placement="left" title="반대"></i>
-														</a>
-														</c:if> --%>
 													</div>
 												</div>
 													<c:if test="${loginNum == dto.getCom_writer() }"> <!-- 자신이 작성한 댓글일 경우 -->

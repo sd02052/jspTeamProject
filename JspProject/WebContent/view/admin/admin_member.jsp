@@ -153,7 +153,7 @@ $(function(){
 							    
 							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
 								    <c:if test="${i == page }">
-								   		<li class="active"><a href="admin_verify_list.do?page=${i }">${i }</a></li>
+								   		<li class="active"><a href="admin_member_list.do?page=${i }">${i }</a></li>
 								    </c:if>
 								    
 								    <c:if test="${i != page }">

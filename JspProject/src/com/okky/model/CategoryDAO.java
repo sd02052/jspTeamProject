@@ -134,7 +134,11 @@ public class CategoryDAO {
 
 				if (rs.next()) {
 					CategoryDTO dto = new CategoryDTO();
+					dto.setCate_num(rs.getInt("cate_num"));
 					dto.setCate_name(rs.getString("cate_name"));
+					dto.setCate_group(rs.getInt("cate_group"));
+					dto.setCate_step(rs.getInt("cate_step"));
+					
 					list.add(dto);
 				}
 			}

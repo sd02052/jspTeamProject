@@ -68,18 +68,30 @@ public class LikeDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	// 특정회원이 스크랩한 글을 조회하는 메서드
 	public List<LikeDTO> getScrapList(int num, int startNum, int endNum) {
 		List<LikeDTO> list = new ArrayList<LikeDTO>();
 		
 		try {
 			openConn();
-			sql = "select * from (select row_number() over(order by like_num) rnum, l.* from okky_like where like_writer = ? and like_flag = 3) where rnum >= ? and rnum <= ?";
+			sql = "select * from (select row_number() over(order by like_num) rnum, l.* from okky_like l where like_writer = ? and like_flag = 3) where rnum >= ? and rnum <= ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setInt(2, startNum);
 			pstmt.setInt(3, endNum);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				LikeDTO dto = new LikeDTO();
+				
+				dto.setLike_num(rs.getInt("like_num"));
+				dto.setLike_writer(rs.getInt("like_writer"));
+				dto.setLike_target(rs.getInt("like_target"));
+				dto.setLike_flag(rs.getInt("like_flag"));
+				
+				list.add(dto);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,6 +100,31 @@ public class LikeDAO {
 		}
 		return list;
 	}
+	
+	// 특정회원이 스크랩한 글 수 를 조회하는 메서드
+	public int getScrapListCount(int num) {
+		int count = 0;
+		openConn();
+		
+		try {
+			sql = "select count(*) from okky_like where like_writer = ? and like_flag = 3";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+		return count;
+	}
+	
 	
 	
 }

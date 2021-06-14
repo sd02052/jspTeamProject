@@ -10,14 +10,14 @@ import com.okky.controller.Action;
 import com.okky.controller.ActionForward;
 import com.okky.model.BoardDAO;
 import com.okky.model.BoardDTO;
-import com.okky.model.CategoryDAO;
-import com.okky.model.CategoryDTO;
 import com.okky.model.CommentDAO;
+import com.okky.model.CommentDTO;
 import com.okky.model.LikeDAO;
+import com.okky.model.LikeDTO;
 import com.okky.model.MemberDAO;
 import com.okky.model.MemberDTO;
 
-public class MemberPersonalAction implements Action {
+public class MemberPersonalCommentedAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -26,9 +26,8 @@ public class MemberPersonalAction implements Action {
 
 		MemberDAO memDAO = MemberDAO.getInstance();
 		BoardDAO boardDAO = BoardDAO.getInstance();
-		CategoryDAO cateDAO = CategoryDAO.getInstance();
-		LikeDAO likeDAO = LikeDAO.getInstance();
 		CommentDAO comDAO = CommentDAO.getInstance();
+		LikeDAO likeDAO = LikeDAO.getInstance();
 
 		// 페이징 작업
 		int rowsize = 10; // 한 페이지당 보여질 게시물의 수
@@ -50,78 +49,28 @@ public class MemberPersonalAction implements Action {
 		int totalRecord_board = boardDAO.getSearchListCount(num); // 작성글 전체수
 		int totalRecord_com = comDAO.getCommentListCount(num); // 작성 댓글 전체수
 		int totalRecord_scrap = likeDAO.getScrapListCount(num);	// 회원이 스크랩한 모든 글 수
-		
-		int allPage = (int) (Math.ceil(totalRecord_board / (double) rowsize)); // 작성글
 
+		int allPage = (int) (Math.ceil(totalRecord_com / (double) rowsize)); // 작성댓글
+		
 		if (endBlock > allPage) {
 			endBlock = allPage;
 		}
 
 		MemberDTO memDTO = memDAO.getMember(num); // 회원정보를 조회하는 메서드
-
-		// 작성글
 		List<BoardDTO> boardList = boardDAO.getMemberBoardList(num, startNo, endNo); // 회원이 작성한 모든 글을 조회하는 메서드
-		List<CategoryDTO> cateList = cateDAO.getCategoryList(boardList); // 회원이 작성한 모든 글의 카테고리를 조회하는 메서드
+		List<LikeDTO> likeList = likeDAO.getScrapList(num, startNo, endNo); // 회원이 스크랩한 글 번호를 조회하는 메서드
 
-		String[] big_category = new String[cateList.size()];
-		String[] small_category = new String[cateList.size()];
-
-		for (int i = 0; i < cateList.size(); i++) {
-			if (cateList.get(i).getCate_num() == 2) {
-				big_category[i] = "'menu1'";
-				small_category[i] = "'menu1-2'";
-			} else if (cateList.get(i).getCate_num() == 3) {
-				big_category[i] = "'menu1'";
-				small_category[i] = "'menu1-3'";
-			} else if (cateList.get(i).getCate_num() == 5) {
-				big_category[i] = "'menu2'";
-				small_category[i] = "'menu2-2'";
-			} else if (cateList.get(i).getCate_num() == 6) {
-				big_category[i] = "'menu2'";
-				small_category[i] = "'menu2-3'";
-			} else if (cateList.get(i).getCate_num() == 8) {
-				big_category[i] = "'menu3'";
-				small_category[i] = "'menu3-2'";
-			} else if (cateList.get(i).getCate_num() == 9) {
-				big_category[i] = "'menu3'";
-				small_category[i] = "'menu3-3'";
-			} else if (cateList.get(i).getCate_num() == 10) {
-				big_category[i] = "'menu3'";
-				small_category[i] = "'menu3-4'";
-			} else if (cateList.get(i).getCate_num() == 11) {
-				big_category[i] = "'menu3'";
-				small_category[i] = "'menu3-5'";
-			} else if (cateList.get(i).getCate_num() == 12) {
-				big_category[i] = "'menu3'";
-				small_category[i] = "'menu3-6'";
-			} else if (cateList.get(i).getCate_num() == 13) {
-				big_category[i] = "'menu3'";
-				small_category[i] = "'menu3-7'";
-			} else if (cateList.get(i).getCate_num() == 14) {
-				big_category[i] = "'menu3'";
-				small_category[i] = "'menu3-8'";
-			} else if (cateList.get(i).getCate_num() == 15) {
-				big_category[i] = "'menu4'";
-				small_category[i] = "'menu4-1'";
-			} else if (cateList.get(i).getCate_num() == 17) {
-				big_category[i] = "'menu5'";
-				small_category[i] = "'menu5-2'";
-			} else if (cateList.get(i).getCate_num() == 18) {
-				big_category[i] = "'menu5'";
-				small_category[i] = "'menu5-3'";
-			} else if (cateList.get(i).getCate_num() == 19) {
-				big_category[i] = "'menu5'";
-				small_category[i] = "'menu5-4'";
-			}
-		}
+		// 작성댓글
+		List<CommentDTO> comList = comDAO.getMemberCommentList(num, startNo, endNo); // 회원이 작성한 모든 댓글을 조회하는 메서드
+		List<BoardDTO> cbList = boardDAO.getBoardList(comList); // 회원이 작성한 모든 댓글이 달린 게시글을 조회하는 메서드
 
 		request.setAttribute("memDTO", memDTO);
 
 		request.setAttribute("boardList", boardList);
-		request.setAttribute("cateList", cateList);
+		request.setAttribute("likeList", likeList);
 		
-		request.setAttribute("big_category", big_category);
-		request.setAttribute("small_category", small_category);
+		request.setAttribute("comList", comList);
+		request.setAttribute("cbList", cbList);
 
 		request.setAttribute("page", page);
 		request.setAttribute("rowsize", rowsize);
@@ -137,7 +86,7 @@ public class MemberPersonalAction implements Action {
 
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);
-		forward.setPath("view/member/member_personal.jsp");
+		forward.setPath("view/member/member_personal_commented.jsp");
 
 		return forward;
 	}

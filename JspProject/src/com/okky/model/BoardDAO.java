@@ -418,11 +418,11 @@ public class BoardDAO {
 			openConn();
 
 			for (int i = 0; i < likeList.size(); i++) {
-				sql = "select * from okky_board where board_num = ";
+				sql = "select * from okky_board where board_num = ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, likeList.get(i).getLike_target());
 				rs = pstmt.executeQuery();
-
+				
 				while (rs.next()) {
 					BoardDTO dto = new BoardDTO();
 
@@ -551,19 +551,15 @@ public class BoardDAO {
 		return list;
 	}
 
-	// 회원 활동 상세 페이지에 들어갈 글의 수를 조회하는 메서드
+	// 특정회원이 작성한 모든 글 수를 조회하는 메서드
 	public int getSearchListCount(int num) {
 		int count = 0;
 
 		try {
 			openConn();
-			sql = "select count(*) from okky_board " + "where board_writer = ? "
-					+ "or board_num in (select com_target from okky_comment where com_writer = ?) "
-					+ "or board_num in (select like_target from okky_like where like_writer = ?)";
+			sql = "select count(*) from okky_board where board_writer = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
-			pstmt.setInt(2, num);
-			pstmt.setInt(3, num);
 
 			rs = pstmt.executeQuery();
 

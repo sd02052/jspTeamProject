@@ -343,4 +343,30 @@ public class CommentDAO {
 		}
 		return list;
 	}
+	
+	// 특정회원이 작성한 댓글의 수를 조회하는 메서드
+	public int getCommentListCount(int num) {
+		int count = 0;
+		
+		try {
+			openConn();
+			sql = "select count(*) from okky_comment where com_writer = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return count;
+	}
+	
+	
+	
 }

@@ -68,7 +68,7 @@ public class MemberLoginOkAction implements Action {
 				session.setAttribute("loginType", loginType);
 				
 				forward.setRedirect(false);
-				forward.setPath("view/member/main.jsp");
+				forward.setPath("view/member/start.jsp");
 			} else if (check == -1) {
 				out.println("<script>");
 				out.println("alert('비밀번호가 틀립니다.')");

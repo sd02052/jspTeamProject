@@ -167,7 +167,7 @@
 									</c:if>
 										<div class="list-title-wrapper">
 											<h5 class="list-group-item-heading">
-												<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
+												<a href="<%=request.getContextPath() %>/member_qna_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
 														<a href="" class="avatar-photo"> <img

@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+.answer-count {
+	padding: 5px 10px;
+}
+
+.answer-selected {
+	color: white; 
+	background-color: 3A93DE; 
+}
+
+.answer-non-selected {
+	color:white; 
+	background-color: 2CA526;
+}
+
+.answer-no-comment {
+	color: DF5925;
+}
+
+.uncommented {
+	border-left: 3px #CCCCCC solid !important;
+}
+
+.commented {
+	border-left: 3px #3A93DE solid !important;
+}

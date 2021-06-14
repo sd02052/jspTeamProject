@@ -79,7 +79,15 @@
 				                        </div>
 				
 				                        <h5 class="list-group-item-heading">
-				                            <a href="<%=request.getContextPath()%>/member_board_content.do?num=${scrap.getBoard_num() }">${scrap.getBoard_title() }</a>
+				                        	<c:choose>
+					                        	<c:when test="${cbList[status.index].getBoard_category() eq 1 || cbList[status.index].getBoard_category() eq 2 || cbList[status.index].getBoard_category() eq 3 }">
+					                        		<a href="<%=request.getContextPath()%>/member_qna_board_content.do?num=${scrap.getBoard_num() }">${scrap.getBoard_title() }</a>
+					                        	</c:when>
+					                        	<c:otherwise>
+					                        		<a href="<%=request.getContextPath()%>/member_board_content.do?num=${scrap.getBoard_num() }">${scrap.getBoard_title() }</a>
+					                        	</c:otherwise>
+					                        </c:choose>
+				                            	
 				                            <div class="list-group-item-author pull-right clearfix">
 				                                <div class="avatar clearfix avatar-x-small">
 				                                    <a href="" class="avatar-photo">

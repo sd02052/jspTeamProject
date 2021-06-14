@@ -77,7 +77,15 @@
 				                        <div class="list-activity-desc">
 				                            <span class="list-activity-desc-text">
 				                            	#${com.getCom_target() }
-				                            	<a href="<%=request.getContextPath()%>/member_board_content.do?num=${cbList[status.index].getBoard_num() }">${cbList[status.index].getBoard_title() }</a>
+				                            	
+				                            	<c:choose>
+					                        		<c:when test="${cbList[status.index].getBoard_category() eq 1 || cbList[status.index].getBoard_category() eq 2 || cbList[status.index].getBoard_category() eq 3 }">
+					                        			<a href="<%=request.getContextPath()%>/member_qna_board_content.do?num=${cbList[status.index].getBoard_num() }">${cbList[status.index].getBoard_title() }</a>
+					                        		</c:when>
+					                        		<c:otherwise>
+					                        			<a href="<%=request.getContextPath()%>/member_board_content.do?num=${cbList[status.index].getBoard_num() }">${cbList[status.index].getBoard_title() }</a>
+					                        		</c:otherwise>
+				                        		</c:choose>
 				                            	게시글에 댓글을 남겼습니다.</span></span>
 				                            <span class="date">${com.getCom_regdate() }</span>
 				                        </div>

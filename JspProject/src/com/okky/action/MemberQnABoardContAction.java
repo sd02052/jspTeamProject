@@ -18,7 +18,7 @@ import com.okky.model.CommentDTO;
 import com.okky.model.MemberDAO;
 import com.okky.model.MemberDTO;
 
-public class MemberBoardContAction implements Action {
+public class MemberQnABoardContAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -116,7 +116,7 @@ public class MemberBoardContAction implements Action {
 		
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);
-		forward.setPath("view/member/board_content.jsp");
+		forward.setPath("view/member/qna_content.jsp");
 
 		return forward;
 	}

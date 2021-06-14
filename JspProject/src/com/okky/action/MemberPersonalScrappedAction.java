@@ -64,10 +64,6 @@ public class MemberPersonalScrappedAction implements Action {
 		List<LikeDTO> likeList = likeDAO.getScrapList(num, startNo, endNo); // 회원이 스크랩한 글 번호를 조회하는 메서드
 		List<BoardDTO> lbList = boardDAO.getScrapBoardList(likeList); // 회원이 스크랩한 글의 정보를 조회하는 메서드
 		List<MemberDTO> lmList = memDAO.getMemberList(lbList); // 회원이 스크랩한 글 작성자 정보를 조회하는 메서드
-		
-		System.out.println("totalrecord > " + totalRecord_scrap);
-		System.out.println("likeList > " + likeList);
-		System.out.println("lbList > " + lbList);
 
 		request.setAttribute("memDTO", memDTO);
 		

@@ -170,4 +170,6 @@ table tr td span {
 	padding: auto;
 }
 
-
+.selected {
+	border-left: 2px #CCCCCC solid !important;
+}

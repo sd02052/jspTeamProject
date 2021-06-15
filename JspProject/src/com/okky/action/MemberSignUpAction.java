@@ -36,16 +36,22 @@ public class MemberSignUpAction implements Action {
 		dto.setMem_emailCheck(mem_emailCheck);
 		
 		MemberDAO dao = MemberDAO.getInstance();
-		int check = dao.signUp(dto);
+		int res = dao.signUp(dto);
 		
 		PrintWriter out = response.getWriter();
 		ActionForward forward = new ActionForward();
 		
-		if(check > 0) {
+		if(res > 0) {
 			request.setAttribute("mem_id", mem_id);
 			forward.setRedirect(false);
 			forward.setPath("view/member/login.jsp");
-		}else {
+		}else if( res == -1){ // 닉네임 중복
+			out.println("<script>");
+			out.println("alert('닉네임이 중복되었습니다.')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+		else {
 			out.println("<script>");
 			out.println("alert('회원가입실패')");
 			out.println("history.back()");

@@ -20,11 +20,11 @@ public class MemberInfoEditOkAction implements Action {
 		System.out.println("개인정보 변경 완료 멤버 번호 >>> "+request.getParameter("num").trim());
 		System.out.println("개인정보 변경 완료 멤버 태그 >>> "+request.getParameter("mem_tag").trim());
 		
+	
 		int mem_num = Integer.parseInt(request.getParameter("num").trim());
 		String mem_nick = request.getParameter("mem_nick").trim();
 		String tag_name = request.getParameter("mem_tag").trim();
 
-		MemberDAO dao = MemberDAO.getInstance();
 		MemberDTO dto = new MemberDTO();
 		dto.setMem_num(mem_num);
 		dto.setMem_nick(mem_nick);
@@ -32,6 +32,7 @@ public class MemberInfoEditOkAction implements Action {
 		TagDTO tdto = new TagDTO();
 		tdto.setTag_name(tag_name);
 
+		MemberDAO dao = MemberDAO.getInstance();
 		int res = dao.infoEdit(dto);
 		int tres = dao.infoTagEdit(mem_num, tdto);
 
@@ -39,7 +40,7 @@ public class MemberInfoEditOkAction implements Action {
 		ActionForward forward = new ActionForward();
 
 		if (res > 0) { // 닉네임 중복이 아닐경우
-			if (tres > 0 || tres == 0){
+			if (tres >= 0){
 				forward.setRedirect(true);
 				forward.setPath("member_info_edit.do?num=" + mem_num);
 			}

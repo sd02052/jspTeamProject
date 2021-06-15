@@ -25,7 +25,6 @@ public class MemberBoardContAction implements Action {
 		HttpSession session = request.getSession();
 		int board_num = Integer.parseInt(request.getParameter("num").trim());
 		
-		
 		BoardDAO dao = BoardDAO.getInstance();
 		CategoryDAO dao1 = CategoryDAO.getInstance();
 		CommentDAO dao2 = CommentDAO.getInstance();

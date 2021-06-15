@@ -3,7 +3,7 @@ package com.okky.model;
 public class JobDTO {
 	private int job_num;
 	private int job_target;
-	private String job_contract;
+	private int job_contract;
 	private int job_mincost;
 	private int job_maxcost;
 	private String job_location;
@@ -27,11 +27,11 @@ public class JobDTO {
 		this.job_target = job_target;
 	}
 
-	public String getJob_contract() {
+	public int getJob_contract() {
 		return job_contract;
 	}
 
-	public void setJob_contract(String job_contract) {
+	public void setJob_contract(int job_contract) {
 		this.job_contract = job_contract;
 	}
 

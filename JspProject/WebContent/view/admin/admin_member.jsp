@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 
 function checkAll() {  /* 체크박스 전체선택 함수 */
@@ -21,6 +22,7 @@ $(function(){
 	$("#menu6").css("border-right","5px solid #e67d3e");
 	$("#menu6-1").css("color","#fff");
 });
+
 </script>
 </head>
 <body>
@@ -44,14 +46,22 @@ $(function(){
 								<form method="post" action="<%=request.getContextPath() %>/search_member.do">				
 									<div class="input-group">
 										<span class="search-list input-group-btn">
-											<select name="field" class="search-btn btn btn-default dropdown-toggle">
+											<select id="field" name="field" class="search-btn btn btn-default dropdown-toggle" onchange="check(this)">
 												<option value="all">-전체검색-</option>
 												<option value="id">아이디</option>
 												<option value="nick">닉네임</option>
 												<option value="check">상태</option>
 											</select>
 										</span>
-										<input type="text" class="form-control" name="data" placeholder="검색어" aria-describedby="basic-addon2">
+										<!-- 
+										<span class="check-list search-list input-group-btn" style="display:none;">
+											<select name="data" class="search-btn btn btn-default dropdown-toggle">
+												<option value="no">회원</option>
+												<option value="yes">탈퇴</option>
+											</select>
+										</span>
+										 -->
+										<input type="text" class="search-text form-control" name="data" placeholder="검색어" aria-describedby="basic-addon2">
 										<span class="input-group-btn">
 											<button type="submit" class="btn btn-default">
 												<i class="fas fa-search"></i>

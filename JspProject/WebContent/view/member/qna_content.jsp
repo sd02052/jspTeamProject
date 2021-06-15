@@ -220,7 +220,7 @@ $(function() {
 							<c:if test="${!empty commentList }">
 								<c:forEach items="${commentList }" var="dto" varStatus="status">
 										<!-- 다른 회원이 작성한 댓글 -->
-										<form method="post" action="<%=request.getContextPath() %>/member_comment_edit.do">
+										<form method="post" action="<%=request.getContextPath() %>/member_qna_comment_edit.do">
 											<input type="hidden" name="com_num" value="${dto.getCom_num() }">
 											<input type="hidden" name="com_target" value="${dto.getCom_target() }">
 											<tr>
@@ -309,7 +309,7 @@ $(function() {
 															<li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:commentEdit${dto.getCom_num()}();"> 
 															<i class="fas fa-edit"></i>&nbsp;수정
 															</a></li>
-															<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_comment_delete.do?num=${dto.getCom_num()}&board_num=${dto.getCom_target()}" onclick="return confirm('댓글을 삭제 하시겠습니까?');"> 
+															<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_qna_comment_delete.do?num=${dto.getCom_num()}&board_num=${dto.getCom_target()}" onclick="return confirm('댓글을 삭제 하시겠습니까?');"> 
 															<i class="fas fa-trash-alt"></i>&nbsp;삭제
 															</a></li>
 														</ul>
@@ -333,7 +333,7 @@ $(function() {
 							<!-- 댓글 작성창 -->
 							<tr>
 								<td colspan="10">
-									<form method="post" action="<%=request.getContextPath() %>/member_comment_write.do">
+									<form method="post" action="<%=request.getContextPath() %>/member_qna_comment_write.do">
 										<input type="hidden" name="com_writer" value="${loginNum}"> <input
 											type="hidden" name="com_target" value="${dto.getBoard_num() }">
 										<div class="cont-member pull-left">

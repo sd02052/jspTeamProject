@@ -104,6 +104,9 @@ $(function(){
 										<li class="admin-verify-list-li list-group-item list-group-item-question list-group-has-note clearfix">
 											<div class="col-xs-1 margin-auto">${comDTO.getCompany_num() }</div>				
 											<div class="col-xs-3 margin-auto">
+												<a href="<%=request.getContextPath() %>/admin_verify_cont.do?num=${comDTO.getCompany_num() }">
+													<img class="cont-mem-logo" src="<%=request.getContextPath() %>/images/company/${comDTO.getCompany_logo() }">
+												</a>
 												<a href="<%=request.getContextPath() %>/admin_verify_cont.do?num=${comDTO.getCompany_num() }">${comDTO.getCompany_name() }</a>
 											</div>		
 											<div class="col-xs-2 margin-auto">${comDTO.getCompany_license_num() }</div>		

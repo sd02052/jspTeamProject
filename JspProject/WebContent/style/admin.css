@@ -81,6 +81,7 @@
 	height: 150px;
 	border: 1px solid #ededed;
 	overflow: hidden;
+	cursor: pointer;
 }
 
 /* 회사 사업자등록증 */
@@ -88,6 +89,7 @@
 	width: 300px;
 	height: 150px;
 	overflow: hidden;
+	cursor: pointer;
 }
 
 /* 회사 인증 결정 버튼 */
@@ -101,7 +103,6 @@
 	width: 32px;
 	height: 32px;
 	border: 1px solid #ededed;
-	border-radius: 50%;
 	overflow: hidden;
 }
 

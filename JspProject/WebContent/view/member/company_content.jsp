@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,33 +17,21 @@
 			<jsp:include page="../../include/side.jsp" />
 			<div style="width: 805px; min-height: 800px;">
 				
-				<div id="user" class="content clearfix">
+				<div id="user" class="clearfix">
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<div class="avatar avatar-big clearfix col-sm-3 text-center">
-								<a href="/company/info/1693" class="avatar-photo avatar-company"> <img src="<%=request.getContextPath() %>/images/company.png">
+								<a href="<%=request.getContextPath() %>/member_company_cont.do?com_num=${comDTO.getCompany_num() }&mem_num=${mem_num }" class="avatar-photo avatar-company"> <img src="<%=request.getContextPath() %>/images/company/${comDTO.getCompany_logo()}">
 								</a>
 							</div>
 							<div class="user-info col-sm-9">
 								<div class="clearfix">
-									<h2 class="pull-left">(주)다온아이티에스</h2>
+									<h2 class="pull-left">${comDTO.getCompany_name() }</h2>
 								</div>
 								<hr>
 								<div class="clearfix">
 									<h4>회사 소개</h4>
-									<p>(주)다온아이티에스(DAON,ITS)는 금융권 최고의 SI / SM 기업을 향해 도전하는 기업입니다.</p>
-									<p>
-										<br>
-									</p>
-									<p>(주)다온아이티에스(DAON,ITS)는 설립 후 현재 (주)KB데이터시스템 (주)SK C&C , 삼성 SDS , LG CNS등</p>
-									<p>여러 기업들과 파트너(Partnership)을 맺고 제 1 , 2 금융권 및 그 외의 관공서들의 금융솔루션(Solution)</p>
-									<p>개발에 참여하고 있으며 그 기술력을 대 / 내외적으로 인정받고 있습니다 .</p>
-									<p>
-										<br>
-									</p>
-									<p>
-										(주)다온아이티에스(DAON,ITS)의 전직원은 최신 SI / SM 기술의 종합적 집적화가 요구되는 금융솔루션(Solution) 개발을 위해 최선을 다 할 것 입니다.<br>
-									</p>
+									<p>${comDTO.getCompany_content() }</p>
 								</div>
 							</div>
 						</div>
@@ -53,77 +42,116 @@
 				
 				<h3>구인 이력</h3>
 				<ul class="list-group">
+				
+				<c:if test="${!empty boardList }">
+				<c:forEach items="${boardList }" var="dto" varStatus="status">
 					<li class="list-group-item clearfix">
 						<div class="list-title-wrapper clearfix">
 							<div class="list-tag clearfix">
-								<span class="list-group-item-text article-id">#961822</span> <span class="label label-success">계약직</span> <span>서울 영등포구</span>
+								<span class="list-group-item-text article-id">#${dto.getBoard_num() }</span> 
+								<c:if test="${jobList[status.index].getJob_contract() eq 0}">
+									<a href="#"><span class="label label-success">정규직</span></a> 
+								</c:if>
+								<c:if test="${jobList[status.index].getJob_contract() eq 1}">
+									<a href="#"><span class="label label-primary">계약직</span></a> 
+								</c:if>
+								<span>${jobList[status.index].getJob_location() }</span>
 							</div>
 
 							<h5 class="list-group-item-heading list-group-item-evaluate">
-								<a href="/recruit/961822"> KB국민은행 사업관리 및 품질관리(QA) 고급개발자 구인 </a>
+								<a href="<%=request.getContextPath()%>/member_board_content.do?num=${dto.getBoard_num()}"> ${dto.getBoard_title() } </a>
 							</h5>
 						</div>
 
 						<div class="list-summary-wrapper clearfix">
 							<div class="list-group-item-summary clearfix">
 								<ul>
-									<li class="item-icon-disabled"><i class="item-icon fa fa-comment "></i> 0</li>
-									<li class="item-icon-disabled"><i class="item-icon fa fa-thumbs-up"></i> 0</li>
-									<li class=""><i class="item-icon fa fa-eye"></i> 1</li>
+									<li class="<c:if test="${dto.getBoard_comment() eq 0 }">item-icon-disabled</c:if>">
+										<i class="item-icon fa fa-comment "></i> ${dto.getBoard_comment() }</li>
+									<li class="<c:if test="${dto.getBoard_like() eq 0 }">item-icon-disabled</c:if>"><i class="item-icon fa fa-thumbs-up"></i> ${dto.getBoard_like() }</li>
+									<li class="<c:if test="${dto.getBoard_hit() eq 0 }">item-icon-disabled</c:if>"><i class="item-icon fa fa-eye"></i> ${dto.getBoard_hit() }</li>
 								</ul>
 							</div>
 						</div>
 
 						<div class="list-group-item-author clearfix">
 							<div class="avatar avatar-list clearfix">
-								<a href="/company/info/1693" class="avatar-photo avatar-company"> <img src="<%=request.getContextPath() %>/images/company.png">
+								<a href="<%=request.getContextPath() %>/member_company_cont.do?com_num=${comDTO.getCompany_num() }&mem_num=${mem_num }" class="avatar-photo avatar-company"> <img src="<%=request.getContextPath() %>/images/company/${comDTO.getCompany_logo() }">
 								</a>
 								<div class="avatar-info">
-									<a class="nickname" href="/company/info/1693" title="(주)다온아이티에스">(주)다온아이티에스</a>
+									<a class="nickname" href="<%=request.getContextPath() %>/member_company_cont.do?com_num=${comDTO.getCompany_num() }&mem_num=${mem_num }" title="${comDTO.getCompany_name() }">${comDTO.getCompany_name() }</a>
 
 									<div class="date-created">
-										<span class="timeago" title="2021-06-04T11:13:56">2021-06-04 11:13:56</span>
+										<span class="timeago" title="${dto.getBoard_regdate() }">${dto.getBoard_regdate() }</span>
 									</div>
 								</div>
 							</div>
 						</div>
 					</li>
+					</c:forEach>
+					</c:if>	
 					
-					<li class="list-group-item clearfix">
-						<div class="list-title-wrapper clearfix">
-							<div class="list-tag clearfix">
-								<span class="list-group-item-text article-id">#961822</span> <span class="label label-success">계약직</span> <span>서울 영등포구</span>
+					<c:if test="${empty boardList }">
+						<li class="list-group-item clearfix">
+							<div class="list-title-wrapper clearfix">
+								구인 이력이 없습니다.
 							</div>
-
-							<h5 class="list-group-item-heading list-group-item-evaluate">
-								<a href="/recruit/961822"> KB국민은행 사업관리 및 품질관리(QA) 고급개발자 구인 </a>
-							</h5>
-						</div>
-
-						<div class="list-summary-wrapper clearfix">
-							<div class="list-group-item-summary clearfix">
-								<ul>
-									<li class="item-icon-disabled"><i class="item-icon fa fa-comment "></i> 0</li>
-									<li class="item-icon-disabled"><i class="item-icon fa fa-thumbs-up"></i> 0</li>
-									<li class=""><i class="item-icon fa fa-eye"></i> 1</li>
-								</ul>
-							</div>
-						</div>
-
-						<div class="list-group-item-author clearfix">
-							<div class="avatar avatar-list clearfix">
-								<a href="/company/info/1693" class="avatar-photo avatar-company"> <img src="<%=request.getContextPath() %>/images/company.png">
-								</a>
-								<div class="avatar-info">
-									<a class="nickname" href="/company/info/1693" title="(주)다온아이티에스">(주)다온아이티에스</a>
-									<div class="date-created">
-										<span class="timeago" title="2021-06-04T11:13:56">2021-06-04 11:13:56</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>					
+						</li>
+					</c:if>				
 				</ul>
+				
+				
+				<c:if test="${!empty boardList }">
+							<nav>
+							<div align="center">
+							  <ul class="pagination">
+							  
+							  <c:if test="${page > 1 }">
+								    <li>
+								      <a href="member_company_cont.do?page=1&com_num=${comDTO.getCompany_num() }&mem_num=${mem_num }" aria-label="Previous">
+								        <span aria-hidden="true">&laquo;</span>
+								      </a>
+								    </li>
+							   </c:if>
+							   
+							   <c:if test="${page eq 1 }">
+								    <li>
+								      <a aria-label="Previous">
+								        <span aria-hidden="true">&laquo;</span>
+								      </a>
+								    </li>
+							   </c:if>
+							    
+							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
+								    <c:if test="${i == page }">
+								   		<li class="active"><a href="member_company_cont.do?page=${i }&com_num=${comDTO.getCompany_num() }&mem_num=${mem_num }">${i }</a></li>
+								    </c:if>
+								    
+								    <c:if test="${i != page }">
+									    <li><a href="member_company_cont.do?page=${i }&com_num=${comDTO.getCompany_num() }&mem_num=${mem_num }">${i }</a></li>
+								    </c:if>
+							    </c:forEach>
+							    
+							    <c:if test="${page < allPage }">
+								    <li>
+								      <a href="member_company_cont.do?page=${allPage }&com_num=${comDTO.getCompany_num() }&mem_num=${mem_num }" aria-label="Next">
+								        <span aria-hidden="true">&raquo;</span>
+								      </a>
+								    </li>
+							    </c:if>
+							    
+							    <c:if test="${page eq allPage }">
+								    <li>
+								      <a aria-label="Next">
+								        <span aria-hidden="true">&raquo;</span>
+								      </a>
+								    </li>
+							    </c:if>
+							  </ul>
+							  </div>
+							</nav>
+						</c:if>
+				
 			</div>
 			<jsp:include page="../../include/footer.jsp" />
 		</div>

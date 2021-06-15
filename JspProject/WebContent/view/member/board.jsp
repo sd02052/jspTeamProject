@@ -117,12 +117,9 @@
 										<div class="row">
 											<div class="col-md-12">
 												<ul class="list-inline">
-													<li class="list-unstyled li1"><i
-														class="fas fa-comment img"></i> ${dto.getBoard_comment() }</li>
-													<li class="list-unstyled li1"><i
-														class="fas fa-thumbs-up img"></i> ${dto.getBoard_like() }</li>
-													<li class="list-unstyled li1"><i class="far fa-eye"></i>
-														${dto.getBoard_hit() }</li>
+													<li class="list-unstyled li1 <c:if test="${dto.getBoard_comment() eq 0 }">item-icon-disabled</c:if>"><i class="fas fa-comment img"></i> ${dto.getBoard_comment() }</li>
+													<li class="list-unstyled li1 <c:if test="${dto.getBoard_like() eq 0 }">item-icon-disabled</c:if>"><i class="fas fa-thumbs-up img"></i> ${dto.getBoard_like() }</li>
+													<li class="list-unstyled li1 <c:if test="${dto.getBoard_hit() eq 0 }">item-icon-disabled</c:if>"><i class="far fa-eye"></i> ${dto.getBoard_hit() }</li>
 
 													<li class="list-unstyled li1  img1">
 														<a class="text-left" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }"> 

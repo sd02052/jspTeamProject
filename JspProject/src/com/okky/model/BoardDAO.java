@@ -777,5 +777,42 @@ public class BoardDAO {
 		return result;
 	}
 
+	// 회사에서 작성한 게시글을 조회하는 메서드
+	public List<BoardDTO> getJobBoardList(List<JobDTO> jobList) {
+		List<BoardDTO> list = new ArrayList<>();
+		
+		try {
+			openConn();
+			for(int i=0; i<jobList.size(); i++) {
+				sql = "select * from okky_board where board_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, jobList.get(i).getJob_target());
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					BoardDTO dto = new BoardDTO();
 
+					dto.setBoard_num(rs.getInt("board_num"));
+					dto.setBoard_title(rs.getString("board_title"));
+					dto.setBoard_writer(rs.getInt("board_writer"));
+					dto.setBoard_content(rs.getString("board_content"));
+					dto.setBoard_hit(rs.getInt("board_hit"));
+					dto.setBoard_like(rs.getInt("board_like"));
+					dto.setBoard_scrap(rs.getInt("board_scrap"));
+					dto.setBoard_category(rs.getInt("board_category"));
+					dto.setBoard_regdate(rs.getString("board_regdate"));
+					dto.setBoard_comment(rs.getInt("board_comment"));
+
+					list.add(dto);
+				}
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+	}
 }

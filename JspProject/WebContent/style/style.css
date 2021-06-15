@@ -291,6 +291,7 @@
 .nav-user-func {
 	display: inline-block;
 }
+
 @media (max-width: 768px) {
 	
 	.layout-container {
@@ -372,6 +373,12 @@
 
 .sponsor-banner-images img {
 	margin-left: 15px;
+}
+
+@media (max-width: 768px) {
+	#footer{
+		width: auto;
+	}
 }
 /* footer css 끝*/
 

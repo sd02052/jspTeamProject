@@ -241,6 +241,7 @@
 		</ul>
 	</div>
 
+	<!-- 반응형 사이드바 -->
 	<nav class="navbar navbar-blue navbar-fixed-top">
 		<div class="container-fluid" style="padding-left: 10px; padding-right: 10px;">
 			<!-- Brand and toggle get grouped for better mobile display -->

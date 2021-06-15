@@ -108,7 +108,7 @@
 			<!-- 본문 시작-->
 
 
-			<div style="width: 805px; min-height: 800px;">
+			<div class="content">
 				<div class="container-fluid">
 				<c:set var="list" value="${boardList }" />
 				<c:set var="cate" value="${category }" />
@@ -169,7 +169,7 @@
 						<c:if test="${!empty list }">
 							<c:forEach items="${list }" var="dto" varStatus="status">
 								<div class="row " style="border: 1px solid #ddd; border-bottom-width: 0.5px;">
-									<div class="col-xs-6">
+									<div class="col-sm-7">
 										<div class="row">
 											<span class="list-group-item-text article-id font">#${dto.getBoard_num() }</span>
 											<a class="list-group-item-text item-tag label label-info padding">${categoryList[status.index].getCate_name()}</a>
@@ -180,9 +180,9 @@
 											</h5>
 										</div>
 									</div>
-									<div class="col-xs-5">
+									<div class="col-sm-5">
 										<div class="row">
-											<div class="col-md-12">
+											<div class="col-sm-12">
 												<ul class="list-inline">
 													<li class="list-unstyled li1"><i class="fas fa-comment img"></i> ${dto.getBoard_comment() }</li>
 													<li class="list-unstyled li1"><i class="fas fa-thumbs-up img"></i> ${dto.getBoard_like() }</li>

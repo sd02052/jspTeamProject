@@ -161,7 +161,7 @@ function likeCancle<%=list.get(i).getCom_num()%>(){
 								</td>
 							</tr>
 							<tr>
-								<td class="col-md-10">
+								<td class="col-sm-11">
 									<div class="cont-content">
 										<span class="cont-num"># ${dto.getBoard_num() }</span> <a href=""> <span
 											class="label label-info">${category.getCate_name() }</span>
@@ -171,7 +171,7 @@ function likeCancle<%=list.get(i).getCom_num()%>(){
 									</div>
 								</td>
 
-								<td class="col-md-2">
+								<td class="col-sm-1">
 									<div class="cont-like text-center">
 										<div class="cont-recommend">
 											<a href=""> <i class="img fas fa-angle-up fa-2x"

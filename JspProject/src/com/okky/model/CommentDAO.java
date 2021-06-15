@@ -77,7 +77,7 @@ public class CommentDAO {
 			sql = "select count(*) from okky_comment";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				comment_count = rs.getInt(1);
 			}
 
@@ -87,7 +87,7 @@ public class CommentDAO {
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, i);
 				rs = pstmt.executeQuery();
-				if (rs.next()) {
+				while (rs.next()) {
 					like_count = rs.getInt(1);
 				}
 

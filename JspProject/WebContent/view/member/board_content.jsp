@@ -220,12 +220,18 @@ function boardLikeCancle<%=boardDto.getBoard_num()%>(){
 												</c:forEach>
 											</c:if>
 											<p class="com-recommend-count" id="like-result">${dto.getBoard_like() }</p>
+											<p>좋아요</p>
 										</div>
 
 										<div class="cont-scrap">
-											<a href=""> <i class="img fas fa-bookmark fa-2x"
-												data-toggle="tooltip" data-placement="left" title="스크랩"></i><br>
-											</a> <span class="badge-scrap badge">${dto.getBoard_scrap() }</span>
+											<c:if test="${loginNum != null }">
+												<a href=""> <i class="img fas fa-bookmark fa-2x"
+													data-toggle="tooltip" data-placement="left" title="스크랩"></i>
+												<br>
+												</a> 
+											</c:if>
+											<span class="badge-scrap badge">${dto.getBoard_scrap() }</span>
+											<p>스크랩</p>
 										</div>
 										<div class="cont-facebook">
 											<a href=""> <i
@@ -291,6 +297,7 @@ function boardLikeCancle<%=boardDto.getBoard_num()%>(){
 															</c:forEach>
 														</c:if>
 														<p class="com-recommend-count" id="like-result-${dto.getCom_num() }">${dto.getCom_like() }</p>
+														<p>좋아요</p>
 													</div>
 												</div>
 													<c:if test="${loginNum == dto.getCom_writer() }"> <!-- 자신이 작성한 댓글일 경우 -->

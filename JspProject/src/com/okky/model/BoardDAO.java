@@ -1195,7 +1195,7 @@ public class BoardDAO {
 			pstmt.setInt(1, num);
 			pstmt.setInt(2, login_mem);
 			rs = pstmt.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				like_num = rs.getInt(1);
 			}
 

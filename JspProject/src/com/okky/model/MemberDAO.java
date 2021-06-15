@@ -218,7 +218,7 @@ public class MemberDAO {
 				count = rs.getInt(1) + 1;
 			}
 
-			sql = "insert into okky_member values(?,?,?,?,?,?,sysdate,default,default,default,default)";
+			sql = "insert into okky_member values(?,?,?,?,?,?,sysdate,?,default,default,default)";
 
 			pstmt = con.prepareStatement(sql);
 
@@ -228,6 +228,8 @@ public class MemberDAO {
 			pstmt.setString(4, dto.getMem_pwd());
 			pstmt.setString(5, dto.getMem_image());
 			pstmt.setString(6, dto.getMem_email());
+			pstmt.setString(7, dto.getMem_emailCheck());
+			
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -703,7 +705,62 @@ public class MemberDAO {
 
 	// okky_mem_tag 테이블의 회원번호에 해당하는 태그를 수정하는 메서드.
 	public int infoTagEdit(int mem_num, TagDTO tdto) {
-		int result = 0;
+		
+		int result = 0, count = 0;
+		
+		try {
+			openConn();
+			
+			// TAG_NUM은 '관심있는 기술 태그 입력'을 등록한 회원의 수
+			
+			sql = "select count(*) from okky_mem_tag";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1) + 1;
+			}
+			
+			sql = "select tag_target from okky_mem_tag";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				if(mem_num == (rs.getInt("tag_target"))) { // 관심 태그를 등록한 회원일 경우
+					sql = "update okky_mem_tag set tag_num = ?, tag_name = ? where tag_target = ?";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setInt(1, count);
+					pstmt.setString(2, tdto.getTag_name());
+					pstmt.setInt(3, mem_num);
+					
+					result = pstmt.executeUpdate();
+					System.out.println("등록한 태그 내용 >>>" + tdto.getTag_name());
+					
+				}
+			}else { // 관심 태그를 등록하지 않은 회원일 경우
+
+				sql = "insert into okky_mem_tag values(?,?,?)";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, count);
+				pstmt.setString(2, tdto.getTag_name());
+				pstmt.setInt(3, mem_num);
+				
+				result = pstmt.executeUpdate();
+				System.out.println("등록한 태그 내용 >>>" + tdto.getTag_name());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
 		return result;
 	} // infoTagEdit() 메서드 end
 

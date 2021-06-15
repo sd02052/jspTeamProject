@@ -53,7 +53,7 @@
 				                    <div class="signup-block">
 				                        <a href="">계정찾기</a>
 				                        <span class="inline-saperator">/</span>
-				                        <a href="">회원가입</a>
+				                        <a href="<%=request.getContextPath() %>/view/member/member_sign_up.jsp">회원가입</a>
 				                    </div>
 				                </form>
 				            </div>

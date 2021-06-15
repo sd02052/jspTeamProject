@@ -31,10 +31,10 @@
 				                    <input type="text" id="inputNickname" name="mem_nick" class="form-control" placeholder="닉네임" required>
 				                    <div class="checkbox">
 				                        <label>
-				                            <input type="checkbox" name="mem_emailCheck" value="emailCheck" checked="checked"> 이메일 수신 동의
+				                            <input type="checkbox" name="mem_emailCheck" value="yes" checked> 이메일 수신 동의
 				                        </label>
 				                    </div>
-				        
+				        	
 				                    <button class="btn btn-primary btn-block" type="submit">아래 약관을 동의하며 계정 생성</button>
 				                    <div class="signup-block">
 				                        <a href="">회원가입약관</a>

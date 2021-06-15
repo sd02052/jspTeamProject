@@ -203,3 +203,21 @@
     margin: 20px 0;
     border-radius: 4px;
 }
+
+.list-group-has-note-empty {
+	border-left: 3px #CCCCCC solid !important;
+}
+
+.selected {
+	font-size: 1.1em;
+	font-weight: bold;
+	border-left: 2px #CCCCCC solid !important;
+}
+
+.list-group-item-heading {
+	overflow: hidden;
+  	text-overflow: ellipsis;
+  	white-space: nowrap;
+  	width: 90%;
+  	height: 20px;
+}

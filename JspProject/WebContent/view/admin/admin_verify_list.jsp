@@ -109,12 +109,12 @@ $(function(){
 											<div class="col-xs-2 margin-auto">${comDTO.getCompany_license_num() }</div>		
 												<div class="cont-member col-xs-3 margin-auto">			
 													<div>
-														<a href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
-															<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
+														<a href="<%=request.getContextPath()%>/member_personal.do?num=${memList[status.index].getMem_num() }">
+															<img src="<%=request.getContextPath() %>/images/profile/${memList[status.index].getMem_image() }" class="cont-mem-logo img-circle"></a>
 															
 														
 														<div class="cont-mem-info">
-															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/view/member/member_personal.jsp">${memList[status.index].getMem_nick() }</a><br>
+															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${memList[status.index].getMem_num() }">${memList[status.index].getMem_nick() }</a><br>
 															<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${memList[status.index].getMem_score() }</span><br>
 														</div>
 													</div>	
@@ -146,54 +146,56 @@ $(function(){
 							</div>
 						</div>
 		
-						<nav>
-						<div align="center">
-						  <ul class="pagination">
-						  
-						  <c:if test="${page > 1 }">
-							    <li>
-							      <a href="admin_verify_list.do?page=1" aria-label="Previous">
-							        <span aria-hidden="true">&laquo;</span>
-							      </a>
-							    </li>
-						   </c:if>
-						   
-						   <c:if test="${page eq 1 }">
-							    <li>
-							      <a aria-label="Previous">
-							        <span aria-hidden="true">&laquo;</span>
-							      </a>
-							    </li>
-						   </c:if>
-						    
-						    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
-							    <c:if test="${i == page }">
-							   		<li class="active"><a href="admin_verify_list.do?page=${i }">${i }</a></li>
+						<c:if test="${!empty List }">
+							<nav>
+							<div align="center">
+							  <ul class="pagination">
+							  
+							  <c:if test="${page > 1 }">
+								    <li>
+								      <a href="admin_verify_list.do?page=1" aria-label="Previous">
+								        <span aria-hidden="true">&laquo;</span>
+								      </a>
+								    </li>
+							   </c:if>
+							   
+							   <c:if test="${page eq 1 }">
+								    <li>
+								      <a aria-label="Previous">
+								        <span aria-hidden="true">&laquo;</span>
+								      </a>
+								    </li>
+							   </c:if>
+							    
+							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
+								    <c:if test="${i == page }">
+								   		<li class="active"><a href="admin_verify_list.do?page=${i }">${i }</a></li>
+								    </c:if>
+								    
+								    <c:if test="${i != page }">
+									    <li><a href="admin_verify_list.do?page=${i }">${i }</a></li>
+								    </c:if>
+							    </c:forEach>
+							    
+							    <c:if test="${page < allPage }">
+								    <li>
+								      <a href="admin_verify_list.do?page=${allPage }" aria-label="Next">
+								        <span aria-hidden="true">&raquo;</span>
+								      </a>
+								    </li>
 							    </c:if>
 							    
-							    <c:if test="${i != page }">
-								    <li><a href="admin_verify_list.do?page=${i }">${i }</a></li>
+							    <c:if test="${page eq allPage }">
+								    <li>
+								      <a aria-label="Next">
+								        <span aria-hidden="true">&raquo;</span>
+								      </a>
+								    </li>
 							    </c:if>
-						    </c:forEach>
-						    
-						    <c:if test="${page < allPage }">
-							    <li>
-							      <a href="admin_verify_list.do?page=${allPage }" aria-label="Next">
-							        <span aria-hidden="true">&raquo;</span>
-							      </a>
-							    </li>
-						    </c:if>
-						    
-						    <c:if test="${page eq allPage }">
-							    <li>
-							      <a aria-label="Next">
-							        <span aria-hidden="true">&raquo;</span>
-							      </a>
-							    </li>
-						    </c:if>
-						  </ul>
-						  </div>
-						</nav>
+							  </ul>
+							  </div>
+							</nav>
+						</c:if>
 		
 					</div>
 				</div>

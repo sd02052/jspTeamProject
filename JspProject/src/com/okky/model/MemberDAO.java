@@ -218,7 +218,7 @@ public class MemberDAO {
 				count = rs.getInt(1) + 1;
 			}
 
-			sql = "insert into okky_member values(?,?,?,?,?,?,sysdate,default,default,default,default)";
+			sql = "insert into okky_member values(?,?,?,?,?,?,sysdate,?,default,default,default)";
 
 			pstmt = con.prepareStatement(sql);
 
@@ -228,6 +228,8 @@ public class MemberDAO {
 			pstmt.setString(4, dto.getMem_pwd());
 			pstmt.setString(5, dto.getMem_image());
 			pstmt.setString(6, dto.getMem_email());
+			pstmt.setString(7, dto.getMem_emailCheck());
+			
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -299,11 +301,8 @@ public class MemberDAO {
 	}
 
 	// 페이지에 해당하는 멤버 조회하는 메서드
-	public List<MemberDTO> getMemberList(int page, int rowsize) {
+	public List<MemberDTO> getMemberList(int startNo, int endNo) {
 		List<MemberDTO> list = new ArrayList<>();
-
-		int startNo = (page * rowsize) - (rowsize - 1); // 해당 페이지에서 시작 번호
-		int endNo = (page * rowsize); // 해당 페이지에서 마지막 번호
 
 		try {
 			openConn();
@@ -343,278 +342,20 @@ public class MemberDAO {
 	}
 
 	// okky_company의 페이지에 출력되는 회사정보를 작성한 멤버 정보를 가져오는 메서드
-	public List<MemberDTO> getCompanyMemberList(int page, int rowsize) {
+	public List<MemberDTO> getCompanyMemberList(List<CompanyDTO> pageList) {
 		List<MemberDTO> list = new ArrayList<MemberDTO>();
 
-		int startNo = (page * rowsize) - (rowsize - 1); // 해당 페이지에서 시작 번호
-		int endNo = (page * rowsize); // 해당 페이지에서 마지막 번호
-
 		try {
 			openConn();
 
-			sql = "select company_num from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c) "
-					+ "where rnum >= ? and rnum <= ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, startNo);
-			pstmt.setInt(2, endNo);
-			rs = pstmt.executeQuery();
+			for (int i = 0; i < pageList.size(); i++) {
+				int company_num = pageList.get(i).getCompany_num();
 
-			while (rs.next()) {
-
-				sql = "select * from okky_member where mem_company = ? order by mem_num desc";
+				sql = "select * from okky_member where mem_company = ?";
 
 				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, rs.getInt(1));
-				ResultSet rs1 = pstmt.executeQuery();
-
-				while (rs1.next()) {
-
-					MemberDTO dto = new MemberDTO();
-
-					dto.setMem_num(rs1.getInt("mem_num"));
-					dto.setMem_id(rs1.getString("mem_id"));
-					dto.setMem_nick(rs1.getString("mem_nick"));
-					dto.setMem_pwd(rs1.getString("mem_pwd"));
-					dto.setMem_image(rs1.getString("mem_image"));
-					dto.setMem_email(rs1.getString("mem_email"));
-					dto.setMem_regdate(rs1.getString("mem_regdate"));
-					dto.setMem_emailCheck(rs1.getString("mem_emailcheck"));
-					dto.setMem_check(rs1.getString("mem_check"));
-					dto.setMem_score(rs1.getInt("mem_score"));
-					dto.setMem_company(rs1.getInt("mem_company"));
-
-					list.add(dto);
-
-				}
-				rs1.close();
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			closeConn(rs, pstmt, con);
-		}
-
-		return list;
-	}
-
-	// okky_company의 검색해서 나온 글 작성자를 조회하는 메서드
-	public List<MemberDTO> getSearchCompanyMemberList(String field, String data, int page, int rowsize) {
-		List<MemberDTO> list = new ArrayList<>();
-
-		int startNo = (page * rowsize) - (rowsize - 1); // 해당 페이지에서 시작 번호
-		int endNo = (page * rowsize); // 해당 페이지에서 마지막 번호
-
-		openConn();
-		if (field.equals("all")) { // 전체검색의 경우(회사명, 작성회원, 상태)
-
-			String check_data = "";
-
-			if (data.equals("회원")) {
-				check_data = "no";
-			} else if (data.equals("탈퇴")) {
-				check_data = "yes";
-			}
-
-			sql = "select company_num from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
-					+ "where company_name like ? or company_check like ? or company_target in "
-					+ "(select board_num from okky_board where board_writer in "
-					+ "(select mem_num from okky_member where mem_nick like ? )))" + "where rnum >= ? and rnum <= ?";
-
-			try {
-				pstmt = con.prepareStatement(sql);
-
-				pstmt.setString(1, "%" + data + "%");
-				pstmt.setString(2, check_data);
-				pstmt.setString(3, "%" + data + "%");
-				pstmt.setInt(4, startNo);
-				pstmt.setInt(5, endNo);
-
-				rs = pstmt.executeQuery();
-
-				while (rs.next()) {
-					sql = "select * from okky_member where mem_company = ? order by mem_num desc";
-
-					pstmt = con.prepareStatement(sql);
-					pstmt.setInt(1, rs.getInt(1));
-					ResultSet rs1 = pstmt.executeQuery();
-
-					while (rs1.next()) {
-						MemberDTO dto = new MemberDTO();
-
-						dto.setMem_num(rs1.getInt("mem_num"));
-						dto.setMem_id(rs1.getString("mem_id"));
-						dto.setMem_nick(rs1.getString("mem_nick"));
-						dto.setMem_pwd(rs1.getString("mem_pwd"));
-						dto.setMem_image(rs1.getString("mem_image"));
-						dto.setMem_email(rs1.getString("mem_email"));
-						dto.setMem_regdate(rs1.getString("mem_regdate"));
-						dto.setMem_emailCheck(rs1.getString("mem_emailcheck"));
-						dto.setMem_check(rs1.getString("mem_check"));
-						dto.setMem_score(rs1.getInt("mem_score"));
-						dto.setMem_company(rs1.getInt("mem_company"));
-
-						list.add(dto);
-					}
-					rs1.close();
-				}
-
-				return list;
-
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				closeConn(rs, pstmt, con);
-			}
-
-		} else if (field.equals("name")) { // 회사명 검색의 경우
-			sql = "select company_num from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
-					+ "where company_name like ?) where rnum >= ? and rnum <= ? ";
-		} else if (field.equals("nick")) { // 작성회원 검색의 경우
-			sql = "select company_num from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
-					+ "where company_target in" + "(select board_num from okky_board where board_writer in "
-					+ "(select mem_num from okky_member where mem_nick like ? )))" + "where rnum >= ? and rnum <= ?";
-		} else if (field.equals("check")) { // 상태 검색의 경우
-			sql = "select company_num from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
-					+ "where company_check like ?)" + "where rnum >= ? and rnum <= ?";
-		}
-
-		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, "%" + data + "%");
-			pstmt.setInt(2, startNo);
-			pstmt.setInt(3, endNo);
-
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				sql = "select * from okky_member where mem_company = ? order by mem_num desc";
-
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, rs.getInt(1));
-				ResultSet rs1 = pstmt.executeQuery();
-
-				while (rs1.next()) {
-					MemberDTO dto = new MemberDTO();
-
-					dto.setMem_num(rs1.getInt("mem_num"));
-					dto.setMem_id(rs1.getString("mem_id"));
-					dto.setMem_nick(rs1.getString("mem_nick"));
-					dto.setMem_pwd(rs1.getString("mem_pwd"));
-					dto.setMem_image(rs1.getString("mem_image"));
-					dto.setMem_email(rs1.getString("mem_email"));
-					dto.setMem_regdate(rs1.getString("mem_regdate"));
-					dto.setMem_emailCheck(rs1.getString("mem_emailcheck"));
-					dto.setMem_check(rs1.getString("mem_check"));
-					dto.setMem_score(rs1.getInt("mem_score"));
-					dto.setMem_company(rs1.getInt("mem_company"));
-
-					list.add(dto);
-				}
-				rs1.close();
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			closeConn(rs, pstmt, con);
-		}
-
-		return list;
-	}
-
-	// 검색된 회원 수를 조회하는 메서드
-	public int getSearchListCount(String field, String data) {
-		int count = 0;
-
-		try {
-			openConn();
-
-			if (field.equals("all")) {
-
-				String check_data = "";
-
-				if (data.equals("회원")) {
-					check_data = "no";
-				} else if (data.equals("탈퇴")) {
-					check_data = "yes";
-				}
-
-				sql = "select count(*) from okky_member where mem_id like ? or mem_nick like ? or mem_check like ?";
-
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, "%" + data + "%");
-				pstmt.setString(2, "%" + data + "%");
-				pstmt.setString(3, "%" + check_data + "%");
-
-				rs = pstmt.executeQuery();
-
-				if (rs.next()) {
-					count = rs.getInt(1);
-				}
-
-				return count;
-
-			} else if (field.equals("id")) {
-				sql = "select count(*) from okky_member where mem_id like ?";
-			} else if (field.equals("nick")) {
-				sql = "select count(*) from okky_member where mem_nick like ?";
-			} else if (field.equals("check")) {
-				sql = "select count(*) from okky_member where mem_check like ?";
-			}
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, "%" + data + "%");
-
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				count = rs.getInt(1);
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			closeConn(rs, pstmt, con);
-		}
-
-		return count;
-	}
-
-	// 검색한 회원의 정보를 조회하는 메서드
-	public List<MemberDTO> getSearchMemberList(String field, String data, int page, int rowsize) {
-		List<MemberDTO> list = new ArrayList<>();
-
-		int startNo = (page * rowsize) - (rowsize - 1); // 해당 페이지에서 시작 번호
-		int endNo = (page * rowsize); // 해당 페이지에서 마지막 번호
-
-		openConn();
-
-		if (field.equals("all")) {
-
-			String check_data = "";
-
-			if (data.equals("회원")) {
-				check_data = "no";
-			} else if (data.equals("탈퇴")) {
-				check_data = "yes";
-			}
-
-			sql = "select * from (select row_number() over(order by mem_num desc) rnum, m.* from okky_member m "
-					+ "where mem_id like ? or mem_nick like ? or mem_check like ?) where rnum >= ? and rnum <= ?";
-
-			try {
-				pstmt = con.prepareStatement(sql);
-
-				pstmt.setString(1, "%" + data + "%");
-				pstmt.setString(2, "%" + data + "%");
-				pstmt.setString(3, "%" + check_data + "%");
-				pstmt.setInt(4, startNo);
-				pstmt.setInt(5, endNo);
-
-				rs = pstmt.executeQuery();
+				pstmt.setInt(1, company_num);
+				ResultSet rs = pstmt.executeQuery();
 
 				while (rs.next()) {
 					MemberDTO dto = new MemberDTO();
@@ -633,31 +374,116 @@ public class MemberDAO {
 
 					list.add(dto);
 				}
-
-				return list;
-
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				closeConn(rs, pstmt, con);
 			}
-		} else if (field.equals("id")) {
-			sql = "select * from (select row_number() over(order by mem_num desc) rnum, m.* from okky_member m "
-					+ "where mem_id like ?) where rnum >= ? and rnum <= ?";
-		} else if (field.equals("nick")) {
-			sql = "select * from (select row_number() over(order by mem_num desc) rnum, m.* from okky_member m "
-					+ "where mem_nick like ?) where rnum >= ? and rnum <= ?";
-		} else if (field.equals("check")) {
-			sql = "select * from (select row_number() over(order by mem_num desc) rnum, m.* from okky_member m "
-					+ "where mem_check like ?) where rnum >= ? and rnum <= ?";
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+
+		return list;
+	}
+
+	// 검색된 회원 수를 조회하는 메서드
+	public int getSearchListCount(String field, String data) {
+		int count = 0;
+
+		String check_data = "";
+
+		if (data.equals("회원")) {
+			check_data = "no";
+		} else if (data.equals("탈퇴")) {
+			check_data = "yes";
 		}
 
 		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, "%" + data + "%");
-			pstmt.setInt(2, startNo);
-			pstmt.setInt(3, endNo);
+			openConn();
+
+			if (field.equals("all")) {
+
+				sql = "select count(*) from okky_member where mem_id like ? or mem_nick like ? or mem_check like ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%" + data + "%");
+				pstmt.setString(2, "%" + data + "%");
+				pstmt.setString(3, "%" + check_data + "%");
+			} else if (field.equals("id")) {
+				sql = "select count(*) from okky_member where mem_id like ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%" + data + "%");
+			} else if (field.equals("nick")) {
+				sql = "select count(*) from okky_member where mem_nick like ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%" + data + "%");
+			} else if (field.equals("check")) {
+				sql = "select count(*) from okky_member where mem_check like ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%" + check_data + "%");
+			}
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+
+		return count;
+	}
+
+	// 검색한 회원의 정보를 조회하는 메서드
+	public List<MemberDTO> getSearchMemberList(String field, String data, int startNo, int endNo) {
+		List<MemberDTO> list = new ArrayList<>();
+		String check_data = "";
+
+		if (data.equals("회원")) {
+			check_data = "no";
+		} else if (data.equals("탈퇴")) {
+			check_data = "yes";
+		}
+
+		try {
+			openConn();
+
+			if (field.equals("all")) {
+
+				sql = "select * from (select row_number() over(order by mem_num desc) rnum, m.* from okky_member m "
+						+ "where mem_id like ? or mem_nick like ? or mem_check like ?) where rnum >= ? and rnum <= ?";
+
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%" + data + "%");
+				pstmt.setString(2, "%" + data + "%");
+				pstmt.setString(3, check_data);
+				pstmt.setInt(4, startNo);
+				pstmt.setInt(5, endNo);
+			} else if (field.equals("id")) {
+				sql = "select * from (select row_number() over(order by mem_num desc) rnum, m.* from okky_member m where mem_id like ?) where rnum >= ? and rnum <= ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%" + data + "%");
+				pstmt.setInt(2, startNo);
+				pstmt.setInt(3, endNo);
+
+			} else if (field.equals("nick")) {
+				sql = "select * from (select row_number() over(order by mem_num desc) rnum, m.* from okky_member m where mem_nick like ?) where rnum >= ? and rnum <= ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%" + data + "%");
+				pstmt.setInt(2, startNo);
+				pstmt.setInt(3, endNo);
+
+			} else if (field.equals("check")) {
+				sql = "select * from (select row_number() over(order by mem_num desc) rnum, m.* from okky_member m where mem_check like ?) where rnum >= ? and rnum <= ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, check_data);
+				pstmt.setInt(2, startNo);
+				pstmt.setInt(3, endNo);
+			}
 
 			rs = pstmt.executeQuery();
 
@@ -678,7 +504,6 @@ public class MemberDAO {
 
 				list.add(dto);
 			}
-
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -704,7 +529,6 @@ public class MemberDAO {
 				list.add(tag);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			closeConn(rs, pstmt, con);
@@ -759,8 +583,207 @@ public class MemberDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
 		}
 		return res;
 	}
 
+	public List<MemberDTO> getMemberList(List<BoardDTO> boardList) {
+		List<MemberDTO> list = new ArrayList<MemberDTO>();
+
+		try {
+			openConn();
+
+			for (int i = 0; i < boardList.size(); i++) {
+				int board_writer = boardList.get(i).getBoard_writer();
+				sql = "select * from okky_member where mem_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, board_writer);
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					MemberDTO dto = new MemberDTO();
+
+					dto.setMem_num(rs.getInt("mem_num"));
+					dto.setMem_id(rs.getString("mem_id"));
+					dto.setMem_nick(rs.getString("mem_nick"));
+					dto.setMem_pwd(rs.getString("mem_pwd"));
+					dto.setMem_image(rs.getString("mem_image"));
+					dto.setMem_email(rs.getString("mem_email"));
+					dto.setMem_regdate(rs.getString("mem_regdate"));
+					dto.setMem_emailCheck(rs.getString("mem_emailcheck"));
+					dto.setMem_check(rs.getString("mem_check"));
+					dto.setMem_score(rs.getInt("mem_score"));
+					dto.setMem_company(rs.getInt("mem_company"));
+
+					list.add(dto);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+	}
+
+	// okky_member 테이블의 회원번호에 해당하는 비밀번호를 수정하는 메서드.
+	public int pwdEdit(MemberDTO dto, String newPassword) {
+
+		int result = 0;
+
+		try {
+
+			openConn();
+
+			sql = "select * from okky_member where mem_num = ?";
+
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setInt(1, dto.getMem_num());
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				if (dto.getMem_pwd().equals(rs.getString("mem_pwd"))) {
+					// 비밀번호가 맞을 경우
+					sql = "update okky_member set mem_pwd =? where mem_num = ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, newPassword);
+					pstmt.setInt(2, dto.getMem_num());
+
+					result = pstmt.executeUpdate();
+
+				} else { // 비밀번호가 틀린 경우
+					result = -1;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	} // pwdEdit() 메서드 end
+
+	// okky_member 테이블의 회원번호에 해당하는 정보를 수정하는 메서드.
+	public int infoEdit(MemberDTO dto) {
+
+		int result = 0;
+
+		try {
+			openConn();
+
+			sql = "select mem_nick from okky_member";
+
+			pstmt = con.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				if (dto.getMem_nick().equals(rs.getString("mem_nick"))) { // 닉네임 중복
+					result = -1;
+				} else { // 닉네임 사용 가능
+					sql = "update okky_member set mem_nick = ? where mem_num = ?";
+
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, dto.getMem_nick());
+					pstmt.setInt(2, dto.getMem_num());
+
+					result = pstmt.executeUpdate();
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	} // infoEdit() 메서드 end
+
+	// okky_mem_tag 테이블의 회원번호에 해당하는 태그를 수정하는 메서드.
+	public int infoTagEdit(int mem_num, TagDTO tdto) {
+		
+		int result = 0, count = 0;
+		
+		try {
+			openConn();
+			
+			// TAG_NUM은 '관심있는 기술 태그 입력'을 등록한 회원의 수
+			
+			sql = "select count(*) from okky_mem_tag";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1) + 1;
+			}
+			
+			sql = "select tag_target from okky_mem_tag";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				if(mem_num == (rs.getInt("tag_target"))) { // 관심 태그를 등록한 회원일 경우
+					sql = "update okky_mem_tag set tag_num = ?, tag_name = ? where tag_target = ?";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setInt(1, count);
+					pstmt.setString(2, tdto.getTag_name());
+					pstmt.setInt(3, mem_num);
+					
+					result = pstmt.executeUpdate();
+					System.out.println("등록한 태그 내용 >>>" + tdto.getTag_name());
+					
+				}
+			}else { // 관심 태그를 등록하지 않은 회원일 경우
+
+				sql = "insert into okky_mem_tag values(?,?,?)";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, count);
+				pstmt.setString(2, tdto.getTag_name());
+				pstmt.setInt(3, mem_num);
+				
+				result = pstmt.executeUpdate();
+				System.out.println("등록한 태그 내용 >>>" + tdto.getTag_name());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	} // infoTagEdit() 메서드 end
+
+	// okky_member 테이블의 회원번호에 맞는 회원을 탈퇴시키는 메서드.
+	public int memberWithdrawal(int mem_num) {
+
+		int result = 0;
+
+		try {
+			openConn();
+
+			sql = "update okky_member set mem_check = ? where mem_num = ?";
+
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "yes");
+			pstmt.setInt(2, mem_num);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	} // memberWithdrawal() 메서드 end
 }

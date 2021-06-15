@@ -164,6 +164,38 @@ public class CommentDAO {
 		return list;
 	}
 
+	public List<CommentDTO> getPesonalCommentList(int num) {
+		List<CommentDTO> list = new ArrayList<CommentDTO>();
+
+		try {
+			openConn();
+			sql = "select * from okky_comment where com_writer = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				CommentDTO dto = new CommentDTO();
+
+				dto.setCom_num(rs.getInt("com_num"));
+				dto.setCom_writer(rs.getInt("com_writer"));
+				dto.setCom_content(rs.getString("com_content"));
+				dto.setCom_target(rs.getInt("com_target"));
+				dto.setCom_like(rs.getInt("com_like"));
+				dto.setCom_regdate(rs.getString("com_regdate"));
+				dto.setCom_selected(rs.getString("com_selected"));
+
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+	}
+
 	public List<MemberDTO> getCommentMemberList(List<CommentDTO> commentList) {
 		List<MemberDTO> list = new ArrayList<MemberDTO>();
 
@@ -280,7 +312,64 @@ public class CommentDAO {
 			closeConn(rs, pstmt, con);
 		}
 		return result;
+	}
 
+	// 특정회원이 단 전체 댓글을 조회하는 메서드
+	public List<CommentDTO> getMemberCommentList(int num, int startNo, int endNo) {
+		List<CommentDTO> list = new ArrayList<>();
+
+		try {
+			openConn();
+			sql = "select * from (select row_number() over(order by com_regdate desc) rnum,c.* from okky_comment c where com_writer = ?) where rnum >= ? and rnum <= ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.setInt(2, startNo);
+			pstmt.setInt(3, endNo);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				CommentDTO dto = new CommentDTO();
+
+				dto.setCom_num(rs.getInt("com_num"));
+				dto.setCom_writer(rs.getInt("com_writer"));
+				dto.setCom_content(rs.getString("com_content"));
+				dto.setCom_target(rs.getInt("com_target"));
+				dto.setCom_like(rs.getInt("com_like"));
+				dto.setCom_regdate(rs.getString("com_regdate"));
+				dto.setCom_selected(rs.getString("com_selected"));
+
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+	}
+
+	// 특정회원이 작성한 댓글의 수를 조회하는 메서드
+	public int getCommentListCount(int num) {
+		int count = 0;
+
+		try {
+			openConn();
+			sql = "select count(*) from okky_comment where com_writer = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return count;
 	}
 
 	public void update_Like(int num, int login_mem) {
@@ -317,16 +406,16 @@ public class CommentDAO {
 			pstmt.setInt(1, num);
 			pstmt.setInt(2, login_mem);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				like_num = rs.getInt(1);
 			}
-			
+
 			sql = "delete from okky_like where like_target = ? and like_writer = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setInt(2, login_mem);
 			pstmt.executeUpdate();
-			
+
 			sql = "update okky_like set like_num = like_num - 1 where like_num > ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, like_num);
@@ -338,7 +427,7 @@ public class CommentDAO {
 			closeConn(rs, pstmt, con);
 		}
 	}
-	
+
 	public int select_Like(int num) {
 		openConn();
 		String sql = "select com_like from okky_comment where com_num= ?";
@@ -360,7 +449,7 @@ public class CommentDAO {
 
 	public List<CommentDTO> getCommentLikeList(int login_mem) {
 		List<CommentDTO> list = new ArrayList<CommentDTO>();
-		
+
 		try {
 			openConn();
 
@@ -368,8 +457,8 @@ public class CommentDAO {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, login_mem);
 			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				CommentDTO dto = new CommentDTO();
 				dto.setCom_num(rs.getInt("com_num"));
 				dto.setCom_writer(rs.getInt("com_writer"));
@@ -388,7 +477,7 @@ public class CommentDAO {
 		}
 		return list;
 	}
-	
+
 	public List<CommentDTO> getCommentUnLikeList(int login_mem) {
 		List<CommentDTO> list = new ArrayList<CommentDTO>();
 
@@ -419,10 +508,10 @@ public class CommentDAO {
 		}
 		return list;
 	}
-	
+
 	public int checkCommentLike(int num, int login_mem) {
 		int result = 0;
-		
+
 		try {
 			openConn();
 			sql = "select count(*) from okky_like where like_target = ? and like_writer = ?";
@@ -430,8 +519,8 @@ public class CommentDAO {
 			pstmt.setInt(1, num);
 			pstmt.setInt(2, login_mem);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				if(rs.getInt(1) > 0) {
+			if (rs.next()) {
+				if (rs.getInt(1) > 0) {
 					result = 1;
 				} else {
 					result = 0;
@@ -445,5 +534,80 @@ public class CommentDAO {
 		}
 		return result;
 	}
+
+	// 글목록에 해당하는 댓글목록을 조회하는 메서드
+	public List<CommentDTO> getCommentList(List<BoardDTO> boardList) {
+		List<CommentDTO> list = new ArrayList<CommentDTO>();
+
+		try {
+			openConn();
+			for (int i = 0; i < boardList.size(); i++) {
+				sql = "select* from okky_comment where com_target = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, boardList.get(i).getBoard_num());
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					CommentDTO dto = new CommentDTO();
+
+					dto.setCom_num(rs.getInt("com_num"));
+					dto.setCom_writer(rs.getInt("com_writer"));
+					dto.setCom_content(rs.getString("com_content"));
+					dto.setCom_target(rs.getInt("com_target"));
+					dto.setCom_like(rs.getInt("com_like"));
+					dto.setCom_regdate(rs.getString("com_regdate"));
+					dto.setCom_selected(rs.getString("com_selected"));
+
+					list.add(dto);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+	}
 	
+	// 답글 선택하는 메서드
+	public int commentSelect(int num) {
+		int result = 0;
+		
+		try {
+			openConn();
+			sql = "update okky_comment set com_selected = 'yes' where com_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+		return result;
+	}
+	
+	// 답글 선택을 취소하는 메서드
+		public int commentDeselect(int num) {
+			int result = 0;
+			
+			try {
+				openConn();
+				sql = "update okky_comment set com_selected = 'no' where com_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+			
+			return result;
+		}
+
 }

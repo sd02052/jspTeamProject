@@ -16,20 +16,24 @@ public class MemberSignUpAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// 회원가입 폼 페이지(member_sign_up)에서 넘어온 데이터들을 DB에 저장하는 컨트롤러 클래스.
-		
 		String mem_id = request.getParameter("mem_id").trim();
 		String mem_pwd = request.getParameter("mem_pwd").trim();
 		String mem_email = request.getParameter("mem_email").trim();
 		String mem_nick = request.getParameter("mem_nick").trim();
-//		String mem_emailCheck = request.getParameter("mem_emailCheck").trim();
+		String mem_emailCheck = request.getParameter("mem_emailCheck");
+		if(mem_emailCheck == null) {
+			mem_emailCheck = "no";
+		}
+		
 		String mem_image = "dpro.png";
+		
 		MemberDTO dto = new MemberDTO();
 		dto.setMem_id(mem_id);
 		dto.setMem_pwd(mem_pwd);
 		dto.setMem_email(mem_email);
 		dto.setMem_nick(mem_nick);
 		dto.setMem_image(mem_image);
-//		dto.setMem_emailCheck(mem_emailCheck);
+		dto.setMem_emailCheck(mem_emailCheck);
 		
 		MemberDAO dao = MemberDAO.getInstance();
 		int check = dao.signUp(dto);
@@ -38,8 +42,9 @@ public class MemberSignUpAction implements Action {
 		ActionForward forward = new ActionForward();
 		
 		if(check > 0) {
-			forward.setRedirect(true);
-			forward.setPath("main.do");
+			request.setAttribute("mem_id", mem_id);
+			forward.setRedirect(false);
+			forward.setPath("view/member/login.jsp");
 		}else {
 			out.println("<script>");
 			out.println("alert('회원가입실패')");

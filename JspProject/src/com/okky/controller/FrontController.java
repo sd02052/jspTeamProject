@@ -33,7 +33,7 @@ public class FrontController extends HttpServlet {
 				"C:\\Users\\SOS\\git\\jspTeamProject\\JspProject\\src\\com\\okky\\controller\\mapping.properties");
 		prop.load(fis);
 		String value = prop.getProperty(command);
-
+		
 		if (value.substring(0, 7).equals("execute")) {
 			StringTokenizer st = new StringTokenizer(value, "|");
 			String url_1 = st.nextToken();

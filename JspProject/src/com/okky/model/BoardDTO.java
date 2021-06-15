@@ -12,6 +12,14 @@ public class BoardDTO {
 	private String board_regdate;
 	private int board_comment;
 	
+	@Override
+	public String toString() {
+		return "BoardDTO [board_num=" + board_num + ", board_title=" + board_title + ", board_writer=" + board_writer
+				+ ", board_content=" + board_content + ", board_hit=" + board_hit + ", board_like=" + board_like
+				+ ", board_scrap=" + board_scrap + ", board_category=" + board_category + ", board_regdate="
+				+ board_regdate + ", board_comment=" + board_comment + "]";
+	}
+
 	public int getBoard_num() {
 		return board_num;
 	}
@@ -64,16 +72,16 @@ public class BoardDTO {
 		return board_scrap;
 	}
 
-	public void setBoard_scrap(int board_scrap) {
-		this.board_scrap = board_scrap;
-	}
-
 	public int getBoard_category() {
 		return board_category;
 	}
 
 	public void setBoard_category(int board_category) {
 		this.board_category = board_category;
+	}
+
+	public void setBoard_scrap(int board_scrap) {
+		this.board_scrap = board_scrap;
 	}
 
 	public String getBoard_regdate() {

@@ -114,11 +114,10 @@
 			<%-- 로그인 후 --%>
 			<div class="login-view">
 				<div class="avatar clearfix avatar-medium">
-				
 				<% if(dto1 != null){ %> <!-- 사용자로 로그인 후 -->
-					<a href="#" class="avatar-photo"><img src="<%=request.getContextPath() %>/images/<%=dto1.getMem_image() %>"></a>
+					<a href="<%=request.getContextPath()%>/member_personal.do?num=<%=dto1.getMem_num() %>" class="avatar-photo"><img src="<%=request.getContextPath() %>/images/<%=dto1.getMem_image() %>"></a>
 					<div class="avatar-info">
-						<a class="nickname" href="<%=request.getContextPath() %>/view/member/member_personal.jsp"><%=dto1.getMem_nick() %></a>
+						<a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=<%=dto1.getMem_num() %>"><%=dto1.getMem_nick() %></a>
 						<div class="activity block">
 							<span class="fas fa-bolt"></span> <%=dto1.getMem_score() %>
 						</div>
@@ -154,9 +153,9 @@
 				</a>
 				<div id="demo1" class="collapse">
 					<ul>
-						<li><a id="menu1-1" href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=1&big='menu1'&small='menu1-1'">All</a></li>
-						<li><a id="menu1-2" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=2&big='menu1'&small='menu1-2'">Tech Q&A</a></li>
-						<li><a id="menu1-3" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=3&big='menu1'&small='menu1-3'">Blockchain Q&A</a></li>
+						<li><a id="menu1-1" href="<%=request.getContextPath() %>/member_qna_board_list_all.do?cate_num=1&big='menu1'&small='menu1-1'">All</a></li>
+						<li><a id="menu1-2" href="<%=request.getContextPath() %>/member_qna_board_list.do?cate_num=2&big='menu1'&small='menu1-2'">Tech Q&A</a></li>
+						<li><a id="menu1-3" href="<%=request.getContextPath() %>/member_qna_board_list.do?cate_num=3&big='menu1'&small='menu1-3'">Blockchain Q&A</a></li>
 					</ul>
 				</div>
 			</li>

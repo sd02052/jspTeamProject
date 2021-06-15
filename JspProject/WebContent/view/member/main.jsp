@@ -17,9 +17,9 @@
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../../include/side.jsp" />
-			<div style="width: 805px; min-height: 800px;">
+			<div class="content">
 				<div id="main" class="content clearfix" role="main">
-					<div class="col-md-6 main-block-left">
+					<div class="col-sm-6 main-block-left">
 					
 						<!-- 공지사항 -->
 						<div class="main-block">
@@ -29,7 +29,7 @@
 							<div class="panel panel-default">
 								<ul class="list-group">
 								<c:if test="${!empty noticeList }">
-								<c:forEach items="${noticeList }" var="dto" varStatus="status">
+								<c:forEach items="${noticeList }" var="dto" varStatus="status" end="4">
 									<c:if test="${dto.getBoard_comment() != 0 }">
 									<li class="list-group-item list-group-has-note clearfix">
 									</c:if>
@@ -72,7 +72,7 @@
 					</div>
 					<!-- 공지사항 -->
 
-					<div class="col-md-6 main-block-right">
+					<div class="col-sm-6 main-block-right">
 						<!-- Weekly Best -->
 						<div class="main-block">
 							<h4 class="main-header">
@@ -80,19 +80,26 @@
 							</h4>
 							<div class="panel panel-default">
 								<ul class="list-group">
+								<c:if test="${!empty bestList }">
+									<c:forEach items="${bestList }" var="dto" varStatus="status" end="4">
+									<c:if test="${dto.getBoard_comment() != 0 }">
 									<li class="list-group-item list-group-has-note clearfix">
+									</c:if>
+									<c:if test="${dto.getBoard_comment() == 0 }">
+									<li class="list-group-item list-group-no-note clearfix">
+									</c:if>
 										<div class="list-title-wrapper">
 											<h5 class="list-group-item-heading">
-												<a href="">'껍데기 만드는 일 할 사람은 널렸다'</a>
+												<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
 														<a href="" class="avatar-photo">
 															<img src="../../images/29a87623405c294d79bd2b4728996363.png">
 														</a>
 														<div class="avatar-info">
-															<a class="nickname" href="">(사용자1)</a>
+															<a class="nickname" href="">${bestMember[status.index].getMem_nick() }</a>
 															<div class="activity">
-																<span class=""><i class="fas fa-bolt"></i> 73</span>
+																<span class=""><i class="fas fa-bolt"></i> ${bestMember[status.index].getMem_score() }</span>
 															</div>
 														</div>
 													</div>
@@ -100,46 +107,8 @@
 											</h5>
 										</div>
 									</li>
-									<li class="list-group-item list-group-has-note clearfix">
-										<div class="list-title-wrapper">
-											<h5 class="list-group-item-heading">
-												<a href="">OKKY 소개, 영상으로 만나보세요.</a>
-												<div class="list-group-item-author pull-right clearfix">
-													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo"> 
-															<img src="../../images/29a87623405c294d79bd2b4728996363.png">
-														</a>
-														<div class="avatar-info">
-															<a class="nickname" href="">(사용자1)</a>
-															<div class="activity">
-																<span class=""><i class="fas fa-bolt"></i> 73</span>
-															</div>
-														</div>
-													</div>
-												</div>
-											</h5>
-										</div>
-									</li>
-									<li class="list-group-item list-group-has-note clearfix">
-										<div class="list-title-wrapper">
-											<h5 class="list-group-item-heading">
-												<a href="">대표가 임금체불 합의하자고 연락이 왔습니다.</a>
-												<div class="list-group-item-author pull-right clearfix">
-													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo"> 
-															<img src="../../images/29a87623405c294d79bd2b4728996363.png">
-														</a>
-														<div class="avatar-info">
-															<a class="nickname" href="">(사용자1)</a>
-															<div class="activity">
-																<span class=""><i class="fas fa-bolt"></i> 73</span>
-															</div>
-														</div>
-													</div>
-												</div>
-											</h5>
-										</div>
-									</li>
+									</c:forEach>
+								</c:if>
 								</ul>
 
 							</div>
@@ -147,7 +116,7 @@
 					</div>
 					<!-- /Weekly Best -->
 
-					<div class="col-md-8 main-block-left">
+					<div class="col-sm-8 main-block-left">
 						<!-- Q&A / 커뮤니티 -->
 						<div class="main-block">
 							<h4 class="main-header">
@@ -158,7 +127,7 @@
 							<div class="panel panel-default">
 								<ul class="list-group">
 								<c:if test="${!empty qnaList }">
-									<c:forEach items="${qnaList }" var="dto" varStatus="status">
+									<c:forEach items="${qnaList }" var="dto" varStatus="status" end="9">
 									<c:if test="${dto.getBoard_comment() != 0 }">
 									<li class="list-group-item list-group-has-note clearfix">
 									</c:if>
@@ -167,7 +136,7 @@
 									</c:if>
 										<div class="list-title-wrapper">
 											<h5 class="list-group-item-heading">
-												<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
+												<a href="<%=request.getContextPath() %>/member_qna_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
 														<a href="" class="avatar-photo"> <img
@@ -201,7 +170,7 @@
 
 						<div class="main-block">
 							<h4 class="main-header">
-								<i class="fas fa-comments"></i> 커뮤니티 <a href=""
+								<i class="fas fa-comments"></i> 커뮤니티 <a href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=3&big='menu3'&small='menu3-1'"
 									class="main-more-btn pull-right"> <i
 									class="fas fa-ellipsis-h"></i>
 								</a>
@@ -254,11 +223,11 @@
 					</div>
 					<!-- /Q&A & 커뮤니티 -->
 
-					<div class="col-md-4 main-block-right">
+					<div class="col-sm-4 main-block-right">
 						<!-- Tech & 칼럼 & 학원/홍보 -->
 						<div class="main-block">
 							<h4 class="main-header">
-								<i class="fas fa-code"></i> Tech <a href=""
+								<i class="fas fa-code"></i> Tech <a href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=2&big='menu2'&small='menu2-1'"
 									class="main-more-btn pull-right"> <i
 									class="fas fa-ellipsis-h"></i>
 								</a>
@@ -266,7 +235,7 @@
 							<div class="panel panel-default">
 								<div class="panel-body">
 									<c:if test="${!empty techList }">
-										<c:forEach items="${techList }" var="dto" varStatus="status">
+										<c:forEach items="${techList }" var="dto" varStatus="status" end="2">
 											<div class="article-middle-block clearfix">
 												<div class="list-tag clearfix">
 													<a href="" class="list-group-item-text item-tag label label-info"> <i class="fas fa-code"></i> ${techCategory[status.index].getCate_name() }
@@ -302,7 +271,7 @@
 
 						<div class="main-block">
 							<h4 class="main-header">
-								<i class="fas fa-quote-left"></i> 칼럼 <a href=""
+								<i class="fas fa-quote-left"></i> 칼럼 <a href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=4&big='menu4'&small='menu4-1'"
 									class="main-more-btn pull-right"> <i
 									class="fas fa-ellipsis-h"></i>
 								</a>
@@ -310,7 +279,7 @@
 							<div class="panel panel-default">
 								<div class="panel-body">
 									<c:if test="${!empty columnList }">
-										<c:forEach items="${columnList }" var="dto" varStatus="status">
+										<c:forEach items="${columnList }" var="dto" varStatus="status" end="0">
 											<div class="article-middle-block clearfix">
 												<div class="list-tag clearfix">
 													<a href="" class="list-group-item-text item-tag label label-info"><i class="fas fa-quote-left"></i> ${columnCategory[status.index].getCate_name() } </a>
@@ -318,7 +287,7 @@
 												<h5>
 													<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
 												</h5>
-												<p class="main-block-desc"><a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_content() }</a></p>
+												<div class="etc"><p class="main-block-desc"><a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_content() }</a></p></div>
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
 														<a href="" class="avatar-photo"> <img src="../../images/29a87623405c294d79bd2b4728996363.png">
@@ -346,7 +315,7 @@
 
 						<div class="main-block">
 							<h4 class="main-header">
-								<i class="fas fa-book"></i> 학원/홍보 <a href=""
+								<i class="fas fa-book"></i> 학원/홍보 <a href="<%=request.getContextPath() %>/member_board_list.do?cate_num=14&big='menu3'&small='menu3-8'"
 									class="main-more-btn pull-right"> <i
 									class="fas fa-ellipsis-h"></i>
 								</a>
@@ -354,7 +323,7 @@
 							<div class="panel panel-default">
 								<ul class="list-group">
 									<c:if test="${!empty academyList }">
-										<c:forEach items="${academyList }" var="dto" varStatus="status">
+										<c:forEach items="${academyList }" var="dto" varStatus="status" end="2">
 											<c:if test="${dto.getBoard_comment() != 0 }">
 												<li class="list-group-item list-group-has-note clearfix">
 											</c:if>

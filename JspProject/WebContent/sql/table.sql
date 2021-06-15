@@ -88,7 +88,7 @@ create table okky_company(
 	company_homepage varchar2(100),					-- 회사 홈페이지
 	company_logo varchar2(200),						-- 회사 로고
 	company_content varchar2(1000) not null,		-- 회사 소개
-	company_check number(1) default 0,				-- 회사 등록 인증 여부(0: 미수락, 1: 수락)
+	company_check number(1) default 0,				-- 회사 등록 인증 여부(0: 대기, 1: 승인, 2: 거절)
 	company_target number(5) not null,				-- 회사 등록 게시글 번호
     constraint fk_target5 foreign key(company_target) references okky_board(board_num) on delete cascade 
 );
@@ -112,3 +112,4 @@ create table okky_mem_tag(
     tag_target number(5) not null,          -- 태그가 적용된 회원
     constraint fk_tag1 foreign key(tag_target) references okky_member(mem_num) on delete cascade
 );
+

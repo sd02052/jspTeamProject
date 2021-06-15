@@ -94,7 +94,7 @@ $(function(){
 													<div class="cont-member col-xs-3">	
 														<div>
 															<a href="<%=request.getContextPath()%>/member_personal.do?num=${dto.getMem_num()}">
-																<img src="<%=request.getContextPath() %>/images/profile00.png" class="cont-mem-logo img-circle"></a>
+																<img src="<%=request.getContextPath() %>/images/profile/${dto.getMem_image()}" class="cont-mem-logo img-circle"></a>
 															<div class="cont-mem-info">
 															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${dto.getMem_num()}">${dto.getMem_nick() }</a><br>
 															<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${dto.getMem_score() }</span>
@@ -153,7 +153,7 @@ $(function(){
 							    
 							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
 								    <c:if test="${i == page }">
-								   		<li class="active"><a href="admin_verify_list.do?page=${i }">${i }</a></li>
+								   		<li class="active"><a href="admin_member_list.do?page=${i }">${i }</a></li>
 								    </c:if>
 								    
 								    <c:if test="${i != page }">

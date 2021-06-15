@@ -1,3 +1,4 @@
+<%@page import="java.util.Calendar"%>
 <%@page import="com.okky.model.CategoryDTO"%>
 <%@page import="com.okky.model.MemberDTO"%>
 <%@page import="java.util.List"%>
@@ -49,6 +50,13 @@
 	
 	request.setAttribute("academyList", academyList);
 	request.setAttribute("academyMember", academyMember);
+	
+
+	List<BoardDTO> bestList = dao.getWeekBestBoardList();
+	List<MemberDTO> bestMember = dao.getMemberList(bestList);
+	
+	request.setAttribute("bestList", bestList);
+	request.setAttribute("bestMember", bestMember);
 	
 %>
 <!DOCTYPE html>

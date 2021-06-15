@@ -1,4 +1,4 @@
-package com.admin.action;
+package com.okky.action;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,22 +10,22 @@ import com.okky.controller.Action;
 import com.okky.controller.ActionForward;
 import com.okky.model.BoardDAO;
 import com.okky.model.BoardDTO;
-import com.okky.model.CompanyDAO;
-import com.okky.model.CompanyDTO;
-import com.okky.model.MemberDAO;
+import com.okky.model.CategoryDAO;
+import com.okky.model.CategoryDTO;
+import com.okky.model.CommentDAO;
+import com.okky.model.CommentDTO;
 import com.okky.model.MemberDTO;
 
-public class SearchVerifyAction implements Action {
+public class MemberQnABoardListAllAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		int cate_num = Integer.parseInt(request.getParameter("cate_num").trim());
+		String big_category = request.getParameter("big").trim();
+		String small_category = request.getParameter("small").trim();
 
-		String find_field = request.getParameter("field");
-		String find_data = request.getParameter("data");
-
-		CompanyDAO comDAO = CompanyDAO.getInstance();
-		BoardDAO boardDAO = BoardDAO.getInstance();
-		MemberDAO memDAO = MemberDAO.getInstance();
+		BoardDAO dao1 = BoardDAO.getInstance();
+		CommentDAO comDAO = CommentDAO.getInstance();
 
 		// 페이징 작업
 		int rowsize = 10; // 한 페이지당 보여질 게시물의 수
@@ -33,11 +33,11 @@ public class SearchVerifyAction implements Action {
 		int totalRecord = 0;// DB상의 게시물 전체 수
 		int allPage = 0; // 전체 페이지 수
 
-		int page = 0; // 현재 페이지 변수
+		int page = 0;
 		if (request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		} else {
-			page = 1; // 처음으로 "전체 게시물" a 태그를 클릭한 경우 1로 저장
+			page = 1;
 		}
 
 		int startNo = (page * rowsize) - (rowsize - 1);
@@ -46,7 +46,8 @@ public class SearchVerifyAction implements Action {
 		int startBlock = (((page - 1) / block) * block) + 1;
 		int endBlock = (((page - 1) / block) * block) + block;
 
-		totalRecord = comDAO.getSearchListCount(find_field, find_data);
+		// 전체 게시글 수를 조회하는 메서드
+		totalRecord = dao1.getBoardListCount(cate_num);
 
 		allPage = (int) (Math.ceil(totalRecord / (double) rowsize));
 
@@ -54,22 +55,28 @@ public class SearchVerifyAction implements Action {
 			endBlock = allPage;
 		}
 
-		// 회사테이블을 검색하여 조회하는 메서드
-		List<CompanyDTO> pageList = comDAO.getSearchCompanyList(find_field, find_data, startNo, endNo);
+		dao1.setBoardLike();
+		dao1.setBoardScrap();
+		dao1.setBoardComment();
 
-		// 회사 테이블의 회사번호와 동일한 회사번호를 가지는 멤버 정보를 조회하는 메서드
-		List<MemberDTO> memList = memDAO.getCompanyMemberList(pageList);
+		List<BoardDTO> list = dao1.getBoardListAll(cate_num, startNo, endNo);
+		List<MemberDTO> list2 = dao1.getMemberList(list);
+		List<CategoryDTO> list3 = dao1.getCategoryAllList(list);
+		List<CommentDTO> comList = comDAO.getCommentList(list);
 
-		// 회사 테이블의 참조번호와 동일한 글번호를 가지는 게시글 정보를 조회하는 메서드s
-		List<BoardDTO> boardList = boardDAO.getCompanyBoardList(pageList);
+		CategoryDAO dao2 = CategoryDAO.getInstance();
 
-		// 5) 작업했던 값들을 키로 저장하여 view 페이지로 넘기기
-		request.setAttribute("memList", memList);
-		request.setAttribute("boardList", boardList);
+		CategoryDTO category = dao2.getCategoryAll(cate_num);
 
-		request.setAttribute("find_field", find_field);
-		request.setAttribute("find_data", find_data);
-
+		request.setAttribute("boardList", list);
+		request.setAttribute("memberList", list2);
+		request.setAttribute("categoryList", list3);
+		request.setAttribute("comList", comList);
+		request.setAttribute("category", category);
+		request.setAttribute("cate_num", cate_num);
+		request.setAttribute("big_category", big_category);
+		request.setAttribute("small_category", small_category);
+		
 		request.setAttribute("page", page);
 		request.setAttribute("rowsize", rowsize);
 		request.setAttribute("block", block);
@@ -79,11 +86,10 @@ public class SearchVerifyAction implements Action {
 		request.setAttribute("endNo", endNo);
 		request.setAttribute("startBlock", startBlock);
 		request.setAttribute("endBlock", endBlock);
-		request.setAttribute("List", pageList);
 
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);
-		forward.setPath("view/admin/search_verify_list.jsp");
+		forward.setPath("view/member/qna_board.jsp");
 
 		return forward;
 	}

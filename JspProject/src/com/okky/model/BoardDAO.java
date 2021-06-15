@@ -683,4 +683,50 @@ public class BoardDAO {
 		return list;
 	}
 
+	public List<BoardDTO> getWeekBestBoardList() {
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
+		String start = null, end = null;
+		try {
+			openConn();
+			sql = "select to_char(a.s_date, 'yy/mm/dd') monday, to_char(a.s_date+1, 'yy/mm/dd') tuesday, "
+					+ "to_char(a.s_date+2, 'yy/mm/dd') wednesday, to_char(a.s_date+3, 'yy/mm/dd') thursday, "
+					+ "to_char(a.s_date+4, 'yy/mm/dd') friday, to_char(a.s_date+5, 'yy/mm/dd') saturday, "
+					+ "to_char(a.s_date+6, 'yy/mm/dd') sunday from (select sysdate - (to_number(to_char(sysdate,'d'))-2) s_date from dual) a";
+
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				start = rs.getString("monday");
+				end = rs.getString("sunday");
+			}
+
+			sql = "select * from okky_board where board_regdate between ? and ? order by board_like desc , board_hit desc, board_comment desc";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, start);
+			pstmt.setString(2, end);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				BoardDTO dto = new BoardDTO();
+
+				dto.setBoard_num(rs.getInt("board_num"));
+				dto.setBoard_title(rs.getString("board_title"));
+				dto.setBoard_writer(rs.getInt("board_writer"));
+				dto.setBoard_content(rs.getString("board_content"));
+				dto.setBoard_hit(rs.getInt("board_hit"));
+				dto.setBoard_like(rs.getInt("board_like"));
+				dto.setBoard_scrap(rs.getInt("board_scrap"));
+				dto.setBoard_category(rs.getInt("board_category"));
+				dto.setBoard_regdate(rs.getString("board_regdate"));
+				dto.setBoard_comment(rs.getInt("board_comment"));
+
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+	}
 }

@@ -15,9 +15,12 @@
 	width: 1027px;
 	margin-left: 210px;
 	padding-left: 30px;
-	padding-top: 20px !important;
+	padding-top: 20px;
 }
-
+  .content {
+    max-width: 805px;
+    min-height: 800px;
+  }
 /* 사이드바 css 시작 */
 .sidebar {
 	position: fixed;
@@ -238,6 +241,99 @@
 }
 .nav-main li{
 	list-style: none;
+}
+.navbar{
+	display: none;
+}
+.navbar ul:first {
+	float: right;
+}
+.navbar .navbar-head ul li{
+	display: inline-block;
+}
+.navbar ul li a {
+	padding-top: 15px;
+	padding-bottom: 15px;
+	color: #fff;
+}
+.navbar-blue {
+    background-color: #0059ab;
+    border-color: #0059ab;
+}
+.navbar ul {
+	padding-left: 0;
+	margin-bottom: 0;
+	list-style: none;
+}
+.navbar-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	
+}
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+}
+
+.navbar-menu>li{
+	margin-bottom: 15px;
+}
+
+.nav-user-func {
+	display: inline-block;
+}
+@media (max-width: 768px) {
+	
+	.layout-container {
+        margin: 0 20px;
+    }
+    .main {
+        width: auto;
+        position: relative;
+        padding-top: 70px;
+		padding-left: 0px;        
+        margin-left: 0;
+    }
+    .main-block-left,
+    .main-block-right {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .content {
+        width: inherit;
+        min-height: inherit;
+    }
+
+	 .sidebar {
+       display: none;
+     }
+     
+     .navbar {
+     display: block;
+     }
+     
+     .navbar ul li a{
+     	padding-top: 0;
+     	padding-bottom: 0;
+     }
+     
+     .nav1 a{
+     	padding: 10px;
+     }
+     
+     .login-view a {
+     	color: #fff;
+     	padding: 10px;
+     }
 }
 /* 사이드바 css 끝 */
 

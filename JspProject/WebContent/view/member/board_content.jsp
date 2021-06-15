@@ -120,7 +120,7 @@ function likeCancle<%=list.get(i).getCom_num()%>(){
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../../include/side.jsp" />
-			<div style="width: 805px; min-height: 800px;">
+			<div class="content">
 
 				<div id="article" class="div">
 

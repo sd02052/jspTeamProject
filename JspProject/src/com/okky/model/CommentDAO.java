@@ -569,11 +569,11 @@ public class CommentDAO {
 		}
 		return list;
 	}
-	
+
 	// 답글 선택하는 메서드
 	public int commentSelect(int num) {
 		int result = 0;
-		
+
 		try {
 			openConn();
 			sql = "update okky_comment set com_selected = 'yes' where com_num = ?";
@@ -586,28 +586,77 @@ public class CommentDAO {
 		} finally {
 			closeConn(rs, pstmt, con);
 		}
-		
+
 		return result;
 	}
-	
+
 	// 답글 선택을 취소하는 메서드
-		public int commentDeselect(int num) {
-			int result = 0;
-			
-			try {
-				openConn();
-				sql = "update okky_comment set com_selected = 'no' where com_num = ?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, num);
-				result = pstmt.executeUpdate();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				closeConn(rs, pstmt, con);
-			}
-			
-			return result;
+	public int commentDeselect(int num) {
+		int result = 0;
+
+		try {
+			openConn();
+			sql = "update okky_comment set com_selected = 'no' where com_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
 		}
+
+		return result;
+	}
+
+	// 채택된 답글 여부를 확인하는 메서드
+	public List<Integer> getSelectedList(List<BoardDTO> boardList) {
+		List<Integer> list = new ArrayList<>();
+
+		try {
+			openConn();
+			for (int i = 0; i < boardList.size(); i++) {
+				sql = "select count(*) from okky_comment where com_target = ? and com_selected = 'yes'";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, boardList.get(i).getBoard_num());
+				rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					list.add(rs.getInt(1));
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+	}
+
+	// 채택된 답글 여부를 확인하는 메서드
+	public int getSelectedCheck(int num) {
+		int count = 0;
+
+		try {
+			openConn();
+			sql = "select count(*) from okky_comment where com_target = ? and com_selected = 'yes' order by com_regdate";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return count;
+	}
 
 }

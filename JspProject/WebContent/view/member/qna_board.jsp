@@ -12,87 +12,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
-
-.table-bordered {
-	padding: 5px 10px;
-}
-
-.label1 {
-	background-color: #bbb;
-}
-
-.h {
-	margin: 3px 0px;
-}
-
-.padding {
-	padding: 1.8px 5.4px 2.7px;
-}
-
-.font {
-	font-size: 12px;
-}
-
-.font1 {
-	font-size: 10px;
-}
-
-/* .font_style {
-	font-weight: bold;
-} */
-
-.box {
-	width: 400px;
-	height: 40px;
-}
-
-.size {
-	width: 803px;
-	height: 53px;
-}
-
-.img {
-	width: 14px;
-	height: 14px;
-}
-
-.li1 {
-	font-size: 1.5em;
-	color: gray;
-}
-
-.pa {
-	padding: 20px;
-}
-
-.a1 {
-	font-size: 12px;
-}
-
-.li2 {
-	font-size: 3px;
-	color: gray;
-}
-
-.font2 {
-	font-size: 3px;
-	color: gray;
-}
-
-.span {
-	font-size: 10px;
-}
-
-.img1 {
-	padding-top: 12px;
-}
-
-.a2 {
-	padding-top: 12px;
-}
-
 </style>
-
 </head>
 <c:set var="big_category" value="${big_category }" />
 <c:set var="small_cattegory" value="${small_category }" />
@@ -121,7 +41,7 @@
 								<h4>${cate.getCate_name() }</h4>
 							</div>
 							<div class="col-xs-12 col-md-4" align="right">
-								<button type="button" class="btn btn-success">
+								<button type="button" class="btn btn-success" onclick="location.href='<%=request.getContextPath()%>/member_board_write.do'">
 									<i class="fas fa-pencil-alt"></i>새 글 쓰기
 								</button>
 							</div>
@@ -171,7 +91,7 @@
 						
 						<c:if test="${!empty list }">
 							<c:forEach items="${list }" var="dto" varStatus="status">
-								<div class="row <c:if test='${dto.getBoard_comment() > 0 }'>commented</c:if> <c:if test='${dto.getBoard_comment() eq 0 }'>uncommented</c:if>" style="border: 1px solid #ddd; border-bottom-width: 0.5px;">
+								<div class="row <c:if test='${dto.getBoard_comment() > 0 }'>list-group-has-note</c:if> <c:if test='${dto.getBoard_comment() eq 0 }'>list-group-no-note</c:if>" style="border: 1px solid #ddd; border-bottom-width: 0.5px;">
 									<div class="col-xs-7">
 										<div class="row">
 											<span class="list-group-item-text article-id font">#${dto.getBoard_num() }</span>
@@ -187,37 +107,37 @@
 										<div class="row">
 											<div class="col-md-12">
 												<ul class="list-inline">
-													<li class="list-unstyled li1"><i class="fas fa-thumbs-up img"></i>&nbsp;&nbsp;${dto.getBoard_like() }</li>
-													<c:if test="${dto.getBoard_comment() > 0 && comList[status.index].getCom_selected().equals('yes')}">
+													<li class="list-unstyled li1"><i class="fas fa-thumbs-up img1"></i>&nbsp;&nbsp;<p class="qna-text">${dto.getBoard_like() }</p></li>
+													<c:if test="${selectList[status.index] > 0 }">
 															<li class="list-unstyled li1">
-																<div class="answer-count">
-																		<i class="fas fa-check-circle"></i>
-																	&nbsp;&nbsp;${dto.getBoard_comment() }
+																<div class="qna-selected">
+																		<i class="fas fa-check-circle img1"></i>
+																	&nbsp;&nbsp;<p class="qna-text">${dto.getBoard_comment() }</p>
 																</div>
 															</li>
 													</c:if>
 													
-													<c:if test="${dto.getBoard_comment() > 0 && comList[status.index].getCom_selected().equals('no') }">
+													<c:if test="${dto.getBoard_comment() > 0 && selectList[status.index] eq 0 }">
 															<li class="list-unstyled li1">
-																<div class="answer-count">
-																	<i class="fas fa-exclamation-circle"></i>
-																		&nbsp;&nbsp;${dto.getBoard_comment() }
+																<div class="qna-deselected">
+																	<i class="fas fa-exclamation-circle img1"></i>
+																		&nbsp;&nbsp;<p class="qna-text">${dto.getBoard_comment() }</p>
 																</div>
 															</li>
 													</c:if>
 													
 													<c:if test="${dto.getBoard_comment() eq 0 }">
 														<li class="list-unstyled li1">
-															<div class="answer-count">
-																<i class="fas fa-question-circle"></i>
-																&nbsp;&nbsp;${dto.getBoard_comment() }
+															<div class="qna-no-comment">
+																<i class="fas fa-question-circle img1"></i>
+																&nbsp;&nbsp;<p class="qna-text">${dto.getBoard_comment() }</p>
 															</div>
 														</li>
 													</c:if>
 
 													<li class="list-unstyled li1  img1"></li>
-														<a class="avatar-photo text-left" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }"> 
-															<img width="30" height="30" class="img-circle " src="//www.gravatar.com/avatar/b66da5ef6099211f5db8f5f7a3b4c36b?d=identicon&s=30">
+														<a class="text-left" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }"> 
+															<img class="mem-logo" src="<%=request.getContextPath()%>/images/profile/${memberList[status.index].getMem_image() }">
 														</a>
 													</li>
 													<li class="list-unstyled li1 a2">

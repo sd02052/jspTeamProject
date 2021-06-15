@@ -8,6 +8,7 @@
 <title>board1</title>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/style/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/style/board.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -17,82 +18,6 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style>
-.table-bordered {
-	padding: 5px 10px;
-}
-
-.label1 {
-	background-color: #bbb;
-}
-
-.h {
-	margin: 3px 0px;
-}
-
-.padding {
-	padding: 1.8px 5.4px 2.7px;
-}
-
-.font {
-	font-size: 12px;
-}
-
-.font1 {
-	font-size: 10px;
-}
-
-/* .font_style {
-	font-weight: bold;
-} */
-.box {
-	width: 400px;
-	height: 40px;
-}
-
-.size {
-	width: 803px;
-	height: 53px;
-}
-
-.img {
-	width: 14px;
-	height: 14px;
-}
-
-.li1 {
-	font-size: 13px;
-	color: gray;
-}
-
-.pa {
-	padding: 20px;
-}
-
-.a1 {
-	font-size: 12px;
-}
-
-.li2 {
-	font-size: 3px;
-	color: gray;
-}
-
-.font2 {
-	font-size: 3px;
-	color: gray;
-}
-
-.span {
-	font-size: 10px;
-}
-
-.img1 {
-	padding-top: 12px;
-}
-
-.a2 {
-	padding-top: 12px;
-}
 </style>
 
 </head>
@@ -175,9 +100,9 @@
 
 						<c:if test="${!empty list }">
 							<c:forEach items="${list }" var="dto" varStatus="status">
-								<div class="row "
+								<div class="row <c:if test='${dto.getBoard_comment() > 0 }'>list-group-has-note</c:if> <c:if test='${dto.getBoard_comment() eq 0 }'>list-group-no-note</c:if>"
 									style="border: 1px solid #ddd; border-bottom-width: 0.5px;">
-									<div class="col-xs-6">
+									<div class="col-xs-7">
 										<div class="row">
 											<span class="list-group-item-text article-id font">#${dto.getBoard_num() }</span>
 											<a class="list-group-item-text item-tag label label-info padding">${categoryList[status.index].getCate_name()}</a>
@@ -200,8 +125,8 @@
 														${dto.getBoard_hit() }</li>
 
 													<li class="list-unstyled li1  img1">
-														<a class="avatar-photo text-left" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }"> 
-															<img width="30" height="30" class="img-circle " src="//www.gravatar.com/avatar/b66da5ef6099211f5db8f5f7a3b4c36b?d=identicon&s=30">
+														<a class="text-left" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }"> 
+															<img class="mem-logo" src="<%=request.getContextPath()%>/images/profile/${memberList[status.index].getMem_image() }">
 														</a>
 													</li>
 													<li class="list-unstyled li1 a2">

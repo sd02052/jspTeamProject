@@ -227,29 +227,38 @@ $(function() {
 												<td class="col-md-10">
 													<div class="cont-member pull-left">
 														<%-- 글 작성자가 댓글을 보는 경우 --%>
-														<c:if test="${loginNum eq writer.getMem_num() && dto.getCom_selected().equals('yes')  }">
-															<a class="select" href="<%=request.getContextPath()%>/member_qna_deselect.do?com_num=${dto.getCom_num()}&board_num=${dto.getCom_target() }">
-																<img class="cont-mem-logo img-circle select" src="<%=request.getContextPath()%>/images/comment/com_selected.png" 
-																onmouseover="this.src='<%=request.getContextPath()%>/images/comment/com_cancel.png'"
-																onmouseout="this.src='<%=request.getContextPath()%>/images/comment/com_selected.png'"></a>
-														</c:if>
-															
-														<c:if test="${loginNum eq writer.getMem_num() && dto.getCom_selected().equals('no') }">
-															<a href="<%=request.getContextPath()%>/member_qna_select.do?com_num=${dto.getCom_num()}&board_num=${dto.getCom_target() }">
-																<img class="cont-mem-logo img-circle deselect" src="<%=request.getContextPath()%>/images/comment/com_select.png" 
-																onmouseover="this.src='<%=request.getContextPath()%>/images/comment/com_selected.png'"
-																onmouseout="this.src='<%=request.getContextPath()%>/images/comment/com_select.png'"></a>
-														</c:if> 
+														<c:choose>
+															<c:when test="${loginNum eq writer.getMem_num() }">
+																<c:if test="${dto.getCom_selected().equals('yes') }">
+																	<a class="select" href="<%=request.getContextPath()%>/member_qna_deselect.do?com_num=${dto.getCom_num()}&board_num=${dto.getCom_target() }">
+																		<img class="cont-mem-logo img-circle select" src="<%=request.getContextPath()%>/images/comment/com_selected.png" 
+																		onmouseover="this.src='<%=request.getContextPath()%>/images/comment/com_cancel.png'"
+																		onmouseout="this.src='<%=request.getContextPath()%>/images/comment/com_selected.png'"></a>
+																</c:if>
+																	
+																<c:if test="${dto.getCom_selected().equals('no') && check > 0  }">
+																	<img src="<%=request.getContextPath()%>/images/comment/com_select.png" class="cont-mem-logo img-circle">
+																</c:if>
+																
+																<c:if test="${dto.getCom_selected().equals('no') && check eq 0 }">
+																	<a href="<%=request.getContextPath()%>/member_qna_select.do?com_num=${dto.getCom_num()}&board_num=${dto.getCom_target() }">
+																		<img class="cont-mem-logo img-circle deselect" src="<%=request.getContextPath()%>/images/comment/com_select.png" 
+																		onmouseover="this.src='<%=request.getContextPath()%>/images/comment/com_selected.png'"
+																		onmouseout="this.src='<%=request.getContextPath()%>/images/comment/com_select.png'"></a>
+																</c:if>
+														</c:when>
+														<c:otherwise> 
 														
 														<%-- 글 작성자 외에 다른 멤버가 댓글을 보는 경우 --%>
-														<c:if test="${loginNum ne writer.getMem_num() && dto.getCom_selected().equals('yes') }">
-															<img src="<%=request.getContextPath()%>/images/comment/com_selected.png" class="cont-mem-logo img-circle">
-														</c:if>
-															
-														<c:if test="${loginNum ne writer.getMem_num() && dto.getCom_selected().equals('no') }">
-															<img src="<%=request.getContextPath()%>/images/comment/com_logo.png" class="cont-mem-logo img-circle">
-														</c:if>
-														
+															<c:if test="${loginNum ne writer.getMem_num() && dto.getCom_selected().equals('yes') }">
+																<img src="<%=request.getContextPath()%>/images/comment/com_selected.png" class="cont-mem-logo img-circle">
+															</c:if>
+																
+															<c:if test="${loginNum ne writer.getMem_num() && dto.getCom_selected().equals('no') }">
+																<img src="<%=request.getContextPath()%>/images/comment/com_logo.png" class="cont-mem-logo img-circle">
+															</c:if>
+														</c:otherwise>
+														</c:choose>
 														
 														<a href="<%=request.getContextPath()%>/member_personal.do?num=${commentWriterList[status.index].getMem_num() }"> 
 															<img src="<%=request.getContextPath()%>/images/profile/${commentWriterList[status.index].getMem_image() }" class="cont-mem-logo img-circle">

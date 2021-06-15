@@ -63,6 +63,7 @@ public class MemberQnABoardListAllAction implements Action {
 		List<MemberDTO> list2 = dao1.getMemberList(list);
 		List<CategoryDTO> list3 = dao1.getCategoryAllList(list);
 		List<CommentDTO> comList = comDAO.getCommentList(list);
+		List<Integer> selectList = comDAO.getSelectedList(list);	// 채택된 답변이 있는지 조회하는 메서드
 
 		CategoryDAO dao2 = CategoryDAO.getInstance();
 
@@ -72,6 +73,8 @@ public class MemberQnABoardListAllAction implements Action {
 		request.setAttribute("memberList", list2);
 		request.setAttribute("categoryList", list3);
 		request.setAttribute("comList", comList);
+		request.setAttribute("selectList", selectList);
+		
 		request.setAttribute("category", category);
 		request.setAttribute("cate_num", cate_num);
 		request.setAttribute("big_category", big_category);

@@ -80,17 +80,6 @@
 													<div class="col-xs-11">
 														<p class="cont-title">${comDTO.getCompany_name() }</p>
 													</div>
-													<div class="col-xs-1">
-														<c:if test="${comDTO.getCompany_check() eq 0 }">
-															<span class="badge badge-waitting">대기</span> 
-														</c:if>
-														<c:if test="${comDTO.getCompany_check() eq 1 }">
-															<span class="badge badge-success">승인</span> 
-														</c:if>
-														<c:if test="${comDTO.getCompany_check() eq 2 }">
-															<span class="badge badge-reject">거절</span> 
-														</c:if>
-													</div>
 											
 													<div class="col-xs-12">
 														<table class="table cont-table">

@@ -613,11 +613,16 @@
 }
 
 .img1 {
-	padding-top: 12px;
+	vertical-align: middle;
 }
 
 .a2 {
-	padding-top: 12px;
+	vertical-align: middle;
+	padding-top: 3%;
+}
+
+.list-inline {
+	margin: 0;
 }
 
 /* board 종료*/

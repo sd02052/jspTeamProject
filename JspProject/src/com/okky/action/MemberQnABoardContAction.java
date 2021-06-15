@@ -54,6 +54,7 @@ public class MemberQnABoardContAction implements Action {
 
 		List<CommentDTO> comment_list = dao2.getCommentList(board_num);
 		List<MemberDTO> comment_writer_list = dao2.getCommentMemberList(comment_list);
+		int check = dao2.getSelectedCheck(board_num);	// 채택된 답변이 있는지 조회하는 메서드
 		
 		String big_category = null;
 		String small_category = null;
@@ -112,6 +113,7 @@ public class MemberQnABoardContAction implements Action {
 		request.setAttribute("category", category);
 		request.setAttribute("commentList", comment_list);
 		request.setAttribute("commentWriterList", comment_writer_list);
+		request.setAttribute("check", check);
 		
 		
 		ActionForward forward = new ActionForward();

@@ -288,9 +288,6 @@
 	margin-bottom: 15px;
 }
 
-.nav-user-func {
-	display: inline-block;
-}
 
 @media (max-width: 768px) {
 	
@@ -335,6 +332,10 @@
      	color: #fff;
      	padding: 10px;
      }
+     
+     .nav-user-func {
+		display: inline-block;
+	}
 }
 /* 사이드바 css 끝 */
 

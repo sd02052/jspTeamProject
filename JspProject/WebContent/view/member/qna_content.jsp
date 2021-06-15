@@ -39,12 +39,12 @@
 }
 </style>
 <c:set var="big_category" value="${big_category }" />
-<c:set var="small_cattegory" value="${small_category }" />
+<c:set var="small_category" value="${small_category }" />
 <script type="text/javascript">
 $(function(){
 	$("#"+${big_category}).css("border-right","5px solid #e67d3e");
 	$("#"+${small_category}).css("color","#fff");
-});
+})
 </script>
 <script type="text/javascript">
 $(document).ready(function(){

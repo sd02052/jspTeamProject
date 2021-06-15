@@ -8,6 +8,8 @@
 <title>board1</title>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/style/style.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/style/board.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -93,18 +95,51 @@
 .a2 {
 	padding-top: 12px;
 }
+.list-sort a{
+	color: #bbb;
+    font-size: 12px;
+}
+.list-sort .active {
+	color: #555;
+    font-weight: bold;
+    text-decoration: underline;
+}
 </style>
 
 </head>
 <c:set var="big_category" value="${big_category }" />
-<c:set var="small_cattegory" value="${small_category }" />
+<c:set var="small_category" value="${small_category }" />
 <script type="text/javascript">
 	
 	$(function(){
 		$("#"+${big_category }).css("border-right","5px solid #e67d3e");
 		$("#"+${small_category }).css("color","#fff");
-	});
+		
+		<%String sort = (String)request.getAttribute("sort");
 
+		if (sort.equals("'date'")) {%>
+		$(function(){
+			$("#sort-date").addClass('active');
+		});
+		<%} else if (sort.equals("'like'")) {%>
+		$(function(){
+			$("#sort-like").addClass('active');
+		});
+		<%} else if (sort.equals("'comment'")) {%>
+		$(function(){
+			$("#sort-comment").addClass('active');
+		});
+		<%} else if (sort.equals("'scrap'")) {%>
+		$(function(){
+			$("#sort-scrap").addClass('active');
+		});
+		<%} else if (sort.equals("'hit'")) {%>
+		$(function(){
+			$("#sort-hit").addClass('active');
+		});
+		<%}%>
+	})
+	
 </script>
 <body>
 	<div class="layout_container">
@@ -134,28 +169,34 @@
 
 						<form class="form-inline">
 							<div class="row">
-								<div class="col-md-6">
-									<button type="button" class="btn btn-link btn-xs">
-										<p class="text-muted">최신순</p>
-									</button>
-									&nbsp;
-									<button type="button" class="btn btn-link btn-xs">
-										<p class="text-muted">추천순</p>
-									</button>
-									&nbsp;
-									<button type="button" class="btn btn-link btn-xs">
-										<p class="text-muted">댓글순</p>
-									</button>
-									&nbsp;
-									<button type="button" class="btn btn-link btn-xs">
-										<p class="text-muted">스크랩순</p>
-									</button>
-									&nbsp;
-									<button type="button" class="btn btn-link btn-xs">
-										<p class="text-muted">조회순</p>
-									</button>
-									&nbsp;
-								</div>
+								<c:if test="${type == 'all' }">
+									<div class="col-md-6 list-sort">
+										<a href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=${cate_num}&big=${big_category}&small=${small_category}" id="sort-date">최신순</a>
+										&nbsp;
+										<a href="<%=request.getContextPath() %>/member_board_list_all_sort.do?sort='like'&cate_num=${cate_num}&big=${big_category}&small=${small_category}" id="sort-like">추천순</a>
+										&nbsp;
+										<a href="<%=request.getContextPath() %>/member_board_list_all_sort.do?sort='comment'&cate_num=${cate_num}&big=${big_category}&small=${small_category}" id="sort-comment">댓글순</a>
+										&nbsp;
+										<a href="<%=request.getContextPath() %>/member_board_list_all_sort.do?sort='scrap'&cate_num=${cate_num}&big=${big_category}&small=${small_category}" id="sort-scrap">스크랩순</a>
+										&nbsp;
+										<a href="<%=request.getContextPath() %>/member_board_list_all_sort.do?sort='hit'&cate_num=${cate_num}&big=${big_category}&small=${small_category}" id="sort-hit">조회순</a>
+										&nbsp;
+									</div>
+								</c:if>
+								<c:if test="${type == 'detail' }">
+									<div class="col-md-6 list-sort">
+										<a href="<%=request.getContextPath() %>/member_board_list.do?cate_num=${cate_num }&big=${big_category}&small=${small_category}" id="sort-date">최신순</a>
+										&nbsp;
+										<a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort='like'&cate_num=${cate_num}&big=${big_category}&small=${small_category}" id="sort-like">추천순</a>
+										&nbsp;
+										<a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort='comment'&cate_num=${cate_num}&big=${big_category}&small=${small_category}" id="sort-comment">댓글순</a>
+										&nbsp;
+										<a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort='scrap'&cate_num=${cate_num}&big=${big_category}&small=${small_category}" id="sort-scrap">스크랩순</a>
+										&nbsp;
+										<a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort='hit'&cate_num=${cate_num}&big=${big_category}&small=${small_category}" id="sort-hit">조회순</a>
+										&nbsp;
+									</div>
+								</c:if>
 								<div class="col-md-6" align="right">
 									<div class="form-group">
 										<label class="sr-only" for="exampleInputAmount"></label>
@@ -175,7 +216,7 @@
 
 						<c:if test="${!empty list }">
 							<c:forEach items="${list }" var="dto" varStatus="status">
-								<div class="row "
+								<div class="row <c:if test='${dto.getBoard_comment() > 0 }'>commented</c:if> <c:if test='${dto.getBoard_comment() eq 0 }'>uncommented</c:if>"
 									style="border: 1px solid #ddd; border-bottom-width: 0.5px;">
 									<div class="col-sm-7">
 										<div class="row">

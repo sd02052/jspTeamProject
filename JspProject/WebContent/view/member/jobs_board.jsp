@@ -124,7 +124,7 @@
 							</div>
 							<div class="col-xs-12 col-md-4" align="right">
 								<button type="button" class="btn btn-success"
-									onclick="location.href='<%=request.getContextPath()%>/member_board_write.do'">
+									onclick="location.href='/JspProject/member_job_write.do'">
 									<i class="fas fa-pencil-alt"></i>새 글 쓰기
 								</button>
 							</div>
@@ -179,12 +179,14 @@
 									style="border: 1px solid #ddd; border-bottom-width: 0.5px;">
 									<div class="col-xs-6">
 										<div class="row">
-											<span class="list-group-item-text article-id font">#${dto.getBoard_num() }</span>
-											<a class="list-group-item-text item-tag label label-info padding">${categoryList[status.index].getCate_name()}</a>
+											<span class="list-group-item-text article-id font">#${dto.getBoard_num()
+												}</span> <a
+												class="list-group-item-text item-tag label label-info padding">${cate.getCate_name() }</a>
 										</div>
 										<div class="row">
-											<h5 class="list-group-item-heading list-group-item-evaluate h">
-												<a class="font_style" href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
+											<h5
+												class="list-group-item-heading list-group-item-evaluate h">
+												<a class="font_style">${dto.getBoard_title() }</a>
 											</h5>
 										</div>
 									</div>
@@ -199,14 +201,16 @@
 													<li class="list-unstyled li1"><i class="far fa-eye"></i>
 														${dto.getBoard_hit() }</li>
 
-													<li class="list-unstyled li1  img1">
-														<a class="avatar-photo text-left" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }"> 
-															<img width="30" height="30" class="img-circle " src="//www.gravatar.com/avatar/b66da5ef6099211f5db8f5f7a3b4c36b?d=identicon&s=30">
-														</a>
+													<li class="list-unstyled li1  img1"></li>
+													<a class="avatar-photo text-left"> <img width="30"
+														height="30" class="img-circle "
+														src="//www.gravatar.com/avatar/b66da5ef6099211f5db8f5f7a3b4c36b?d=identicon&s=30">
+													</a>
 													</li>
 													<li class="list-unstyled li1 a2">
 														<div>
-															<a class="a1" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }">${memberList[status.index].getMem_nick() }</a> &nbsp;
+															<a class="a1">${memberList[status.index].getMem_nick() }</a>
+															&nbsp;
 															<div style="font-size: 10px; display: inline-block;">
 																<i class="fas fa-bolt i1"></i>
 																${memberList[status.index].getMem_score() }
@@ -231,115 +235,6 @@
 
 					</div>
 					<!-- 본문 끝 -->
-					
-					<%-- 카테고리가 all 인 경우 --%>
-					<c:if test="${cate.getCate_step() eq 0 }">
-					<c:if test="${!empty list }">
-						<nav>
-							<div align="center">
-							  <ul class="pagination">
-							  
-							  <c:if test="${page > 1 }">
-								    <li>
-								      <a href="<%=request.getContextPath() %>/member_board_list_all.do?page=1&cate_num=${cate_num }&big=${big_category }&small=${small_category }" aria-label="Previous">
-								        <span aria-hidden="true">&laquo;</span>
-								      </a>
-								    </li>
-							   </c:if>
-							   
-							   <c:if test="${page eq 1 }">
-								    <li>
-								      <a aria-label="Previous">
-								        <span aria-hidden="true">&laquo;</span>
-								      </a>
-								    </li>
-							   </c:if>
-							    
-							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
-								    <c:if test="${i == page }">
-								   		<li class="active"><a href="member_board_list_all.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }">${i }</a></li>
-								    </c:if>
-								    
-								    <c:if test="${i != page }">
-									    <li><a href="member_board_list_all.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }">${i }</a></li>
-								    </c:if>
-							    </c:forEach>
-							    
-							    <c:if test="${page < allPage }">
-								    <li>
-								      <a href="member_board_list_all.do?page=${allPage }&cate_num=${cate_num }&big=${big_category }&small=${small_category }" aria-label="Next">
-								        <span aria-hidden="true">&raquo;</span>
-								      </a>
-								    </li>
-							    </c:if>
-							    
-							    <c:if test="${page eq allPage }">
-								    <li>
-								      <a aria-label="Next">
-								        <span aria-hidden="true">&raquo;</span>
-								      </a>
-								    </li>
-							    </c:if>
-							  </ul>
-							  </div>
-						</nav>
-					</c:if>
-				</c:if>
-				
-				<%-- 세부 카테고리인 경우 --%>
-				<c:if test="${cate.getCate_step() ne 0 }">
-					<c:if test="${!empty list }">
-						<nav>
-							<div align="center">
-							  <ul class="pagination">
-							  
-							  <c:if test="${page > 1 }">
-								    <li>
-								      <a href="member_board_list.do?page=1&cate_num=${cate_num }&big=${big_category }&small=${small_category }" aria-label="Previous">
-								        <span aria-hidden="true">&laquo;</span>
-								      </a>
-								    </li>
-							   </c:if>
-							   
-							   <c:if test="${page eq 1 }">
-								    <li>
-								      <a aria-label="Previous">
-								        <span aria-hidden="true">&laquo;</span>
-								      </a>
-								    </li>
-							   </c:if>
-							    
-							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
-								    <c:if test="${i == page }">
-								   		<li class="active"><a href="member_board_list.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }">${i }</a></li>
-								    </c:if>
-								    
-								    <c:if test="${i != page }">
-									    <li><a href="member_board_list.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }">${i }</a></li>
-								    </c:if>
-							    </c:forEach>
-							    
-							    <c:if test="${page < allPage }">
-								    <li>
-								      <a href="member_board_list.do?page=${allPage }&cate_num=${cate_num }&big=${big_category }&small=${small_category }" aria-label="Next">
-								        <span aria-hidden="true">&raquo;</span>
-								      </a>
-								    </li>
-							    </c:if>
-							    
-							    <c:if test="${page eq allPage }">
-								    <li>
-								      <a aria-label="Next">
-								        <span aria-hidden="true">&raquo;</span>
-								      </a>
-								    </li>
-							    </c:if>
-							  </ul>
-							  </div>
-						</nav>
-					</c:if>
-				</c:if>
-					
 				</div>
 			</div>
 			<jsp:include page="../../include/footer.jsp" />

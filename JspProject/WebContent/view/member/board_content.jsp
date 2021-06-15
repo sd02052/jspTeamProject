@@ -1,26 +1,19 @@
 <%@page import="com.okky.model.CommentDTO"%>
 <%@page import="com.okky.model.CategoryDTO"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>OKKY - (글제목)</title>
-<link rel="stylesheet"
-	href="<%=request.getContextPath() %>/style/style.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath() %>/style/content.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/style/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/style/content.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
-	rel="stylesheet">
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
 
 /* css 파일 따로 작성시 부트스트랩 디자인 먼저 적용되므로 여기서 작성! */
@@ -48,9 +41,7 @@ $(function(){
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
-
-  $('[data-toggle="tooltip"]').tooltip();   
-
+	$('[data-toggle="tooltip"]').tooltip();   
 });
 </script>
 <script type="text/javascript">
@@ -293,11 +284,8 @@ function likeCancle<%=list.get(i).getCom_num()%>(){
 										<input type="hidden" name="com_writer" value="${loginNum}"> <input
 											type="hidden" name="com_target" value="${dto.getBoard_num() }">
 										<div class="cont-member pull-left">
-											<a
-												href="<%=request.getContextPath()%>/member_personal.do?num=${login_mem.getMem_num() }">
-												<img
-												src="<%=request.getContextPath() %>/images/${login_mem.getMem_image() }"
-												class="cont-mem-logo img-circle">
+											<a href="<%=request.getContextPath()%>/member_personal.do?num=${login_mem.getMem_num() }">
+												<img src="<%=request.getContextPath() %>/images/${login_mem.getMem_image() }" class="cont-mem-logo img-circle">
 											</a>
 
 											<div class="cont-mem-info">

@@ -22,6 +22,7 @@ public class BoardDAO {
 	public static final int ADMIN_LOGIN_NONEXIST = -2;
 
 	private static BoardDAO instance = null;
+	public static BoardDAO getBoardPost;
 
 	private BoardDAO() {
 
@@ -729,4 +730,52 @@ public class BoardDAO {
 		}
 		return list;
 	}
+
+	public int getBoardPost(BoardDTO dto) {
+		int result = 0, board_num = 0;
+		
+		System.out.println("1");
+		
+		try {
+			openConn();			
+			sql = "select max(board_num) from okky_board";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+		
+
+			if(rs.next()) {
+				board_num = rs.getInt(1) + 1;
+			}
+			
+			System.out.println("2");
+			// (select nvl(max(board_num), 0) + 1 from okky_board 최대숫자 +1
+			sql = "insert into okky_board "
+					+ "(board_num, board_title, board_writer, "
+					+ "board_content, board_category, board_regdate) "
+					+ "values ((select nvl(max(board_num), 0) + 1 from okky_board),?,?,?,?,SYSDATE)";
+			System.out.println("3");
+			pstmt = con.prepareStatement(sql);
+			System.out.println(dto.getBoard_num());
+			pstmt.setString(1, dto.getBoard_title());
+			System.out.println("b");
+			pstmt.setInt(2, dto.getBoard_writer());
+			System.out.println("c");
+			pstmt.setString(3, dto.getBoard_content());
+			System.out.println("d");
+			pstmt.setInt(4, dto.getBoard_category());
+			System.out.println("4");			
+			
+				result = pstmt.executeUpdate();
+				System.out.println("result 값  : " + result);
+			System.out.println("5");			
+				rs.close(); pstmt.close(); con.close();
+
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+
 }

@@ -120,14 +120,8 @@
 						<!-- Q&A / 커뮤니티 -->
 						<div class="main-block">
 							<h4 class="main-header">
-<<<<<<< HEAD
 								<i class="fas fa-database"></i> Q&A <a href="" class="main-more-btn pull-right"> 
 								<i class="fas fa-ellipsis-h"></i>
-=======
-								<i class="fas fa-database"></i> Q&A <a href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=1&big='menu1'&small='menu1-1'"
-									class="main-more-btn pull-right"> <i
-									class="fas fa-ellipsis-h"></i>
->>>>>>> branch 'SeongWook' of https://github.com/sd02052/jspTeamProject.git
 								</a>
 							</h4>
 							<div class="panel panel-default">

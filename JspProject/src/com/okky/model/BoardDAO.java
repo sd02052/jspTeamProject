@@ -1265,4 +1265,33 @@ public class BoardDAO {
 			closeConn(rs, pstmt, con);
 		}
 	}
+	
+	public int deleteBoard(int num) {
+		int result = 0;
+
+		try {
+			openConn();
+			sql = "delete from okky_board where board_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+
+			result = pstmt.executeUpdate();
+
+			sql = "delete from okky_like where like_target = ? and like_flag = 1";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+
+			sql = "update okky_board set board_num = board_num - 1 where board_num > ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	}
 }

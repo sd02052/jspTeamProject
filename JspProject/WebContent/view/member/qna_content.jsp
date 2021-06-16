@@ -188,6 +188,27 @@ $(function() {
 												data-toggle="tooltip" data-placement="left" title="페이스북 공유"></i>
 											</a>
 										</div>
+										<c:if test="${loginNum == dto.getBoard_writer() }"><!-- 자신이 작성한 게시물일 경우 -->
+											<div class="com-edit dropdown">
+												<button class="com-edit-btn btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+													<i class="facebook-img fas fa-cog" data-toggle="tooltip" data-placement="left" title="게시물 설정"></i>
+												</button>
+												<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+													<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_qna_board_edit.do?num=${dto.getBoard_num()}"> <i class="fas fa-edit"></i>&nbsp;수정
+													</a></li>
+													<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_qna_board_delete.do?num=${dto.getBoard_num()}&big=${big_category}&small=${small_category}&cate_num=${category.getCate_num()}" onclick="return confirm('댓글을 삭제 하시겠습니까?');"> <i class="fas fa-trash-alt"></i>&nbsp;삭제
+													</a></li>
+												</ul>
+											</div>
+											<div class="buttons-${dto.getBoard_num() }" style="display: none;" align="center">
+												<p>
+													<input type="button" class="btn btn-default btn-wide note-edit-cancel-btn" onclick="return commentEditCancle${dto.getBoard_num()}()" value="취소">
+												</p>
+												<p>
+													<input type="submit" name="create" class="btn btn-success btn-wide" value="저장" id="create">
+												</p>
+											</div>
+										</c:if>
 									</div>
 								</td>
 							</tr>

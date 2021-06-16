@@ -77,7 +77,7 @@ public class CommentDAO {
 			sql = "select count(*) from okky_comment";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				comment_count = rs.getInt(1);
 			}
 
@@ -87,7 +87,7 @@ public class CommentDAO {
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, i);
 				rs = pstmt.executeQuery();
-				if (rs.next()) {
+				while (rs.next()) {
 					like_count = rs.getInt(1);
 				}
 
@@ -401,7 +401,7 @@ public class CommentDAO {
 		int like_num = 0;
 		try {
 			openConn();
-			sql = "select like_num from okky_like where like_target = ? and like_writer = ?";
+			sql = "select like_num from okky_like where like_target = ? and like_writer = ? and like_flag = 2";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setInt(2, login_mem);
@@ -410,7 +410,7 @@ public class CommentDAO {
 				like_num = rs.getInt(1);
 			}
 
-			sql = "delete from okky_like where like_target = ? and like_writer = ?";
+			sql = "delete from okky_like where like_target = ? and like_writer = ? and like_flag = 2";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setInt(2, login_mem);
@@ -508,7 +508,7 @@ public class CommentDAO {
 		}
 		return list;
 	}
-
+	
 	public int checkCommentLike(int num, int login_mem) {
 		int result = 0;
 

@@ -109,6 +109,15 @@
 									</li>
 									</c:forEach>
 								</c:if>
+								<c:if test="${empty bestList }">
+									<li class="list-group-item clearfix">
+										<div class="list-title-wrapper">
+											<h5 class="list-group-item-heading">
+												등록된 게시물이 없습니다.
+											</h5>
+										</div>
+									</li>
+								</c:if>
 								</ul>
 
 							</div>

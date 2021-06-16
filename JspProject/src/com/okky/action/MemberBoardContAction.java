@@ -35,9 +35,15 @@ public class MemberBoardContAction implements Action {
 			MemberDTO login_mem = dao3.getMember(mem_num);
 			List<CommentDTO> like_list = dao2.getCommentLikeList(mem_num);
 			List<CommentDTO> unlike_list = dao2.getCommentUnLikeList(mem_num);
+			List<BoardDTO> like_list2 = dao.getBoardLikeList(mem_num);
+			List<BoardDTO> unlike_list2 = dao.getBoardUnLikeList(mem_num);
+					
 			request.setAttribute("login_mem", login_mem);
 			request.setAttribute("commentLikeList", like_list);
 			request.setAttribute("commentUnLikeList", unlike_list);
+			request.setAttribute("boardLikeList", like_list2);
+			request.setAttribute("boardUnLikeList", unlike_list2);
+			
 		}
 		
 		BoardDTO board_dto = dao.getBoardCont(board_num);

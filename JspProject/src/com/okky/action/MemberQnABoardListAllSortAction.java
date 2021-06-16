@@ -16,14 +16,14 @@ import com.okky.model.CommentDAO;
 import com.okky.model.CommentDTO;
 import com.okky.model.MemberDTO;
 
-public class MemberQnABoardListAllAction implements Action {
+public class MemberQnABoardListAllSortAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String sort = request.getParameter("sort").trim();
 		int cate_num = Integer.parseInt(request.getParameter("cate_num").trim());
 		String big_category = request.getParameter("big").trim();
 		String small_category = request.getParameter("small").trim();
-		String sort = "'date'";
 		BoardDAO dao1 = BoardDAO.getInstance();
 		CommentDAO comDAO = CommentDAO.getInstance();
 
@@ -59,11 +59,20 @@ public class MemberQnABoardListAllAction implements Action {
 		dao1.setBoardScrap();
 		dao1.setBoardComment();
 
-		List<BoardDTO> list = dao1.getBoardListAll(cate_num, startNo, endNo);
+		List<BoardDTO> list = null;
+		
+		if(sort.equals("'like'")) {
+			list = dao1.getBoardListAllSortLike(cate_num, startNo, endNo);
+		} else if(sort.equals("'comment'")) {
+			list = dao1.getBoardListAllSortComment(cate_num, startNo, endNo);
+		} else if(sort.equals("'scrap'")) {
+			list = dao1.getBoardListAllSortScrap(cate_num, startNo, endNo);
+		} else if(sort.equals("'hit'")) {
+			list = dao1.getBoardListAllSortHit(cate_num, startNo, endNo);
+		}
 		List<MemberDTO> list2 = dao1.getMemberList(list);
 		List<CategoryDTO> list3 = dao1.getCategoryAllList(list);
 		List<CommentDTO> comList = comDAO.getCommentList(list);
-		List<Integer> selectList = comDAO.getSelectedList(list);	// 채택된 답변이 있는지 조회하는 메서드
 
 		CategoryDAO dao2 = CategoryDAO.getInstance();
 
@@ -75,8 +84,6 @@ public class MemberQnABoardListAllAction implements Action {
 		request.setAttribute("memberList", list2);
 		request.setAttribute("categoryList", list3);
 		request.setAttribute("comList", comList);
-		request.setAttribute("selectList", selectList);
-		
 		request.setAttribute("category", category);
 		request.setAttribute("cate_num", cate_num);
 		request.setAttribute("big_category", big_category);

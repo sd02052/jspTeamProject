@@ -63,3 +63,11 @@
 	color: #DF5925;
 	background-color: none;
 }
+
+.commented {
+	border-left: 3px #3A93DE solid !important;
+}
+
+.uncommented {
+	border-left: 3px #ddd solid !important;
+}

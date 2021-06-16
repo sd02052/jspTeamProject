@@ -480,7 +480,7 @@ public class MemberDAO {
 			} else if (field.equals("check")) {
 				sql = "select * from (select row_number() over(order by mem_num desc) rnum, m.* from okky_member m where mem_check like ?) where rnum >= ? and rnum <= ?";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, check_data);
+				pstmt.setString(1, data);
 				pstmt.setInt(2, startNo);
 				pstmt.setInt(3, endNo);
 			}

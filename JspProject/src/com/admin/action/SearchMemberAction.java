@@ -18,8 +18,17 @@ public class SearchMemberAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		String find_field = request.getParameter("field");
-		String find_data = request.getParameter("data");
+		String find_field = request.getParameter("field").trim();
+		String find_data = request.getParameter("data").trim();
+		String check_data = request.getParameter("check_data");
+
+		if(find_field.equals("check")) {
+			if(check_data == null) {
+				find_data = "";
+			}else {
+				find_data = check_data;
+			}
+		}
 		
 		MemberDAO dao = MemberDAO.getInstance();
 

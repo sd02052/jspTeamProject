@@ -17,6 +17,28 @@ function checkAll() {  /* 체크박스 전체선택 함수 */
 	$("input[name=check]").prop("checked", $("#checkAll").prop("checked"));
 };
 
+$(function() {
+	var check = $("select[name=field]").val();
+	if(check == "check") {
+		$(".search-text").css("display", "none");
+		$(".check-list").css("display", "block");
+	}else {
+		$(".search-text").css("display", "block");
+		$(".check-list").css("display", "none");
+	}
+});
+
+function check() {
+	var result = $("#field option:selected").val();
+	if(result == "check"){
+		$(".search-text").css("display", "none");
+		$(".check-list").css("display", "block");
+	}else {
+		$(".search-text").css("display", "block");
+		$(".check-list").css("display", "none");
+	}
+};
+
 $(function(){
 	$("#menu6").css("border-right","5px solid #e67d3e");
 	$("#menu6-1").css("color","#fff");
@@ -53,14 +75,20 @@ $(function(){
 								<form method="post" action="<%=request.getContextPath() %>/search_member.do" class="">				
 									<div class="input-group">
 										<span class="search-list input-group-btn">
-											<select name="field" class="search-btn btn btn-default dropdown-toggle">
+											<select id="field" name="field" class="search-btn btn btn-default dropdown-toggle" onchange="check(this)">
 												<option value="all" <c:if test="${find_field.equals('all') }">selected="selected"</c:if>>-전체검색-</option>
 												<option value="id" <c:if test="${find_field.equals('id') }">selected="selected"</c:if>>아이디</option>
 												<option value="nick" <c:if test="${find_field.equals('nick') }">selected="selected"</c:if>>닉네임</option>
 												<option value="check" <c:if test="${find_field.equals('check') }">selected="selected"</c:if>>상태</option>
 											</select>
 										</span>
-										<input type="text" class="form-control" name="data" placeholder="${find_data }" aria-describedby="basic-addon2">
+										<span class="check-list search-list input-group-btn" style="display:none;">
+											<select name="check_data" class="check-btn2 search-btn btn-default dropdown-toggle">
+												<option value="no" <c:if test="${find_data.equals('no') }">selected="selected"</c:if>>회원</option>
+												<option value="yes" <c:if test="${find_data.equals('yes') }">selected="selected"</c:if>>탈퇴</option>
+											</select>
+										</span>
+										<input type="text" class="search-text form-control" name="data" placeholder="<c:if test="${find_data ne 'yes' && find_data ne 'no' }">${find_data }</c:if>" aria-describedby="basic-addon2">
 										<span class="input-group-btn">
 											<button type="submit" class="search-btn2 btn btn-default">
 												<i class="fas fa-search"></i>

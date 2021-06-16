@@ -323,7 +323,7 @@ public class CompanyDAO {
 				sql = "select * from (select row_number() over(order by company_num desc) rnum, c.* from okky_company c "
 						+ "where company_check like ?)" + "where rnum >= ? and rnum <= ?";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, check_data);
+				pstmt.setString(1, data);
 				pstmt.setInt(2, startNo);
 				pstmt.setInt(3, endNo);
 			}

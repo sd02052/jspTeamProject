@@ -16,6 +16,28 @@ $(function(){
 	$("#menu6").css("border-right","5px solid #e67d3e");
 	$("#menu6-2").css("color","#fff");
 });
+
+$(function() {
+	var check = $("select[name=field]").val();
+	if(check == "check") {
+		$(".search-text").css("display", "none");
+		$(".check-list").css("display", "block");
+	}else {
+		$(".search-text").css("display", "block");
+		$(".check-list").css("display", "none");
+	}
+});
+
+function check() {
+	var result = $("#field option:selected").val();
+	if(result == "check"){
+		$(".search-text").css("display", "none");
+		$(".check-list").css("display", "block");
+	}else {
+		$(".search-text").css("display", "block");
+		$(".check-list").css("display", "none");
+	}
+};
 </script>
 <style type="text/css">
 
@@ -64,14 +86,21 @@ $(function(){
 								<form method="post" action="<%=request.getContextPath() %>/search_verify.do" class="from-control">				
 									<div class="input-group">
 										<span class="input-group-btn">
-											<select name="field" class="search-btn btn btn-default dropdown-toggle">	
+											<select id="field" name="field" class="search-btn btn btn-default dropdown-toggle" onchange="check(this)">	
 												<option value="all" <c:if test="${find_field.equals('all') }">selected="selected"</c:if>>-전체검색-</option>
 												<option value="name" <c:if test="${find_field.equals('name') }">selected="selected"</c:if>>회사명</option>
 												<option value="nick" <c:if test="${find_field.equals('nick') }">selected="selected"</c:if>>등록회원</option>
 												<option value="check" <c:if test="${find_field.equals('check') }">selected="selected"</c:if>>상태</option>
 											</select>
 										</span>
-										<input type="text" class="search-text form-control" name="data" placeholder="${find_data }" aria-describedby="basic-addon2">
+										<span class="check-list search-list input-group-btn" style="display:none;">
+											<select name="check_data" class="check-btn2 search-btn btn-default dropdown-toggle">
+												<option value="0" <c:if test="${find_data.equals('0') }">selected="selected"</c:if>>대기</option>
+												<option value="1" <c:if test="${find_data.equals('1') }">selected="selected"</c:if>>승인</option>
+												<option value="2" <c:if test="${find_data.equals('2') }">selected="selected"</c:if>>거절</option>
+											</select>
+										</span>
+										<input type="text" class="search-text search-text form-control" name="data" placeholder="<c:if test="${find_data ne '0' && find_data ne '1' && find_data ne '2' }">${find_data }</c:if>" aria-describedby="basic-addon2">
 										<span class="input-group-btn">
 											<button type="submit" class="search-btn2 btn btn-default">
 												<i class="fas fa-search"></i>

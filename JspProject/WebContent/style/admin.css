@@ -159,11 +159,26 @@
 .search-btn {
 	height: 34px;
 	margin: 0;
-	padding: 6px;
-	12
-	px;
+	padding: 6px 12px;
 }
 
 .search-btn2 {
 	border-radius: 0;
+}
+
+.check-btn1, .check-btn2 {
+	border-radius: 0;
+	display: inline-block;
+    font-size: 14px;
+    touch-action: manipulation;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.check-btn1 {
+	width: 235.5px;
+}
+
+.check-btn2 {
+	width: 162.27px;
 }

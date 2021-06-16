@@ -22,6 +22,15 @@ public class SearchVerifyAction implements Action {
 
 		String find_field = request.getParameter("field");
 		String find_data = request.getParameter("data");
+		String check_data = request.getParameter("check_data");
+		
+		if(find_field.equals("check")) {
+			if(check_data == null) {
+				find_data = "";
+			}else {
+				find_data = check_data;
+			}
+		}
 
 		CompanyDAO comDAO = CompanyDAO.getInstance();
 		BoardDAO boardDAO = BoardDAO.getInstance();

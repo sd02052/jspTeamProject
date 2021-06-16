@@ -64,6 +64,10 @@
 		String hit = "hit";
 	%>
 	
+	function moveBoard() {
+		location.href="member_qna_board_list.do?cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}&data=${data}";
+	};
+	
 
 </script>
 <body>
@@ -121,7 +125,7 @@
 												</button>
 											</span>
 											<span class="input-group-btn">
-											<button type="button" class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/member_qna_board_list_all.do?cate_num=${cate_num}&big=${big_category}&small=${small_category}'">
+											<button type="button" class="btn btn-warning" onclick="moveBoard()">
 												<i class="fas fa-times-circle"></i>&nbsp;clear
 											</button>
 										</span>

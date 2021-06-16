@@ -31,6 +31,7 @@ public class MemberBoardSearchListSortAction implements Action {
 		
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		CommentDAO comDAO = CommentDAO.getInstance();
+		CategoryDAO dao2 = CategoryDAO.getInstance();
 
 		// 페이징 작업
 		int rowsize = 10; 	// 한 페이지당 보여질 게시물의 수
@@ -53,10 +54,14 @@ public class MemberBoardSearchListSortAction implements Action {
 
 		List<BoardDTO> list = null;
 		String type = "";
+		CategoryDTO category = new CategoryDTO();
+
 		// 카테고리에 맞는 전체 게시글 수를 조회하는 메서드
 		if (cate_step == 0) {
 			type = "all";
 			totalRecord = boardDAO.getSearchBoardListALLCount(cate_group, search_data); // 전체 게시글 수를 조회하는 메서드
+			category = dao2.getCategoryAll(cate_group);
+			
 			if(sort.equals("'like'")) {
 				list = boardDAO.getBoardListAllSortLike(cate_group, search_data, startNo, endNo);
 			} else if(sort.equals("'comment'")) {
@@ -69,6 +74,8 @@ public class MemberBoardSearchListSortAction implements Action {
 		} else {
 			type = "detail";
 			totalRecord = boardDAO.getSearchBoardListCount(cate_num, search_data);
+			category = dao2.getCategory(cate_num);
+			
 			if(sort.equals("'like'")) {
 				list = boardDAO.getBoardListSortLike(cate_num, search_data, startNo, endNo);
 			} else if(sort.equals("'comment'")) {
@@ -95,11 +102,6 @@ public class MemberBoardSearchListSortAction implements Action {
 		List<CommentDTO> comList = comDAO.getCommentList(list);
 		List<Integer> selectList = comDAO.getSelectedList(list);	// 채택된 답변이 있는지 조회하는 메서드
 
-		CategoryDAO dao2 = CategoryDAO.getInstance();
-
-		CategoryDTO category = dao2.getCategory(cate_num);
-
-		
 		request.setAttribute("boardList", list);
 		request.setAttribute("memberList", list2);
 		request.setAttribute("categoryList", list3);

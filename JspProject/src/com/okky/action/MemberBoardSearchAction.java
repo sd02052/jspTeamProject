@@ -25,8 +25,13 @@ public class MemberBoardSearchAction implements Action {
 		String big_category = request.getParameter("big").trim();
 		String small_category = request.getParameter("small").trim();
 
-		String sort = "'date'";
-		String type = "";
+		String sort = "";
+
+		if (request.getParameter("sort") == null) {
+			sort = "date";
+		} else {
+			sort = request.getParameter("sort");
+		}
 
 		int cate_group = Integer.parseInt(request.getParameter("cate_group").trim());
 		int cate_step = Integer.parseInt(request.getParameter("cate_step").trim());
@@ -57,12 +62,13 @@ public class MemberBoardSearchAction implements Action {
 
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
 		CategoryDTO category = new CategoryDTO();
+		String type = "";
 
 		if (cate_step == 0) {
 			type = "all";
 			totalRecord = boardDAO.getSearchBoardListALLCount(cate_group, search_data); // 전체 게시글 수를 조회하는 메서드
 			list = boardDAO.getSearchListALL(cate_group, search_data, startNo, endNo); // 전체 게시글을 조회하는 메서드
-			category = categoryDAO.getCategoryAll(cate_num);	// 전체 카테고리를 조회하는 메서드
+			category = categoryDAO.getCategoryAll(cate_group); // 전체 카테고리를 조회하는 메서드
 		} else {
 			type = "detail";
 			totalRecord = boardDAO.getSearchBoardListCount(cate_num, search_data);
@@ -82,9 +88,8 @@ public class MemberBoardSearchAction implements Action {
 
 		List<MemberDTO> list2 = boardDAO.getMemberList(list);
 		List<CategoryDTO> list3 = boardDAO.getCategoryAllList(list);
-		
+
 		List<Integer> selectList = comDAO.getSelectedList(list); // 채택된 답변이 있는지 조회하는 메서드
-		
 
 		request.setAttribute("boardList", list);
 		request.setAttribute("memberList", list2);

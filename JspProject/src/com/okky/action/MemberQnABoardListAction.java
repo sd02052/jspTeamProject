@@ -13,7 +13,6 @@ import com.okky.model.BoardDTO;
 import com.okky.model.CategoryDAO;
 import com.okky.model.CategoryDTO;
 import com.okky.model.CommentDAO;
-import com.okky.model.CommentDTO;
 import com.okky.model.MemberDTO;
 
 public class MemberQnABoardListAction implements Action {
@@ -26,7 +25,15 @@ public class MemberQnABoardListAction implements Action {
 		int cate_group = Integer.parseInt(request.getParameter("cate_group"));
 		int cate_step = Integer.parseInt(request.getParameter("cate_step"));
 		
-		String sort = "date";
+		String sort = "";
+		
+		if(request.getParameter("sort")  == null) {
+			sort = "date";
+		}else {
+			sort = request.getParameter("sort");
+		}
+		
+		
 		BoardDAO dao1 = BoardDAO.getInstance();
 		CommentDAO comDAO = CommentDAO.getInstance();
 		CategoryDAO dao2 = CategoryDAO.getInstance();
@@ -58,8 +65,8 @@ public class MemberQnABoardListAction implements Action {
 		if(cate_step == 0) {
 			type = "all";
 			totalRecord = dao1.getBoardListAllCount(cate_group);
-			list = dao1.getBoardListAll(cate_num, startNo, endNo);
-			category = dao2.getCategoryAll(cate_num);
+			list = dao1.getBoardListAll(cate_group, startNo, endNo);
+			category = dao2.getCategoryAll(cate_group);
 		}else {
 			type = "detail";
 			totalRecord = dao1.getBoardListCount(cate_num);

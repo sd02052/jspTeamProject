@@ -166,9 +166,9 @@
 				</a>
 				<div id="demo2" class="collapse">
 					<ul>
-						<li><a id="menu2-1" href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=2&big='menu2'&small='menu2-1'">All</a></li>
-						<li><a id="menu2-2" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=5&big='menu2'&small='menu2-2'">IT News & 정보</a></li>
-						<li><a id="menu2-3" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=6&big='menu2'&small='menu2-3'">Tips & 강좌</a></li>
+						<li><a id="menu2-1" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=2&big='menu2'&small='menu2-1'&cate_group=2&cate_step=0">All</a></li>
+						<li><a id="menu2-2" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=5&big='menu2'&small='menu2-2'&cate_group=2&cate_step=1">IT News & 정보</a></li>
+						<li><a id="menu2-3" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=6&big='menu2'&small='menu2-3'&cate_group=2&cate_step=2">Tips & 강좌</a></li>
 					</ul>
 				</div>
 			</li>
@@ -179,14 +179,14 @@
 				</a>
 				<div id="demo3" class="collapse">
 					<ul>
-						<li><a id="menu3-1" href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=3&big='menu3'&small='menu3-1'">All</a></li>
-						<li><a id="menu3-2" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=8&big='menu3'&small='menu3-2'">공지사항</a></li>
-						<li><a id="menu3-3" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=9&big='menu3'&small='menu3-3'">사는얘기</a></li>
-						<li><a id="menu3-4" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=10&big='menu3'&small='menu3-4'">포럼</a></li>
-						<li><a id="menu3-5" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=11&big='menu3'&small='menu3-5'">IT 행사</a></li>
-						<li><a id="menu3-6" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=12&big='menu3'&small='menu3-6'">기술 서적 리뷰</a></li>
-						<li><a id="menu3-7" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=13&big='menu3'&small='menu3-7'">정기모임/스터디</a></li>
-						<li><a id="menu3-8" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=14&big='menu3'&small='menu3-8'">학원/홍보</a></li>
+						<li><a id="menu3-1" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=3&big='menu3'&small='menu3-1'&cate_group=3&cate_step=0">All</a></li>
+						<li><a id="menu3-2" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=8&big='menu3'&small='menu3-2'&cate_group=3&cate_step=1">공지사항</a></li>
+						<li><a id="menu3-3" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=9&big='menu3'&small='menu3-3'&cate_group=3&cate_step=2">사는얘기</a></li>
+						<li><a id="menu3-4" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=10&big='menu3'&small='menu3-4'&cate_group=3&cate_step=3">포럼</a></li>
+						<li><a id="menu3-5" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=11&big='menu3'&small='menu3-5'&cate_group=3&cate_step=4">IT 행사</a></li>
+						<li><a id="menu3-6" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=12&big='menu3'&small='menu3-6'&cate_group=3&cate_step=5">기술 서적 리뷰</a></li>
+						<li><a id="menu3-7" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=13&big='menu3'&small='menu3-7'&cate_group=3&cate_step=6">정기모임/스터디</a></li>
+						<li><a id="menu3-8" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=14&big='menu3'&small='menu3-8'&cate_group=3&cate_step=7">학원/홍보</a></li>
 					</ul>
 				</div>
 			</li>
@@ -197,7 +197,7 @@
 				</a>
 				<div id="demo4" class="collapse">
 					<ul>
-						<li><a id="menu4-1" href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=4&big='menu4'&small='menu4-1'">All</a></li>
+						<li><a id="menu4-1" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=15&big='menu4'&small='menu4-1'&cate_group=4&cate_step=1">All</a></li>
 					</ul>
 				</div>
 			</li>

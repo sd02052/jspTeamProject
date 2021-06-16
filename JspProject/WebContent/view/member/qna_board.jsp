@@ -270,7 +270,7 @@
 							  
 							  <c:if test="${page > 1 }">
 								    <li>
-								      <a href="member_qna_board_list_sort.do?page=1&sort=<%=like %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" aria-label="Previous">
+								      <a href="member_qna_board_list_sort.do?page=1&sort=<%=like %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Previous">
 								        <span aria-hidden="true">&laquo;</span>
 								      </a>
 								    </li>
@@ -286,17 +286,17 @@
 							    
 							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
 								    <c:if test="${i == page }">
-								   		<li class="active"><a href="member_qna_board_list_sort.do?page=${i }&sort=<%=like %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }">${i }</a></li>
+								   		<li class="active"><a href="member_qna_board_list_sort.do?page=${i }&sort=<%=like %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
 								    </c:if>
 								    
 								    <c:if test="${i != page }">
-									    <li><a href="member_qna_board_list_sort.do?page=${i }&sort=<%=like %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }">${i }</a></li>
+									    <li><a href="member_qna_board_list_sort.do?page=${i }&sort=<%=like %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
 								    </c:if>
 							    </c:forEach>
 							    
 							    <c:if test="${page < allPage }">
 								    <li>
-								      <a href="member_qna_board_list_sort.do?page=${allPage }&sort=<%=like %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" aria-label="Next">
+								      <a href="member_qna_board_list_sort.do?page=${allPage }&sort=<%=like %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Next">
 								        <span aria-hidden="true">&raquo;</span>
 								      </a>
 								    </li>

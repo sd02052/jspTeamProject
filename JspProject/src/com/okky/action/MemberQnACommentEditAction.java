@@ -14,14 +14,9 @@ public class MemberQnACommentEditAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
 		int com_num = Integer.parseInt(request.getParameter("com_num").trim());
 		String com_content = request.getParameter("com_content").trim();
 		int com_target = Integer.parseInt(request.getParameter("com_target").trim());
-		
-		System.out.println("com_num >> " + com_num);
-		System.out.println("com_content >> " + com_content);
-		System.out.println("com_target >> " + com_target);
 
 		CommentDAO dao = CommentDAO.getInstance();
 		int result = dao.editComment(com_num, com_content);
@@ -31,7 +26,7 @@ public class MemberQnACommentEditAction implements Action {
 
 		if (result > 0) {
 			forward.setRedirect(true);
-			forward.setPath("member_qna_board_content.do?num=" + com_target);
+			forward.setPath("member_qna_board_content.do?num=" + com_target + "&hit='no'");
 		} else {
 			out.println("<script>");
 			out.println("alert('댓글 수정에 실패했습니다.')");

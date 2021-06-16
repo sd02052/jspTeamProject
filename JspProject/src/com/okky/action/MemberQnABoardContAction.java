@@ -24,31 +24,39 @@ public class MemberQnABoardContAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
 		int board_num = Integer.parseInt(request.getParameter("num").trim());
-		
-		
+		String hit = request.getParameter("hit").trim();
+
 		BoardDAO dao = BoardDAO.getInstance();
 		CategoryDAO dao1 = CategoryDAO.getInstance();
 		CommentDAO dao2 = CommentDAO.getInstance();
-		
-		if(session.getAttribute("loginNum") != null) {
+
+		if (session.getAttribute("loginNum") != null) {
 			int mem_num = (int) session.getAttribute("loginNum");
 			MemberDAO dao3 = MemberDAO.getInstance();
 			MemberDTO login_mem = dao3.getMember(mem_num);
 			List<CommentDTO> like_list = dao2.getCommentLikeList(mem_num);
 			List<CommentDTO> unlike_list = dao2.getCommentUnLikeList(mem_num);
+			boolean like_status = dao.getBoardLike(mem_num, board_num);
+			boolean scrap_status = dao.getBoardScrap(mem_num, board_num);
+			
 			request.setAttribute("login_mem", login_mem);
 			request.setAttribute("commentLikeList", like_list);
 			request.setAttribute("commentUnLikeList", unlike_list);
+			request.setAttribute("like_status", like_status);
+			request.setAttribute("scrap_status", scrap_status);
 		}
-		
-		BoardDTO board_dto = dao.getBoardCont(board_num);
-		MemberDTO board_writer = dao.getWriter(board_num);
-		dao.boardHit(board_num);
+
+
+		if (hit.equals("'yes'")) {
+			dao.boardHit(board_num);
+		}
 		dao.setBoardComment();
 		dao.setBoardLike();
 		dao.setBoardScrap();
 		dao2.setCommentLike();
-		
+		BoardDTO board_dto = dao.getBoardCont(board_num);
+		MemberDTO board_writer = dao.getWriter(board_num);
+
 		int board_category = board_dto.getBoard_category();
 		CategoryDTO category = dao1.getCategory(board_category);
 
@@ -114,8 +122,7 @@ public class MemberQnABoardContAction implements Action {
 		request.setAttribute("commentList", comment_list);
 		request.setAttribute("commentWriterList", comment_writer_list);
 		request.setAttribute("check", check);
-		
-		
+
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);
 		forward.setPath("view/member/qna_content.jsp");

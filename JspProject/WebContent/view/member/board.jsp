@@ -231,7 +231,7 @@
 										</div>
 										<div class="row">
 											<h5 class="list-group-item-heading list-group-item-evaluate h">
-												<a class="font_style" href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
+												<a class="font_style" href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
 											</h5>
 										</div>
 									</div>

@@ -565,6 +565,21 @@ public class MemberDAO {
 			closeConn(rs, pstmt, con);
 		}
 	}
+	
+	public void boardDownScore(int num) {
+		try {
+			openConn();
+			sql = "update okky_member set mem_score = mem_score - 10 where mem_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+	}
 
 	// 회원을 강제탈퇴시키는 메서드
 	public int updateMemberCheck(String[] num) {

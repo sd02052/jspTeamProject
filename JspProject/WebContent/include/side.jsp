@@ -83,9 +83,9 @@
 				</a>
 			</li>
 		</ul>
-		<form id="search-google-form" class="nav-sidebar-form" action="https://www.google.com/search">
+		<form id="search-google-form" class="nav-sidebar-form" action="https://www.google.com/search?q" target="_blank">
 			<div class="input-group">
-				<input type="text" class="form-control input-sm" placeholder="Google 검색">
+				<input type="text" class="form-control input-sm" placeholder="Google 검색" name="q">
 				<span class="input-group-btn">
 					<button class="btn btn-default btn-sm" type="submit">
 						<i class="fa fa-search"></i>
@@ -277,9 +277,9 @@
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse" id="navbar-collapse">
-				<form id="search-google-form" class="nav-sidebar-form" action="https://www.google.com/search">
+				<form id="search-google-form" class="nav-sidebar-form" action="https://www.google.com/search?q" target="_blank">
 					<div class="input-group">
-						<input type="text" class="form-control input-sm" placeholder="Google 검색">
+						<input type="text" class="form-control input-sm" placeholder="Google 검색" name="q">
 						<span class="input-group-btn">
 							<button class="btn btn-default btn-sm" type="submit">
 								<i class="fa fa-search"></i>

@@ -35,7 +35,7 @@ public class MemberCommentDeleteAction implements Action {
 			dao2.setBoardComment();
 			dao1.commentDownScore(com_writer);
 			forward.setRedirect(true);
-			forward.setPath("member_board_content.do?num=" + board_num);
+			forward.setPath("member_board_content.do?num=" + board_num + "&hit='no'");
 		} else {
 			out.println("<script>");
 			out.println("alert('댓글 삭제에 실패했습니다.')");

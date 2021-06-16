@@ -42,7 +42,7 @@ public class MemberCommentWriteAction implements Action {
 			dao2.setBoardComment();
 			dao.commentUpScore(login_num);
 			forward.setRedirect(true);
-			forward.setPath("member_board_content.do?num=" + com_target);
+			forward.setPath("member_board_content.do?num=" + com_target + "&hit='no'");
 		} else {
 			out.println("<script>");
 			out.println("alert('댓글 등록에 실패했습니다.')");

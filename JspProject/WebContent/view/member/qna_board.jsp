@@ -48,7 +48,7 @@
 						</div>
 						<br>
 
-						<form class="form-inline">
+						<form class="form-inline" method="post" action="<%=request.getContextPath()%>/member_qna_search.do">
 							<div class="row">
 								<div class="col-md-6">
 									<button type="button" class="btn btn-link btn-xs">
@@ -75,14 +75,16 @@
 								<div class="col-md-6" align="right">
 									<div class="form-group">
 										<label class="sr-only" for="exampleInputAmount"></label>
+										
 										<div class="input-group">
-											<input type="search" class="form-control" id="search-field" placeholder="검색어">
-											<div class="input-group-addon">
-												<button type="button" class="btn btn-link btn-xs">
+											<input type="search" class="form-control" id="search-field" name="data" placeholder="검색어">
+											<span class="input-group-addon">
+												<button type="submit" class="btn btn-link btn-xs">
 													<i class="fas fa-search"></i>
 												</button>
-											</div>
+											</span>
 										</div>
+										
 									</div>
 
 								</div>

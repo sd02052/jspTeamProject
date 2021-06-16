@@ -407,7 +407,7 @@ public class MemberDAO {
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, "%" + data + "%");
 				pstmt.setString(2, "%" + data + "%");
-				pstmt.setString(3, "%" + check_data + "%");
+				pstmt.setString(3, check_data);
 			} else if (field.equals("id")) {
 				sql = "select count(*) from okky_member where mem_id like ?";
 				pstmt = con.prepareStatement(sql);
@@ -419,7 +419,7 @@ public class MemberDAO {
 			} else if (field.equals("check")) {
 				sql = "select count(*) from okky_member where mem_check like ?";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, "%" + check_data + "%");
+				pstmt.setString(1, data);
 			}
 
 			rs = pstmt.executeQuery();

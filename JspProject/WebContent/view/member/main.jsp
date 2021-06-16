@@ -42,7 +42,7 @@
 												<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
-														<a href="<%=request.getContextPath()%>/member_personal.do?num=${noticeMember[status.index].getMem_num() }" class="avatar-photo"> <img src="../../images/29a87623405c294d79bd2b4728996363.png">
+														<a href="<%=request.getContextPath()%>/member_personal.do?num=${noticeMember[status.index].getMem_num() }" class="avatar-photo"> <img src="<%=request.getContextPath() %>/images/${noticeMember[status.index].getMem_image() }">
 														</a>
 														<div class="avatar-info">
 															<a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=${noticeMember[status.index].getMem_num() }">${noticeMember[status.index].getMem_nick() }</a>
@@ -95,7 +95,7 @@
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
 														<a href="" class="avatar-photo">
-															<img src="../../images/29a87623405c294d79bd2b4728996363.png">
+															<img src="<%=request.getContextPath() %>/images/${bestMember[status.index].getMem_image() }">
 														</a>
 														<div class="avatar-info">
 															<a class="nickname" href="">${bestMember[status.index].getMem_nick() }</a>
@@ -150,7 +150,7 @@
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
 														<a href="" class="avatar-photo"> <img
-															src="../../images/29a87623405c294d79bd2b4728996363.png">
+															src="<%=request.getContextPath() %>/images/${qnaMember[status.index].getMem_image() }">
 														</a>
 														<div class="avatar-info">
 															<a class="nickname" href="">${qnaMember[status.index].getMem_nick() }</a>
@@ -202,7 +202,7 @@
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
 														<a href="" class="avatar-photo"> <img
-															src="../../images/29a87623405c294d79bd2b4728996363.png">
+															src="<%=request.getContextPath() %>/images/${communityMember[status.index].getMem_image() }">
 														</a>
 														<div class="avatar-info">
 															<a class="nickname" href="">${communityMember[status.index].getMem_nick() }</a>
@@ -256,7 +256,7 @@
 												</h5>
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo"> <img src="../../images/29a87623405c294d79bd2b4728996363.png">
+														<a href="" class="avatar-photo"> <img src="<%=request.getContextPath() %>/images/${techMember[status.index].getMem_image() }">
 														</a>
 														<div class="avatar-info">
 															<a class="nickname" href="">${techMember[status.index].getMem_nick() }</a>
@@ -300,7 +300,7 @@
 												<div class="etc"><p class="main-block-desc"><a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num()}&hit='yes'">${dto.getBoard_content() }</a></p></div>
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo"> <img src="../../images/29a87623405c294d79bd2b4728996363.png">
+														<a href="" class="avatar-photo"> <img src="<%=request.getContextPath() %>/images/${columnMember[status.index].getMem_image() }">
 														</a>
 														<div class="avatar-info">
 															<a class="nickname" href="">${columnMember[status.index].getMem_nick() }</a>
@@ -345,7 +345,7 @@
 													<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
 													<div class="list-group-item-author pull-right clearfix">
 														<div class="avatar clearfix avatar-x-small">
-															<a href="" class="avatar-photo"> <img src="../../images/29a87623405c294d79bd2b4728996363.png">
+															<a href="" class="avatar-photo"> <img src="<%=request.getContextPath() %>/images/${academyMember[status.index].getMem_image() }">
 															</a>
 															<div class="avatar-info">
 																<a class="nickname" href="">${academyMember[status.index].getMem_nick() }</a>

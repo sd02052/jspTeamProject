@@ -1,3 +1,4 @@
+<%@page import="com.okky.model.BoardDTO"%>
 <%@page import="com.okky.model.CommentDTO"%>
 <%@page import="com.okky.model.CategoryDTO"%>
 <%@page import="java.util.List"%>
@@ -32,12 +33,12 @@
 }
 </style>
 <c:set var="big_category" value="${big_category }" />
-<c:set var="small_cattegory" value="${small_category }" />
+<c:set var="small_category" value="${small_category }" />
 <script type="text/javascript">
 $(function(){
 	$("#"+${big_category}).css("border-right","5px solid #e67d3e");
 	$("#"+${small_category}).css("color","#fff");
-});
+})
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -68,7 +69,7 @@ function commentEditCancle<%=list.get(i).getCom_num() %>(){
 };
 </script>
 <script type="text/javascript">
-function like<%=list.get(i).getCom_num()%>(){
+function commentLike<%=list.get(i).getCom_num()%>(){
 	$.ajax({
 		url: "member_comment_like.do",
 		type: "POST",
@@ -85,7 +86,7 @@ function like<%=list.get(i).getCom_num()%>(){
 			}
 	});
 }
-function likeCancle<%=list.get(i).getCom_num()%>(){
+function commentLikeCancle<%=list.get(i).getCom_num()%>(){
 	$.ajax({
 		url: "member_comment_like_cancle.do",
 		type: "POST",
@@ -102,8 +103,45 @@ function likeCancle<%=list.get(i).getCom_num()%>(){
 			}
 	});
 }
-
-<%} %>
+</script>
+<%} 
+	BoardDTO boardDto = (BoardDTO) request.getAttribute("dto");
+%>
+<script type="text/javascript">
+function boardLike<%=boardDto.getBoard_num()%>(){
+	$.ajax({
+		url: "member_board_like.do",
+		type: "POST",
+		dataType: "text",
+		data: {"board_num" : $("#board_num").val(),
+		"login_num" : $("#loginNum1").val()},
+		success:
+			function(data){ //ajax통신 성공시 넘어오는 데이터 통째 이름 =data
+				$("#like-result").html(data);
+			},
+		error:
+			function (request, status, error){
+				alert("ajax실패");
+			}
+	});
+}
+function boardLikeCancle<%=boardDto.getBoard_num()%>(){
+	$.ajax({
+		url: "member_board_like_cancle.do",
+		type: "POST",
+		dataType: "text",
+		data: {"board_num" : $("#board_num").val(),
+		"login_num" : $("#loginNum1").val()},
+		success:
+			function(data){ //ajax통신 성공시 넘어오는 데이터 통째 이름 =data
+				$("#like-result").html(data);
+			},
+		error:
+			function (request, status, error){
+				alert("ajax실패");
+			}
+	});
+}
 </script>
 </head>
 <body>
@@ -152,7 +190,7 @@ function likeCancle<%=list.get(i).getCom_num()%>(){
 								</td>
 							</tr>
 							<tr>
-								<td class="col-md-10">
+								<td class="col-sm-10">
 									<div class="cont-content">
 										<span class="cont-num"># ${dto.getBoard_num() }</span> <a href=""> <span
 											class="label label-info">${category.getCate_name() }</span>
@@ -162,22 +200,38 @@ function likeCancle<%=list.get(i).getCom_num()%>(){
 									</div>
 								</td>
 
-								<td class="col-md-2">
+								<td class="col-sm-2">
 									<div class="cont-like text-center">
+										<input type="hidden" id="board_num" value="${dto.getBoard_num() }">
+										<input type="hidden" id="loginNum1" value="${loginNum}">
 										<div class="cont-recommend">
-											<a href=""> <i class="img fas fa-angle-up fa-2x"
-												data-toggle="tooltip" data-placement="left" title="추천"></i>
-											</a>
-											<p class="recommend-count">${dto.getBoard_like() }</p>
-											<a href=""> <i class="img fas fa-angle-down fa-2x"
-												data-toggle="tooltip" data-placement="left" title="반대"></i>
-											</a>
+											<c:if test="${loginNum != null }">
+												<c:forEach items="${boardLikeList }" var="likedto">
+													<c:if test="${likedto.getBoard_num() == dto.getBoard_num() }">
+														<a href="" onclick="return boardLikeCancle${dto.getBoard_num()}()"> <i class="fas fa-thumbs-up" data-toggle="tooltip" data-placement="left" title="취소"></i>
+														</a>
+													</c:if>
+												</c:forEach>
+												<c:forEach items="${boardUnLikeList }" var="unlikedto">
+													<c:if test="${unlikedto.getBoard_num() == dto.getBoard_num() }">
+														<a href="" onclick="return boardLike${dto.getBoard_num()}()"> <i class="img far fa-thumbs-up" data-toggle="tooltip" data-placement="left" title="추천"></i>
+														</a>
+													</c:if>
+												</c:forEach>
+											</c:if>
+											<p class="com-recommend-count" id="like-result">${dto.getBoard_like() }</p>
+											<p>좋아요</p>
 										</div>
 
 										<div class="cont-scrap">
-											<a href=""> <i class="img fas fa-bookmark fa-2x"
-												data-toggle="tooltip" data-placement="left" title="스크랩"></i><br>
-											</a> <span class="badge-scrap badge">${dto.getBoard_scrap() }</span>
+											<c:if test="${loginNum != null }">
+												<a href=""> <i class="img fas fa-bookmark fa-2x"
+													data-toggle="tooltip" data-placement="left" title="스크랩"></i>
+												<br>
+												</a> 
+											</c:if>
+											<span class="badge-scrap badge">${dto.getBoard_scrap() }</span>
+											<p>스크랩</p>
 										</div>
 										<div class="cont-facebook">
 											<a href=""> <i
@@ -210,20 +264,18 @@ function likeCancle<%=list.get(i).getCom_num()%>(){
 													<div class="cont-member pull-left">
 														<a href="<%=request.getContextPath()%>/member_personal.do?num=${commentWriterList[status.index].getMem_num() }"> <img src="<%=request.getContextPath()%>/images/profile/${commentWriterList[status.index].getMem_image() }" class="cont-mem-logo img-circle">
 														</a>
-	
-														<div class="cont-mem-info">
-															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${commentWriterList[status.index].getMem_num() }"> ${commentWriterList[status.index].getMem_nick() }</a> <span class="cont-activity"> <i class="activity-img fas fa-bolt"></i>&nbsp;${commentWriterList[status.index].getMem_score() }
-															</span> <br>
-															<div class="cont-regdate">${dto.getCom_regdate() }</div>
-														</div>
+
+													<div class="cont-mem-info">
+														<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${commentWriterList[status.index].getMem_num() }"> ${commentWriterList[status.index].getMem_nick() }</a> <span class="cont-activity"> <i class="activity-img fas fa-bolt" ></i>&nbsp;${commentWriterList[status.index].getMem_score() }
+														</span> <br>
+														<div class="cont-regdate">${dto.getCom_regdate() }</div>
 													</div>
+												</div>
 													<br> <br> <br>
 													<div class="com-content-${dto.getCom_num() } pull-left">
 														<p>${dto.getCom_content() }</p>
 													</div>
-													
-														<textarea class="form-control com-edit-area-${dto.getCom_num() }" name="com_content" rows="3" style="display: none;" value="${dto.getCom_content() }">${dto.getCom_content() }</textarea>
-													
+													<textarea class="form-control com-edit-area-${dto.getCom_num() }" name="com_content" rows="3" style="display: none;" value="${dto.getCom_content() }">${dto.getCom_content() }</textarea>
 												</td>
 												<td class="col-md-2">
 												<div id="like_form">
@@ -233,18 +285,19 @@ function likeCancle<%=list.get(i).getCom_num()%>(){
 														<c:if test="${loginNum != null }">
 															<c:forEach items="${commentLikeList }" var="likedto">
 																<c:if test="${likedto.getCom_num() == dto.getCom_num() }">
-																	<a href="" onclick="return likeCancle${dto.getCom_num()}()"> <i class="fas fa-thumbs-up" id="up-${dto.getCom_num()}" data-toggle="tooltip" data-placement="left" title="취소"></i>
+																	<a href="" onclick="return commentLikeCancle${dto.getCom_num()}()"> <i class="fas fa-thumbs-up" data-toggle="tooltip" data-placement="left" title="취소"></i>
 																	</a>
 																</c:if>
 															</c:forEach>
 															<c:forEach items="${commentUnLikeList }" var="unlikedto">
 																<c:if test="${unlikedto.getCom_num() == dto.getCom_num() }">
-																	<a href="" onclick="return like${dto.getCom_num()}()"> <i class="img far fa-thumbs-up" id="up-${dto.getCom_num()}" data-toggle="tooltip" data-placement="left" title="추천"></i>
+																	<a href="" onclick="return commentLike${dto.getCom_num()}()"> <i class="img far fa-thumbs-up" data-toggle="tooltip" data-placement="left" title="추천"></i>
 																	</a>
 																</c:if>
 															</c:forEach>
 														</c:if>
 														<p class="com-recommend-count" id="like-result-${dto.getCom_num() }">${dto.getCom_like() }</p>
+														<p>좋아요</p>
 													</div>
 												</div>
 													<c:if test="${loginNum == dto.getCom_writer() }"> <!-- 자신이 작성한 댓글일 경우 -->

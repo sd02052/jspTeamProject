@@ -23,7 +23,7 @@ public class MemberQnABoardListAllAction implements Action {
 		int cate_num = Integer.parseInt(request.getParameter("cate_num").trim());
 		String big_category = request.getParameter("big").trim();
 		String small_category = request.getParameter("small").trim();
-
+		String sort = "'date'";
 		BoardDAO dao1 = BoardDAO.getInstance();
 		CommentDAO comDAO = CommentDAO.getInstance();
 
@@ -68,6 +68,8 @@ public class MemberQnABoardListAllAction implements Action {
 
 		CategoryDTO category = dao2.getCategoryAll(cate_num);
 
+		String type = "all";
+		
 		request.setAttribute("boardList", list);
 		request.setAttribute("memberList", list2);
 		request.setAttribute("categoryList", list3);
@@ -76,6 +78,8 @@ public class MemberQnABoardListAllAction implements Action {
 		request.setAttribute("cate_num", cate_num);
 		request.setAttribute("big_category", big_category);
 		request.setAttribute("small_category", small_category);
+		request.setAttribute("type", type);
+		request.setAttribute("sort", sort);
 		
 		request.setAttribute("page", page);
 		request.setAttribute("rowsize", rowsize);

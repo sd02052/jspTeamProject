@@ -169,3 +169,10 @@ table tr td span {
 .auto-padding {
 	padding: auto;
 }
+
+@media (max-width: 768px) {
+	#article {
+		margin-left: 20px;
+		margin-right: 20px;
+	}
+}

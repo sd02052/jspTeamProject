@@ -119,7 +119,7 @@ function handleImgFileSelect(e) {
 				                   			<br>
 				                   			<small>권장 사이즈 150ps<br>최대 250KB</small>
 				                   		</button>
-				                   		<input type="file" name="files" id="profileImge" accept="image/gif, image/jpeg, image/jpg, image/png" style="display:none;" onchange="changeValue(this)"/>
+				                   		<input type="file" name="files" id="profileImge" accept="image/gif, image/jpeg, image/jpg, image/png" style="display:none;"/>
 				                   		
 				                   		<input class="btn btn-success picture-confirm-btn" id="picture-confirm-btn" type="submit" value="확인">
 				                   </form>
@@ -169,7 +169,7 @@ function handleImgFileSelect(e) {
 				        
 				                <form class="form-signin panel-body">
 				                    <div class="email-edit">
-				                        <label for="exampleInputEmail1">이메일 주소</label>
+				                        <label class="control-label" for="email" style="width:100%">이메일 주소</label>
 				                        <input type="email" id="email" class="form-control" value="<%=dto.getMem_email() %>" required>
 				                        <button class="btn btn-primary" type="submit">인증</button>
 				                    </div>

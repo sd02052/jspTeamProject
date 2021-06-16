@@ -288,9 +288,7 @@
 	margin-bottom: 15px;
 }
 
-.nav-user-func {
-	display: inline-block;
-}
+
 @media (max-width: 768px) {
 	
 	.layout-container {
@@ -334,6 +332,10 @@
      	color: #fff;
      	padding: 10px;
      }
+     
+     .nav-user-func {
+		display: inline-block;
+	}
 }
 /* 사이드바 css 끝 */
 
@@ -372,6 +374,12 @@
 
 .sponsor-banner-images img {
 	margin-left: 15px;
+}
+
+@media (max-width: 768px) {
+	#footer{
+		width: auto;
+	}
 }
 /* footer css 끝*/
 

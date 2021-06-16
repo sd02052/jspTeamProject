@@ -299,20 +299,24 @@
 
 @media (max-width: 768px) {
 	
-	.layout-container {
-        margin: 0 20px;
+	.layout_container {
+        margin: 0 20px !important;
     }
+    
     .main {
-        width: auto;
-        position: relative;
-        padding-top: 70px;
-		padding-left: 0px;        
-        margin-left: 0;
+	    width: auto;
+	    position: relative;
+	    padding: 30px 0;
+	    margin-left: 0;
+	    margin-top: 30px;
     }
     .main-block-left,
     .main-block-right {
-        padding-left: 0;
-        padding-right: 0;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .md_container{
+    	width:auto !important;
     }
     .content {
         width: inherit;

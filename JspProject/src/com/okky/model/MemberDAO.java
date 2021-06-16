@@ -217,21 +217,32 @@ public class MemberDAO {
 			if (rs.next()) {
 				count = rs.getInt(1) + 1;
 			}
-
-			sql = "insert into okky_member values(?,?,?,?,?,?,sysdate,?,default,default,default)";
-
-			pstmt = con.prepareStatement(sql);
-
-			pstmt.setInt(1, count);
-			pstmt.setString(2, dto.getMem_id());
-			pstmt.setString(3, dto.getMem_nick());
-			pstmt.setString(4, dto.getMem_pwd());
-			pstmt.setString(5, dto.getMem_image());
-			pstmt.setString(6, dto.getMem_email());
-			pstmt.setString(7, dto.getMem_emailCheck());
 			
+			sql = "select * from okky_member";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				if(dto.getMem_nick().equals(rs.getString("mem_nick"))) { // 닉네임 중복 (가입 불가)
+					result = -1;
+				}else { // 닉네임 사용 가능
+					sql = "insert into okky_member values(?,?,?,?,?,?,sysdate,?,default,default,default)";
 
-			result = pstmt.executeUpdate();
+					pstmt = con.prepareStatement(sql);
+
+					pstmt.setInt(1, count);
+					pstmt.setString(2, dto.getMem_id());
+					pstmt.setString(3, dto.getMem_nick());
+					pstmt.setString(4, dto.getMem_pwd());
+					pstmt.setString(5, dto.getMem_image());
+					pstmt.setString(6, dto.getMem_email());
+					pstmt.setString(7, dto.getMem_emailCheck());
+					
+					result = pstmt.executeUpdate();
+				}
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -696,11 +707,35 @@ public class MemberDAO {
 			pstmt = con.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				if(dto.getMem_nick().equals(rs.getString("mem_nick"))) { // 닉네임 중복
+					
+					//  현재 본인 닉네임은 중복처리 예외 작업
+					sql = "select mem_nick from okky_member where mem_num = ?";
+					
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, dto.getMem_num());
+					
+					rs = pstmt.executeQuery();
+					
+					if (rs.next()) {
+						if (rs.getString("mem_nick").equals(dto.getMem_nick())) { 
+							
+							// 현재 닉네임과 작성 닉네임이 같은 경우
+							sql = "update okky_member set mem_nick = ? where mem_num = ?";
+							
+							pstmt = con.prepareStatement(sql);
+							pstmt.setString(1, dto.getMem_nick());
+							pstmt.setInt(2, dto.getMem_num());
+							
+							result = pstmt.executeUpdate();
+						}
+					}else { // 닉네임이 중복인데 내 현재 닉네임은 아닌 경우
+						result = -1;
+					}
+				}else { // 닉네임 사용 가능 ( 닉네임 중복이 아닌 경우)
 
-			if (rs.next()) {
-				if (dto.getMem_nick().equals(rs.getString("mem_nick"))) { // 닉네임 중복
-					result = -1;
-				} else { // 닉네임 사용 가능
 					sql = "update okky_member set mem_nick = ? where mem_num = ?";
 
 					pstmt = con.prepareStatement(sql);
@@ -718,7 +753,34 @@ public class MemberDAO {
 		return result;
 	} // infoEdit() 메서드 end
 
-	// okky_mem_tag 테이블의 회원번호에 해당하는 태그를 수정하는 메서드.
+	
+	// okky_member 테이블의 회원번호에 해당하는 프로필 이미지를 변경하는 메서드
+	public int infoEditProfile(MemberDTO dto) {
+		
+		int result = 0;
+		
+		try {
+			openConn();
+			
+			sql = "update okky_member set mem_image = ? where mem_num = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, dto.getMem_image());
+			pstmt.setInt(2, dto.getMem_num());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	} // infoEditProfile() 메서드 end
+
+	
+	// okky_mem_tag 테이블의 회원번호에 해당하는 태그를 수정하는 메서드. 
 	public int infoTagEdit(int mem_num, TagDTO tdto) {
 		
 		int result = 0, count = 0;
@@ -755,21 +817,21 @@ public class MemberDAO {
 					pstmt.setInt(3, mem_num);
 					
 					result = pstmt.executeUpdate();
-					System.out.println("등록한 태그 내용 >>>" + tdto.getTag_name());
+					System.out.println("수정 태그 내용 >>>" + tdto.getTag_name());
 					
-				}
-			}else { // 관심 태그를 등록하지 않은 회원일 경우
+				}else if(mem_num != (rs.getInt("tag_target"))){ // 관심 태그를 등록하지 않은 회원일 경우
 
-				sql = "insert into okky_mem_tag values(?,?,?)";
-				
-				pstmt = con.prepareStatement(sql);
-				
-				pstmt.setInt(1, count);
-				pstmt.setString(2, tdto.getTag_name());
-				pstmt.setInt(3, mem_num);
-				
-				result = pstmt.executeUpdate();
-				System.out.println("등록한 태그 내용 >>>" + tdto.getTag_name());
+					sql = "insert into okky_mem_tag values(?,?,?)";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setInt(1, count);
+					pstmt.setString(2, tdto.getTag_name());
+					pstmt.setInt(3, mem_num);
+					
+					result = pstmt.executeUpdate();
+					System.out.println("등록한 태그 내용 >>>" + tdto.getTag_name());
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -801,4 +863,5 @@ public class MemberDAO {
 		}
 		return result;
 	} // memberWithdrawal() 메서드 end
+
 }

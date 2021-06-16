@@ -16,11 +16,6 @@
     padding-left: 15px !important;
     padding-right: 0;
   }
-  .form-signin {
-    max-width: 330px;
-    padding: 15px;
-    margin: 0 auto;
-  }
   .form-signin .form-signin-heading,
   .form-signin .checkbox {
     margin-bottom: 10px;
@@ -76,7 +71,59 @@
     margin: 0;
     width: auto !important;
     max-width: inherit;
+   }
+   .avatar-photo {
+    display: inline-block;
+    border: 1px solid #ededed;
+    border-radius: 50%;
+    overflow: hidden;
+    vertical-align: middle;
+	}
+	
+  #edit-picture-btn {
+    background-color: #404040d9;
+    color: #fff;
+    width: 42px;
+    font-size: 11px;
+    text-align: center;
+    border-radius: 3px;
+    display: block;
+    cursor: pointer;
   }
+ #create-user .profile-picture-list {
+    margin-top: 5px;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #dfdfdf;
+    border-radius: 3px;
+    box-shadow: 0px 0px 5px 0.5px #e6e6e6;
+    z-index: 5;
+    padding: 5px 10px;
+    
+  }
+ #create-user .profile-picture-list .profile-picture {
+    padding: 10px 5px;
+    border-bottom: 1px solid #dfdfdf;
+    cursor: pointer;
+    position: relative;
+  }
+  #create-user .profile-picture-list span.avatar-photo {
+    width: 42px;
+    height: 42px;
+  }
+  #create-user .profile-picture-list button.picture-confirm-btn, #profile-upload-btn {
+    width: 100%;
+    margin-top: 5px;
+  }
+  
+  #picture-confirm-btn {
+    width: 100%;
+    margin-top: 5px;
+  }
+  #create-user .profile-picture-list .profile-picture.selected {
+    background-color: #e8f4ff;
+  }
+
 
   /* email-edit */
   .email-edit {

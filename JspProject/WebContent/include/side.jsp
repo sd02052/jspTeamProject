@@ -3,6 +3,9 @@
 <%@page import="com.okky.model.MemberDAO"%>
 <%@page import="com.okky.model.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	String imgPath = request.getContextPath()+"/images/profileUpload/";
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,7 +118,7 @@
 			<div class="login-view">
 				<div class="avatar clearfix avatar-medium">
 				<% if(dto1 != null){ %> <!-- 사용자로 로그인 후 -->
-					<a href="<%=request.getContextPath()%>/member_personal.do?num=<%=dto1.getMem_num() %>" class="avatar-photo"><img src="<%=request.getContextPath() %>/images/<%=dto1.getMem_image() %>"></a>
+					<a href="<%=request.getContextPath()%>/member_personal.do?num=<%=dto1.getMem_num() %>" class="avatar-photo"><img src="<%=imgPath %><%=dto1.getMem_image() %>"></a>
 					<div class="avatar-info">
 						<a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=<%=dto1.getMem_num() %>"><%=dto1.getMem_nick() %></a>
 						<div class="activity block">

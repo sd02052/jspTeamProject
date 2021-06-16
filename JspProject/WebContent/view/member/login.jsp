@@ -15,7 +15,7 @@
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../../include/side.jsp" />
-				<div style="width: 805px; min-height: 800px;">
+				<div class="md_container" style="width: 805px; min-height: 800px;">
 					<div id="edit-user" class="content clearfix" role="main">
 						<h3 class="content-header">로그인</h3>
 				        <div class="col-md-6 main-block-left">

@@ -81,7 +81,7 @@ function handleImgFileSelect(e) {
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../../include/side.jsp" />
-				<div style="width: 805px; min-height: 800px;">
+				<div class="md_container" style="width: 805px; min-height: 800px;">
 				    <div id="create-user" class="content clearfix" role="main">
 				    	<h3 class="content-header">회원 정보 수정</h3>
 				        <div class="col-md-6 main-block-left">
@@ -167,7 +167,7 @@ function handleImgFileSelect(e) {
 				                    <h5 class="panel-header">이메일 변경</h5>
 				                </div>
 				        
-				                <form class="form-signin panel-body">
+				                <form class="panel-body panel-margin">
 				                    <div class="email-edit">
 				                        <label class="control-label" for="email" style="width:100%">이메일 주소</label>
 				                        <input type="email" id="email" class="form-control" value="<%=dto.getMem_email() %>" required>
@@ -190,7 +190,7 @@ function handleImgFileSelect(e) {
 				            </div>
 				
 				            <div class="panel panel-default">
-				                <form class="form-signin panel-body">
+				                <form class="panel-body panel-margin">
 				                    <a href="<%=request.getContextPath() %>/member_pwd_edit.do?num=<%=dto.getMem_num() %>" class="btn btn-info btn-block">비밀번호 변경</a>
 				                    <a href="<%=request.getContextPath() %>/member_withdrawal.do?num=<%=dto.getMem_num() %>" class="btn btn-default btn-block">회원 탈퇴</a>
 				                </form>

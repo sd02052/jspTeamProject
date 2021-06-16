@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.okky.controller.Action;
 import com.okky.controller.ActionForward;
@@ -14,7 +13,7 @@ import com.okky.model.CommentDAO;
 import com.okky.model.CommentDTO;
 import com.okky.model.MemberDAO;
 
-public class MemberCommentDeleteAction implements Action {
+public class MemberQnACommentDeleteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -35,7 +34,7 @@ public class MemberCommentDeleteAction implements Action {
 			dao2.setBoardComment();
 			dao1.commentDownScore(com_writer);
 			forward.setRedirect(true);
-			forward.setPath("member_board_content.do?num=" + board_num + "&hit='no'");
+			forward.setPath("member_qna_board_content.do?num=" + board_num + "&hit='no'");
 		} else {
 			out.println("<script>");
 			out.println("alert('댓글 삭제에 실패했습니다.')");

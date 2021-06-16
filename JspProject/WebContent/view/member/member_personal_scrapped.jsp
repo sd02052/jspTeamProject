@@ -84,7 +84,7 @@
 					                        		<a href="<%=request.getContextPath()%>/member_qna_board_content.do?num=${scrap.getBoard_num() }">${scrap.getBoard_title() }</a>
 					                        	</c:when>
 					                        	<c:otherwise>
-					                        		<a href="<%=request.getContextPath()%>/member_board_content.do?num=${scrap.getBoard_num() }">${scrap.getBoard_title() }</a>
+					                        		<a href="<%=request.getContextPath()%>/member_board_content.do?num=${scrap.getBoard_num() }&hit='yes'">${scrap.getBoard_title() }</a>
 					                        	</c:otherwise>
 					                        </c:choose>
 				                            	

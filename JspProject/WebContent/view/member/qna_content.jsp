@@ -51,9 +51,8 @@ $(document).ready(function(){
 
   $('[data-toggle="tooltip"]').tooltip();   
 
-});
+})
 </script>
-<script type="text/javascript">
 <%
 if(session.getAttribute("loginNum") != null){
 	int loginNum = (int)session.getAttribute("loginNum");
@@ -61,6 +60,7 @@ if(session.getAttribute("loginNum") != null){
 	List<CommentDTO> list = (List<CommentDTO>) request.getAttribute("commentList");
 	for(int i = 0; i < list.size(); i++){
 %>
+<script type="text/javascript">
 function commentEdit<%=list.get(i).getCom_num()%>(){
 	$(".dropdown").css("display","none");
 	$(".buttons-<%=list.get(i).getCom_num()%>").css("display","block");
@@ -70,49 +70,19 @@ function commentEdit<%=list.get(i).getCom_num()%>(){
 </script>
 <script type="text/javascript">
 function commentEditCancle<%=list.get(i).getCom_num() %>(){
+	var flag = confirm('수정중이던 내용을 취소하시겠습니까?');
+	if(flag == true){
 	$(".dropdown").css("display","block");
 	$(".buttons-<%=list.get(i).getCom_num()%>").css("display","none");
 	$(".com-content-<%=list.get(i).getCom_num()%>").css("display","block");
 	$(".com-edit-area-<%=list.get(i).getCom_num()%>").css("display","none");
+	$("#comment-form-<%=list.get(i).getCom_num()%>")[0].reset();
+	}
 };
-</script>
-<script type="text/javascript">
-function like<%=list.get(i).getCom_num()%>(){
-	$.ajax({
-		url: "member_comment_like.do",
-		type: "POST",
-		dataType: "text",
-		data: {"com_num" : $("#com-num-<%=list.get(i).getCom_num()%>").val(),
-		"login_num" : $("#loginNum").val()},
-		success:
-			function(data){ //ajax통신 성공시 넘어오는 데이터 통째 이름 =data
-				$("#like-result-<%=list.get(i).getCom_num()%>").html(data);
-			},
-		error:
-			function (request, status, error){
-				alert("ajax실패");
-			}
-	});
-}
-function likeCancle<%=list.get(i).getCom_num()%>(){
-	$.ajax({
-		url: "member_comment_like_cancle.do",
-		type: "POST",
-		dataType: "text",
-		data: {"com_num" : $("#com-num-<%=list.get(i).getCom_num()%>").val(),
-		"login_num" : $("#loginNum").val()},
-		success:
-			function(data){ //ajax통신 성공시 넘어오는 데이터 통째 이름 =data
-				$("#like-result-<%=list.get(i).getCom_num()%>").html(data);
-			},
-		error:
-			function (request, status, error){
-				alert("ajax실패");
-			}
-	});
-}
 
+</script>
 <%} %>
+<script type="text/javascript">
 
 $(function() { 
     $(".select").hover(function(){ 
@@ -183,19 +153,34 @@ $(function() {
 								<td class="col-md-2">
 									<div class="cont-like text-center">
 										<div class="cont-recommend">
-											<a href=""> <i class="img fas fa-angle-up fa-2x"
-												data-toggle="tooltip" data-placement="left" title="추천"></i>
-											</a>
-											<p class="recommend-count">${dto.getBoard_like() }</p>
-											<a href=""> <i class="img fas fa-angle-down fa-2x"
-												data-toggle="tooltip" data-placement="left" title="반대"></i>
-											</a>
+											<c:if test="${loginNum != null }">
+												<c:if test="${like_status }">
+													<a href="<%=request.getContextPath() %>/member_qna_board_like_cancle.do?board_num=${dto.getBoard_num()}&login_num=${loginNum}"> <i class="fas fa-thumbs-up" data-toggle="tooltip" data-placement="left" title="취소"></i>
+													</a>
+												</c:if>
+												<c:if test="${!like_status }">
+													<a href="<%=request.getContextPath() %>/member_qna_board_like.do?board_num=${dto.getBoard_num()}&login_num=${loginNum}"> <i class="img far fa-thumbs-up" data-toggle="tooltip" data-placement="left" title="추천"></i>
+													</a>
+												</c:if>
+											</c:if>
+											<p class="com-recommend-count" id="like-result">${dto.getBoard_like() }</p>
 										</div>
-
 										<div class="cont-scrap">
-											<a href=""> <i class="img fas fa-bookmark fa-2x"
-												data-toggle="tooltip" data-placement="left" title="스크랩"></i><br>
-											</a> <span class="badge-scrap badge">${dto.getBoard_scrap() }</span>
+											<c:if test="${loginNum != null }">
+												<c:if test="${scrap_status}">
+													<a href="<%=request.getContextPath()%>/member_qna_board_scrap_cancle.do?board_num=${dto.getBoard_num()}&login_num=${loginNum}"> <i class="fas fa-bookmark fa-2x"
+														data-toggle="tooltip" data-placement="left" title="스크랩"></i>
+													<br>
+													</a>
+												</c:if>
+												<c:if test="${!scrap_status}">
+													<a href="<%=request.getContextPath()%>/member_qna_board_scrap.do?board_num=${dto.getBoard_num()}&login_num=${loginNum}"> <i class="img fas fa-bookmark fa-2x"
+														data-toggle="tooltip" data-placement="left" title="스크랩"></i>
+													<br>
+													</a>
+												</c:if>
+											</c:if>
+											<span class="badge-scrap badge">${dto.getBoard_scrap() }</span>
 										</div>
 										<div class="cont-facebook">
 											<a href=""> <i
@@ -220,7 +205,7 @@ $(function() {
 							<c:if test="${!empty commentList }">
 								<c:forEach items="${commentList }" var="dto" varStatus="status">
 										<!-- 다른 회원이 작성한 댓글 -->
-										<form method="post" action="<%=request.getContextPath() %>/member_comment_edit.do">
+										<form method="post" action="<%=request.getContextPath() %>/member_qna_comment_edit.do" id="comment-form-${dto.getCom_num() }">
 											<input type="hidden" name="com_num" value="${dto.getCom_num() }">
 											<input type="hidden" name="com_target" value="${dto.getCom_target() }">
 											<tr>
@@ -277,13 +262,13 @@ $(function() {
 														<c:if test="${loginNum != null }">
 															<c:forEach items="${commentLikeList }" var="likedto">
 																<c:if test="${likedto.getCom_num() == dto.getCom_num() }">
-																	<a href="" onclick="return likeCancle${dto.getCom_num()}()"> <i class="fas fa-thumbs-up" id="up-${dto.getCom_num()}" data-toggle="tooltip" data-placement="left" title="취소"></i>
+																	<a href="<%=request.getContextPath() %>/member_qna_comment_like_cancle.do?com_num=${dto.getCom_num()}&board_num=${dto.getCom_target()}&login_num=${loginNum}"> <i class="fas fa-thumbs-up" id="up-${dto.getCom_num()}" data-toggle="tooltip" data-placement="left" title="취소"></i>
 																	</a>
 																</c:if>
 															</c:forEach>
 															<c:forEach items="${commentUnLikeList }" var="unlikedto">
 																<c:if test="${unlikedto.getCom_num() == dto.getCom_num() }">
-																	<a href="" onclick="return like${dto.getCom_num()}()"> <i class="img far fa-thumbs-up" id="up-${dto.getCom_num()}" data-toggle="tooltip" data-placement="left" title="추천"></i>
+																	<a href="<%=request.getContextPath() %>/member_qna_comment_like.do?com_num=${dto.getCom_num()}&board_num=${dto.getCom_target()}&login_num=${loginNum}"> <i class="img far fa-thumbs-up" id="up-${dto.getCom_num()}" data-toggle="tooltip" data-placement="left" title="추천"></i>
 																	</a>
 																</c:if>
 															</c:forEach>
@@ -300,14 +285,14 @@ $(function() {
 															<li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:commentEdit${dto.getCom_num()}();"> 
 															<i class="fas fa-edit"></i>&nbsp;수정
 															</a></li>
-															<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_comment_delete.do?num=${dto.getCom_num()}&board_num=${dto.getCom_target()}" onclick="return confirm('댓글을 삭제 하시겠습니까?');"> 
+															<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_qna_comment_delete.do?num=${dto.getCom_num()}&board_num=${dto.getCom_target()}" onclick="return confirm('댓글을 삭제 하시겠습니까?');"> 
 															<i class="fas fa-trash-alt"></i>&nbsp;삭제
 															</a></li>
 														</ul>
 													</div>
 													<div class="buttons-${dto.getCom_num() }" style="display: none;" align="center">
 														<p>
-															<a href="javascript:commentEditCancle${dto.getCom_num() }();" class="btn btn-default btn-wide note-edit-cancel-btn" onclick="return confirm('수정중이던 내용을 취소하시겠습니까?');">취소</a>
+															<input type="button" class="btn btn-default btn-wide note-edit-cancel-btn" onclick="return commentEditCancle${dto.getCom_num()}()" value="취소">
 														</p>
 														<p>
 															<input type="submit" name="create" class="btn btn-success btn-wide" value="저장" id="create">
@@ -324,7 +309,7 @@ $(function() {
 							<!-- 댓글 작성창 -->
 							<tr>
 								<td colspan="10">
-									<form method="post" action="<%=request.getContextPath() %>/member_comment_write.do">
+									<form method="post" action="<%=request.getContextPath() %>/member_qna_comment_write.do">
 										<input type="hidden" name="com_writer" value="${loginNum}"> <input
 											type="hidden" name="com_target" value="${dto.getBoard_num() }">
 										<div class="cont-member pull-left">

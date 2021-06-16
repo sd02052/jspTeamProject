@@ -83,7 +83,7 @@
 					                        			<a href="<%=request.getContextPath()%>/member_qna_board_content.do?num=${cbList[status.index].getBoard_num() }">${cbList[status.index].getBoard_title() }</a>
 					                        		</c:when>
 					                        		<c:otherwise>
-					                        			<a href="<%=request.getContextPath()%>/member_board_content.do?num=${cbList[status.index].getBoard_num() }">${cbList[status.index].getBoard_title() }</a>
+					                        			<a href="<%=request.getContextPath()%>/member_board_content.do?num=${cbList[status.index].getBoard_num() }&hit='yes'">${cbList[status.index].getBoard_title() }</a>
 					                        		</c:otherwise>
 				                        		</c:choose>
 				                            	게시글에 댓글을 남겼습니다.</span></span>

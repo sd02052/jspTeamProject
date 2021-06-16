@@ -87,7 +87,7 @@
 				                        			<a href="<%=request.getContextPath()%>/member_qna_board_content.do?num=${board.getBoard_num() }">${board.getBoard_title() }</a>
 				                        		</c:when>
 				                        		<c:otherwise>
-				                        			<a href="<%=request.getContextPath()%>/member_board_content.do?num=${board.getBoard_num() }">${board.getBoard_title() }</a>
+				                        			<a href="<%=request.getContextPath()%>/member_board_content.do?num=${board.getBoard_num() }&hit='yes'">${board.getBoard_title() }</a>
 				                        		</c:otherwise>
 				                        	</c:choose>
 				                            

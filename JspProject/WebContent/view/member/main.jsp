@@ -38,7 +38,7 @@
 									</c:if>
 										<div class="list-title-wrapper">
 											<h5 class="list-group-item-heading">
-												<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
+												<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
 														<a href="<%=request.getContextPath()%>/member_personal.do?num=${noticeMember[status.index].getMem_num() }" class="avatar-photo"> <img src="../../images/29a87623405c294d79bd2b4728996363.png">
@@ -90,7 +90,7 @@
 									</c:if>
 										<div class="list-title-wrapper">
 											<h5 class="list-group-item-heading">
-												<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
+												<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
 														<a href="" class="avatar-photo">
@@ -129,7 +129,7 @@
 						<!-- Q&A / 커뮤니티 -->
 						<div class="main-block">
 							<h4 class="main-header">
-								<i class="fas fa-database"></i> Q&A <a href="" class="main-more-btn pull-right"> 
+								<i class="fas fa-database"></i> Q&A <a href="<%=request.getContextPath() %>/member_qna_board_list_all.do?cate_num=1&big='menu1'&small='menu1-1'" class="main-more-btn pull-right"> 
 								<i class="fas fa-ellipsis-h"></i>
 								</a>
 							</h4>
@@ -145,7 +145,7 @@
 									</c:if>
 										<div class="list-title-wrapper">
 											<h5 class="list-group-item-heading">
-												<a href="<%=request.getContextPath() %>/member_qna_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
+												<a href="<%=request.getContextPath() %>/member_qna_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
 														<a href="" class="avatar-photo"> <img
@@ -197,7 +197,7 @@
 										</c:if>
 										<div class="list-title-wrapper">
 											<h5 class="list-group-item-heading">
-												<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
+												<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
 														<a href="" class="avatar-photo"> <img
@@ -251,7 +251,7 @@
 													</a>
 												</div>
 												<h5>
-													<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
+													<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num()}&hit='yes'">${dto.getBoard_title() }</a>
 												</h5>
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
@@ -294,9 +294,9 @@
 													<a href="" class="list-group-item-text item-tag label label-info"><i class="fas fa-quote-left"></i> ${columnCategory[status.index].getCate_name() } </a>
 												</div>
 												<h5>
-													<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
+													<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num()}&hit='yes'">${dto.getBoard_title() }</a>
 												</h5>
-												<div class="etc"><p class="main-block-desc"><a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_content() }</a></p></div>
+												<div class="etc"><p class="main-block-desc"><a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num()}&hit='yes'">${dto.getBoard_content() }</a></p></div>
 												<div class="list-group-item-author pull-right clearfix">
 													<div class="avatar clearfix avatar-x-small">
 														<a href="" class="avatar-photo"> <img src="../../images/29a87623405c294d79bd2b4728996363.png">
@@ -341,7 +341,7 @@
 											</c:if>
 											<div class="list-title-wrapper">
 												<h5 class="list-group-item-heading">
-													<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
+													<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
 													<div class="list-group-item-author pull-right clearfix">
 														<div class="avatar clearfix avatar-x-small">
 															<a href="" class="avatar-photo"> <img src="../../images/29a87623405c294d79bd2b4728996363.png">

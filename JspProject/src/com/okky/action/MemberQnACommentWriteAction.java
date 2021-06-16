@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.stream.events.Comment;
 
 import com.okky.controller.Action;
 import com.okky.controller.ActionForward;
@@ -13,9 +12,8 @@ import com.okky.model.BoardDAO;
 import com.okky.model.CommentDAO;
 import com.okky.model.CommentDTO;
 import com.okky.model.MemberDAO;
-import com.okky.model.MemberDTO;
 
-public class MemberCommentWriteAction implements Action {
+public class MemberQnACommentWriteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -42,7 +40,7 @@ public class MemberCommentWriteAction implements Action {
 			dao2.setBoardComment();
 			dao.commentUpScore(login_num);
 			forward.setRedirect(true);
-			forward.setPath("member_board_content.do?num=" + com_target + "&hit='no'");
+			forward.setPath("member_qna_board_content.do?num=" + com_target + "&hit='no'");
 		} else {
 			out.println("<script>");
 			out.println("alert('댓글 등록에 실패했습니다.')");

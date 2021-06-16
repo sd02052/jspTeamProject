@@ -133,7 +133,7 @@ public class BoardDAO {
 			sql = "select count(*) from okky_board";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				board_count = rs.getInt(1);
 			}
 
@@ -143,7 +143,7 @@ public class BoardDAO {
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, i);
 				rs = pstmt.executeQuery();
-				if (rs.next()) {
+				while (rs.next()) {
 					like_count = rs.getInt(1);
 				}
 
@@ -169,7 +169,7 @@ public class BoardDAO {
 			sql = "select count(*) from okky_board";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				board_count = rs.getInt(1);
 			}
 
@@ -179,7 +179,7 @@ public class BoardDAO {
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, i);
 				rs = pstmt.executeQuery();
-				if (rs.next()) {
+				while (rs.next()) {
 					scrap_count = rs.getInt(1);
 				}
 
@@ -1088,33 +1088,20 @@ public class BoardDAO {
 		}
 		return result;
 	}
-
-	public List<BoardDTO> getBoardLikeList(int login_mem) {
-		List<BoardDTO> list = new ArrayList<BoardDTO>();
-
+	
+	public boolean getBoardLike(int mem_num, int board_num) {
+		boolean status = false;
 		try {
 			openConn();
-
-			sql = "select * from okky_board where board_num in (select like_target from okky_like where like_writer = ? and like_flag = 1)";
+			sql = "select count(*) from okky_like where like_target = ? and like_writer = ? and like_flag = 1";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, login_mem);
+			pstmt.setInt(1, board_num);
+			pstmt.setInt(2, mem_num);
 			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				BoardDTO dto = new BoardDTO();
-				
-				dto.setBoard_num(rs.getInt("board_num"));
-				dto.setBoard_title(rs.getString("board_title"));
-				dto.setBoard_writer(rs.getInt("board_writer"));
-				dto.setBoard_content(rs.getString("board_content"));
-				dto.setBoard_hit(rs.getInt("board_hit"));
-				dto.setBoard_like(rs.getInt("board_like"));
-				dto.setBoard_scrap(rs.getInt("board_scrap"));
-				dto.setBoard_category(rs.getInt("board_category"));
-				dto.setBoard_regdate(rs.getString("board_regdate"));
-				dto.setBoard_comment(rs.getInt("board_comment"));
-				
-				list.add(dto);
+			while(rs.next()) {
+				if(rs.getInt(1) > 0) {
+					status = true;
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -1122,43 +1109,7 @@ public class BoardDAO {
 		} finally {
 			closeConn(rs, pstmt, con);
 		}
-		return list;
-	}
-
-	public List<BoardDTO> getBoardUnLikeList(int login_mem) {
-		List<BoardDTO> list = new ArrayList<BoardDTO>();
-
-		try {
-			openConn();
-
-			sql = "select * from okky_board where not board_num in (select like_target from okky_like where like_writer = ? and like_flag = 1)";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, login_mem);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				BoardDTO dto = new BoardDTO();
-				
-				dto.setBoard_num(rs.getInt("board_num"));
-				dto.setBoard_title(rs.getString("board_title"));
-				dto.setBoard_writer(rs.getInt("board_writer"));
-				dto.setBoard_content(rs.getString("board_content"));
-				dto.setBoard_hit(rs.getInt("board_hit"));
-				dto.setBoard_like(rs.getInt("board_like"));
-				dto.setBoard_scrap(rs.getInt("board_scrap"));
-				dto.setBoard_category(rs.getInt("board_category"));
-				dto.setBoard_regdate(rs.getString("board_regdate"));
-				dto.setBoard_comment(rs.getInt("board_comment"));
-				
-				list.add(dto);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			closeConn(rs, pstmt, con);
-		}
-		return list;
+		return status;
 	}
 	
 	public void update_Like(int num, int login_mem) {
@@ -1236,4 +1187,82 @@ public class BoardDAO {
 		return like;
 	}
 
+	public boolean getBoardScrap(int mem_num, int board_num) {
+		boolean status = false;
+		try {
+			openConn();
+			sql = "select count(*) from okky_like where like_target = ? and like_writer = ? and like_flag = 3";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, board_num);
+			pstmt.setInt(2, mem_num);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				if(rs.getInt(1) > 0) {
+					status = true;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return status;
+	}
+	
+	public void update_scrap(int num, int login_mem) {
+		int count = 0;
+		try {
+			openConn();
+			sql = "select count(*) from okky_like";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				count = rs.getInt(1) + 1;
+			}
+
+			sql = "insert into okky_like values(?,?,?,3)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, count);
+			pstmt.setInt(2, num);
+			pstmt.setInt(3, login_mem);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+	}
+
+	public void update_scrap_cancle(int num, int login_mem) {
+		int like_num = 0;
+		try {
+			openConn();
+			sql = "select like_num from okky_like where like_target = ? and like_writer = ? and like_flag = 3";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.setInt(2, login_mem);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				like_num = rs.getInt(1);
+			}
+
+			sql = "delete from okky_like where like_target = ? and like_writer = ? and like_flag = 3";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.setInt(2, login_mem);
+			pstmt.executeUpdate();
+
+			sql = "update okky_like set like_num = like_num - 1 where like_num > ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, like_num);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+	}
 }

@@ -8,9 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.okky.controller.Action;
 import com.okky.controller.ActionForward;
 import com.okky.model.BoardDAO;
-import com.okky.model.CommentDAO;
 
-public class MemberBoardLikeCancleAction implements Action {
+public class MemberQnABoardLikeCancleAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -22,7 +21,7 @@ public class MemberBoardLikeCancleAction implements Action {
 
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(true);
-		forward.setPath("member_board_content.do?num=" + num + "&hit='no'");
+		forward.setPath("member_qna_board_content.do?num=" + num + "&hit='no'");
 		return forward;
 	}
 

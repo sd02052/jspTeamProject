@@ -10,7 +10,7 @@ import com.okky.controller.Action;
 import com.okky.controller.ActionForward;
 import com.okky.model.CommentDAO;
 
-public class MemberCommentEditAction implements Action {
+public class MemberQnACommentEditAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -26,7 +26,7 @@ public class MemberCommentEditAction implements Action {
 
 		if (result > 0) {
 			forward.setRedirect(true);
-			forward.setPath("member_board_content.do?num=" + com_target + "&hit='no'");
+			forward.setPath("member_qna_board_content.do?num=" + com_target + "&hit='no'");
 		} else {
 			out.println("<script>");
 			out.println("alert('댓글 수정에 실패했습니다.')");

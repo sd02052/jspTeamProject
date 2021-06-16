@@ -21,27 +21,26 @@ public class Board_PostAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		System.out.println("등록 누름");
-				
-
-//		2DB에 넣는다.
-//		3DB에 잘 들어갔는지 확인을 해본다.
 		
 		BoardDTO dto = new BoardDTO();		
+		MemberDTO mdto = new MemberDTO();
 		
-//		1받은걸 확인한다.
+
 		int board_category = Integer.parseInt(request.getParameter("category").trim());	// 카테고리 
 		String board_title = request.getParameter("title").trim();			// 글 제목
 		String board_content = request.getParameter("content").trim();		// 글 내용		
+		String mem_nick = request.getParameter("mem_nick").trim();
 //		String board_write = request.getParameter("writer").trim(); 작성자		
 //		int board_writer = Integer.getInteger(request.getParameter("login_mem"));
 		
 		dto.setBoard_category(board_category);
 		dto.setBoard_title(board_title);
 		dto.setBoard_content(board_content);
+		mdto.setMem_nick(mem_nick);
 //		dto.setBoard_writer(board_writer); System.out.println(dto);
 		
 		BoardDAO dao = BoardDAO.getInstance();
-		int res = dao.getBoardPost(dto);
+		int res = dao.getBoardPost(dto, mdto);
 		
 		PrintWriter out = response.getWriter();
 		ActionForward forward = new ActionForward();

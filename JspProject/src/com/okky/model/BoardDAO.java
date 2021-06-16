@@ -731,8 +731,10 @@ public class BoardDAO {
 		return list;
 	}
 
-	public int getBoardPost(BoardDTO dto) {
+	public int getBoardPost(BoardDTO dto, MemberDTO mdto) {
 		int result = 0, board_num = 0;
+		
+		mdto.getMem_nick();
 		
 		System.out.println("1");
 		

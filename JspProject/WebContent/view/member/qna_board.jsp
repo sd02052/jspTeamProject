@@ -121,7 +121,8 @@
 								<h4>${cate.getCate_name() }</h4>
 							</div>
 							<div class="col-xs-12 col-md-4" align="right">
-								<button type="button" class="btn btn-success">
+								<button type="button" class="btn btn-success"
+								onclick="location.href='<%=request.getContextPath()%>/member_board_write.do'" >
 									<i class="fas fa-pencil-alt"></i>새 글 쓰기
 								</button>
 							</div>

@@ -147,9 +147,11 @@
 								</a>
 								</li>
 								
+								<!-- 아이디 값 받아오기 -->
+								
 								<li class="list-unstyled li1 a2">
 									<div class="text-left">
-										<span class="list-group-item-text article-id font">가나다라</span>
+										<span class="list-group-item-text article-id font">${mdto.getMem_nick() }</span>
 										<p class="span">
 											<i class="fas fa-bolt i1"></i>0
 										</p>
@@ -168,9 +170,21 @@
 										class="col-md-2 control-label"></label>
 									<div class="col-sm-8">
 										<select class="form-control" name="category">
+											
+											<!-- 각 게시판 마다 value 맞춰주기 -->
+											
 											<option>게시판을 선택해 주세요.</option>
 											<option value="2">Tech Q&A</option> 
 											<option value="3">Blockchain Q&A</option>
+											<option value="4">IT News & 정보</option>
+											<option value="5">Tips & 강좌</option>
+											<option value="6">공지사항</option>
+											<option value="7">사는얘기</option>
+											<option value="8">포럼</option>
+											<option value="9">IT 행사</option>
+											<option value="10">기술 서적 리뷰</option>
+											<option value="11">정기모임/스터디</option>
+											<option value="12">학원/홍보</option>
 										</select>
 									</div>
 								</div>
@@ -208,6 +222,9 @@
 								</div>
 								<div class="col-xs-12 col-md-8">
 									<br> <br>
+									
+									<!-- 게시판의 value에 따라 각 게시판으로 전달. -->
+									
 									<button type="submit" class="btn btn-success"	
 										
 										style="float: right;">등록</button>

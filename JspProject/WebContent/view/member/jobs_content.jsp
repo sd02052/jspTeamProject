@@ -52,7 +52,7 @@ $(document).ready(function(){
 							<div class="nav">		
 								<h4>구인</h4>
 								<button type="button" class="btn-write create btn btn-success btn-wide pull-right"
-								onclick="location.href='<%=request.getContextPath()%>/view/member/jobs_write'">
+								onclick="location.href='<%=request.getContextPath()%>/member_job_write.do'">
 								<i class="fas fa-pencil-alt"></i>새 글 쓰기</button>
 							</div>
 							

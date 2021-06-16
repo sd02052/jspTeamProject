@@ -168,34 +168,18 @@
 
 						<form class="form-inline" method="post" action="<%=request.getContextPath()%>/member_board_search.do">
 							<div class="row">
-								<c:if test="${type == 'all' }">
 									<div class="col-md-6 list-sort">
-										<a href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=${cate_num}&big=${big_category}&small=${small_category}" id="sort-date">최신순</a>
+										<a href="<%=request.getContextPath() %>/member_board_search.do?cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" id="sort-date">최신순</a>
 										&nbsp;
-										<a href="<%=request.getContextPath() %>/member_board_list_all_sort.do?sort='like'&cate_num=${cate_num}&big=${big_category}&small=${small_category}" id="sort-like">추천순</a>
+										<a href="<%=request.getContextPath() %>/member_board_search_list_sort.do?sort='like'&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" id="sort-like">추천순</a>
 										&nbsp;
-										<a href="<%=request.getContextPath() %>/member_board_list_all_sort.do?sort='comment'&cate_num=${cate_num}&big=${big_category}&small=${small_category}" id="sort-comment">댓글순</a>
+										<a href="<%=request.getContextPath() %>/member_board_search_list_sort.do?sort='comment'&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" id="sort-comment">댓글순</a>
 										&nbsp;
-										<a href="<%=request.getContextPath() %>/member_board_list_all_sort.do?sort='scrap'&cate_num=${cate_num}&big=${big_category}&small=${small_category}" id="sort-scrap">스크랩순</a>
+										<a href="<%=request.getContextPath() %>/member_board_search_list_sort.do?sort='scrap'&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" id="sort-scrap">스크랩순</a>
 										&nbsp;
-										<a href="<%=request.getContextPath() %>/member_board_list_all_sort.do?sort='hit'&cate_num=${cate_num}&big=${big_category}&small=${small_category}" id="sort-hit">조회순</a>
+										<a href="<%=request.getContextPath() %>/member_board_search_list_sort.do?sort='hit'&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" id="sort-hit">조회순</a>
 										&nbsp;
 									</div>
-								</c:if>
-								<c:if test="${type == 'detail' }">
-									<div class="col-md-6 list-sort">
-										<a href="<%=request.getContextPath() %>/member_board_list.do?cate_num=${cate_num }&big=${big_category}&small=${small_category}" id="sort-date">최신순</a>
-										&nbsp;
-										<a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort='like'&cate_num=${cate_num}&big=${big_category}&small=${small_category}" id="sort-like">추천순</a>
-										&nbsp;
-										<a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort='comment'&cate_num=${cate_num}&big=${big_category}&small=${small_category}" id="sort-comment">댓글순</a>
-										&nbsp;
-										<a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort='scrap'&cate_num=${cate_num}&big=${big_category}&small=${small_category}" id="sort-scrap">스크랩순</a>
-										&nbsp;
-										<a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort='hit'&cate_num=${cate_num}&big=${big_category}&small=${small_category}" id="sort-hit">조회순</a>
-										&nbsp;
-									</div>
-								</c:if>
 								<div class="col-md-6" align="right">
 									<div class="form-group">
 										<label class="sr-only" for="exampleInputAmount"></label>
@@ -205,12 +189,18 @@
 											<input type="hidden" name="small" value="${small_category }">
 											<input type="hidden" name="cate_group" value="${cate.getCate_group() }">
 											<input type="hidden" name="cate_step" value="${cate.getCate_step() }">
-											<input type="search" class="form-control" id="search-field" name="data" placeholder="검색어">
-											<span class="input-group-addon">
-												<button type="submit" class="btn btn-link btn-xs">
+											<input type="search" class="form-control" id="search-field" name="data" placeholder="${data }">
+											
+											<span class="input-group-btn">
+												<button type="submit" class="search-btn2 btn btn-default">
 													<i class="fas fa-search"></i>
 												</button>
 											</span>
+											<span class="input-group-btn">
+											<button type="button" class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/member_board_list_all.do?cate_num=${cate_num}&big=${big_category}&small=${small_category}'">
+												<i class="fas fa-times-circle"></i>&nbsp;clear
+											</button>
+										</span>
 										</div>
 										
 									</div>
@@ -301,17 +291,17 @@
 							    
 							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
 								    <c:if test="${i == page }">
-								   		<li class="active"><a href="member_board_list_all.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }">${i }</a></li>
+								   		<li class="active"><a href="member_board_search.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }">${i }</a></li>
 								    </c:if>
 								    
 								    <c:if test="${i != page }">
-									    <li><a href="member_board_list_all.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }">${i }</a></li>
+									    <li><a href="member_board_search.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }">${i }</a></li>
 								    </c:if>
 							    </c:forEach>
 							    
 							    <c:if test="${page < allPage }">
 								    <li>
-								      <a href="member_board_list_all.do?page=${allPage }&cate_num=${cate_num }&big=${big_category }&small=${small_category }" aria-label="Next">
+								      <a href="member_board_search.do?page=${allPage }&cate_num=${cate_num }&big=${big_category }&small=${small_category }" aria-label="Next">
 								        <span aria-hidden="true">&raquo;</span>
 								      </a>
 								    </li>
@@ -339,7 +329,7 @@
 							  
 							  <c:if test="${page > 1 }">
 								    <li>
-								      <a href="member_board_list.do?page=1&cate_num=${cate_num }&big=${big_category }&small=${small_category }" aria-label="Previous">
+								      <a href="member_board_search.do?page=1&cate_num=${cate_num }&big=${big_category }&small=${small_category }" aria-label="Previous">
 								        <span aria-hidden="true">&laquo;</span>
 								      </a>
 								    </li>
@@ -355,17 +345,17 @@
 							    
 							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
 								    <c:if test="${i == page }">
-								   		<li class="active"><a href="member_board_list.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }">${i }</a></li>
+								   		<li class="active"><a href="member_board_search.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }">${i }</a></li>
 								    </c:if>
 								    
 								    <c:if test="${i != page }">
-									    <li><a href="member_board_list.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }">${i }</a></li>
+									    <li><a href="member_board_search.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }">${i }</a></li>
 								    </c:if>
 							    </c:forEach>
 							    
 							    <c:if test="${page < allPage }">
 								    <li>
-								      <a href="member_board_list.do?page=${allPage }&cate_num=${cate_num }&big=${big_category }&small=${small_category }" aria-label="Next">
+								      <a href="member_board_search.do?page=${allPage }&cate_num=${cate_num }&big=${big_category }&small=${small_category }" aria-label="Next">
 								        <span aria-hidden="true">&raquo;</span>
 								      </a>
 								    </li>

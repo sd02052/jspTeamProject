@@ -16,7 +16,7 @@ import com.okky.model.CategoryDTO;
 import com.okky.model.CommentDAO;
 import com.okky.model.MemberDTO;
 
-public class MemberQnASearchAction implements Action {
+public class MemberBoardSearchAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -25,7 +25,7 @@ public class MemberQnASearchAction implements Action {
 		String big_category = request.getParameter("big").trim();
 		String small_category = request.getParameter("small").trim();
 
-		String sort = "date";
+		String sort = "'date'";
 		String type = "";
 
 		int cate_group = Integer.parseInt(request.getParameter("cate_group").trim());
@@ -113,7 +113,7 @@ public class MemberQnASearchAction implements Action {
 
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);
-		forward.setPath("view/member/qna_search_list.jsp");
+		forward.setPath("view/member/board_search_list.jsp");
 
 		return forward;
 	}

@@ -153,9 +153,9 @@
 				</a>
 				<div id="demo1" class="collapse">
 					<ul>
-						<li><a id="menu1-1" href="<%=request.getContextPath() %>/member_qna_board_list_all.do?cate_num=1&big='menu1'&small='menu1-1'">All</a></li>
-						<li><a id="menu1-2" href="<%=request.getContextPath() %>/member_qna_board_list.do?cate_num=2&big='menu1'&small='menu1-2'">Tech Q&A</a></li>
-						<li><a id="menu1-3" href="<%=request.getContextPath() %>/member_qna_board_list.do?cate_num=3&big='menu1'&small='menu1-3'">Blockchain Q&A</a></li>
+						<li><a id="menu1-1" href="<%=request.getContextPath() %>/member_qna_board_list.do?cate_num=1&big='menu1'&small='menu1-1'&cate_group=1&cate_step=0">All</a></li>
+						<li><a id="menu1-2" href="<%=request.getContextPath() %>/member_qna_board_list.do?cate_num=2&big='menu1'&small='menu1-2'&cate_group=1&cate_step=1">Tech Q&A</a></li>
+						<li><a id="menu1-3" href="<%=request.getContextPath() %>/member_qna_board_list.do?cate_num=3&big='menu1'&small='menu1-3'&cate_group=1&cate_step=2">Blockchain Q&A</a></li>
 					</ul>
 				</div>
 			</li>

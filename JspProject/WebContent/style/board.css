@@ -71,3 +71,17 @@
 .uncommented {
 	border-left: 3px #ddd solid !important;
 }
+
+.selected {
+	border-left: 3px #2ca526 solid !important;
+}
+
+.search-btn2 {
+	border:  1px solid #ededed;
+	border-radius: 0;
+}
+
+.search-btn {
+	height: 34px;
+}
+

@@ -23,7 +23,13 @@ public class MemberQnABoardListAllAction implements Action {
 		int cate_num = Integer.parseInt(request.getParameter("cate_num").trim());
 		String big_category = request.getParameter("big").trim();
 		String small_category = request.getParameter("small").trim();
-		String sort = "'date'";
+		int cate_group = Integer.parseInt(request.getParameter("cate_group"));
+		int cate_step = Integer.parseInt(request.getParameter("cate_step"));
+		
+		System.out.println("cate_group >> " + cate_group);
+		System.out.println("cate_step >> " + cate_step);
+		
+		String sort = "date";
 		BoardDAO dao1 = BoardDAO.getInstance();
 		CommentDAO comDAO = CommentDAO.getInstance();
 
@@ -47,7 +53,7 @@ public class MemberQnABoardListAllAction implements Action {
 		int endBlock = (((page - 1) / block) * block) + block;
 
 		// 전체 게시글 수를 조회하는 메서드
-		totalRecord = dao1.getBoardListCount(cate_num);
+		totalRecord = dao1.getBoardListAllCount(cate_num);
 
 		allPage = (int) (Math.ceil(totalRecord / (double) rowsize));
 
@@ -62,7 +68,6 @@ public class MemberQnABoardListAllAction implements Action {
 		List<BoardDTO> list = dao1.getBoardListAll(cate_num, startNo, endNo);
 		List<MemberDTO> list2 = dao1.getMemberList(list);
 		List<CategoryDTO> list3 = dao1.getCategoryAllList(list);
-		List<CommentDTO> comList = comDAO.getCommentList(list);
 		List<Integer> selectList = comDAO.getSelectedList(list);	// 채택된 답변이 있는지 조회하는 메서드
 
 		CategoryDAO dao2 = CategoryDAO.getInstance();
@@ -74,7 +79,6 @@ public class MemberQnABoardListAllAction implements Action {
 		request.setAttribute("boardList", list);
 		request.setAttribute("memberList", list2);
 		request.setAttribute("categoryList", list3);
-		request.setAttribute("comList", comList);
 		request.setAttribute("selectList", selectList);
 		
 		request.setAttribute("category", category);
@@ -83,6 +87,8 @@ public class MemberQnABoardListAllAction implements Action {
 		request.setAttribute("small_category", small_category);
 		request.setAttribute("type", type);
 		request.setAttribute("sort", sort);
+		request.setAttribute("cate_group", cate_group);
+		request.setAttribute("cate_step", cate_step);
 		
 		request.setAttribute("page", page);
 		request.setAttribute("rowsize", rowsize);

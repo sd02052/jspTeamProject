@@ -10,19 +10,22 @@ import com.okky.controller.Action;
 import com.okky.controller.ActionForward;
 import com.okky.model.BoardDAO;
 import com.okky.model.BoardDTO;
-import com.okky.model.CategoryDAO;
-import com.okky.model.CategoryDTO;
-import com.okky.model.MemberDTO;
+import com.okky.model.CompanyDAO;
+import com.okky.model.CompanyDTO;
+import com.okky.model.JobDAO;
+import com.okky.model.JobDTO;
 
-public class MemberBoardListAllAction implements Action {
+public class CompanyContAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		int cate_num = Integer.parseInt(request.getParameter("cate_num"));
-		String big_category = request.getParameter("big").trim();
-		String small_category = request.getParameter("small").trim();
-		String sort = "'date'";
-		BoardDAO dao1 = BoardDAO.getInstance();
+
+		int com_num = Integer.parseInt(request.getParameter("com_num").trim());
+		int mem_num = Integer.parseInt(request.getParameter("mem_num").trim());
+
+		CompanyDAO companyDAO = CompanyDAO.getInstance();
+		JobDAO jobDAO = JobDAO.getInstance();
+		BoardDAO boardDAO = BoardDAO.getInstance();
 
 		// 페이징 작업
 		int rowsize = 10; // 한 페이지당 보여질 게시물의 수
@@ -43,8 +46,8 @@ public class MemberBoardListAllAction implements Action {
 		int startBlock = (((page - 1) / block) * block) + 1;
 		int endBlock = (((page - 1) / block) * block) + block;
 
-		// 전체 게시글 수를 조회하는 메서드
-		totalRecord = dao1.getBoardListCount(cate_num);
+		// 카테고리에 맞는 전체 게시글 수를 조회하는 메서드
+		totalRecord = jobDAO.getCompanyJobCount(com_num);
 
 		allPage = (int) (Math.ceil(totalRecord / (double) rowsize));
 
@@ -52,29 +55,14 @@ public class MemberBoardListAllAction implements Action {
 			endBlock = allPage;
 		}
 
-		dao1.setBoardLike();
-		dao1.setBoardScrap();
-		dao1.setBoardComment();
+		CompanyDTO dto = companyDAO.getCompanyList(com_num);
+		List<JobDTO> jobList = jobDAO.getCompanyJobList(mem_num, startNo, endNo);
+		List<BoardDTO> boardList = boardDAO.getJobBoardList(jobList);
 
-		List<BoardDTO> list = dao1.getBoardListAll(cate_num, startNo, endNo);
-		List<MemberDTO> list2 = dao1.getMemberList(list);
-		List<CategoryDTO> list3 = dao1.getCategoryAllList(list);
-
-		CategoryDAO dao2 = CategoryDAO.getInstance();
-
-		CategoryDTO category = dao2.getCategoryAll(cate_num);
-
-		String type = "all";
-		
-		request.setAttribute("boardList", list);
-		request.setAttribute("memberList", list2);
-		request.setAttribute("categoryList", list3);
-		request.setAttribute("category", category);
-		request.setAttribute("cate_num", cate_num);
-		request.setAttribute("big_category", big_category);
-		request.setAttribute("small_category", small_category);
-		request.setAttribute("type", type);
-		request.setAttribute("sort", sort);
+		request.setAttribute("comDTO", dto);
+		request.setAttribute("jobList", jobList);
+		request.setAttribute("boardList", boardList);
+		request.setAttribute("mem_num", mem_num);
 		
 		request.setAttribute("page", page);
 		request.setAttribute("rowsize", rowsize);
@@ -88,7 +76,7 @@ public class MemberBoardListAllAction implements Action {
 
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);
-		forward.setPath("view/member/board.jsp");
+		forward.setPath("view/member/company_content.jsp");
 
 		return forward;
 	}

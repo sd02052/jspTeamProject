@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OKKY - 회사인증관리</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/admin.css">
@@ -34,6 +35,19 @@
 }
 
 </style>
+<script type="text/javascript">
+
+function fnImgPop(url){
+	  var img=new Image();
+	  img.src=url;
+	  var img_width=img.width;
+	  var win_width=img.width+25;
+	  var img_height=img.height;
+	  var win=img.height+30;
+	  var OpenWindow=window.open('','_blank', 'width='+img_width+', height='+img_height+', menubars=no, scrollbars=auto');
+	  OpenWindow.document.write("<style>body{margin:0px;}</style><img src='"+url+"' width='"+win_width+"'>");
+	 }
+</script>
 </head>
 <body>
 
@@ -62,7 +76,7 @@
 										<div class="cont-member">			
 													<div>
 														<a href="<%=request.getContextPath()%>/member_personal.do?num=${memList.getMem_num() }">
-															<img src="<%=request.getContextPath() %>/images/profile/${memList.getMem_image() }" class="cont-mem-logo img-circle"></a>
+															<img src="<%=request.getContextPath() %>/images/profileUpload/${memList.getMem_image() }" class="cont-mem-logo img-circle"></a>
 														
 														<div class="cont-mem-info">
 															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${memList.getMem_num() }">${memList.getMem_nick() }</a><br>
@@ -77,19 +91,8 @@
 										<div class="row">						
 											<div class="col-xs-10">
 												<p class="cont-num">#&nbsp;${comDTO.getCompany_num() }</p>
-													<div class="col-xs-11">
-														<p class="cont-title">${comDTO.getCompany_name() }</p>
-													</div>
-													<div class="col-xs-1">
-														<c:if test="${comDTO.getCompany_check() eq 0 }">
-															<span class="badge badge-waitting">대기</span> 
-														</c:if>
-														<c:if test="${comDTO.getCompany_check() eq 1 }">
-															<span class="badge badge-success">승인</span> 
-														</c:if>
-														<c:if test="${comDTO.getCompany_check() eq 2 }">
-															<span class="badge badge-reject">거절</span> 
-														</c:if>
+													<div class="col-xs-11"><a href="<%=request.getContextPath()%>/member_company_cont.do?com_num=${comDTO.getCompany_num() }&mem_num=${memList.getMem_num() }">
+														<p class="cont-title">${comDTO.getCompany_name() }</p></a>
 													</div>
 											
 													<div class="col-xs-12">
@@ -144,10 +147,10 @@
 															
 															<tr>
 																<td colspan="3">
-																	<img class="com-logo" src="image">
+																	<img class="com-logo" src="<%=request.getContextPath() %>/images/company/${comDTO.getCompany_logo() }" onclick="fnImgPop(this.src)">
 																</td>
 																<td colspan="3">
-																	<img class="com-regist" src="img">
+																	<img class="com-regist" src="<%=request.getContextPath() %>/images/company/${comDTO.getCompany_license_image() }" onclick="fnImgPop(this.src)">
 																</td>
 															</tr>
 														</table>

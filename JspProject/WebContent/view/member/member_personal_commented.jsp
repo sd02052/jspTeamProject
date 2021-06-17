@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OKKY - All That Developer</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/member_personal.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
@@ -56,9 +57,9 @@
 				
 				        <div class="col-sm-2 user-info-nav pull-right"> <!-- activity Check -->
 				            <ul class="nav">
-				               <li><a href="<%=request.getContextPath()%>/member_personal.do?page=${page }&num=${memDTO.getMem_num() }">게시물&nbsp;<span class="badge badge-muted"><c:if test="${totalRecord_board > 0 }">${totalRecord_board }</c:if></span></a></li>
-				                <li class="selected"><a href="<%=request.getContextPath()%>/member_personal_commented.do?page=${page }&num=${memDTO.getMem_num() }">댓글&nbsp;<span class="badge badge-muted"><c:if test="${totalRecord_com > 0 }">${totalRecord_com }</c:if></span></a></li>
-				                <li><a href="<%=request.getContextPath()%>/member_personal_scrapped.do?page=${page }&num=${memDTO.getMem_num() }">스크랩&nbsp;<span class="badge badge-muted"><c:if test="${totalRecord_scrap > 0 }">${totalRecord_scrap }</c:if></span></a></li>
+				               <li><a href="<%=request.getContextPath()%>/member_personal.do?num=${memDTO.getMem_num() }">게시물&nbsp;<span class="badge badge-muted"><c:if test="${totalRecord_board > 0 }">${totalRecord_board }</c:if></span></a></li>
+				                <li class="selected"><a href="<%=request.getContextPath()%>/member_personal_commented.do?num=${memDTO.getMem_num() }">댓글&nbsp;<span class="badge badge-muted"><c:if test="${totalRecord_com > 0 }">${totalRecord_com }</c:if></span></a></li>
+				                <li><a href="<%=request.getContextPath()%>/member_personal_scrapped.do?num=${memDTO.getMem_num() }">스크랩&nbsp;<span class="badge badge-muted"><c:if test="${totalRecord_scrap > 0 }">${totalRecord_scrap }</c:if></span></a></li>
 				            </ul>
 				        </div> <!-- /activity Check-->
 				
@@ -80,10 +81,10 @@
 				                            	
 				                            	<c:choose>
 					                        		<c:when test="${cbList[status.index].getBoard_category() eq 1 || cbList[status.index].getBoard_category() eq 2 || cbList[status.index].getBoard_category() eq 3 }">
-					                        			<a href="<%=request.getContextPath()%>/member_qna_board_content.do?num=${cbList[status.index].getBoard_num() }">${cbList[status.index].getBoard_title() }</a>
+					                        			<a href="<%=request.getContextPath()%>/member_qna_board_content.do?num=${cbList[status.index].getBoard_num() }&hit='yes'">${cbList[status.index].getBoard_title() }</a>
 					                        		</c:when>
 					                        		<c:otherwise>
-					                        			<a href="<%=request.getContextPath()%>/member_board_content.do?num=${cbList[status.index].getBoard_num() }">${cbList[status.index].getBoard_title() }</a>
+					                        			<a href="<%=request.getContextPath()%>/member_board_content.do?num=${cbList[status.index].getBoard_num() }&hit='yes'">${cbList[status.index].getBoard_title() }</a>
 					                        		</c:otherwise>
 				                        		</c:choose>
 				                            	게시글에 댓글을 남겼습니다.</span></span>

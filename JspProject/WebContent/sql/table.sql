@@ -1,9 +1,3 @@
-create table okky_admin(
-    admin_num number(3) primary key,		-- 관리자 번호
-    admin_id varchar2(50) not null,			-- 관리자 아이디
-    admin_pwd varchar2(50) not null			-- 관리자 비밀번호
-);
-
 create table okky_member(
     mem_num number(5) primary key,				-- 회원 번호
     mem_id varchar2(50) not null,				-- 회원 아이디

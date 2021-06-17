@@ -13,16 +13,17 @@ public class MemberCommentLikeCancleAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		int num = Integer.parseInt(request.getParameter("com_num"));
+		int com_num = Integer.parseInt(request.getParameter("com_num"));
+		int board_num = Integer.parseInt(request.getParameter("board_num"));
 		int login_mem = Integer.parseInt(request.getParameter("login_num"));
 		CommentDAO dao = CommentDAO.getInstance();
-		
-		dao.update_Like_cancle(num, login_mem);
-		dao.setCommentLike();
-		int like = dao.select_Like(num);
-		response.getWriter().print(like);
-			
-		return null;
+
+		dao.update_Like_cancle(com_num, login_mem);
+
+		ActionForward forward = new ActionForward();
+		forward.setRedirect(true);
+		forward.setPath("member_board_content.do?num=" + board_num + "&hit='no'");
+		return forward;
 	}
 
 }

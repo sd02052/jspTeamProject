@@ -6,8 +6,8 @@
 }
 
 /* 회사 목록 */
-.com-list{
-	text-align: center;	
+.com-list {
+	text-align: center;
 }
 
 /* 회원 목록 */
@@ -18,7 +18,7 @@
 /* 회사 목록 타이틀 */
 .com-list-title {
 	text-align: center;
-	font-weight: bold;		
+	font-weight: bold;
 }
 
 /* 회사 목록 타이틀 */
@@ -41,12 +41,17 @@
 .mem_logo {
 	width: 32px;
 	height: 32px;
+	border: 1px solid #ededed;
+	border-radius: 50%;
+	overflow: hidden;
 }
 
 /* 리스트 - 회사 로고 */
 .list_company_logo {
 	width: 32px;
-	height: 32px;	
+	height: 32px;
+	border: 1px solid #ededed;
+	overflow: hidden;
 }
 
 /* 글번호 */
@@ -74,12 +79,17 @@
 .com-logo {
 	width: 150px;
 	height: 150px;
+	border: 1px solid #ededed;
+	overflow: hidden;
+	cursor: pointer;
 }
 
 /* 회사 사업자등록증 */
 .com-regist {
 	width: 300px;
 	height: 150px;
+	overflow: hidden;
+	cursor: pointer;
 }
 
 /* 회사 인증 결정 버튼 */
@@ -87,13 +97,13 @@
 	margin-left: 30px;
 }
 
-
-
 /* 게시글 상세내용 - 회원 프로필 이미지 */
 .cont-mem-logo {
 	display: inline-block;
 	width: 32px;
 	height: 32px;
+	border: 1px solid #ededed;
+	overflow: hidden;
 }
 
 /* 게시글 상세내용 - 회사 프로필 이미지 */
@@ -102,6 +112,7 @@
 	width: 32px;
 	height: 32px;
 	border: 1px solid #EEE;
+	overflow: hidden;
 }
 
 /* 회원 정보(닉네임&활동점수&작성일자) */
@@ -155,3 +166,19 @@
 	border-radius: 0;
 }
 
+.check-btn1, .check-btn2 {
+	border-radius: 0;
+	display: inline-block;
+    font-size: 14px;
+    touch-action: manipulation;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.check-btn1 {
+	width: 235.5px;
+}
+
+.check-btn2 {
+	width: 162.27px;
+}

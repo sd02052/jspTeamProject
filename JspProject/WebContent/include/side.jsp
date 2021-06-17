@@ -1,5 +1,3 @@
-<%@page import="com.okky.model.AdminDAO"%>
-<%@page import="com.okky.model.AdminDTO"%>
 <%@page import="com.okky.model.MemberDAO"%>
 <%@page import="com.okky.model.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -15,7 +13,7 @@
 	int loginUser = 0;
 	String loginType = null;
 	MemberDTO dto1 = null;
-	AdminDTO dto2 = null;
+	MemberDTO dto2 = null;
 
 	if (session.getAttribute("loginNum") != null) {
 		loginUser = (int) session.getAttribute("loginNum");
@@ -40,9 +38,9 @@
 </script>
 <%
 	} else if (loginType.equals("admin")) { // 관리자일때
-			AdminDAO dao = AdminDAO.getInstance();
-			dto2 = new AdminDTO();
-			dto2 = dao.getAdmin(loginUser);
+			MemberDAO dao = MemberDAO.getInstance();
+			dto2 = new MemberDTO();
+			dto2 = dao.getMember(loginUser);
 %>
 <script type="text/javascript">
 	$(function() {
@@ -86,9 +84,9 @@
 				</a>
 			</li>
 		</ul>
-		<form id="search-google-form" class="nav-sidebar-form" action="https://www.google.com/search">
+		<form id="search-google-form" class="nav-sidebar-form" action="https://www.google.com/search?q" target="_blank">
 			<div class="input-group">
-				<input type="text" class="form-control input-sm" placeholder="Google 검색">
+				<input type="text" class="form-control input-sm" placeholder="Google 검색" name="q">
 				<span class="input-group-btn">
 					<button class="btn btn-default btn-sm" type="submit">
 						<i class="fa fa-search"></i>
@@ -126,9 +124,9 @@
 						</div>
 					</div>
 					<%} else if(dto2 != null){%> <!-- 관리자로 로그인 후 -->
-					<a href="#" class="avatar-photo"><img src="<%=request.getContextPath() %>/images/29a87623405c294d79bd2b4728996363.png"></a>
+					<a href="<%=request.getContextPath()%>/member_personal.do?num=<%=dto2.getMem_num() %>" class="avatar-photo"><img src="<%=imgPath %><%=dto2.getMem_image() %>"></a>
 					<div class="avatar-info">
-						<a class="nickname" href="/user/info/121432"><%=dto2.getAdmin_id() %></a>
+						<a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=<%=dto2.getMem_num() %>"><%=dto2.getMem_nick() %></a>
 					</div>
 					<%} %>
 				</div>
@@ -156,9 +154,9 @@
 				</a>
 				<div id="demo1" class="collapse">
 					<ul>
-						<li><a id="menu1-1" href="<%=request.getContextPath() %>/member_qna_board_list_all.do?cate_num=1&big='menu1'&small='menu1-1'">All</a></li>
-						<li><a id="menu1-2" href="<%=request.getContextPath() %>/member_qna_board_list.do?cate_num=2&big='menu1'&small='menu1-2'">Tech Q&A</a></li>
-						<li><a id="menu1-3" href="<%=request.getContextPath() %>/member_qna_board_list.do?cate_num=3&big='menu1'&small='menu1-3'">Blockchain Q&A</a></li>
+						<li><a id="menu1-1" href="<%=request.getContextPath() %>/member_qna_board_list.do?cate_num=1&big='menu1'&small='menu1-1'&cate_group=1&cate_step=0">All</a></li>
+						<li><a id="menu1-2" href="<%=request.getContextPath() %>/member_qna_board_list.do?cate_num=2&big='menu1'&small='menu1-2'&cate_group=1&cate_step=1">Tech Q&A</a></li>
+						<li><a id="menu1-3" href="<%=request.getContextPath() %>/member_qna_board_list.do?cate_num=3&big='menu1'&small='menu1-3'&cate_group=1&cate_step=2">Blockchain Q&A</a></li>
 					</ul>
 				</div>
 			</li>
@@ -169,9 +167,9 @@
 				</a>
 				<div id="demo2" class="collapse">
 					<ul>
-						<li><a id="menu2-1" href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=2&big='menu2'&small='menu2-1'">All</a></li>
-						<li><a id="menu2-2" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=5&big='menu2'&small='menu2-2'">IT News & 정보</a></li>
-						<li><a id="menu2-3" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=6&big='menu2'&small='menu2-3'">Tips & 강좌</a></li>
+						<li><a id="menu2-1" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=2&big='menu2'&small='menu2-1'&cate_group=2&cate_step=0">All</a></li>
+						<li><a id="menu2-2" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=5&big='menu2'&small='menu2-2'&cate_group=2&cate_step=1">IT News & 정보</a></li>
+						<li><a id="menu2-3" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=6&big='menu2'&small='menu2-3'&cate_group=2&cate_step=2">Tips & 강좌</a></li>
 					</ul>
 				</div>
 			</li>
@@ -182,14 +180,14 @@
 				</a>
 				<div id="demo3" class="collapse">
 					<ul>
-						<li><a id="menu3-1" href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=3&big='menu3'&small='menu3-1'">All</a></li>
-						<li><a id="menu3-2" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=8&big='menu3'&small='menu3-2'">공지사항</a></li>
-						<li><a id="menu3-3" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=9&big='menu3'&small='menu3-3'">사는얘기</a></li>
-						<li><a id="menu3-4" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=10&big='menu3'&small='menu3-4'">포럼</a></li>
-						<li><a id="menu3-5" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=11&big='menu3'&small='menu3-5'">IT 행사</a></li>
-						<li><a id="menu3-6" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=12&big='menu3'&small='menu3-6'">기술 서적 리뷰</a></li>
-						<li><a id="menu3-7" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=13&big='menu3'&small='menu3-7'">정기모임/스터디</a></li>
-						<li><a id="menu3-8" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=14&big='menu3'&small='menu3-8'">학원/홍보</a></li>
+						<li><a id="menu3-1" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=3&big='menu3'&small='menu3-1'&cate_group=3&cate_step=0">All</a></li>
+						<li><a id="menu3-2" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=8&big='menu3'&small='menu3-2'&cate_group=3&cate_step=1">공지사항</a></li>
+						<li><a id="menu3-3" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=9&big='menu3'&small='menu3-3'&cate_group=3&cate_step=2">사는얘기</a></li>
+						<li><a id="menu3-4" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=10&big='menu3'&small='menu3-4'&cate_group=3&cate_step=3">포럼</a></li>
+						<li><a id="menu3-5" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=11&big='menu3'&small='menu3-5'&cate_group=3&cate_step=4">IT 행사</a></li>
+						<li><a id="menu3-6" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=12&big='menu3'&small='menu3-6'&cate_group=3&cate_step=5">기술 서적 리뷰</a></li>
+						<li><a id="menu3-7" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=13&big='menu3'&small='menu3-7'&cate_group=3&cate_step=6">정기모임/스터디</a></li>
+						<li><a id="menu3-8" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=14&big='menu3'&small='menu3-8'&cate_group=3&cate_step=7">학원/홍보</a></li>
 					</ul>
 				</div>
 			</li>
@@ -200,7 +198,7 @@
 				</a>
 				<div id="demo4" class="collapse">
 					<ul>
-						<li><a id="menu4-1" href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=4&big='menu4'&small='menu4-1'">All</a></li>
+						<li><a id="menu4-1" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=15&big='menu4'&small='menu4-1'&cate_group=4&cate_step=1">All</a></li>
 					</ul>
 				</div>
 			</li>
@@ -280,9 +278,9 @@
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse" id="navbar-collapse">
-				<form id="search-google-form" class="nav-sidebar-form" action="https://www.google.com/search">
+				<form id="search-google-form" class="nav-sidebar-form" action="https://www.google.com/search?q" target="_blank">
 					<div class="input-group">
-						<input type="text" class="form-control input-sm" placeholder="Google 검색">
+						<input type="text" class="form-control input-sm" placeholder="Google 검색" name="q">
 						<span class="input-group-btn">
 							<button class="btn btn-default btn-sm" type="submit">
 								<i class="fa fa-search"></i>

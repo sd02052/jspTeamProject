@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OKKY - 회사인증관리</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/admin.css">
@@ -16,6 +17,17 @@ $(function(){
 	$("#menu6").css("border-right","5px solid #e67d3e");
 	$("#menu6-2").css("color","#fff");
 });
+
+function check() {
+	var result = $("#field option:selected").val();
+	if(result == "check"){
+		$(".search-text").css("display", "none");
+		$(".check-list").css("display", "block");
+	}else {
+		$(".search-text").css("display", "block");
+		$(".check-list").css("display", "none");
+	}
+};
 </script>
 <style type="text/css">
 
@@ -60,14 +72,21 @@ $(function(){
 								<form method="post" action="<%=request.getContextPath() %>/search_verify.do" class="from-control">				
 									<div class="input-group">
 										<span class="input-group-btn">
-											<select name="field" class="search-btn btn btn-default dropdown-toggle">	
+											<select id="field" name="field" class="search-btn btn btn-default dropdown-toggle" onchange="check(this)">	
 												<option value="all">-전체검색-</option>
 												<option value="name">회사명</option>
 												<option value="nick">등록회원</option>
 												<option value="check">상태</option>
 											</select>
 										</span>
-										<input type="text" class="form-control" name="data" placeholder="검색어" aria-describedby="basic-addon2">
+										<span class="check-list search-list input-group-btn" style="display:none;">
+											<select name="check_data" class="check-btn1 search-btn btn-default dropdown-toggle">
+												<option value="0">대기</option>
+												<option value="1">승인</option>
+												<option value="2">거절</option>
+											</select>
+										</span>
+										<input type="text" class="search-text form-control" name="data" placeholder="검색어" aria-describedby="basic-addon2">
 										<span class="input-group-btn">
 											<button type="submit" class="btn btn-default">
 												<i class="fas fa-search"></i>
@@ -104,13 +123,16 @@ $(function(){
 										<li class="admin-verify-list-li list-group-item list-group-item-question list-group-has-note clearfix">
 											<div class="col-xs-1 margin-auto">${comDTO.getCompany_num() }</div>				
 											<div class="col-xs-3 margin-auto">
+												<a href="<%=request.getContextPath() %>/admin_verify_cont.do?num=${comDTO.getCompany_num() }">
+													<img class="cont-mem-logo" src="<%=request.getContextPath() %>/images/company/${comDTO.getCompany_logo() }">
+												</a>
 												<a href="<%=request.getContextPath() %>/admin_verify_cont.do?num=${comDTO.getCompany_num() }">${comDTO.getCompany_name() }</a>
 											</div>		
 											<div class="col-xs-2 margin-auto">${comDTO.getCompany_license_num() }</div>		
 												<div class="cont-member col-xs-3 margin-auto">			
 													<div>
 														<a href="<%=request.getContextPath()%>/member_personal.do?num=${memList[status.index].getMem_num() }">
-															<img src="<%=request.getContextPath() %>/images/profile/${memList[status.index].getMem_image() }" class="cont-mem-logo img-circle"></a>
+															<img src="<%=request.getContextPath() %>/images/profileUpload/${memList[status.index].getMem_image() }" class="cont-mem-logo img-circle"></a>
 															
 														
 														<div class="cont-mem-info">

@@ -68,7 +68,7 @@ public class JobDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void setBoardLike() {
 		int board_count = 0;
 		try {
@@ -287,24 +287,22 @@ public class JobDAO {
 
 	public int getBoardPost(BoardDTO dto) {
 		int result = 0, board_num = 0;
-		
+
 		System.out.println("1");
-		
+
 		try {
-			openConn();			
+			openConn();
 			sql = "select max(board_num) from okky_board";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-		
 
-			if(rs.next()) {
+			if (rs.next()) {
 				board_num = rs.getInt(1) + 1;
 			}
-			
+
 			System.out.println("2");
 			// (select nvl(max(board_num), 0) + 1 from okky_board 최대숫자 +1
-			sql = "insert into okky_board "
-					+ "(board_num, board_title, board_writer, "
+			sql = "insert into okky_board " + "(board_num, board_title, board_writer, "
 					+ "board_content, board_category, board_regdate) "
 					+ "values ((select nvl(max(board_num), 0) + 1 from okky_board),?,?,?,?,SYSDATE)";
 			System.out.println("3");
@@ -317,12 +315,14 @@ public class JobDAO {
 			pstmt.setString(3, dto.getBoard_content());
 			System.out.println("d");
 			pstmt.setInt(4, dto.getBoard_category());
-			System.out.println("4");			
-			
-				result = pstmt.executeUpdate();
-				System.out.println("result 값  : " + result);
-			System.out.println("5");			
-				rs.close(); pstmt.close(); con.close();
+			System.out.println("4");
+
+			result = pstmt.executeUpdate();
+			System.out.println("result 값  : " + result);
+			System.out.println("5");
+			rs.close();
+			pstmt.close();
+			con.close();
 
 		} catch (SQLException e) {
 			// TODO: handle exception
@@ -331,7 +331,68 @@ public class JobDAO {
 		return result;
 	}
 
+	// 특정 회사가 작성한 게시물을 조회하는 메서드
+	public List<JobDTO> getCompanyJobList(int target, int startNo, int endNo) {
+		List<JobDTO> list = new ArrayList<>();
 
+		try {
+			openConn();
+			sql = "select * from (select row_number() over(order by job_target desc) rnum, j.* from okky_job j "
+					+ "where job_target in (select board_num from okky_board where board_writer = ?)) "
+					+ "where rnum >= ? and rnum <= ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, target);
+			pstmt.setInt(2, startNo);
+			pstmt.setInt(3, endNo);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				JobDTO dto = new JobDTO();
+				
+				dto.setJob_num(rs.getInt("job_num"));
+				dto.setJob_target(rs.getInt("job_target"));
+				dto.setJob_contract(rs.getInt("job_contract"));
+				dto.setJob_mincost(rs.getInt("job_mincost"));
+				dto.setJob_maxcost(rs.getInt("job_maxcost"));
+				dto.setJob_location(rs.getString("job_location"));
+				dto.setJob_do(rs.getString("job_do"));
+				dto.setJob_mincareer(rs.getInt("job_mincareer"));
+				dto.setJob_maxcareer(rs.getInt("job_maxcareer"));
+				
+				list.add(dto);
+			}
 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+	}
 	
+	// 특정회사가 작성한 전체 구인 게시글 수를 조회하는 메서드
+	public int getCompanyJobCount(int com_num) {
+		int count = 0;
+		
+		try {
+			openConn();
+			sql = "select count(*) from okky_job where job_target in (select board_num from okky_board where board_writer = ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, com_num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+		return count;
+	}
+
 }

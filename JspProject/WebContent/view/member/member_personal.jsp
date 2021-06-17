@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OKKY - All That Developer</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/member_personal.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
@@ -57,9 +58,9 @@
 				
 				        <div class="col-sm-2 user-info-nav pull-right"> <!-- activity Check -->
 				            <ul class="nav">
-				                <li class="selected"><a href="<%=request.getContextPath()%>/member_personal.do?page=${page }&num=${memDTO.getMem_num() }">게시물&nbsp;<span class="badge badge-muted"><c:if test="${totalRecord_board > 0 }">${totalRecord_board }</c:if></span></a></li>
-				                <li><a href="<%=request.getContextPath()%>/member_personal_commented.do?page=${page }&num=${memDTO.getMem_num() }">댓글&nbsp;<span class="badge badge-muted"><c:if test="${totalRecord_com > 0 }">${totalRecord_com }</c:if></span></a></li>
-				                <li><a href="<%=request.getContextPath()%>/member_personal_scrapped.do?page=${page }&num=${memDTO.getMem_num() }">스크랩&nbsp;<span class="badge badge-muted"><c:if test="${totalRecord_scrap > 0 }">${totalRecord_scrap }</c:if></span></a></li>
+				                <li class="selected"><a href="<%=request.getContextPath()%>/member_personal.do?num=${memDTO.getMem_num() }">게시물&nbsp;<span class="badge badge-muted"><c:if test="${totalRecord_board > 0 }">${totalRecord_board }</c:if></span></a></li>
+				                <li><a href="<%=request.getContextPath()%>/member_personal_commented.do?num=${memDTO.getMem_num() }">댓글&nbsp;<span class="badge badge-muted"><c:if test="${totalRecord_com > 0 }">${totalRecord_com }</c:if></span></a></li>
+				                <li><a href="<%=request.getContextPath()%>/member_personal_scrapped.do?num=${memDTO.getMem_num() }">스크랩&nbsp;<span class="badge badge-muted"><c:if test="${totalRecord_scrap > 0 }">${totalRecord_scrap }</c:if></span></a></li>
 				            </ul>
 				        </div> <!-- /activity Check-->
 				
@@ -76,7 +77,7 @@
 				                    <div class="list-title-wrapper list-activity">
 				                        <div class="list-activity-desc">
 				                            <span class="list-activity-desc-text">
-				                            	<a class="list-group-item-text item-tag label label-info padding" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=${cateList[status.index].getCate_num()}&big=${big_category[status.index] }&small=${small_category[status.index]}">
+				                            	<a class="list-group-item-text item-tag label label-info padding" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=${cateList[status.index].getCate_num()}&big=${big_category[status.index] }&small=${small_category[status.index]}&cate_group=${cateList[status.index].getCate_group()}&cate_step=${cateList[status.index].getCate_step()}">
 				                            	${cateList[status.index].getCate_name()}</a> 에 #${board.getBoard_num() } 게시물을 작성하였습니다.</span>
 				                            <span class="date">${board.getBoard_regdate() }</span>
 				                        </div>
@@ -84,24 +85,39 @@
 				                        <h5 class="list-group-item-heading">
 				                        	<c:choose>
 				                        		<c:when test="${board.getBoard_category() eq 1 || board.getBoard_category() eq 2 || board.getBoard_category() eq 3 }">
-				                        			<a href="<%=request.getContextPath()%>/member_qna_board_content.do?num=${board.getBoard_num() }">${board.getBoard_title() }</a>
+				                        			<a href="<%=request.getContextPath()%>/member_qna_board_content.do?num=${board.getBoard_num() }&hit='yes'">${board.getBoard_title() }</a>
 				                        		</c:when>
 				                        		<c:otherwise>
-				                        			<a href="<%=request.getContextPath()%>/member_board_content.do?num=${board.getBoard_num() }">${board.getBoard_title() }</a>
+				                        			<a href="<%=request.getContextPath()%>/member_board_content.do?num=${board.getBoard_num() }&hit='yes'">${board.getBoard_title() }</a>
 				                        		</c:otherwise>
 				                        	</c:choose>
 				                            
 				                            <div class="list-group-item-author pull-right clearfix">
 				                                <div class="avatar clearfix avatar-x-small">
-				                                    <a href="" class="avatar-photo">
-				                                        <img src="<%=request.getContextPath() %>/images/437ec94ff99317bcb4a15730e1b5cf61.png">
-				                                    </a>
-				                                    <div class="avatar-info">
-				                                        <a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=${memDTO.getMem_nick() }">${memDTO.getMem_nick() }</a>
-				                                        <div class="activity">
-				                                            <span class=""><i class="fas fa-bolt"></i>&nbsp;${memDTO.getMem_score() }</span>
-				                                        </div>
-				                                    </div>
+				                                	<%-- 탈퇴회원인 경우 --%>
+				                                	<c:if test="${memDTO.getMem_check() eq 'yes' }">
+					                                        <img class="avatar-photo" src="<%=request.getContextPath() %>/images/profileUpload/${memDTO.getMem_image() }">
+					                                    <div class="avatar-info">
+					                                        <span class="nickname">${memDTO.getMem_nick() }</span>
+					                                        <div class="activity">
+					                                            <span class=""><i class="activity-img fas fa-lock"></i></span>
+					                                        </div>
+					                                    </div>
+				                                    </c:if>
+				                                    
+				                                    <%-- 탈퇴회원이 아닌 경우 --%>
+				                                    <c:if test="${memDTO.getMem_check() eq 'no' }">
+					                                    <a href="" class="avatar-photo">
+					                                        <img src="<%=request.getContextPath() %>/images/profileUpload/${memDTO.getMem_image() }">
+					                                    </a>
+					                                    <div class="avatar-info">
+					                                        <a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=${memDTO.getMem_num() }">${memDTO.getMem_nick() }</a>
+					                                        <div class="activity">
+					                                            <span class=""><i class="fas fa-bolt"></i>&nbsp;${memDTO.getMem_score() }</span>
+					                                        </div>
+					                                    </div>
+				                                    </c:if>
+				                                    
 				                                </div>
 				                            </div>
 				                        </h5>

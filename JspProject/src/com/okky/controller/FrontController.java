@@ -60,7 +60,7 @@ public class FrontController extends HttpServlet {
 				response.sendRedirect(forward.getPath());
 			} else {
 				RequestDispatcher rd = request.getRequestDispatcher(forward.getPath());
-				rd.forward(request, response);
+ 				rd.forward(request, response);
 			}
 		}
 	}

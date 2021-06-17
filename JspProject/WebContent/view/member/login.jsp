@@ -3,6 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OKKY - All That Developer</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/login.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">

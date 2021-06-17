@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OKKY - 회원관리</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/admin.css">
@@ -11,16 +12,29 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 
 function checkAll() {  /* 체크박스 전체선택 함수 */
 	$("input[name=check]").prop("checked", $("#checkAll").prop("checked"));
 };
 
+function check() {
+	var result = $("#field option:selected").val();
+	if(result == "check"){
+		$(".search-text").css("display", "none");
+		$(".check-list").css("display", "block");
+	}else {
+		$(".search-text").css("display", "block");
+		$(".check-list").css("display", "none");
+	}
+};
+
 $(function(){
 	$("#menu6").css("border-right","5px solid #e67d3e");
 	$("#menu6-1").css("color","#fff");
 });
+
 </script>
 </head>
 <body>
@@ -44,14 +58,20 @@ $(function(){
 								<form method="post" action="<%=request.getContextPath() %>/search_member.do">				
 									<div class="input-group">
 										<span class="search-list input-group-btn">
-											<select name="field" class="search-btn btn btn-default dropdown-toggle">
+											<select id="field" name="field" class="search-btn btn btn-default dropdown-toggle" onchange="check(this)">
 												<option value="all">-전체검색-</option>
 												<option value="id">아이디</option>
 												<option value="nick">닉네임</option>
 												<option value="check">상태</option>
 											</select>
 										</span>
-										<input type="text" class="form-control" name="data" placeholder="검색어" aria-describedby="basic-addon2">
+										<span class="check-list search-list input-group-btn" style="display:none;">
+											<select name="check_data" class="check-btn1 search-btn btn-default dropdown-toggle">
+												<option value="no">회원</option>
+												<option value="yes">탈퇴</option>
+											</select>
+										</span>
+										<input name="data" class="search-text form-control" placeholder="검색어" aria-describedby="basic-addon2">
 										<span class="input-group-btn">
 											<button type="submit" class="btn btn-default">
 												<i class="fas fa-search"></i>
@@ -94,7 +114,7 @@ $(function(){
 													<div class="cont-member col-xs-3">	
 														<div>
 															<a href="<%=request.getContextPath()%>/member_personal.do?num=${dto.getMem_num()}">
-																<img src="<%=request.getContextPath() %>/images/profile/${dto.getMem_image()}" class="cont-mem-logo img-circle"></a>
+																<img src="<%=request.getContextPath() %>/images/profileUpload/${dto.getMem_image()}" class="cont-mem-logo img-circle"></a>
 															<div class="cont-mem-info">
 															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${dto.getMem_num()}">${dto.getMem_nick() }</a><br>
 															<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${dto.getMem_score() }</span>

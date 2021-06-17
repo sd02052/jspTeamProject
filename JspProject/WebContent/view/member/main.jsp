@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/style/style.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/style/main.css">
@@ -38,18 +39,36 @@
 									</c:if>
 										<div class="list-title-wrapper">
 											<h5 class="list-group-item-heading">
-												<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
+												<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
 												<div class="list-group-item-author pull-right clearfix">
-													<div class="avatar clearfix avatar-x-small">
-														<a href="<%=request.getContextPath()%>/member_personal.do?num=${noticeMember[status.index].getMem_num() }" class="avatar-photo"> <img src="../../images/29a87623405c294d79bd2b4728996363.png">
-														</a>
-														<div class="avatar-info">
-															<a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=${noticeMember[status.index].getMem_num() }">${noticeMember[status.index].getMem_nick() }</a>
-															<div class="activity">
-																<span class=""><i class="fas fa-bolt"></i> ${noticeMember[status.index].getMem_score() }</span>
+												
+													<%-- 탈퇴회원인 경우 --%>
+													<c:if test="${noticeMember[status.index].getMem_check() eq 'yes'}">
+														<div class="avatar clearfix avatar-x-small">
+															<img class="avatar-photo" src="<%=request.getContextPath() %>/images/profileUpload/${noticeMember[status.index].getMem_image() }">
+															<div class="avatar-info">
+																<span class="nickname">${noticeMember[status.index].getMem_nick() }</span>
+																<div class="activity">
+																	<span class=""><i class="activity-img fas fa-lock"></i></span>
+																</div>
 															</div>
 														</div>
-													</div>
+													</c:if>
+													
+													<%-- 탈퇴회원이 아닌 경우 --%>
+													<c:if test="${noticeMember[status.index].getMem_check() eq 'no'}">
+														<div class="avatar clearfix avatar-x-small">
+															<a href="<%=request.getContextPath()%>/member_personal.do?num=${noticeMember[status.index].getMem_num() }" class="avatar-photo"> <img src="<%=request.getContextPath() %>/images/profileUpload/${noticeMember[status.index].getMem_image() }">
+															</a>
+															<div class="avatar-info">
+																<a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=${noticeMember[status.index].getMem_num() }">${noticeMember[status.index].getMem_nick() }</a>
+																<div class="activity">
+																	<span class=""><i class="fas fa-bolt"></i> ${noticeMember[status.index].getMem_score() }</span>
+																</div>
+															</div>
+														</div>
+													</c:if>
+												
 												</div>
 											</h5>
 										</div>
@@ -90,19 +109,36 @@
 									</c:if>
 										<div class="list-title-wrapper">
 											<h5 class="list-group-item-heading">
-												<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
+												<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
 												<div class="list-group-item-author pull-right clearfix">
-													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo">
-															<img src="../../images/29a87623405c294d79bd2b4728996363.png">
-														</a>
-														<div class="avatar-info">
-															<a class="nickname" href="">${bestMember[status.index].getMem_nick() }</a>
-															<div class="activity">
-																<span class=""><i class="fas fa-bolt"></i> ${bestMember[status.index].getMem_score() }</span>
+												
+												<%-- 탈퇴회원인 경우 --%>
+													<c:if test="${bestMember[status.index].getMem_check() eq 'yes'}">
+														<div class="avatar clearfix avatar-x-small">
+															<img class="avatar-photo" src="<%=request.getContextPath() %>/images/profileUpload/${bestMember[status.index].getMem_image() }">
+															<div class="avatar-info">
+																<span class="nickname">${bestMember[status.index].getMem_nick() }</span>
+																<div class="activity">
+																	<span class=""><i class="activity-img fas fa-lock"></i></span>
+																</div>
 															</div>
 														</div>
-													</div>
+													</c:if>
+													
+													<%-- 탈퇴회원이 아닌 경우 --%>
+													<c:if test="${bestMember[status.index].getMem_check() eq 'no'}">
+														<div class="avatar clearfix avatar-x-small">
+															<a href="<%=request.getContextPath()%>/member_personal.do?num=${bestMember[status.index].getMem_num() }" class="avatar-photo"> <img src="<%=request.getContextPath() %>/images/profileUpload/${bestMember[status.index].getMem_image() }">
+															</a>
+															<div class="avatar-info">
+																<a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=${bestMember[status.index].getMem_num() }">${bestMember[status.index].getMem_nick() }</a>
+																<div class="activity">
+																	<span class=""><i class="fas fa-bolt"></i> ${bestMember[status.index].getMem_score() }</span>
+																</div>
+															</div>
+														</div>
+													</c:if>
+													
 												</div>
 											</h5>
 										</div>
@@ -129,7 +165,7 @@
 						<!-- Q&A / 커뮤니티 -->
 						<div class="main-block">
 							<h4 class="main-header">
-								<i class="fas fa-database"></i> Q&A <a href="" class="main-more-btn pull-right"> 
+								<i class="fas fa-database"></i> Q&A <a href="<%=request.getContextPath() %>/member_qna_board_list.do?cate_num=1&big='menu1'&small='menu1-1'&cate_group=1&cate_step=0" class="main-more-btn pull-right"> 
 								<i class="fas fa-ellipsis-h"></i>
 								</a>
 							</h4>
@@ -145,19 +181,37 @@
 									</c:if>
 										<div class="list-title-wrapper">
 											<h5 class="list-group-item-heading">
-												<a href="<%=request.getContextPath() %>/member_qna_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
+												<a href="<%=request.getContextPath() %>/member_qna_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
 												<div class="list-group-item-author pull-right clearfix">
-													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo"> <img
-															src="../../images/29a87623405c294d79bd2b4728996363.png">
-														</a>
-														<div class="avatar-info">
-															<a class="nickname" href="">${qnaMember[status.index].getMem_nick() }</a>
-															<div class="activity">
-																<span class=""><i class="fas fa-bolt"></i> ${qnaMember[status.index].getMem_score() }</span>
+												
+													<%-- 탈퇴회원인 경우 --%>
+													<c:if test="${qnaMember[status.index].getMem_check() eq 'yes'}">
+														<div class="avatar clearfix avatar-x-small">
+															<img class="avatar-photo" src="<%=request.getContextPath() %>/images/profileUpload/${qnaMember[status.index].getMem_image() }">
+															<div class="avatar-info">
+																<span class="nickname">${qnaMember[status.index].getMem_nick() }</span>
+																<div class="activity">
+																	<span class=""><i class="activity-img fas fa-lock"></i></span>
+																</div>
 															</div>
 														</div>
-													</div>
+													</c:if>
+													
+													<%-- 탈퇴회원이 아닌 경우 --%>
+													<c:if test="${qnaMember[status.index].getMem_check() eq 'no'}">
+														<div class="avatar clearfix avatar-x-small">
+															<a href="<%=request.getContextPath()%>/member_personal.do?num=${qnaMember[status.index].getMem_num() }" class="avatar-photo"> 
+																<img src="<%=request.getContextPath() %>/images/profileUpload/${qnaMember[status.index].getMem_image() }">
+															</a>
+															<div class="avatar-info">
+																<a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=${qnaMember[status.index].getMem_num() }">${qnaMember[status.index].getMem_nick() }</a>
+																<div class="activity">
+																	<span class=""><i class="fas fa-bolt"></i> ${qnaMember[status.index].getMem_score() }</span>
+																</div>
+															</div>
+														</div>
+													</c:if>
+													
 												</div>
 											</h5>
 										</div>
@@ -179,7 +233,7 @@
 
 						<div class="main-block">
 							<h4 class="main-header">
-								<i class="fas fa-comments"></i> 커뮤니티 <a href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=3&big='menu3'&small='menu3-1'"
+								<i class="fas fa-comments"></i> 커뮤니티 <a href="<%=request.getContextPath() %>/member_board_list.do?cate_num=3&big='menu3'&small='menu3-1'&cate_group=3&cate_step=0"
 									class="main-more-btn pull-right"> <i
 									class="fas fa-ellipsis-h"></i>
 								</a>
@@ -197,19 +251,37 @@
 										</c:if>
 										<div class="list-title-wrapper">
 											<h5 class="list-group-item-heading">
-												<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
+												<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
 												<div class="list-group-item-author pull-right clearfix">
-													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo"> <img
-															src="../../images/29a87623405c294d79bd2b4728996363.png">
-														</a>
-														<div class="avatar-info">
-															<a class="nickname" href="">${communityMember[status.index].getMem_nick() }</a>
-															<div class="activity">
-																<span class=""><i class="fas fa-bolt"></i> ${communityMember[status.index].getMem_score() }</span>
+												
+													<%-- 탈퇴회원인 경우 --%>
+													<c:if test="${communityMember[status.index].getMem_check() eq 'yes'}">
+														<div class="avatar clearfix avatar-x-small">
+															<img class="avatar-photo" src="<%=request.getContextPath() %>/images/profileUpload/${communityMember[status.index].getMem_image() }">
+															<div class="avatar-info">
+																<span class="nickname">${communityMember[status.index].getMem_nick() }</span>
+																<div class="activity">
+																	<span class=""><i class="activity-img fas fa-lock"></i></span>
+																</div>
 															</div>
 														</div>
-													</div>
+													</c:if>
+													
+													<%-- 탈퇴회원이 아닌 경우 --%>
+													<c:if test="${communityMember[status.index].getMem_check() eq 'no'}">
+														<div class="avatar clearfix avatar-x-small">
+															<a href="<%=request.getContextPath()%>/member_personal.do?num=${communityMember[status.index].getMem_num() }" class="avatar-photo"> 
+																<img src="<%=request.getContextPath() %>/images/profileUpload/${communityMember[status.index].getMem_image() }">
+															</a>
+															<div class="avatar-info">
+																<a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=${communityMember[status.index].getMem_num() }">${communityMember[status.index].getMem_nick() }</a>
+																<div class="activity">
+																	<span class=""><i class="fas fa-bolt"></i> ${communityMember[status.index].getMem_score() }</span>
+																</div>
+															</div>
+														</div>
+													</c:if>
+													
 												</div>
 											</h5>
 										</div>
@@ -236,7 +308,7 @@
 						<!-- Tech & 칼럼 & 학원/홍보 -->
 						<div class="main-block">
 							<h4 class="main-header">
-								<i class="fas fa-code"></i> Tech <a href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=2&big='menu2'&small='menu2-1'"
+								<i class="fas fa-code"></i> Tech <a href="<%=request.getContextPath() %>/member_board_list.do?cate_num=2&big='menu2'&small='menu2-1'&cate_group=2&cate_step=0"
 									class="main-more-btn pull-right"> <i
 									class="fas fa-ellipsis-h"></i>
 								</a>
@@ -247,23 +319,43 @@
 										<c:forEach items="${techList }" var="dto" varStatus="status" end="2">
 											<div class="article-middle-block clearfix">
 												<div class="list-tag clearfix">
-													<a href="" class="list-group-item-text item-tag label label-info"> <i class="fas fa-code"></i> ${techCategory[status.index].getCate_name() }
+													<a href="<%=request.getContextPath() %>/member_board_list.do?cate_num=${techCategory[status.index].getCate_num() }&big=${big[status.index] }&small=${small[status.index] }&cate_group=${techCategory[status.index].getCate_group() }&cate_step=${techCategory[status.index].getCate_step() }" 
+													class="list-group-item-text item-tag label label-info"> <i class="fas fa-code"></i> ${techCategory[status.index].getCate_name() }
 													</a>
 												</div>
 												<h5>
-													<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
+													<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num()}&hit='yes'">${dto.getBoard_title() }</a>
 												</h5>
 												<div class="list-group-item-author pull-right clearfix">
-													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo"> <img src="../../images/29a87623405c294d79bd2b4728996363.png">
-														</a>
-														<div class="avatar-info">
-															<a class="nickname" href="">${techMember[status.index].getMem_nick() }</a>
-															<div class="activity">
-																<span class=""><i class="fas fa-bolt"></i> ${techMember[status.index].getMem_score() }</span>
+												
+													<%-- 탈퇴회원인 경우 --%>
+													<c:if test="${techMember[status.index].getMem_check() eq 'yes'}">
+														<div class="avatar clearfix avatar-x-small">
+															<img class="avatar-photo" src="<%=request.getContextPath() %>/images/profileUpload/${techMember[status.index].getMem_image() }">
+															<div class="avatar-info">
+																<span class="nickname">${techMember[status.index].getMem_nick() }</span>
+																<div class="activity">
+																	<span class=""><i class="activity-img fas fa-lock"></i></span>
+																</div>
 															</div>
 														</div>
-													</div>
+													</c:if>
+													
+													<%-- 탈퇴회원이 아닌 경우 --%>
+													<c:if test="${techMember[status.index].getMem_check() eq 'no'}">
+														<div class="avatar clearfix avatar-x-small">
+															<a href="<%=request.getContextPath()%>/member_personal.do?num=${techMember[status.index].getMem_num() }" class="avatar-photo"> 
+																<img src="<%=request.getContextPath() %>/images/profileUpload/${techMember[status.index].getMem_image() }">
+															</a>
+															<div class="avatar-info">
+																<a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=${techMember[status.index].getMem_num() }">${techMember[status.index].getMem_nick() }</a>
+																<div class="activity">
+																	<span class=""><i class="fas fa-bolt"></i> ${techMember[status.index].getMem_score() }</span>
+																</div>
+															</div>
+														</div>
+													</c:if>
+													
 												</div>
 											</div>
 										</c:forEach>
@@ -280,7 +372,7 @@
 
 						<div class="main-block">
 							<h4 class="main-header">
-								<i class="fas fa-quote-left"></i> 칼럼 <a href="<%=request.getContextPath() %>/member_board_list_all.do?cate_num=4&big='menu4'&small='menu4-1'"
+								<i class="fas fa-quote-left"></i> 칼럼 <a href="<%=request.getContextPath() %>/member_board_list.do?cate_num=15&big='menu4'&small='menu4-1'&cate_group=4&cate_step=1"
 									class="main-more-btn pull-right"> <i
 									class="fas fa-ellipsis-h"></i>
 								</a>
@@ -291,23 +383,42 @@
 										<c:forEach items="${columnList }" var="dto" varStatus="status" end="0">
 											<div class="article-middle-block clearfix">
 												<div class="list-tag clearfix">
-													<a href="" class="list-group-item-text item-tag label label-info"><i class="fas fa-quote-left"></i> ${columnCategory[status.index].getCate_name() } </a>
+													<a href="<%=request.getContextPath() %>/member_board_list.do?cate_num=15&big='menu4'&small='menu4-1'&cate_group=4&cate_step=1" class="list-group-item-text item-tag label label-info"><i class="fas fa-quote-left"></i> ${columnCategory[status.index].getCate_name() } </a>
 												</div>
 												<h5>
-													<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
+													<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num()}&hit='yes'">${dto.getBoard_title() }</a>
 												</h5>
-												<div class="etc"><p class="main-block-desc"><a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_content() }</a></p></div>
+												<div class="etc"><p class="main-block-desc"><a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num()}&hit='yes'">${dto.getBoard_content() }</a></p></div>
 												<div class="list-group-item-author pull-right clearfix">
-													<div class="avatar clearfix avatar-x-small">
-														<a href="" class="avatar-photo"> <img src="../../images/29a87623405c294d79bd2b4728996363.png">
-														</a>
-														<div class="avatar-info">
-															<a class="nickname" href="">${columnMember[status.index].getMem_nick() }</a>
-															<div class="activity">
-																<span class=""><i class="fas fa-bolt"></i> ${columnMember[status.index].getMem_score() }</span>
+												
+													<%-- 탈퇴회원인 경우 --%>
+													<c:if test="${columnMember[status.index].getMem_check() eq 'yes'}">
+														<div class="avatar clearfix avatar-x-small">
+															<img class="avatar-photo" src="<%=request.getContextPath() %>/images/profileUpload/${columnMember[status.index].getMem_image() }">
+															<div class="avatar-info">
+																<span class="nickname">${columnMember[status.index].getMem_nick() }</span>
+																<div class="activity">
+																	<span class=""><i class="activity-img fas fa-lock"></i></span>
+																</div>
 															</div>
 														</div>
-													</div>
+													</c:if>
+													
+													<%-- 탈퇴회원이 아닌 경우 --%>
+													<c:if test="${columnMember[status.index].getMem_check() eq 'no'}">
+														<div class="avatar clearfix avatar-x-small">
+															<a href="<%=request.getContextPath()%>/member_personal.do?num=${columnMember[status.index].getMem_num() }" class="avatar-photo"> 
+																<img src="<%=request.getContextPath() %>/images/profileUpload/${columnMember[status.index].getMem_image() }">
+															</a>
+															<div class="avatar-info">
+																<a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=${columnMember[status.index].getMem_num() }">${columnMember[status.index].getMem_nick() }</a>
+																<div class="activity">
+																	<span class=""><i class="fas fa-bolt"></i> ${columnMember[status.index].getMem_score() }</span>
+																</div>
+															</div>
+														</div>
+													</c:if>
+													
 												</div>
 											</div>
 										</c:forEach>
@@ -324,7 +435,7 @@
 
 						<div class="main-block">
 							<h4 class="main-header">
-								<i class="fas fa-book"></i> 학원/홍보 <a href="<%=request.getContextPath() %>/member_board_list.do?cate_num=14&big='menu3'&small='menu3-8'"
+								<i class="fas fa-book"></i> 학원/홍보 <a href="<%=request.getContextPath() %>/member_board_list.do?cate_num=14&big='menu3'&small='menu3-8'&cate_group=3&cate_step=7"
 									class="main-more-btn pull-right"> <i
 									class="fas fa-ellipsis-h"></i>
 								</a>
@@ -341,18 +452,37 @@
 											</c:if>
 											<div class="list-title-wrapper">
 												<h5 class="list-group-item-heading">
-													<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
+													<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
 													<div class="list-group-item-author pull-right clearfix">
+													
+													<%-- 탈퇴회원인 경우 --%>
+													<c:if test="${academyMember[status.index].getMem_check() eq 'yes'}">
 														<div class="avatar clearfix avatar-x-small">
-															<a href="" class="avatar-photo"> <img src="../../images/29a87623405c294d79bd2b4728996363.png">
+															<img class="avatar-photo" src="<%=request.getContextPath() %>/images/profileUpload/${academyMember[status.index].getMem_image() }">
+															<div class="avatar-info">
+																<span class="nickname">${academyMember[status.index].getMem_nick() }</span>
+																<div class="activity">
+																	<span class=""><i class="activity-img fas fa-lock"></i></span>
+																</div>
+															</div>
+														</div>
+													</c:if>
+													
+													<%-- 탈퇴회원이 아닌 경우 --%>
+													<c:if test="${academyMember[status.index].getMem_check() eq 'no'}">
+														<div class="avatar clearfix avatar-x-small">
+															<a href="<%=request.getContextPath()%>/member_personal.do?num=${academyMember[status.index].getMem_num() }" class="avatar-photo"> 
+																<img src="<%=request.getContextPath() %>/images/profileUpload/${academyMember[status.index].getMem_image() }">
 															</a>
 															<div class="avatar-info">
-																<a class="nickname" href="">${academyMember[status.index].getMem_nick() }</a>
+																<a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=${academyMember[status.index].getMem_num() }">${academyMember[status.index].getMem_nick() }</a>
 																<div class="activity">
 																	<span class=""><i class="fas fa-bolt"></i> ${academyMember[status.index].getMem_score() }</span>
 																</div>
 															</div>
 														</div>
+													</c:if>	
+														
 													</div>
 												</h5>
 											</div>

@@ -26,7 +26,7 @@ public class MemberQnASelectAction implements Action {
 		
 		if(res > 0) {
 			forward.setRedirect(true);
-			forward.setPath("member_qna_board_content.do?num="+board_num);
+			forward.setPath("member_qna_board_content.do?num="+board_num + "&hit='no'");
 		}else {
 			out.println("<script>");
 			out.println("alert('답변 선택 실패!')");

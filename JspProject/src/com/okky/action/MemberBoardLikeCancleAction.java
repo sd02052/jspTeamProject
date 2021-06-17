@@ -17,13 +17,13 @@ public class MemberBoardLikeCancleAction implements Action {
 		int num = Integer.parseInt(request.getParameter("board_num"));
 		int login_mem = Integer.parseInt(request.getParameter("login_num"));
 		BoardDAO dao = BoardDAO.getInstance();
-		
+
 		dao.update_Like_cancle(num, login_mem);
-		dao.setBoardLike();
-		int like = dao.select_Like(num);
-		response.getWriter().print(like);
-			
-		return null;
+
+		ActionForward forward = new ActionForward();
+		forward.setRedirect(true);
+		forward.setPath("member_board_content.do?num=" + num + "&hit='no'");
+		return forward;
 	}
 
 }

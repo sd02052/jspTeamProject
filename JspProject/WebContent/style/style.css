@@ -151,6 +151,14 @@
 	background-color: #0059ab;
 }
 
+.nav-bottom>li>.link:hover {
+	background-color: #0059ab;
+}
+
+.nav-bottom>li>.link:focus {
+	background-color: #0059ab;
+}
+
 .nav-bottom {
 	margin: 40px 0 0 0;
 	font-size: 10px;
@@ -553,4 +561,91 @@
 	font-size: 10px;
 }
 /* 회사소개 css 끝 */
+
+
+/* board 시작 */
+.table-bordered {
+	padding: 5px 10px;
+}
+
+.label1 {
+	background-color: #bbb;
+}
+
+.h {
+	margin: 3px 0px;
+}
+
+.padding {
+	padding: 1.8px 5.4px 2.7px;
+}
+
+.font {
+	font-size: 12px;
+}
+
+.font1 {
+	font-size: 10px;
+}
+
+.font_style {
+	font-weight: bold;
+}
+
+.box {
+	width: 400px;
+	height: 40px;
+}
+
+.size {
+	width: 803px;
+	height: 53px;
+}
+
+.img {
+	width: 14px;
+	height: 14px;
+}
+
+.li1 {
+	font-size: 13px;
+	color: gray;
+}
+
+.pa {
+	padding: 20px;
+}
+
+.a1 {
+	font-size: 12px;
+}
+
+.li2 {
+	font-size: 3px;
+	color: gray;
+}
+
+.font2 {
+	font-size: 3px;
+	color: gray;
+}
+
+.span {
+	font-size: 10px;
+}
+
+.img1 {
+	vertical-align: middle;
+}
+
+.a2 {
+	vertical-align: middle;
+	padding-top: 3%;
+}
+
+.list-inline {
+	margin: 0;
+}
+
+/* board 종료*/
 

@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OKKY - (글제목)</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/style/style.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/style/content.css">
@@ -43,9 +44,9 @@ $(function(){
 <script type="text/javascript">
 $(document).ready(function(){
 	$('[data-toggle="tooltip"]').tooltip();   
-});
+})
 </script>
-<script type="text/javascript">
+
 <%
 if(session.getAttribute("loginNum") != null){
 	int loginNum = (int)session.getAttribute("loginNum");
@@ -53,6 +54,7 @@ if(session.getAttribute("loginNum") != null){
 	List<CommentDTO> list = (List<CommentDTO>) request.getAttribute("commentList");
 	for(int i = 0; i < list.size(); i++){
 %>
+<script type="text/javascript">
 function commentEdit<%=list.get(i).getCom_num()%>(){
 	$(".dropdown").css("display","none");
 	$(".buttons-<%=list.get(i).getCom_num()%>").css("display","block");
@@ -62,87 +64,17 @@ function commentEdit<%=list.get(i).getCom_num()%>(){
 </script>
 <script type="text/javascript">
 function commentEditCancle<%=list.get(i).getCom_num() %>(){
+	var flag = confirm('수정중이던 내용을 취소하시겠습니까?');
+	if(flag == true){
 	$(".dropdown").css("display","block");
 	$(".buttons-<%=list.get(i).getCom_num()%>").css("display","none");
 	$(".com-content-<%=list.get(i).getCom_num()%>").css("display","block");
 	$(".com-edit-area-<%=list.get(i).getCom_num()%>").css("display","none");
+	$("#comment-form-<%=list.get(i).getCom_num()%>")[0].reset();
+	}
 };
 </script>
-<script type="text/javascript">
-function commentLike<%=list.get(i).getCom_num()%>(){
-	$.ajax({
-		url: "member_comment_like.do",
-		type: "POST",
-		dataType: "text",
-		data: {"com_num" : $("#com-num-<%=list.get(i).getCom_num()%>").val(),
-		"login_num" : $("#loginNum").val()},
-		success:
-			function(data){ //ajax통신 성공시 넘어오는 데이터 통째 이름 =data
-				$("#like-result-<%=list.get(i).getCom_num()%>").html(data);
-			},
-		error:
-			function (request, status, error){
-				alert("ajax실패");
-			}
-	});
-}
-function commentLikeCancle<%=list.get(i).getCom_num()%>(){
-	$.ajax({
-		url: "member_comment_like_cancle.do",
-		type: "POST",
-		dataType: "text",
-		data: {"com_num" : $("#com-num-<%=list.get(i).getCom_num()%>").val(),
-		"login_num" : $("#loginNum").val()},
-		success:
-			function(data){ //ajax통신 성공시 넘어오는 데이터 통째 이름 =data
-				$("#like-result-<%=list.get(i).getCom_num()%>").html(data);
-			},
-		error:
-			function (request, status, error){
-				alert("ajax실패");
-			}
-	});
-}
-</script>
-<%} 
-	BoardDTO boardDto = (BoardDTO) request.getAttribute("dto");
-%>
-<script type="text/javascript">
-function boardLike<%=boardDto.getBoard_num()%>(){
-	$.ajax({
-		url: "member_board_like.do",
-		type: "POST",
-		dataType: "text",
-		data: {"board_num" : $("#board_num").val(),
-		"login_num" : $("#loginNum1").val()},
-		success:
-			function(data){ //ajax통신 성공시 넘어오는 데이터 통째 이름 =data
-				$("#like-result").html(data);
-			},
-		error:
-			function (request, status, error){
-				alert("ajax실패");
-			}
-	});
-}
-function boardLikeCancle<%=boardDto.getBoard_num()%>(){
-	$.ajax({
-		url: "member_board_like_cancle.do",
-		type: "POST",
-		dataType: "text",
-		data: {"board_num" : $("#board_num").val(),
-		"login_num" : $("#loginNum1").val()},
-		success:
-			function(data){ //ajax통신 성공시 넘어오는 데이터 통째 이름 =data
-				$("#like-result").html(data);
-			},
-		error:
-			function (request, status, error){
-				alert("ajax실패");
-			}
-	});
-}
-</script>
+<%} %>
 </head>
 <body>
 
@@ -166,19 +98,34 @@ function boardLikeCancle<%=boardDto.getBoard_num()%>(){
 								<td colspan="12">
 									<div class="cont-header">
 										<div class="cont-member pull-left">
-											<a href="<%=request.getContextPath()%>/member_personal.do?num=${writer.getMem_num()}">
-												<img src="<%=request.getContextPath() %>/images/profile/${writer.getMem_image() }" class="cont-mem-logo img-circle">
-											</a>
-
-											<div class="cont-mem-info">
-												<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${writer.getMem_num() }">
-												${writer.getMem_nick() }</a> 
-												<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${writer.getMem_score() }</span>
-												<br>
-
-												<div class="cont-regdate">${dto.getBoard_regdate() }</div>
-
-											</div>
+											<%-- 탈퇴회원인 경우 --%>
+											<c:if test="${writer.getMem_check() eq 'yes' }">
+												<img src="<%=request.getContextPath() %>/images/profileUpload/${writer.getMem_image() }" class="cont-mem-logo img-circle">
+												
+												<div class="cont-mem-info">
+													${writer.getMem_nick() }<span class="cont-activity"><i class="activity-img fas fa-lock"></i></span>
+													<br>
+	
+													<div class="cont-regdate">${dto.getBoard_regdate() }</div>
+												</div>
+											</c:if>
+												
+											<%-- 탈퇴회원이 아닌 경우 --%>
+											<c:if test="${writer.getMem_check() eq 'no' }">
+												<a href="<%=request.getContextPath()%>/member_personal.do?num=${writer.getMem_num()}">
+													<img src="<%=request.getContextPath() %>/images/profileUpload/${writer.getMem_image() }" class="cont-mem-logo img-circle">
+												</a>
+												
+												<div class="cont-mem-info">
+													<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${writer.getMem_num() }">
+													${writer.getMem_nick() }</a> 
+													<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${writer.getMem_score() }</span>
+													<br>
+	
+													<div class="cont-regdate">${dto.getBoard_regdate() }</div>
+												</div>
+											</c:if>
+											
 										</div>
 
 										<div class="cont-wrapper pull-right">
@@ -192,7 +139,7 @@ function boardLikeCancle<%=boardDto.getBoard_num()%>(){
 							<tr>
 								<td class="col-sm-10">
 									<div class="cont-content">
-										<span class="cont-num"># ${dto.getBoard_num() }</span> <a href=""> <span
+										<span class="cont-num"># ${dto.getBoard_num() }</span> <a href="<%=request.getContextPath()%>/member_board_list.do?cate_num=${category.getCate_num()}&big=${big_category }&small=${small_category }&cate_group=${category.getCate_group()}&cate_step=${category.getCate_step()}"> <span
 											class="label label-info">${category.getCate_name() }</span>
 										</a><br> <span class="cont-title">${dto.getBoard_title() }</span>
 										<hr>
@@ -202,36 +149,36 @@ function boardLikeCancle<%=boardDto.getBoard_num()%>(){
 
 								<td class="col-sm-2">
 									<div class="cont-like text-center">
-										<input type="hidden" id="board_num" value="${dto.getBoard_num() }">
-										<input type="hidden" id="loginNum1" value="${loginNum}">
 										<div class="cont-recommend">
 											<c:if test="${loginNum != null }">
-												<c:forEach items="${boardLikeList }" var="likedto">
-													<c:if test="${likedto.getBoard_num() == dto.getBoard_num() }">
-														<a href="" onclick="return boardLikeCancle${dto.getBoard_num()}()"> <i class="fas fa-thumbs-up" data-toggle="tooltip" data-placement="left" title="취소"></i>
-														</a>
-													</c:if>
-												</c:forEach>
-												<c:forEach items="${boardUnLikeList }" var="unlikedto">
-													<c:if test="${unlikedto.getBoard_num() == dto.getBoard_num() }">
-														<a href="" onclick="return boardLike${dto.getBoard_num()}()"> <i class="img far fa-thumbs-up" data-toggle="tooltip" data-placement="left" title="추천"></i>
-														</a>
-													</c:if>
-												</c:forEach>
+												<c:if test="${like_status }">
+													<a href="<%=request.getContextPath() %>/member_board_like_cancle.do?board_num=${dto.getBoard_num()}&login_num=${loginNum}"> <i class="fas fa-thumbs-up" data-toggle="tooltip" data-placement="left" title="취소"></i>
+													</a>
+												</c:if>
+												<c:if test="${!like_status }">
+													<a href="<%=request.getContextPath() %>/member_board_like.do?board_num=${dto.getBoard_num()}&login_num=${loginNum}"> <i class="img far fa-thumbs-up" data-toggle="tooltip" data-placement="left" title="추천"></i>
+													</a>
+												</c:if>
 											</c:if>
 											<p class="com-recommend-count" id="like-result">${dto.getBoard_like() }</p>
-											<p>좋아요</p>
 										</div>
 
 										<div class="cont-scrap">
 											<c:if test="${loginNum != null }">
-												<a href=""> <i class="img fas fa-bookmark fa-2x"
-													data-toggle="tooltip" data-placement="left" title="스크랩"></i>
-												<br>
-												</a> 
+												<c:if test="${scrap_status}">
+													<a href="<%=request.getContextPath()%>/member_board_scrap_cancle.do?board_num=${dto.getBoard_num()}&login_num=${loginNum}"> <i class="fas fa-bookmark fa-2x"
+														data-toggle="tooltip" data-placement="left" title="스크랩"></i>
+													<br>
+													</a>
+												</c:if>
+												<c:if test="${!scrap_status}">
+													<a href="<%=request.getContextPath()%>/member_board_scrap.do?board_num=${dto.getBoard_num()}&login_num=${loginNum}"> <i class="img fas fa-bookmark fa-2x"
+														data-toggle="tooltip" data-placement="left" title="스크랩"></i>
+													<br>
+													</a>
+												</c:if>
 											</c:if>
 											<span class="badge-scrap badge">${dto.getBoard_scrap() }</span>
-											<p>스크랩</p>
 										</div>
 										<div class="cont-facebook">
 											<a href=""> <i
@@ -239,6 +186,27 @@ function boardLikeCancle<%=boardDto.getBoard_num()%>(){
 												data-toggle="tooltip" data-placement="left" title="페이스북 공유"></i>
 											</a>
 										</div>
+										<c:if test="${loginNum == dto.getBoard_writer() }"><!-- 자신이 작성한 게시물일 경우 -->
+											<div class="com-edit dropdown">
+												<button class="com-edit-btn btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+													<i class="facebook-img fas fa-cog" data-toggle="tooltip" data-placement="left" title="게시물 설정"></i>
+												</button>
+												<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+													<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_board_edit.do?num=${dto.getBoard_num()}"> <i class="fas fa-edit"></i>&nbsp;수정
+													</a></li>
+													<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_board_delete.do?num=${dto.getBoard_num()}&big=${big_category}&small=${small_category}&cate_num=${category.getCate_num()}" onclick="return confirm('게시물을 삭제 하시겠습니까?');"> <i class="fas fa-trash-alt"></i>&nbsp;삭제
+													</a></li>
+												</ul>
+											</div>
+											<div class="buttons-${dto.getBoard_num() }" style="display: none;" align="center">
+												<p>
+													<input type="button" class="btn btn-default btn-wide note-edit-cancel-btn" onclick="return commentEditCancle${dto.getBoard_num()}()" value="취소">
+												</p>
+												<p>
+													<input type="submit" name="create" class="btn btn-success btn-wide" value="저장" id="create">
+												</p>
+											</div>
+										</c:if>
 									</div>
 								</td>
 							</tr>
@@ -256,21 +224,37 @@ function boardLikeCancle<%=boardDto.getBoard_num()%>(){
 							<c:if test="${!empty commentList }">
 								<c:forEach items="${commentList }" var="dto" varStatus="status">
 										<!-- 다른 회원이 작성한 댓글 -->
-										<form method="post" action="<%=request.getContextPath() %>/member_comment_edit.do">
+										<form method="post" action="<%=request.getContextPath() %>/member_comment_edit.do" id="comment-form-${dto.getCom_num() }">
 											<input type="hidden" name="com_num" value="${dto.getCom_num() }">
 											<input type="hidden" name="com_target" value="${dto.getCom_target() }">
 											<tr>
 												<td class="col-md-10">
-													<div class="cont-member pull-left">
-														<a href="<%=request.getContextPath()%>/member_personal.do?num=${commentWriterList[status.index].getMem_num() }"> <img src="<%=request.getContextPath()%>/images/profile/${commentWriterList[status.index].getMem_image() }" class="cont-mem-logo img-circle">
-														</a>
-
-													<div class="cont-mem-info">
-														<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${commentWriterList[status.index].getMem_num() }"> ${commentWriterList[status.index].getMem_nick() }</a> <span class="cont-activity"> <i class="activity-img fas fa-bolt" ></i>&nbsp;${commentWriterList[status.index].getMem_score() }
-														</span> <br>
-														<div class="cont-regdate">${dto.getCom_regdate() }</div>
-													</div>
-												</div>
+													<%-- 탈퇴회원인 경우 --%>
+													<c:if test="${commentWriterList[status.index].getMem_check() eq 'yes' }">
+														<div class="cont-member pull-left">
+															<img src="<%=request.getContextPath()%>/images/profileUpload/${commentWriterList[status.index].getMem_image() }" class="cont-mem-logo img-circle">
+	
+															<div class="cont-mem-info">
+																${commentWriterList[status.index].getMem_nick() }<span class="cont-activity"><i class="activity-img fas fa-lock"></i></span> <br>
+																<div class="cont-regdate">${dto.getCom_regdate() }</div>
+															</div>
+														</div>
+													</c:if>
+													
+													<%-- 탈퇴회원이 아닌 경우 --%>
+													<c:if test="${commentWriterList[status.index].getMem_check() eq 'no' }">
+														<div class="cont-member pull-left">
+															<a href="<%=request.getContextPath()%>/member_personal.do?num=${commentWriterList[status.index].getMem_num() }"> <img src="<%=request.getContextPath()%>/images/profileUpload/${commentWriterList[status.index].getMem_image() }" class="cont-mem-logo img-circle">
+															</a>
+	
+															<div class="cont-mem-info">
+																<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${commentWriterList[status.index].getMem_num() }"> ${commentWriterList[status.index].getMem_nick() }</a> <span class="cont-activity"> <i class="activity-img fas fa-bolt" ></i>&nbsp;${commentWriterList[status.index].getMem_score() }
+																</span> <br>
+																<div class="cont-regdate">${dto.getCom_regdate() }</div>
+															</div>
+														</div>
+													</c:if>
+													
 													<br> <br> <br>
 													<div class="com-content-${dto.getCom_num() } pull-left">
 														<p>${dto.getCom_content() }</p>
@@ -285,25 +269,24 @@ function boardLikeCancle<%=boardDto.getBoard_num()%>(){
 														<c:if test="${loginNum != null }">
 															<c:forEach items="${commentLikeList }" var="likedto">
 																<c:if test="${likedto.getCom_num() == dto.getCom_num() }">
-																	<a href="" onclick="return commentLikeCancle${dto.getCom_num()}()"> <i class="fas fa-thumbs-up" data-toggle="tooltip" data-placement="left" title="취소"></i>
+																	<a href="<%=request.getContextPath() %>/member_comment_like_cancle.do?com_num=${dto.getCom_num()}&board_num=${dto.getCom_target()}&login_num=${loginNum}"> <i class="fas fa-thumbs-up" data-toggle="tooltip" data-placement="left" title="취소"></i>
 																	</a>
 																</c:if>
 															</c:forEach>
 															<c:forEach items="${commentUnLikeList }" var="unlikedto">
 																<c:if test="${unlikedto.getCom_num() == dto.getCom_num() }">
-																	<a href="" onclick="return commentLike${dto.getCom_num()}()"> <i class="img far fa-thumbs-up" data-toggle="tooltip" data-placement="left" title="추천"></i>
+																	<a href="<%=request.getContextPath() %>/member_comment_like.do?com_num=${dto.getCom_num()}&board_num=${dto.getCom_target()}&login_num=${loginNum}"> <i class="img far fa-thumbs-up" data-toggle="tooltip" data-placement="left" title="추천"></i>
 																	</a>
 																</c:if>
 															</c:forEach>
 														</c:if>
 														<p class="com-recommend-count" id="like-result-${dto.getCom_num() }">${dto.getCom_like() }</p>
-														<p>좋아요</p>
 													</div>
 												</div>
 													<c:if test="${loginNum == dto.getCom_writer() }"> <!-- 자신이 작성한 댓글일 경우 -->
 													<div class="com-edit dropdown">
 														<button class="com-edit-btn btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-															<i class="facebook-img fas fa-cog" data-toggle="tooltip" data-placement="left" title="게시물 설정"></i>
+															<i class="facebook-img fas fa-cog" data-toggle="tooltip" data-placement="left" title="댓글 설정"></i>
 														</button>
 														<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 															<li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:commentEdit${dto.getCom_num()}();"> 
@@ -316,7 +299,7 @@ function boardLikeCancle<%=boardDto.getBoard_num()%>(){
 													</div>
 													<div class="buttons-${dto.getCom_num() }" style="display: none;" align="center">
 														<p>
-															<a href="javascript:commentEditCancle${dto.getCom_num() }();" class="btn btn-default btn-wide note-edit-cancel-btn" onclick="return confirm('수정중이던 내용을 취소하시겠습니까?');">취소</a>
+															<input type="button" class="btn btn-default btn-wide note-edit-cancel-btn" onclick="return commentEditCancle${dto.getCom_num()}()" value="취소">
 														</p>
 														<p>
 															<input type="submit" name="create" class="btn btn-success btn-wide" value="저장" id="create">
@@ -338,7 +321,7 @@ function boardLikeCancle<%=boardDto.getBoard_num()%>(){
 											type="hidden" name="com_target" value="${dto.getBoard_num() }">
 										<div class="cont-member pull-left">
 											<a href="<%=request.getContextPath()%>/member_personal.do?num=${login_mem.getMem_num() }">
-												<img src="<%=request.getContextPath() %>/images/${login_mem.getMem_image() }" class="cont-mem-logo img-circle">
+												<img src="<%=request.getContextPath() %>/images/profileUpload/${login_mem.getMem_image() }" class="cont-mem-logo img-circle">
 											</a>
 
 											<div class="cont-mem-info">

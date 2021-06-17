@@ -98,19 +98,34 @@ function commentEditCancle<%=list.get(i).getCom_num() %>(){
 								<td colspan="12">
 									<div class="cont-header">
 										<div class="cont-member pull-left">
-											<a href="<%=request.getContextPath()%>/member_personal.do?num=${writer.getMem_num()}">
-												<img src="<%=request.getContextPath() %>/images/profile/${writer.getMem_image() }" class="cont-mem-logo img-circle">
-											</a>
-
-											<div class="cont-mem-info">
-												<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${writer.getMem_num() }">
-												${writer.getMem_nick() }</a> 
-												<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${writer.getMem_score() }</span>
-												<br>
-
-												<div class="cont-regdate">${dto.getBoard_regdate() }</div>
-
-											</div>
+											<%-- 탈퇴회원인 경우 --%>
+											<c:if test="${writer.getMem_check() eq 'yes' }">
+												<img src="<%=request.getContextPath() %>/images/profileUpload/${writer.getMem_image() }" class="cont-mem-logo img-circle">
+												
+												<div class="cont-mem-info">
+													${writer.getMem_nick() }<span class="cont-activity"><i class="activity-img fas fa-lock"></i></span>
+													<br>
+	
+													<div class="cont-regdate">${dto.getBoard_regdate() }</div>
+												</div>
+											</c:if>
+												
+											<%-- 탈퇴회원이 아닌 경우 --%>
+											<c:if test="${writer.getMem_check() eq 'no' }">
+												<a href="<%=request.getContextPath()%>/member_personal.do?num=${writer.getMem_num()}">
+													<img src="<%=request.getContextPath() %>/images/profileUpload/${writer.getMem_image() }" class="cont-mem-logo img-circle">
+												</a>
+												
+												<div class="cont-mem-info">
+													<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${writer.getMem_num() }">
+													${writer.getMem_nick() }</a> 
+													<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${writer.getMem_score() }</span>
+													<br>
+	
+													<div class="cont-regdate">${dto.getBoard_regdate() }</div>
+												</div>
+											</c:if>
+											
 										</div>
 
 										<div class="cont-wrapper pull-right">
@@ -214,16 +229,32 @@ function commentEditCancle<%=list.get(i).getCom_num() %>(){
 											<input type="hidden" name="com_target" value="${dto.getCom_target() }">
 											<tr>
 												<td class="col-md-10">
-													<div class="cont-member pull-left">
-														<a href="<%=request.getContextPath()%>/member_personal.do?num=${commentWriterList[status.index].getMem_num() }"> <img src="<%=request.getContextPath()%>/images/profile/${commentWriterList[status.index].getMem_image() }" class="cont-mem-logo img-circle">
-														</a>
-
-													<div class="cont-mem-info">
-														<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${commentWriterList[status.index].getMem_num() }"> ${commentWriterList[status.index].getMem_nick() }</a> <span class="cont-activity"> <i class="activity-img fas fa-bolt" ></i>&nbsp;${commentWriterList[status.index].getMem_score() }
-														</span> <br>
-														<div class="cont-regdate">${dto.getCom_regdate() }</div>
-													</div>
-												</div>
+													<%-- 탈퇴회원인 경우 --%>
+													<c:if test="${commentWriterList[status.index].getMem_check() eq 'yes' }">
+														<div class="cont-member pull-left">
+															<img src="<%=request.getContextPath()%>/images/profileUpload/${commentWriterList[status.index].getMem_image() }" class="cont-mem-logo img-circle">
+	
+															<div class="cont-mem-info">
+																${commentWriterList[status.index].getMem_nick() }<span class="cont-activity"><i class="activity-img fas fa-lock"></i></span> <br>
+																<div class="cont-regdate">${dto.getCom_regdate() }</div>
+															</div>
+														</div>
+													</c:if>
+													
+													<%-- 탈퇴회원이 아닌 경우 --%>
+													<c:if test="${commentWriterList[status.index].getMem_check() eq 'no' }">
+														<div class="cont-member pull-left">
+															<a href="<%=request.getContextPath()%>/member_personal.do?num=${commentWriterList[status.index].getMem_num() }"> <img src="<%=request.getContextPath()%>/images/profileUpload/${commentWriterList[status.index].getMem_image() }" class="cont-mem-logo img-circle">
+															</a>
+	
+															<div class="cont-mem-info">
+																<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${commentWriterList[status.index].getMem_num() }"> ${commentWriterList[status.index].getMem_nick() }</a> <span class="cont-activity"> <i class="activity-img fas fa-bolt" ></i>&nbsp;${commentWriterList[status.index].getMem_score() }
+																</span> <br>
+																<div class="cont-regdate">${dto.getCom_regdate() }</div>
+															</div>
+														</div>
+													</c:if>
+													
 													<br> <br> <br>
 													<div class="com-content-${dto.getCom_num() } pull-left">
 														<p>${dto.getCom_content() }</p>

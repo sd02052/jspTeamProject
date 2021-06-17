@@ -26,7 +26,7 @@
 				            <form class="panel-body">
 				                <div class="avatar clearfix avatar-big col-sm-3 text-center">
 				                    <a href="" class="avatar-photo">
-				                        <img src="<%=request.getContextPath() %>/images/profile/${memDTO.getMem_image() }">
+				                        <img src="<%=request.getContextPath() %>/images/profileUpload/${memDTO.getMem_image() }">
 				                    </a>
 				                </div>
 				                <div class="user-info col-sm-9">
@@ -56,9 +56,9 @@
 				        </div>
 				        <div class="col-sm-2 user-info-nav pull-right"> <!-- activity Check -->
 				            <ul class="nav">
-				            	<li><a href="<%=request.getContextPath()%>/member_personal.do?page=${page }&num=${memDTO.getMem_num() }">게시물&nbsp;<span class="badge badge-muted"><c:if test="${totalRecord_board > 0 }">${totalRecord_board }</c:if></span></a></li>
-				                <li><a href="<%=request.getContextPath()%>/member_personal_commented.do?page=${page }&num=${memDTO.getMem_num() }">댓글&nbsp;<span class="badge badge-muted"><c:if test="${totalRecord_com > 0 }">${totalRecord_com }</c:if></span></a></li>
-				                <li class="selected"><a href="<%=request.getContextPath()%>/member_personal_scrapped.do?page=${page }&num=${memDTO.getMem_num() }">스크랩&nbsp;<span class="badge badge-muted"><c:if test="${totalRecord_scrap > 0 }">${totalRecord_scrap }</c:if></span></a></li>
+				            	<li><a href="<%=request.getContextPath()%>/member_personal.do?num=${memDTO.getMem_num() }">게시물&nbsp;<span class="badge badge-muted"><c:if test="${totalRecord_board > 0 }">${totalRecord_board }</c:if></span></a></li>
+				                <li><a href="<%=request.getContextPath()%>/member_personal_commented.do?num=${memDTO.getMem_num() }">댓글&nbsp;<span class="badge badge-muted"><c:if test="${totalRecord_com > 0 }">${totalRecord_com }</c:if></span></a></li>
+				                <li class="selected"><a href="<%=request.getContextPath()%>/member_personal_scrapped.do?num=${memDTO.getMem_num() }">스크랩&nbsp;<span class="badge badge-muted"><c:if test="${totalRecord_scrap > 0 }">${totalRecord_scrap }</c:if></span></a></li>
 				            </ul>
 				        </div> <!-- /activity Check-->
 	
@@ -82,7 +82,7 @@
 				                        <h5 class="list-group-item-heading">
 				                        	<c:choose>
 					                        	<c:when test="${cbList[status.index].getBoard_category() eq 1 || cbList[status.index].getBoard_category() eq 2 || cbList[status.index].getBoard_category() eq 3 }">
-					                        		<a href="<%=request.getContextPath()%>/member_qna_board_content.do?num=${scrap.getBoard_num() }">${scrap.getBoard_title() }</a>
+					                        		<a href="<%=request.getContextPath()%>/member_qna_board_content.do?num=${scrap.getBoard_num() }&hit='yes'">${scrap.getBoard_title() }</a>
 					                        	</c:when>
 					                        	<c:otherwise>
 					                        		<a href="<%=request.getContextPath()%>/member_board_content.do?num=${scrap.getBoard_num() }&hit='yes'">${scrap.getBoard_title() }</a>
@@ -90,9 +90,25 @@
 					                        </c:choose>
 				                            	
 				                            <div class="list-group-item-author pull-right clearfix">
+				                            	
+				                            	<%-- 탈퇴회원인 경우 --%>
+				                            	<c:if test="${lmList[status.index].getMem_check() eq 'yes' }">
+				                            	<div class="avatar clearfix avatar-x-small">
+				                                        <span class="avatar-photo"><img src="<%=request.getContextPath() %>/images/profileUpload/${lmList[status.index].getMem_image() }"></span>
+				                                    <div class="avatar-info">
+				                                        <span class="nickname">${lmList[status.index].getMem_nick() }</span>
+				                                        <div class="activity">
+				                                            <span class=""><i class="activity-img fas fa-lock"></i></span>
+				                                        </div>
+				                                    </div>
+				                                </div>
+				                                </c:if>
+				                            
+				                           	 	<%-- 탈퇴회원이 아닌 경우 --%>
+				                           	 	<c:if test="${lmList[status.index].getMem_check() eq 'no' }">
 				                                <div class="avatar clearfix avatar-x-small">
 				                                    <a href="" class="avatar-photo">
-				                                        <img src="<%=request.getContextPath() %>/images/437ec94ff99317bcb4a15730e1b5cf61.png">
+				                                        <img src="<%=request.getContextPath() %>/images/profileUpload/${lmList[status.index].getMem_image() }">
 				                                    </a>
 				                                    <div class="avatar-info">
 				                                        <a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=${lmList[status.index].getMem_num() }">${lmList[status.index].getMem_nick() }</a>
@@ -101,6 +117,8 @@
 				                                        </div>
 				                                    </div>
 				                                </div>
+				                                </c:if>
+				                                
 				                            </div>
 				                        </h5>
 

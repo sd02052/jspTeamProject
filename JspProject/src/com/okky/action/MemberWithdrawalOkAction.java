@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import com.okky.controller.Action;
 import com.okky.controller.ActionForward;
@@ -26,6 +28,8 @@ public class MemberWithdrawalOkAction implements Action {
 		ActionForward forward = new ActionForward();
 		
 		if (res > 0) {
+			HttpSession session = request.getSession();
+			session.setAttribute("loginNum", null);
 			forward.setRedirect(false);
 			forward.setPath("login.do");
 		} else {

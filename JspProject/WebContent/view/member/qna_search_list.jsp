@@ -186,21 +186,40 @@
 															</div>
 														</li>
 													</c:if>
-
-													<li class="list-unstyled li1  img1"></li>
-														<a class="text-left" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }"> 
-															<img class="mem-logo" src="<%=request.getContextPath()%>/images/profile/${memberList[status.index].getMem_image() }">
-														</a>
-													</li>
-													<li class="list-unstyled li1 a2">
-														<div>
-															<a class="a1" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }">${memberList[status.index].getMem_nick() }</a> &nbsp;
-															<div style="font-size: 10px; display: inline-block;">
-																<i class="fas fa-bolt i1"></i> ${memberList[status.index].getMem_score() }
+													
+													<%-- 탈퇴회원인 경우 --%>
+													<c:if test="${memberList[status.index].getMem_check() eq 'yes' }">
+														<li class="list-unstyled li1  img1"></li>
+															<img class="mem-logo text-left" src="<%=request.getContextPath()%>/images/profileUpload/${memberList[status.index].getMem_image() }">
+														</li>
+														<li class="list-unstyled li1 a2">
+															<div>
+																<span class="a1">${memberList[status.index].getMem_nick() }</span> &nbsp;
+																<div style="font-size: 10px; display: inline-block;">
+																	<i class="activity-img fas fa-lock"></i>
+																</div>
+																<p class="span">${dto.getBoard_regdate() }</p>
 															</div>
-															<p class="span">${dto.getBoard_regdate() }</p>
-														</div>
-													</li>
+														</li>
+													</c:if>
+
+													<%-- 탈퇴회원이 아닌 경우 --%>
+													<c:if test="${memberList[status.index].getMem_check() eq 'no' }">
+														<li class="list-unstyled li1  img1"></li>
+															<a class="text-left" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }"> 
+																<img class="mem-logo" src="<%=request.getContextPath()%>/images/profileUpload/${memberList[status.index].getMem_image() }">
+															</a>
+														</li>
+														<li class="list-unstyled li1 a2">
+															<div>
+																<a class="a1" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }">${memberList[status.index].getMem_nick() }</a> &nbsp;
+																<div style="font-size: 10px; display: inline-block;">
+																	<i class="fas fa-bolt i1"></i> ${memberList[status.index].getMem_score() }
+																</div>
+																<p class="span">${dto.getBoard_regdate() }</p>
+															</div>
+														</li>
+													</c:if>
 												</ul>
 											</div>
 										</div>

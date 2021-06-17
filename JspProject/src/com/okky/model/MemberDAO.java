@@ -75,7 +75,7 @@ public class MemberDAO {
 		try {
 			openConn();
 
-			sql = "select * from okky_member where mem_id = ?";
+			sql = "select * from okky_member where mem_id = ? and mem_check != 'yes'";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -601,7 +601,7 @@ public class MemberDAO {
 			openConn();
 
 			for (int i = 0; i < num.length; i++) {
-				sql = "update okky_member set mem_check = 'yes' where mem_num = ?";
+				sql = "update okky_member set mem_check = 'yes', mem_image = 'withdrawal.png' where mem_num = ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, num[i]);
 				res = pstmt.executeUpdate();
@@ -849,7 +849,7 @@ public class MemberDAO {
 		try {
 			openConn();
 
-			sql = "update okky_member set mem_check = ? where mem_num = ?";
+			sql = "update okky_member set mem_check = ?, mem_image = 'withdrawal.png' where mem_num = ?";
 
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "yes");
@@ -863,5 +863,7 @@ public class MemberDAO {
 		}
 		return result;
 	} // memberWithdrawal() 메서드 end
+	
+	
 
 }

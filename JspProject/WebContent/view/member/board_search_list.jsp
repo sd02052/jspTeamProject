@@ -117,23 +117,23 @@
 		
 		<%String sort = (String)request.getAttribute("sort");
 
-		if (sort.equals("'date'")) {%>
+		if (sort.equals("date")) {%>
 		$(function(){
 			$("#sort-date").addClass('active');
 		});
-		<%} else if (sort.equals("'like'")) {%>
+		<%} else if (sort.equals("like")) {%>
 		$(function(){
 			$("#sort-like").addClass('active');
 		});
-		<%} else if (sort.equals("'comment'")) {%>
+		<%} else if (sort.equals("comment")) {%>
 		$(function(){
 			$("#sort-comment").addClass('active');
 		});
-		<%} else if (sort.equals("'scrap'")) {%>
+		<%} else if (sort.equals("scrap")) {%>
 		$(function(){
 			$("#sort-scrap").addClass('active');
 		});
-		<%} else if (sort.equals("'hit'")) {%>
+		<%} else if (sort.equals("hit")) {%>
 		$(function(){
 			$("#sort-hit").addClass('active');
 		});
@@ -184,13 +184,13 @@
 									<div class="col-md-6 list-sort">
 										<a href="<%=request.getContextPath() %>/member_board_search.do?cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" id="sort-date">최신순</a>
 										&nbsp;
-										<a href="<%=request.getContextPath() %>/member_board_search_list_sort.do?sort='like'&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" id="sort-like">추천순</a>
+										<a href="<%=request.getContextPath() %>/member_board_search_list_sort.do?sort=<%=like %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" id="sort-like">추천순</a>
 										&nbsp;
-										<a href="<%=request.getContextPath() %>/member_board_search_list_sort.do?sort='comment'&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" id="sort-comment">댓글순</a>
+										<a href="<%=request.getContextPath() %>/member_board_search_list_sort.do?sort=<%=comment %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" id="sort-comment">댓글순</a>
 										&nbsp;
-										<a href="<%=request.getContextPath() %>/member_board_search_list_sort.do?sort='scrap'&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" id="sort-scrap">스크랩순</a>
+										<a href="<%=request.getContextPath() %>/member_board_search_list_sort.do?sort=<%=scrap %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" id="sort-scrap">스크랩순</a>
 										&nbsp;
-										<a href="<%=request.getContextPath() %>/member_board_search_list_sort.do?sort='hit'&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" id="sort-hit">조회순</a>
+										<a href="<%=request.getContextPath() %>/member_board_search_list_sort.do?sort=<%=hit %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" id="sort-hit">조회순</a>
 										&nbsp;
 									</div>
 								<div class="col-md-6" align="right">
@@ -245,22 +245,42 @@
 													<li class="list-unstyled li1 <c:if test="${dto.getBoard_comment() eq 0 }">item-icon-disabled</c:if>"><i class="fas fa-comment img"></i> ${dto.getBoard_comment() }</li>
 													<li class="list-unstyled li1 <c:if test="${dto.getBoard_like() eq 0 }">item-icon-disabled</c:if>"><i class="fas fa-thumbs-up img"></i> ${dto.getBoard_like() }</li>
 													<li class="list-unstyled li1 <c:if test="${dto.getBoard_hit() eq 0 }">item-icon-disabled</c:if>"><i class="far fa-eye"></i> ${dto.getBoard_hit() }</li>
-
-													<li class="list-unstyled li1  img1">
-														<a class="text-left" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }"> 
-															<img class="mem-logo" src="<%=request.getContextPath()%>/images/profile/${memberList[status.index].getMem_image() }">
-														</a>
-													</li>
-													<li class="list-unstyled li1 a2">
-														<div>
-															<a class="a1" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }">${memberList[status.index].getMem_nick() }</a> &nbsp;
-															<div style="font-size: 10px; display: inline-block;">
-																<i class="fas fa-bolt i1"></i>
-																${memberList[status.index].getMem_score() }
+													
+													<%-- 탈퇴회원인 경우 --%>
+													<c:if test="${memberList[status.index].getMem_check() eq 'yes' }">
+														<li class="list-unstyled li1  img1">
+																<img class="mem-logo" src="<%=request.getContextPath()%>/images/profileUpload/${memberList[status.index].getMem_image() }">
+														</li>
+														<li class="list-unstyled li1 a2">
+															<div>
+																${memberList[status.index].getMem_nick() } &nbsp;
+																<div style="font-size: 10px; display: inline-block;">
+																	<i class="activity-img fas fa-lock"></i>
+																</div>
+																<p class="span">${dto.getBoard_regdate() }</p>
 															</div>
-															<p class="span">${dto.getBoard_regdate() }</p>
-														</div>
-													</li>
+														</li>
+													</c:if>
+													
+													<%-- 탈퇴회원이 아닌 경우 --%>
+													<c:if test="${memberList[status.index].getMem_check() eq 'no' }">
+														<li class="list-unstyled li1  img1">
+															<a class="text-left" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }"> 
+																<img class="mem-logo" src="<%=request.getContextPath()%>/images/profileUpload/${memberList[status.index].getMem_image() }">
+															</a>
+														</li>
+														<li class="list-unstyled li1 a2">
+															<div>
+																<a class="a1" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }">${memberList[status.index].getMem_nick() }</a> &nbsp;
+																<div style="font-size: 10px; display: inline-block;">
+																	<i class="fas fa-bolt i1"></i>
+																	${memberList[status.index].getMem_score() }
+																</div>
+																<p class="span">${dto.getBoard_regdate() }</p>
+															</div>
+														</li>
+													</c:if>
+													
 												</ul>
 											</div>
 										</div>

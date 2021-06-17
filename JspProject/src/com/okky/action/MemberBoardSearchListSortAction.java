@@ -62,13 +62,13 @@ public class MemberBoardSearchListSortAction implements Action {
 			totalRecord = boardDAO.getSearchBoardListALLCount(cate_group, search_data); // 전체 게시글 수를 조회하는 메서드
 			category = dao2.getCategoryAll(cate_group);
 			
-			if(sort.equals("'like'")) {
+			if(sort.equals("like")) {
 				list = boardDAO.getBoardListAllSortLike(cate_group, search_data, startNo, endNo);
-			} else if(sort.equals("'comment'")) {
+			} else if(sort.equals("comment")) {
 				list = boardDAO.getBoardListAllSortComment(cate_group, search_data, startNo, endNo);
-			} else if(sort.equals("'scrap'")) {
+			} else if(sort.equals("scrap")) {
 				list = boardDAO.getBoardListAllSortScrap(cate_group, search_data, startNo, endNo);
-			} else if(sort.equals("'hit'")) {
+			} else if(sort.equals("hit")) {
 				list = boardDAO.getBoardListAllSortHit(cate_group, search_data, startNo, endNo);
 			}
 		} else {
@@ -76,13 +76,13 @@ public class MemberBoardSearchListSortAction implements Action {
 			totalRecord = boardDAO.getSearchBoardListCount(cate_num, search_data);
 			category = dao2.getCategory(cate_num);
 			
-			if(sort.equals("'like'")) {
+			if(sort.equals("like")) {
 				list = boardDAO.getBoardListSortLike(cate_num, search_data, startNo, endNo);
-			} else if(sort.equals("'comment'")) {
+			} else if(sort.equals("comment")) {
 				list = boardDAO.getBoardListSortComment(cate_num, search_data, startNo, endNo);
-			} else if(sort.equals("'scrap'")) {
+			} else if(sort.equals("scrap")) {
 				list = boardDAO.getBoardListSortScrap(cate_num, search_data, startNo, endNo);
-			} else if(sort.equals("'hit'")) {
+			} else if(sort.equals("hit")) {
 				list = boardDAO.getBoardListSortHit(cate_num, search_data, startNo, endNo);
 			}
 		}

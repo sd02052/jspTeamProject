@@ -117,19 +117,37 @@ $(function() {
 								<td colspan="12">
 									<div class="cont-header">
 										<div class="cont-member pull-left">
-											<a href="<%=request.getContextPath()%>/member_personal.do?num=${writer.getMem_num()}">
-												<img src="<%=request.getContextPath() %>/images/profile/${writer.getMem_image() }" class="cont-mem-logo img-circle">
-											</a>
-
-											<div class="cont-mem-info">
-												<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${writer.getMem_num() }">
-												${writer.getMem_nick() }</a> 
-												<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${writer.getMem_score() }</span>
-												<br>
-
-												<div class="cont-regdate">${dto.getBoard_regdate() }</div>
-
-											</div>
+										
+											<%-- 탈퇴회원인 경우 --%>
+											<c:if test="${writer.getMem_check() eq 'yes' }">
+												<img src="<%=request.getContextPath() %>/images/profileUpload/${writer.getMem_image() }" class="cont-mem-logo img-circle">
+	
+												<div class="cont-mem-info">
+													${writer.getMem_nick() }
+													<span class="cont-activity"><i class="activity-img fas fa-lock"></i></span>
+													<br>
+	
+													<div class="cont-regdate">${dto.getBoard_regdate() }</div>
+												</div>
+											</c:if>
+										
+											<%-- 탈퇴회원이 아닌 경우 --%>
+											<c:if test="${writer.getMem_check() eq 'no' }">
+												<a href="<%=request.getContextPath()%>/member_personal.do?num=${writer.getMem_num()}">
+													<img src="<%=request.getContextPath() %>/images/profileUpload/${writer.getMem_image() }" class="cont-mem-logo img-circle">
+												</a>
+	
+												<div class="cont-mem-info">
+													<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${writer.getMem_num() }">
+													${writer.getMem_nick() }</a> 
+													<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${writer.getMem_score() }</span>
+													<br>
+	
+													<div class="cont-regdate">${dto.getBoard_regdate() }</div>
+	
+												</div>
+											</c:if>
+											
 										</div>
 
 										<div class="cont-wrapper pull-right">
@@ -143,7 +161,8 @@ $(function() {
 							<tr>
 								<td class="col-md-10">
 									<div class="cont-content">
-										<span class="cont-num"># ${dto.getBoard_num() }</span> <a href=""> <span
+										<span class="cont-num"># ${dto.getBoard_num() }</span> 
+										<a href="<%=request.getContextPath()%>/member_board_list.do?cate_num=${category.getCate_num()}&big=${big_category }&small=${small_category }&cate_group=${category.getCate_group()}&cate_step=${category.getCate_step()}"> <span
 											class="label label-info">${category.getCate_name() }</span>
 										</a><br> <span class="cont-title">${dto.getBoard_title() }</span>
 										<hr>
@@ -267,15 +286,31 @@ $(function() {
 														</c:otherwise>
 														</c:choose>
 														
-														<a href="<%=request.getContextPath()%>/member_personal.do?num=${commentWriterList[status.index].getMem_num() }"> 
-															<img src="<%=request.getContextPath()%>/images/profile/${commentWriterList[status.index].getMem_image() }" class="cont-mem-logo img-circle">
-														</a>
-	
-														<div class="cont-mem-info">
-															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${commentWriterList[status.index].getMem_num() }"> ${commentWriterList[status.index].getMem_nick() }</a> <span class="cont-activity"> <i class="activity-img fas fa-bolt"></i>&nbsp;${commentWriterList[status.index].getMem_score() }
-															</span> <br>
-															<div class="cont-regdate">${dto.getCom_regdate() }</div>
-														</div>
+														<%-- 탈퇴회원인 경우 --%>
+														<c:if test="${commentWriterList[status.index].getMem_check() eq 'yes' }">
+															<img src="<%=request.getContextPath()%>/images/profileUpload/${commentWriterList[status.index].getMem_image() }" class="cont-mem-logo img-circle">
+		
+															<div class="cont-mem-info">
+																${commentWriterList[status.index].getMem_nick() }<span class="cont-activity"><i class="activity-img fas fa-lock"></i></span>
+																 <br>
+																<div class="cont-regdate">${dto.getCom_regdate() }</div>
+															</div>
+														</c:if>
+														
+														<%-- 탈퇴회원이 아닌 경우 --%>
+														<c:if test="${commentWriterList[status.index].getMem_check() eq 'no' }">
+															<a href="<%=request.getContextPath()%>/member_personal.do?num=${commentWriterList[status.index].getMem_num() }"> 
+																<img src="<%=request.getContextPath()%>/images/profileUpload/${commentWriterList[status.index].getMem_image() }" class="cont-mem-logo img-circle">
+															</a>
+		
+															<div class="cont-mem-info">
+																<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${commentWriterList[status.index].getMem_num() }">
+																 ${commentWriterList[status.index].getMem_nick() }</a> <span class="cont-activity"> <i class="activity-img fas fa-bolt"></i>&nbsp;${commentWriterList[status.index].getMem_score() }
+																</span> <br>
+																<div class="cont-regdate">${dto.getCom_regdate() }</div>
+															</div>
+														</c:if>
+														
 													</div>
 													<br> <br> <br>
 													<div class="com-content-${dto.getCom_num() } pull-left">

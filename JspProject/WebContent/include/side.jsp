@@ -1,5 +1,3 @@
-<%@page import="com.okky.model.AdminDAO"%>
-<%@page import="com.okky.model.AdminDTO"%>
 <%@page import="com.okky.model.MemberDAO"%>
 <%@page import="com.okky.model.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>

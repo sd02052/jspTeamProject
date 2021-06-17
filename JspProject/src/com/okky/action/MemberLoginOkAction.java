@@ -9,8 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import com.okky.controller.Action;
 import com.okky.controller.ActionForward;
-import com.okky.model.AdminDAO;
-import com.okky.model.AdminDTO;
 import com.okky.model.MemberDAO;
 import com.okky.model.MemberDTO;
 

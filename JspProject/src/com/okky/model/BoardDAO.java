@@ -1795,7 +1795,7 @@ public class BoardDAO {
 	}
 
 	public int deleteBoard(int num) {
-		int result = 0;
+		int result = 0, list_size = 0;
 
 		try {
 			openConn();
@@ -1805,14 +1805,42 @@ public class BoardDAO {
 
 			result = pstmt.executeUpdate();
 
-			sql = "delete from okky_like where like_target = ? and like_flag = 1";
+			sql = "select count(*) from okky_like where like_target = ? and like_flag in(1,3)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				list_size = rs.getInt(1);
+			}
+			int like[] = new int[list_size];
+			sql = "select like_num from okky_like where like_target = ? and like_flag in (1,3) order by like_num";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+				for (int i = 0; i < list_size; i++) {
+					rs.next();
+					like[i] = rs.getInt("like_num");
+				}
+			
+			sql = "delete from okky_like where like_target = ? and like_flag in(1,3)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
 
+			for (int i = 0; i < list_size; i++) {
+				sql = "update okky_like set like_num = like_num - 1 where like_num > ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, like[i] - i);
+				pstmt.executeUpdate();
+			}
+			
 			sql = "update okky_board set board_num = board_num - 1 where board_num > ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+			
+			sql = "update okky_like set like_target = like_target - 1 where like_flag in(1,3)";
+			pstmt = con.prepareStatement(sql);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -1822,4 +1850,5 @@ public class BoardDAO {
 		}
 		return result;
 	}
+	
 }

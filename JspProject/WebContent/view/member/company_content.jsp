@@ -60,7 +60,7 @@
 							</div>
 
 							<h5 class="list-group-item-heading list-group-item-evaluate">
-								<a href="<%=request.getContextPath()%>/member_board_content.do?num=${dto.getBoard_num()}"> ${dto.getBoard_title() } </a>
+								<a href="<%=request.getContextPath()%>/member_board_content.do?num=${dto.getBoard_num()}&hit='yes'"> ${dto.getBoard_title() } </a>
 							</h5>
 						</div>
 

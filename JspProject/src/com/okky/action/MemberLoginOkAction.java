@@ -9,8 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import com.okky.controller.Action;
 import com.okky.controller.ActionForward;
-import com.okky.model.AdminDAO;
-import com.okky.model.AdminDTO;
 import com.okky.model.MemberDAO;
 import com.okky.model.MemberDTO;
 
@@ -25,9 +23,9 @@ public class MemberLoginOkAction implements Action {
 		
 		PrintWriter out = response.getWriter();
 		ActionForward forward = new ActionForward();
+		MemberDAO dao = MemberDAO.getInstance();
 		
 		if(loginType.equals("member")) { // 회원 로그인 선택한 경우
-			MemberDAO dao = MemberDAO.getInstance();
 			int check = dao.memberCheck(login_id, login_pwd);
 			
 			if (check > 0) {
@@ -57,14 +55,14 @@ public class MemberLoginOkAction implements Action {
 				out.println("</script>");
 			}
 		} else { // 관리자 로그인 선택한 경우
-			AdminDAO dao = AdminDAO.getInstance();
+			/*AdminDAO dao = AdminDAO.getInstance();*/
 			int check = dao.adminCheck(login_id, login_pwd);
 			
 			if (check > 0) {
 				HttpSession session = request.getSession();
-				AdminDTO dto = dao.getAdmin(login_id);
+				MemberDTO dto = dao.getMember(login_id);
 				
-				session.setAttribute("loginNum", dto.getAdmin_num());
+				session.setAttribute("loginNum", dto.getMem_num());
 				session.setAttribute("loginType", loginType);
 				
 				forward.setRedirect(false);

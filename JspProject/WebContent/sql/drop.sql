@@ -19,5 +19,3 @@ drop table okky_category;	-- 카테고리 테이블 삭제
 drop table okky_mem_tag;	-- 회원 태그 테이블 삭제
 
 drop table okky_member;		-- 회원 테이블 삭제
-
-drop table okky_admin;		-- 관리자 테이블 삭제

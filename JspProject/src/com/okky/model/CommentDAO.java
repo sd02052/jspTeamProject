@@ -266,24 +266,52 @@ public class CommentDAO {
 	}
 
 	public int deleteComment(int num) {
-		int result = 0;
+		int result = 0, list_size = 0;
 
 		try {
 			openConn();
+
 			sql = "delete from okky_comment where com_num = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 
 			result = pstmt.executeUpdate();
 
+			sql = "select count(*) from okky_like where like_target = ? and like_flag = 2";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				list_size = rs.getInt(1);
+			}
+			int like[] = new int[list_size];
+			sql = "select like_num from okky_like where like_target = ? and like_flag = 2 order by like_num";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+				for (int i = 0; i < list_size; i++) {
+					rs.next();
+					like[i] = rs.getInt("like_num");
+					System.out.println(like[i]);
+				}
 			sql = "delete from okky_like where like_target = ? and like_flag = 2";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
 
+			for (int i = 0; i < list_size; i++) {
+				sql = "update okky_like set like_num = like_num - 1 where like_num > ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, like[i] - i);
+				pstmt.executeUpdate();
+			}
 			sql = "update okky_comment set com_num = com_num - 1 where com_num > ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+			
+			sql = "update okky_like set like_target = like_target - 1 where like_flag = 2";
+			pstmt = con.prepareStatement(sql);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -508,7 +536,7 @@ public class CommentDAO {
 		}
 		return list;
 	}
-	
+
 	public int checkCommentLike(int num, int login_mem) {
 		int result = 0;
 

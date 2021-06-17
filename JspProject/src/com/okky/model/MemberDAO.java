@@ -75,7 +75,7 @@ public class MemberDAO {
 		try {
 			openConn();
 
-			sql = "select * from okky_member where mem_id = ? and mem_num != 9999";
+			sql = "select * from okky_member where mem_id = ? and mem_num != 9999 and mem_check = 'no'";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();

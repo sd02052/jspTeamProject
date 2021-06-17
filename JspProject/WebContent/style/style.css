@@ -340,6 +340,7 @@
      .nav-user-func {
 		display: inline-block;
 	}
+	
 }
 /* 사이드바 css 끝 */
 
@@ -553,83 +554,3 @@
 }
 /* 회사소개 css 끝 */
 
-/* board 시작 */
-.table-bordered {
-	padding: 5px 10px;
-}
-
-.label1 {
-	background-color: #bbb;
-}
-
-.h {
-	margin: 3px 0px;
-}
-
-.padding {
-	padding: 1.8px 5.4px 2.7px;
-}
-
-.font {
-	font-size: 12px;
-}
-
-.font1 {
-	font-size: 10px;
-}
-
-.font_style {
-	font-weight: bold;
-}
-
-.box {
-	width: 400px;
-	height: 40px;
-}
-
-.size {
-	width: 803px;
-	height: 53px;
-}
-
-.img {
-	width: 14px;
-	height: 14px;
-}
-
-.li1 {
-	font-size: 13px;
-	color: gray;
-}
-
-.pa {
-	padding: 20px;
-}
-
-.a1 {
-	font-size: 12px;
-}
-
-.li2 {
-	font-size: 3px;
-	color: gray;
-}
-
-.font2 {
-	font-size: 3px;
-	color: gray;
-}
-
-.span {
-	font-size: 10px;
-}
-
-.img1 {
-	padding-top: 12px;
-}
-
-.a2 {
-	padding-top: 12px;
-}
-
-/* board 종료*/

@@ -58,13 +58,13 @@ public class MemberBoardListSortAction implements Action {
 
 		List<BoardDTO> list = null;
 		
-		if(sort.equals("'like'")) {
+		if(sort.equals("like")) {
 			list = dao1.getBoardListSortLike(cate_num, startNo, endNo);
-		} else if(sort.equals("'comment'")) {
+		} else if(sort.equals("comment")) {
 			list = dao1.getBoardListSortComment(cate_num, startNo, endNo);
-		} else if(sort.equals("'scrap'")) {
+		} else if(sort.equals("scrap")) {
 			list = dao1.getBoardListSortScrap(cate_num, startNo, endNo);
-		} else if(sort.equals("'hit'")) {
+		} else if(sort.equals("hit")) {
 			list = dao1.getBoardListSortHit(cate_num, startNo, endNo);
 		}
 		List<MemberDTO> list2 = dao1.getMemberList(list);

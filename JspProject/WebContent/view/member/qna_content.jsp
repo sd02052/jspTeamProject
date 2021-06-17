@@ -129,7 +129,7 @@ $(function() {
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../../include/side.jsp" />
-			<div style="width: 805px; min-height: 800px;">
+			<div class="md_container" style="width: 805px; min-height: 800px;">
 
 				<div id="article" class="div">
 
@@ -186,7 +186,7 @@ $(function() {
 											<a href=""> <i class="img fas fa-angle-up fa-2x"
 												data-toggle="tooltip" data-placement="left" title="추천"></i>
 											</a>
-											<p class="recommend-count">${dto.getBoard_like() }</p>
+											<div class="recommend-count">${dto.getBoard_like() }</div>
 											<a href=""> <i class="img fas fa-angle-down fa-2x"
 												data-toggle="tooltip" data-placement="left" title="반대"></i>
 											</a>

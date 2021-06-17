@@ -43,9 +43,7 @@
 	font-size: 10px;
 }
 
-/* .font_style {
-	font-weight: bold;
-} */
+
 .box {
 	width: 400px;
 	height: 40px;

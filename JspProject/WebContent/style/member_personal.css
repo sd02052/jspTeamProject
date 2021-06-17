@@ -221,3 +221,36 @@
   	width: 90%;
   	height: 20px;
 }
+.content .nav {
+    margin-bottom: 10px;
+}
+.nav {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+.col-sm-2{
+	padding-left: 0px !important;
+}
+.user-info-nav .badge {
+    margin-left: 5px;
+    background-color: #ccc;
+}
+
+@media ( max-width : 768px) {
+	.col-sm-10 {
+    	width: 100%;
+	}
+	.user-info-nav {
+		width: 100%;
+	}
+	.user-info-nav .nav>li {
+		float: left;
+	}
+	.selected{
+		border-left: none !important;
+	    background-color: #ddd;
+	    font-weight: normal;
+	    font-size: 14px;
+	}
+}

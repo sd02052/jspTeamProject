@@ -165,12 +165,11 @@
 							<div class="col-xs-12 col-md-8">
 								<h4>${cate.getCate_name() }</h4>
 							</div>
-							<div class="col-xs-12 col-md-4" align="right">
-								<button type="button" class="btn btn-success"
-									onclick="location.href='<%=request.getContextPath()%>/member_board_write.do'">
-									<i class="fas fa-pencil-alt"></i>새 글 쓰기
-								</button>
-							</div>
+							<c:if test="${loginNum != null }">
+								<div class="col-xs-12 col-md-4" align="right">
+									<a class="btn btn-success" href="<%=request.getContextPath()%>/member_board_write.do?cate_num=${cate.getCate_num()}&big=${big_category}&small=${small_category}">새 글 쓰기</a>
+								</div>
+							</c:if>
 						</div>
 
 						<br>

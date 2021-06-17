@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
@@ -12,7 +13,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
 	rel="stylesheet">
@@ -87,7 +87,7 @@
 }
 
 .span {
-	font-size: 14px;
+	font-size: 10px;
 }
 
 .img1 {
@@ -121,9 +121,21 @@
 	resize: vertical;
 }
 </style>
-
+<script type="text/javascript">
+$(function(){
+	$("#"+${big_category}).css("border-right","5px solid #e67d3e");
+	$("#"+${small_category}).css("color","#fff");
+})
+</script>
+<script type="text/javascript">
+function boardWriteCancle(){
+	var flag = confirm('정말로 취소하시겠습니까?');
+	if(flag == true){
+	window.history.back();
+	}
+};
+</script>
 </head>
-
 <body>
 	<div class="layout_container">
 		<div class="main">
@@ -134,103 +146,91 @@
 					<div class="row">
 						<div class="row">
 							<div class="col-xs-12">
-								<h4>커뮤니티</h4>
+								<h4>${category.getCate_name() }</h4>
 							</div>
 						</div>
 						<br>
 
-						<div class="col-xs-12" style="border: 1px solid gray;">
+						<div class="col-xs-12" style="border-top: 1px solid gray;border-left: 1px solid gray;border-right: 1px solid gray;">
 							<ul class="list-inline">
-								<li class="list-unstyled li1  img1"></li>
+								<li class="list-unstyled li1 img1" style="padding-top: 10px;">
 								<a class="avatar-photo text-left"> <img width="30"
 									height="30" class="img-circle "
 									src="//www.gravatar.com/avatar/b66da5ef6099211f5db8f5f7a3b4c36b?d=identicon&s=30">
 								</a>
 								</li>
-								
+
 								<!-- 아이디 값 받아오기 -->
-								
-								<li class="list-unstyled li1 a2">
+
+								<li class="list-unstyled li1 a2" style="padding-top: 10px;">
 									<div class="text-left">
-										<span class="list-group-item-text article-id font">${mdto.getMem_nick() }</span>
+										<a href=""> <span
+											class="list-group-item-text article-id font">${dto.getMem_nick() }</span>
+										</a>
 										<p class="span">
-											<i class="fas fa-bolt i1"></i>0
+											<i class="fas fa-bolt i1"></i>${dto.getMem_score() }
 										</p>
 									</div>
 								</li>
 							</ul>
 						</div>
-						
-						<form action="member_board_post.do" method="post" class="form-horizontal">
-						<input type="hidden" name="login_mem" value="${loginNum }">
-						<!-- <input type="hidden" name="board_writer" /> -->
+
+						<form action="<%=request.getContextPath() %>/member_board_write_ok.do" method="post" class="form-horizontal">
+							<input type="hidden" name="board_writer" value="${dto.getMem_num() }">
+							<input type="hidden" name="big" value="${big_category}">
+							<input type="hidden" name="small" value="${small_category}">
 							<div class="col-xs-12 d" style="border: 1px solid gray;">
 								<div class="form-group">
-
-									<br> <label for="inputEmail3"
-										class="col-md-2 control-label"></label>
+									<br> <label for="inputEmail3" class="col-md-2 control-label"></label>
 									<div class="col-sm-8">
-										<select class="form-control" name="category">
-											
-											<!-- 각 게시판 마다 value 맞춰주기 -->
-											
-											<option>게시판을 선택해 주세요.</option>
-											<option value="2">Tech Q&A</option> 
-											<option value="3">Blockchain Q&A</option>
-											<option value="4">IT News & 정보</option>
-											<option value="5">Tips & 강좌</option>
-											<option value="6">공지사항</option>
-											<option value="7">사는얘기</option>
-											<option value="8">포럼</option>
-											<option value="9">IT 행사</option>
-											<option value="10">기술 서적 리뷰</option>
-											<option value="11">정기모임/스터디</option>
-											<option value="12">학원/홍보</option>
+										<select class="form-control" name="board_category" required>
+											<option value="">:::게시판 선택:::</option>
+											<c:if test="${!empty cate_list }">
+												<c:forEach items="${cate_list }" var="cateDTO">
+													<option value="${cateDTO.getCate_num() }">${cateDTO.getCate_name() }</option>
+												</c:forEach>
+											</c:if>
+											<c:if test="${empty cate_list }">
+												<option value="">카테고리 불러오기 실패</option>
+											</c:if>
 										</select>
 									</div>
 								</div>
-								
+
 								<!-- 제목,카테고리,내용을 어떻게보내야 하는지 정한다. -->
 								<div class="form-group">
 									<label for="inputEmail3" class="col-md-2 control-label"></label>
 									<div class="col-sm-8">
 										<input type="text" class="form-control" id="inputEmail3"
-											placeholder="제목을 입력해 주세요." name="title">
-									</div>
-								</div>
-								
-								<!-- 태그는 DB에 없어 잠시 빼놓음 -->
-								<div class="form-group">
-									<label for="inputPassword3" class="col-md-2 control-label"></label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="inputPassword3"
-											placeholder="Tags.">
+											placeholder="제목을 입력해 주세요." name="board_title" required>
 									</div>
 								</div>
 
+								<!-- 태그는 DB에 없어 잠시 빼놓음 -->
+								<!-- <div class="form-group">
+									<label for="inputPassword3" class="col-md-2 control-label"></label>
+									<div class="col-sm-8">
+										<input type="file" class="form-control" id="inputPassword3"
+											name="board_image" placeholder="파일을 선택해주세요.">
+									</div>
+								</div> -->
+								
 								<div class="row">
 									<label for="inputEmail3" class="col-md-2 control-label"></label>
 									<div class="col-sm-8 ">
-										<textarea class="form-control noresize" rows="15" name="content"></textarea>
+										<textarea class="form-control noresize" rows="15"
+											name="board_content" required></textarea>
 									</div>
 								</div>
 								<div class="col-xs-12 col-md-3">
 									<br> <br>
-									<button type="button" class="btn btn-success"
-										style="float: right;">
-										</i>취소
-									</button>
+									<input type="button" class="btn btn-default" style="float: right;" value="취소" onclick="return boardWriteCancle()">
 								</div>
 								<div class="col-xs-12 col-md-8">
-									<br> <br>
-									
-									<!-- 게시판의 value에 따라 각 게시판으로 전달. -->
-									
-									<button type="submit" class="btn btn-success"	
-										
-										style="float: right;">등록</button>
+									<br> <br> 
+									<input type="submit" class="btn btn-success" style="float: right;" value="등록">
 								</div>
-						</div>
+							</div>
 						</form>
 					</div>
 				</div>

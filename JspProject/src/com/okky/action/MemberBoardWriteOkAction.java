@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.okky.controller.Action;
 import com.okky.controller.ActionForward;
@@ -14,8 +13,6 @@ import com.okky.model.BoardDTO;
 import com.okky.model.CategoryDAO;
 import com.okky.model.CategoryDTO;
 import com.okky.model.MemberDAO;
-import com.okky.model.MemberDTO;
-import com.oreilly.servlet.MultipartRequest;
 
 public class MemberBoardWriteOkAction implements Action {
 
@@ -43,6 +40,8 @@ public class MemberBoardWriteOkAction implements Action {
 		ActionForward forward = new ActionForward();
 
 		if (result > 0) {
+			MemberDAO dao2 = MemberDAO.getInstance();
+			dao2.boardUpScore(board_writer);
 			if(dto1.getCate_group() != 1) {
 				forward.setRedirect(true);
 				forward.setPath("member_board_list.do?cate_num=" + board_category + "&big=" + big_category + "&small="

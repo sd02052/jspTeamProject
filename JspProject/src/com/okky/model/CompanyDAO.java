@@ -115,7 +115,7 @@ public class CompanyDAO {
 
 		try {
 			openConn();
-			sql = "select * from okky_company where company_num = ? order by company_num desc";
+			sql = "select * from okky_company where company_num = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
@@ -384,4 +384,86 @@ public class CompanyDAO {
 		return result;
 	}
 
+	// 특정회원이 가진 회사의 내용을 조회하는 메서드
+	public CompanyDTO getMemCompanyList(int num) {
+		CompanyDTO dto = new CompanyDTO();
+		
+		try {
+			openConn();
+			sql = "select * from okky_company where company_num = (select mem_company from okky_member where mem_num = ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto.setCompany_num(rs.getInt("company_num"));
+				dto.setCompany_name(rs.getString("company_name"));
+				dto.setCompany_license_num(rs.getString("company_license_num"));
+				dto.setCompany_license_image(rs.getString("company_license_image"));
+				dto.setCompany_boss_phone(rs.getString("company_boss_phone"));
+				dto.setCompany_boss_email(rs.getString("company_boss_email"));
+				dto.setCompany_charge_phone(rs.getString("company_charge_phone"));
+				dto.setCompany_charge_email(rs.getString("company_charge_email"));
+				dto.setCompany_charge_name(rs.getString("company_charge_name"));
+				dto.setCompany_emp(rs.getString("company_emp"));
+				dto.setCompany_homepage(rs.getString("company_homepage"));
+				dto.setCompany_logo(rs.getString("company_logo"));
+				dto.setCompany_content(rs.getString("company_content"));
+				dto.setCompany_check(rs.getInt("company_check"));
+				dto.setCompany_target(rs.getInt("company_target"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+			
+		return dto;
+	}
+	
+	// 게시판에서 특정 회원이 가진 회사의 내용을 조회하는 메서드
+	public List<CompanyDTO> getCompanyList(List<BoardDTO> boardList) {
+		List<CompanyDTO> list = new ArrayList<>();
+		
+		try {
+			openConn();
+			
+			for(int i=0; i<boardList.size(); i++) {
+				sql = "select * from okky_company where company_num = (select mem_company from okky_member where mem_num = ?)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, boardList.get(i).getBoard_writer());
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					CompanyDTO dto = new CompanyDTO();
+
+					dto.setCompany_num(rs.getInt("company_num"));
+					dto.setCompany_name(rs.getString("company_name"));
+					dto.setCompany_license_num(rs.getString("company_license_num"));
+					dto.setCompany_license_image(rs.getString("company_license_image"));
+					dto.setCompany_boss_phone(rs.getString("company_boss_phone"));
+					dto.setCompany_boss_email(rs.getString("company_boss_email"));
+					dto.setCompany_charge_phone(rs.getString("company_charge_phone"));
+					dto.setCompany_charge_email(rs.getString("company_charge_email"));
+					dto.setCompany_charge_name(rs.getString("company_charge_name"));
+					dto.setCompany_emp(rs.getString("company_emp"));
+					dto.setCompany_homepage(rs.getString("company_homepage"));
+					dto.setCompany_logo(rs.getString("company_logo"));
+					dto.setCompany_content(rs.getString("company_content"));
+					dto.setCompany_check(rs.getInt("company_check"));
+					dto.setCompany_target(rs.getInt("company_target"));
+
+					list.add(dto);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+		return list;
+	}
 }

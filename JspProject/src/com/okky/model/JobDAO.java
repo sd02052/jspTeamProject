@@ -394,5 +394,82 @@ public class JobDAO {
 		
 		return count;
 	}
+	
+	public int setJob(JobDTO job) {
+		int result = 0, count = 0;
+		
+		try {
+			openConn();
+			sql = "select max(job_num) from okky_job";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1) + 1;
+			}else {
+				count = 1;
+			}
+			
+			sql = "insert into okky_job values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, count);
+			pstmt.setInt(2, job.getJob_target());
+			pstmt.setInt(3, job.getJob_contract());
+			pstmt.setInt(4, job.getJob_mincost());
+			pstmt.setInt(5, job.getJob_maxcost());
+			pstmt.setString(6, job.getJob_location());
+			pstmt.setString(7, job.getJob_do());
+			pstmt.setInt(8, job.getJob_mincareer());
+			pstmt.setInt(9, job.getJob_maxcareer());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+		return result;
+	}
+	
+	public List<JobDTO> getJobList(List<BoardDTO> boardList) {
+		List<JobDTO> list = new ArrayList<>();
+		
+		try {
+			openConn();
+			
+			for(int i=0; i<boardList.size(); i++) {
+				sql = "select * from okky_job where job_target = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, boardList.get(i).getBoard_num());
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					JobDTO dto = new JobDTO();
+					
+					dto.setJob_num(rs.getInt("job_num"));
+					dto.setJob_target(rs.getInt("job_target"));
+					dto.setJob_contract(rs.getInt("job_contract"));
+					dto.setJob_mincost(rs.getInt("job_mincost"));
+					dto.setJob_maxcost(rs.getInt("job_maxcost"));
+					dto.setJob_location(rs.getString("job_location"));
+					dto.setJob_do(rs.getString("job_do"));
+					dto.setJob_mincareer(rs.getInt("job_mincareer"));
+					dto.setJob_maxcareer(rs.getInt("job_maxcareer"));
+					
+					list.add(dto);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+	}
 
 }

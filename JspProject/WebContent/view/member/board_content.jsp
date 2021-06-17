@@ -91,7 +91,6 @@ function commentEditCancle<%=list.get(i).getCom_num() %>(){
 
 					<br>
 
-
 					<div class="cont">
 						<table class="table table-bordered">
 							<tr>

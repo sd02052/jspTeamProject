@@ -27,6 +27,12 @@
 <c:set var="big_category" value="${big_category }" />
 <c:set var="small_category" value="${small_category }" />
 <script type="text/javascript">
+
+	<%
+	if(session.getAttribute("loginNum") != null){
+		int loginNum = (int)session.getAttribute("loginNum");
+	}
+	%>
 	
 	$(function(){
 		$("#"+${big_category }).css("border-right","5px solid #e67d3e");
@@ -82,11 +88,14 @@
 							<div class="col-xs-12 col-md-8">
 								<h4>${cate.getCate_name() }</h4>
 							</div>
+							
+							<c:if test="${!empty loginNum }">
 							<div class="col-xs-12 col-md-4" align="right">
 								<button type="button" class="btn btn-success" onclick="location.href='<%=request.getContextPath()%>/member_board_write.do'">
 									<i class="fas fa-pencil-alt"></i>새 글 쓰기
 								</button>
 							</div>
+							</c:if>
 						</div>
 						<br>
 
@@ -138,7 +147,7 @@
 									<div class="col-xs-7">
 										<div class="row">
 											<span class="list-group-item-text article-id font">#${dto.getBoard_num() }</span>
-											<a class="list-group-item-text item-tag label label-info padding" href="<%=request.getContextPath()%>/member_board_list.do?cate_num=${categoryList[status.index].getCate_num()}&big=${big[status.index] }&small=${small[status.index] }&cate_group=${categoryList[status.index].getCate_group()}&cate_step=${categoryList[status.index].getCate_step()}">
+											<a class="list-group-item-text item-tag label label-info padding" href="<%=request.getContextPath()%>/member_qna_board_list.do?cate_num=${categoryList[status.index].getCate_num()}&big=${big[status.index] }&small=${small[status.index] }&cate_group=${categoryList[status.index].getCate_group()}&cate_step=${categoryList[status.index].getCate_step()}">
 											${categoryList[status.index].getCate_name()}</a>
 										</div>
 										<div class="row">

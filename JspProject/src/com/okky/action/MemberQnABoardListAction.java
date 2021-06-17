@@ -24,33 +24,32 @@ public class MemberQnABoardListAction implements Action {
 		String small_category = request.getParameter("small").trim();
 		int cate_group = Integer.parseInt(request.getParameter("cate_group"));
 		int cate_step = Integer.parseInt(request.getParameter("cate_step"));
-		
+
 		String sort = "";
-		
-		if(request.getParameter("sort")  == null) {
+
+		if (request.getParameter("sort") == null) {
 			sort = "date";
-		}else {
+		} else {
 			sort = request.getParameter("sort");
 		}
-		
-		
+
 		BoardDAO dao1 = BoardDAO.getInstance();
 		CommentDAO comDAO = CommentDAO.getInstance();
 		CategoryDAO dao2 = CategoryDAO.getInstance();
 
 		// 페이징 작업
-		int rowsize = 10; 	// 한 페이지당 보여질 게시물의 수
-		int block = 5; 		// 하단에 보여질 페이지의 최대 수 예) [1][2][3] / [4][5][6] (최대 3개씩)
+		int rowsize = 10; // 한 페이지당 보여질 게시물의 수
+		int block = 5; // 하단에 보여질 페이지의 최대 수 예) [1][2][3] / [4][5][6] (최대 3개씩)
 		int totalRecord = 0;// DB상의 게시물 전체 수
-		int allPage = 0;	// 전체 페이지 수
+		int allPage = 0; // 전체 페이지 수
 
-		int page = 0; 
+		int page = 0;
 		if (request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		} else {
 			page = 1;
 		}
-		
+
 		int startNo = (page * rowsize) - (rowsize - 1);
 		int endNo = (page * rowsize);
 
@@ -60,20 +59,20 @@ public class MemberQnABoardListAction implements Action {
 		List<BoardDTO> list = null;
 		String type = "";
 		CategoryDTO category = new CategoryDTO();
-		
+
 		// 카테고리에 맞는 전체 게시글 수를 조회하는 메서드
-		if(cate_step == 0) {
+		if (cate_step == 0) {
 			type = "all";
 			totalRecord = dao1.getBoardListAllCount(cate_group);
 			list = dao1.getBoardListAll(cate_group, startNo, endNo);
 			category = dao2.getCategoryAll(cate_group);
-		}else {
+		} else {
 			type = "detail";
 			totalRecord = dao1.getBoardListCount(cate_num);
 			list = dao1.getBoardList(cate_num, startNo, endNo);
 			category = dao2.getCategory(cate_num);
 		}
-		
+
 		allPage = (int) (Math.ceil(totalRecord / (double) rowsize));
 
 		if (endBlock > allPage) {
@@ -86,13 +85,66 @@ public class MemberQnABoardListAction implements Action {
 
 		List<MemberDTO> list2 = dao1.getMemberList(list);
 		List<CategoryDTO> list3 = dao1.getCategoryAllList(list);
-		List<Integer> selectList = comDAO.getSelectedList(list);	// 채택된 답변이 있는지 조회하는 메서드
+		List<Integer> selectList = comDAO.getSelectedList(list); // 채택된 답변이 있는지 조회하는 메서드
+		List<CategoryDTO> cateList = dao2.getCategoryList(list);
+
+		String[] big_categorys = new String[cateList.size()];
+		String[] small_categorys = new String[cateList.size()];
+
+		for (int i = 0; i < cateList.size(); i++) {
+			if (cateList.get(i).getCate_num() == 2) {
+				big_categorys[i] = "'menu1'";
+				small_categorys[i] = "'menu1-2'";
+			} else if (cateList.get(i).getCate_num() == 3) {
+				big_categorys[i] = "'menu1'";
+				small_categorys[i] = "'menu1-3'";
+			} else if (cateList.get(i).getCate_num() == 5) {
+				big_categorys[i] = "'menu2'";
+				small_categorys[i] = "'menu2-2'";
+			} else if (cateList.get(i).getCate_num() == 6) {
+				big_categorys[i] = "'menu2'";
+				small_categorys[i] = "'menu2-3'";
+			} else if (cateList.get(i).getCate_num() == 8) {
+				big_categorys[i] = "'menu3'";
+				small_categorys[i] = "'menu3-2'";
+			} else if (cateList.get(i).getCate_num() == 9) {
+				big_categorys[i] = "'menu3'";
+				small_categorys[i] = "'menu3-3'";
+			} else if (cateList.get(i).getCate_num() == 10) {
+				big_categorys[i] = "'menu3'";
+				small_categorys[i] = "'menu3-4'";
+			} else if (cateList.get(i).getCate_num() == 11) {
+				big_categorys[i] = "'menu3'";
+				small_categorys[i] = "'menu3-5'";
+			} else if (cateList.get(i).getCate_num() == 12) {
+				big_categorys[i] = "'menu3'";
+				small_categorys[i] = "'menu3-6'";
+			} else if (cateList.get(i).getCate_num() == 13) {
+				big_categorys[i] = "'menu3'";
+				small_categorys[i] = "'menu3-7'";
+			} else if (cateList.get(i).getCate_num() == 14) {
+				big_categorys[i] = "'menu3'";
+				small_categorys[i] = "'menu3-8'";
+			} else if (cateList.get(i).getCate_num() == 15) {
+				big_categorys[i] = "'menu4'";
+				small_categorys[i] = "'menu4-1'";
+			} else if (cateList.get(i).getCate_num() == 17) {
+				big_categorys[i] = "'menu5'";
+				small_categorys[i] = "'menu5-2'";
+			} else if (cateList.get(i).getCate_num() == 18) {
+				big_categorys[i] = "'menu5'";
+				small_categorys[i] = "'menu5-3'";
+			} else if (cateList.get(i).getCate_num() == 19) {
+				big_categorys[i] = "'menu5'";
+				small_categorys[i] = "'menu5-4'";
+			}
+		}
 
 		request.setAttribute("boardList", list);
 		request.setAttribute("memberList", list2);
 		request.setAttribute("categoryList", list3);
 		request.setAttribute("selectList", selectList);
-		
+
 		request.setAttribute("category", category);
 		request.setAttribute("cate_num", cate_num);
 		request.setAttribute("big_category", big_category);
@@ -102,6 +154,9 @@ public class MemberQnABoardListAction implements Action {
 		request.setAttribute("cate_group", cate_group);
 		request.setAttribute("cate_step", cate_step);
 		
+		request.setAttribute("small", small_categorys);
+		request.setAttribute("big", big_categorys);
+
 		request.setAttribute("page", page);
 		request.setAttribute("rowsize", rowsize);
 		request.setAttribute("block", block);
@@ -111,7 +166,7 @@ public class MemberQnABoardListAction implements Action {
 		request.setAttribute("endNo", endNo);
 		request.setAttribute("startBlock", startBlock);
 		request.setAttribute("endBlock", endBlock);
-		
+
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);
 		forward.setPath("view/member/qna_board.jsp");

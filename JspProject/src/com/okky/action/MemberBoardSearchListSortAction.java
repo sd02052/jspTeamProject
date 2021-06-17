@@ -101,6 +101,59 @@ public class MemberBoardSearchListSortAction implements Action {
 		List<CategoryDTO> list3 = boardDAO.getCategoryAllList(list);
 		List<CommentDTO> comList = comDAO.getCommentList(list);
 		List<Integer> selectList = comDAO.getSelectedList(list);	// 채택된 답변이 있는지 조회하는 메서드
+		List<CategoryDTO> cateList = dao2.getCategoryList(list);
+
+		String[] big_categorys = new String[cateList.size()];
+		String[] small_categorys = new String[cateList.size()];
+
+		for (int i = 0; i < cateList.size(); i++) {
+			if (cateList.get(i).getCate_num() == 2) {
+				big_categorys[i] = "'menu1'";
+				small_categorys[i] = "'menu1-2'";
+			} else if (cateList.get(i).getCate_num() == 3) {
+				big_categorys[i] = "'menu1'";
+				small_categorys[i] = "'menu1-3'";
+			} else if (cateList.get(i).getCate_num() == 5) {
+				big_categorys[i] = "'menu2'";
+				small_categorys[i] = "'menu2-2'";
+			} else if (cateList.get(i).getCate_num() == 6) {
+				big_categorys[i] = "'menu2'";
+				small_categorys[i] = "'menu2-3'";
+			} else if (cateList.get(i).getCate_num() == 8) {
+				big_categorys[i] = "'menu3'";
+				small_categorys[i] = "'menu3-2'";
+			} else if (cateList.get(i).getCate_num() == 9) {
+				big_categorys[i] = "'menu3'";
+				small_categorys[i] = "'menu3-3'";
+			} else if (cateList.get(i).getCate_num() == 10) {
+				big_categorys[i] = "'menu3'";
+				small_categorys[i] = "'menu3-4'";
+			} else if (cateList.get(i).getCate_num() == 11) {
+				big_categorys[i] = "'menu3'";
+				small_categorys[i] = "'menu3-5'";
+			} else if (cateList.get(i).getCate_num() == 12) {
+				big_categorys[i] = "'menu3'";
+				small_categorys[i] = "'menu3-6'";
+			} else if (cateList.get(i).getCate_num() == 13) {
+				big_categorys[i] = "'menu3'";
+				small_categorys[i] = "'menu3-7'";
+			} else if (cateList.get(i).getCate_num() == 14) {
+				big_categorys[i] = "'menu3'";
+				small_categorys[i] = "'menu3-8'";
+			} else if (cateList.get(i).getCate_num() == 15) {
+				big_categorys[i] = "'menu4'";
+				small_categorys[i] = "'menu4-1'";
+			} else if (cateList.get(i).getCate_num() == 17) {
+				big_categorys[i] = "'menu5'";
+				small_categorys[i] = "'menu5-2'";
+			} else if (cateList.get(i).getCate_num() == 18) {
+				big_categorys[i] = "'menu5'";
+				small_categorys[i] = "'menu5-3'";
+			} else if (cateList.get(i).getCate_num() == 19) {
+				big_categorys[i] = "'menu5'";
+				small_categorys[i] = "'menu5-4'";
+			}
+		}
 
 		request.setAttribute("boardList", list);
 		request.setAttribute("memberList", list2);
@@ -118,6 +171,8 @@ public class MemberBoardSearchListSortAction implements Action {
 		request.setAttribute("data", search_data);
 		request.setAttribute("cate_group", cate_group);
 		request.setAttribute("cate_step", cate_step);
+		request.setAttribute("small", small_categorys);
+		request.setAttribute("big", big_categorys);
 		
 		request.setAttribute("page", page);
 		request.setAttribute("rowsize", rowsize);

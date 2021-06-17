@@ -230,11 +230,12 @@
 									<div class="col-sm-7">
 										<div class="row">
 											<span class="list-group-item-text article-id font">#${dto.getBoard_num() }</span>
-											<a class="list-group-item-text item-tag label label-info padding">${categoryList[status.index].getCate_name()}</a>
+											<a class="list-group-item-text item-tag label label-info padding" href="<%=request.getContextPath()%>/member_board_list.do?cate_num=${categoryList[status.index].getCate_num()}&big=${big[status.index] }&small=${small[status.index] }&cate_group=${categoryList[status.index].getCate_group()}&cate_step=${categoryList[status.index].getCate_step()}">
+											${categoryList[status.index].getCate_name()}</a>
 										</div>
 										<div class="row">
 											<h5 class="list-group-item-heading list-group-item-evaluate h">
-												<a class="font_style" href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }">${dto.getBoard_title() }</a>
+												<a class="font_style" href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
 											</h5>
 										</div>
 									</div>

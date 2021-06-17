@@ -139,7 +139,7 @@ function commentEditCancle<%=list.get(i).getCom_num() %>(){
 							<tr>
 								<td class="col-sm-10">
 									<div class="cont-content">
-										<span class="cont-num"># ${dto.getBoard_num() }</span> <a href=""> <span
+										<span class="cont-num"># ${dto.getBoard_num() }</span> <a href="<%=request.getContextPath()%>/member_board_list.do?cate_num=${category.getCate_num()}&big=${big_category }&small=${small_category }&cate_group=${category.getCate_group()}&cate_step=${category.getCate_step()}"> <span
 											class="label label-info">${category.getCate_name() }</span>
 										</a><br> <span class="cont-title">${dto.getBoard_title() }</span>
 										<hr>

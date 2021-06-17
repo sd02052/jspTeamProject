@@ -383,7 +383,7 @@ $(function() {
 											<a
 												href="<%=request.getContextPath()%>/member_personal.do?num=${login_mem.getMem_num() }">
 												<img
-												src="<%=request.getContextPath() %>/images/${login_mem.getMem_image() }"
+												src="<%=request.getContextPath() %>/images/profileUpload/${login_mem.getMem_image() }"
 												class="cont-mem-logo img-circle">
 											</a>
 

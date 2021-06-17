@@ -319,7 +319,8 @@
 										<c:forEach items="${techList }" var="dto" varStatus="status" end="2">
 											<div class="article-middle-block clearfix">
 												<div class="list-tag clearfix">
-													<a href="" class="list-group-item-text item-tag label label-info"> <i class="fas fa-code"></i> ${techCategory[status.index].getCate_name() }
+													<a href="<%=request.getContextPath() %>/member_board_list.do?cate_num=${techCategory[status.index].getCate_num() }&big=${big[status.index] }&small=${small[status.index] }&cate_group=${techCategory[status.index].getCate_group() }&cate_step=${techCategory[status.index].getCate_step() }" 
+													class="list-group-item-text item-tag label label-info"> <i class="fas fa-code"></i> ${techCategory[status.index].getCate_name() }
 													</a>
 												</div>
 												<h5>
@@ -382,7 +383,7 @@
 										<c:forEach items="${columnList }" var="dto" varStatus="status" end="0">
 											<div class="article-middle-block clearfix">
 												<div class="list-tag clearfix">
-													<a href="" class="list-group-item-text item-tag label label-info"><i class="fas fa-quote-left"></i> ${columnCategory[status.index].getCate_name() } </a>
+													<a href="<%=request.getContextPath() %>/member_board_list.do?cate_num=15&big='menu4'&small='menu4-1'&cate_group=4&cate_step=1" class="list-group-item-text item-tag label label-info"><i class="fas fa-quote-left"></i> ${columnCategory[status.index].getCate_name() } </a>
 												</div>
 												<h5>
 													<a href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num()}&hit='yes'">${dto.getBoard_title() }</a>

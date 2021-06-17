@@ -1,5 +1,3 @@
--- 관리자 테이블 레코드
-insert into okky_admin values(1, 'admin@admin', '1111'); 
 
 
 -- 멤버 테이블 레코드
@@ -15,6 +13,7 @@ insert into okky_member values(9, 'mem9@mem', 'mem9', '1111', 'test', 'mem9@gmai
 insert into okky_member values(10, 'mem10@mem', 'mem10', '1111', 'test', 'mem10@gmail.com', sysdate, default, default, 100, 10);
 insert into okky_member values(11, 'mem11@mem', 'mem11', '1111', 'test', 'mem11@gmail.com', sysdate, default, default, 300, 11);
 insert into okky_member values(12, 'mem12@mem', 'mem12', '1111', 'test', 'mem12@gmail.com', sysdate, default, default, 1250, 12);
+insert into okky_member values(9999, '1234@1234', '관리자', '1234', 'admin.png', '1234@1234', sysdate, default, default, 0, 0);
 
 
 -- 카테고리 테이블 레코드

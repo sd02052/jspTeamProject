@@ -179,7 +179,7 @@ function commentEditCancle<%=list.get(i).getCom_num() %>(){
 												<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 													<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_board_edit.do?num=${dto.getBoard_num()}"> <i class="fas fa-edit"></i>&nbsp;수정
 													</a></li>
-													<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_board_delete.do?num=${dto.getBoard_num()}&big=${big_category}&small=${small_category}&cate_num=${category.getCate_num()}" onclick="return confirm('댓글을 삭제 하시겠습니까?');"> <i class="fas fa-trash-alt"></i>&nbsp;삭제
+													<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_board_delete.do?num=${dto.getBoard_num()}&big=${big_category}&small=${small_category}&cate_num=${category.getCate_num()}" onclick="return confirm('게시물을 삭제 하시겠습니까?');"> <i class="fas fa-trash-alt"></i>&nbsp;삭제
 													</a></li>
 												</ul>
 											</div>
@@ -290,7 +290,7 @@ function commentEditCancle<%=list.get(i).getCom_num() %>(){
 											type="hidden" name="com_target" value="${dto.getBoard_num() }">
 										<div class="cont-member pull-left">
 											<a href="<%=request.getContextPath()%>/member_personal.do?num=${login_mem.getMem_num() }">
-												<img src="<%=request.getContextPath() %>/images/${login_mem.getMem_image() }" class="cont-mem-logo img-circle">
+												<img src="<%=request.getContextPath() %>/images/profileUpload/${login_mem.getMem_image() }" class="cont-mem-logo img-circle">
 											</a>
 
 											<div class="cont-mem-info">

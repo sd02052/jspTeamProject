@@ -15,7 +15,7 @@
 	int loginUser = 0;
 	String loginType = null;
 	MemberDTO dto1 = null;
-	AdminDTO dto2 = null;
+	MemberDTO dto2 = null;
 
 	if (session.getAttribute("loginNum") != null) {
 		loginUser = (int) session.getAttribute("loginNum");
@@ -40,9 +40,9 @@
 </script>
 <%
 	} else if (loginType.equals("admin")) { // 관리자일때
-			AdminDAO dao = AdminDAO.getInstance();
-			dto2 = new AdminDTO();
-			dto2 = dao.getAdmin(loginUser);
+			MemberDAO dao = MemberDAO.getInstance();
+			dto2 = new MemberDTO();
+			dto2 = dao.getMember(loginUser);
 %>
 <script type="text/javascript">
 	$(function() {
@@ -126,9 +126,9 @@
 						</div>
 					</div>
 					<%} else if(dto2 != null){%> <!-- 관리자로 로그인 후 -->
-					<a href="#" class="avatar-photo"><img src="<%=request.getContextPath() %>/images/29a87623405c294d79bd2b4728996363.png"></a>
+					<a href="<%=request.getContextPath()%>/member_personal.do?num=<%=dto2.getMem_num() %>" class="avatar-photo"><img src="<%=imgPath %><%=dto2.getMem_image() %>"></a>
 					<div class="avatar-info">
-						<a class="nickname" href="/user/info/121432"><%=dto2.getAdmin_id() %></a>
+						<a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=<%=dto2.getMem_num() %>"><%=dto2.getMem_nick() %></a>
 					</div>
 					<%} %>
 				</div>

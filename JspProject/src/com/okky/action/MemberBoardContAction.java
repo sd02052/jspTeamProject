@@ -54,7 +54,6 @@ public class MemberBoardContAction implements Action {
 		dao.setBoardScrap();
 		dao2.setCommentLike();
 		BoardDTO board_dto = dao.getBoardCont(board_num);
-		System.out.println(board_dto.getBoard_like());
 		MemberDTO board_writer = dao.getWriter(board_num);
 		
 		int board_category = board_dto.getBoard_category();

@@ -18,7 +18,7 @@ public class Board_WriteAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		MemberDTO mdto = new MemberDTO();
+		/*MemberDTO mdto = new MemberDTO();
 		MemberDAO dao = MemberDAO.getInstance();
 		
 		dao.getMember(id)
@@ -26,9 +26,9 @@ public class Board_WriteAction implements Action {
 		System.out.println("글쓰기로가기누름");
 		ActionForward forward = new ActionForward();		
 		forward.setRedirect(false);
-		forward.setPath("view/member/board_write.jsp");
+		forward.setPath("view/member/board_write.jsp");*/
 
-		return forward;
+		return null;
 	}
 
 }

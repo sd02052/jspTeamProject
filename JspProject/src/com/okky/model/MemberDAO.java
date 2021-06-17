@@ -75,7 +75,7 @@ public class MemberDAO {
 		try {
 			openConn();
 
-			sql = "select * from okky_member where mem_id = ?";
+			sql = "select * from okky_member where mem_id = ? and mem_num != 9999";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -97,6 +97,33 @@ public class MemberDAO {
 		return result;
 	}
 
+	public int adminCheck(String id, String pwd) {
+		int result = 0;
+
+		try {
+			openConn();
+
+			sql = "select * from okky_member where mem_id = ? and mem_num = 9999";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				if (rs.getString("mem_pwd").equals(pwd)) {
+					result = 1;
+				} else {
+					result = -1;
+				}
+			} else {
+				result = -2;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	}
 	public MemberDTO getMember(String id) {
 		MemberDTO dto = new MemberDTO();
 
@@ -318,7 +345,7 @@ public class MemberDAO {
 		try {
 			openConn();
 			sql = "select * from (select row_number() over(order by mem_num desc) rnum, "
-					+ "m.* from okky_member m) where rnum >= ? and rnum <= ?";
+					+ "m.* from okky_member m where mem_num != 9999) where rnum >= ? and rnum <= ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startNo);
 			pstmt.setInt(2, endNo);
@@ -466,7 +493,7 @@ public class MemberDAO {
 			if (field.equals("all")) {
 
 				sql = "select * from (select row_number() over(order by mem_num desc) rnum, m.* from okky_member m "
-						+ "where mem_id like ? or mem_nick like ? or mem_check like ?) where rnum >= ? and rnum <= ?";
+						+ "where (mem_id like ? or mem_nick like ? or mem_check like ? ) and mem_num != 9999) where rnum >= ? and rnum <= ?";
 
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, "%" + data + "%");
@@ -475,21 +502,21 @@ public class MemberDAO {
 				pstmt.setInt(4, startNo);
 				pstmt.setInt(5, endNo);
 			} else if (field.equals("id")) {
-				sql = "select * from (select row_number() over(order by mem_num desc) rnum, m.* from okky_member m where mem_id like ?) where rnum >= ? and rnum <= ?";
+				sql = "select * from (select row_number() over(order by mem_num desc) rnum, m.* from okky_member m where mem_id like ? and mem_num != 9999) where rnum >= ? and rnum <= ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, "%" + data + "%");
 				pstmt.setInt(2, startNo);
 				pstmt.setInt(3, endNo);
 
 			} else if (field.equals("nick")) {
-				sql = "select * from (select row_number() over(order by mem_num desc) rnum, m.* from okky_member m where mem_nick like ?) where rnum >= ? and rnum <= ?";
+				sql = "select * from (select row_number() over(order by mem_num desc) rnum, m.* from okky_member m where mem_nick like ? and mem_num != 9999) where rnum >= ? and rnum <= ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, "%" + data + "%");
 				pstmt.setInt(2, startNo);
 				pstmt.setInt(3, endNo);
 
 			} else if (field.equals("check")) {
-				sql = "select * from (select row_number() over(order by mem_num desc) rnum, m.* from okky_member m where mem_check like ?) where rnum >= ? and rnum <= ?";
+				sql = "select * from (select row_number() over(order by mem_num desc) rnum, m.* from okky_member m where mem_check like ? and mem_num != 9999) where rnum >= ? and rnum <= ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, data);
 				pstmt.setInt(2, startNo);

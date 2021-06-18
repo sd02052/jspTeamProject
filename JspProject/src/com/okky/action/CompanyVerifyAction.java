@@ -52,7 +52,7 @@ public class CompanyVerifyAction implements Action {
 		if(multi.getParameter("homepage") != null) {
 			company_homepage = multi.getParameter("homepage").trim();
 		}else {
-			company_homepage = "";
+			company_homepage = "없음";
 		}
 		
 		String company_license_image = company_name + "_" + multi.getFilesystemName("license_image");
@@ -68,8 +68,9 @@ public class CompanyVerifyAction implements Action {
 		
 		if(session.getAttribute("loginNum") != null) {
 			mem_num = (int) session.getAttribute("loginNum");
-			dto.setCompany_target(mem_num);
 		}
+		
+		int company_target = 1;
 		
 		dto.setCompany_name(company_name);
 		dto.setCompany_license_num(company_license_num);
@@ -83,13 +84,13 @@ public class CompanyVerifyAction implements Action {
 		dto.setCompany_homepage(company_homepage);
 		dto.setCompany_license_image(company_license_image);
 		dto.setCompany_logo(company_logo);
+		dto.setCompany_target(company_target);
 		
 		CompanyDAO companyDAO = CompanyDAO.getInstance();
 		int res = companyDAO.insertComapny(dto);
 		
 		ActionForward forward = new ActionForward();
 		
-		memberDAO.updateMemberCompany(res, mem_num);
 		forward.setRedirect(true);
 		forward.setPath("admin_verify_cont.do?num="+res);
 		

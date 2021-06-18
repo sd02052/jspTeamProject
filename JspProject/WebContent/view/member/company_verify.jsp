@@ -23,7 +23,7 @@
 					</div>
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<form method="post" id="article-form" enctype="multipart/form-data" class="article-form" action="member_company_verify.do">
+							<form method="post" id="article-form" enctype="multipart/form-data" class="article-form" action="<%=request.getContextPath() %>/member_company_verify.do">
 								<fieldset class="form">
 									<div class="alert alert-info">
 										<strong>2017년 7월 13일</strong>부터는 <strong style="text-decoration: underline;">회사 정보 등록 및 인증을 받은 회원만</strong>

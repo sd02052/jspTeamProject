@@ -17,8 +17,6 @@ public class AdminVerifyContAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		System.out.println("parameter1 >> " + request.getParameter("num"));
-		
 		int num = Integer.parseInt(request.getParameter("num").trim());
 		
 		CompanyDAO comDAO = CompanyDAO.getInstance();

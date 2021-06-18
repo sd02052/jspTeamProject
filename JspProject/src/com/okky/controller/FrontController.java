@@ -34,6 +34,8 @@ public class FrontController extends HttpServlet {
 		prop.load(fis);
 		String value = prop.getProperty(command);
 		
+		System.out.println("value >> " +value);
+		
 		if (value.substring(0, 7).equals("execute")) {
 			StringTokenizer st = new StringTokenizer(value, "|");
 			String url_1 = st.nextToken();

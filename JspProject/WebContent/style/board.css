@@ -85,3 +85,17 @@
 	height: 34px;
 }
 
+/* 아래로 0617 추가 */
+.company-logo {
+	display: inline-block;
+	vertical-align: middle; 
+	border: 1px solid #ededed;
+	overflow: hidden;
+	width: 32px;
+	height: 32px;
+    margin-right: 5px;
+}
+
+.location {
+	font-size: 8px;
+}

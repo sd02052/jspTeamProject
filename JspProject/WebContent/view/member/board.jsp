@@ -148,14 +148,22 @@
 		String hit = "hit";
 	%>
 	
+	<%-- 구인 게시판일 경우에만 구인 글쓰기로 이동 --%>
+	function moveWrite() {
+		if(${cate_num} == 17) {
+			location.href="member_job_write_check.do?num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step }";
+		}else {
+			location.href="member_board_write.do?cate_num=${cate_num }&big=${big_category}&small=${small_category}";
+		}
+	};
+	
 </script>
 <body>
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../../include/side.jsp" />
 			<!-- 본문 시작-->
-
-
+			
 			<div class="content">
 				<div class="container-fluid">
 					<c:set var="list" value="${boardList }" />
@@ -165,9 +173,10 @@
 							<div class="col-xs-12 col-md-8">
 								<h4>${cate.getCate_name() }</h4>
 							</div>
+							
 							<c:if test="${loginNum != null }">
 								<div class="col-xs-12 col-md-4" align="right">
-									<a class="btn btn-success" href="<%=request.getContextPath()%>/member_board_write.do?cate_num=${cate.getCate_num()}&big=${big_category}&small=${small_category}">새 글 쓰기</a>
+									<a class="btn btn-success" onclick="moveWrite()">새 글 쓰기</a>
 								</div>
 							</c:if>
 						</div>
@@ -219,8 +228,23 @@
 									<div class="col-sm-7">
 										<div class="row">
 											<span class="list-group-item-text article-id font">#${dto.getBoard_num() }</span>
-											<a class="list-group-item-text item-tag label label-info padding" href="<%=request.getContextPath()%>/member_board_list.do?cate_num=${categoryList[status.index].getCate_num()}&big=${big[status.index] }&small=${small[status.index] }&cate_group=${categoryList[status.index].getCate_group()}&cate_step=${categoryList[status.index].getCate_step()}">
+											<a class="list-group-item-text item-tag label label-info padding" 
+											href="<%=request.getContextPath()%>/member_board_list.do?cate_num=${categoryList[status.index].getCate_num()}&big=${big[status.index] }&small=${small[status.index] }&cate_group=${categoryList[status.index].getCate_group()}&cate_step=${categoryList[status.index].getCate_step()}">
+												
+												<%-- 구인 게시판인 경우 : 아이콘 추가 --%>
+												<c:if test="${categoryList[status.index].getCate_num() eq 16 || categoryList[status.index].getCate_num() eq 17 || categoryList[status.index].getCate_num() eq 18 || categoryList[status.index].getCate_num() eq 19}">
+													<i class="fas fa-lightbulb"></i>
+												</c:if>
+
 												${categoryList[status.index].getCate_name()}</a>
+
+												<%-- 구인 게시판인 경우 : 고용형태, 위치 추가 --%>
+												<c:if test="${!empty jobList }">
+													<c:if test="${jobList[status.index].getJob_contract() eq 0 }"><span class="label label-success">정규직</span></c:if>
+													<c:if test="${jobList[status.index].getJob_contract() eq 1 }"><span class="label label-primary">계약직</span></c:if>
+													<span class="location">${jobList[status.index].getJob_location() }</span>
+												</c:if>
+												
 										</div>
 										<div class="row">
 											<h5 class="list-group-item-heading list-group-item-evaluate h">
@@ -265,6 +289,23 @@
 																<div style="font-size: 10px; display: inline-block;">
 																	<i class="fas fa-bolt i1"></i>
 																	${memberList[status.index].getMem_score() }
+																</div>
+																<p class="span">${dto.getBoard_regdate() }</p>
+															</div>
+														</li>
+													</c:if>
+													
+													<%-- 구인게시판인 경우 : 회사 정보 --%>
+													<c:if test="${!empty companyList }">
+														<li class="list-unstyled li1  img1">
+															<a class="text-left" href="<%=request.getContextPath()%>/member_company_cont.do?com_num=${companyList[status.index].getCompany_num() }&mem_num=${dto.getBoard_writer() }"> 
+																<img class="company-logo" src="<%=request.getContextPath()%>/images/company/${companyList[status.index].getCompany_logo() }">
+															</a>
+														</li>
+														<li class="list-unstyled li1 a2">
+															<div>
+																<a class="a1" href="<%=request.getContextPath()%>/member_company_cont.do?com_num=${companyList[status.index].getCompany_num() }&mem_num=${dto.getBoard_writer() }">${companyList[status.index].getCompany_name() }</a> &nbsp;
+																<div style="font-size: 10px; display: inline-block;">
 																</div>
 																<p class="span">${dto.getBoard_regdate() }</p>
 															</div>

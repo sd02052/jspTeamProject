@@ -1851,6 +1851,42 @@ public class BoardDAO {
 		return result;
 	}
 	
+	// okky_board에 새로운 글을 추가하는 메서드, board_num 반환
+	public int setBoard(BoardDTO dto) {
+		int count = 0;
+		
+		try {
+			openConn();
+			sql = "select max(board_num) from okky_board";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1) + 1;
+			}else {
+				count = 1;
+			}
+			
+			sql = "insert into okky_board values(?, ?, ?, ?, default, default, default, ?, sysdate, default)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, count);
+			pstmt.setString(2, dto.getBoard_title());
+			pstmt.setInt(3, dto.getBoard_writer());
+			pstmt.setString(4, dto.getBoard_content());
+			pstmt.setInt(5, dto.getBoard_category());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+		return count;
+	}
+	
 	public int writeBoard(BoardDTO dto) {
 		int result = 0, count = 0;
 		try {

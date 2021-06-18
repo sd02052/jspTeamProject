@@ -198,7 +198,7 @@
 				</a>
 				<div id="demo4" class="collapse">
 					<ul>
-						<li><a id="menu4-1" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=15&big='menu4'&small='menu4-1'&cate_group=4&cate_step=1">All</a></li>
+						<li><a id="menu4-1" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=15&big='menu4'&small='menu4-1'&cate_group=4&cate_step=0">All</a></li>
 					</ul>
 				</div>
 			</li>
@@ -209,10 +209,10 @@
 				</a>
 				<div id="demo5" class="collapse">
 					<ul>
-						<li><a id="menu5-1" href="#">All</a></li>
-						<li><a id="menu5-2" href="#">구인</a></li>
-						<li><a id="menu5-3" href="#">구직</a></li>
-						<li><a id="menu5-4" href="#">좋은회사/나쁜회사</a></li>
+						<li><a id="menu5-1" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=16&big='menu5'&small='menu5-1'&cate_group=5&cate_step=0">All</a></li>
+						<li><a id="menu5-2" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=17&big='menu5'&small='menu5-2'&cate_group=5&cate_step=1">구인</a></li>
+						<li><a id="menu5-3" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=18&big='menu5'&small='menu5-3'&cate_group=5&cate_step=2">구직</a></li>
+						<li><a id="menu5-4" href="<%=request.getContextPath() %>/member_board_list.do?cate_num=19&big='menu5'&small='menu5-4'&cate_group=5&cate_step=3">좋은회사/나쁜회사</a></li>
 					</ul>
 				</div>
 			</li>

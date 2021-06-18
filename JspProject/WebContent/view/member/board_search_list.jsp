@@ -111,9 +111,9 @@
 <c:set var="small_category" value="${small_category }" />
 <script type="text/javascript">
 	
-	$(function(){
-		$("#"+${big_category }).css("border-right","5px solid #e67d3e");
-		$("#"+${small_category }).css("color","#fff");
+		$(function(){
+			$("#"+${big_category }).css("border-right","5px solid #e67d3e");
+			$("#"+${small_category }).css("color","#fff");
 		
 		<%String sort = (String)request.getAttribute("sort");
 

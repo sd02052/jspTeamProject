@@ -1,6 +1,7 @@
 package com.okky.action;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,10 @@ import com.okky.model.BoardDAO;
 import com.okky.model.BoardDTO;
 import com.okky.model.CategoryDAO;
 import com.okky.model.CategoryDTO;
+import com.okky.model.CompanyDAO;
+import com.okky.model.CompanyDTO;
+import com.okky.model.JobDAO;
+import com.okky.model.JobDTO;
 import com.okky.model.MemberDTO;
 
 public class MemberBoardListAction implements Action {
@@ -32,8 +37,8 @@ public class MemberBoardListAction implements Action {
 			sort = request.getParameter("sort");
 		}
 		
-		BoardDAO dao1 = BoardDAO.getInstance();
-		CategoryDAO dao2 = CategoryDAO.getInstance();
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		CategoryDAO categoryDAO = CategoryDAO.getInstance();
 
 		// 페이징 작업
 		int rowsize = 10; 	// 한 페이지당 보여질 게시물의 수
@@ -61,14 +66,14 @@ public class MemberBoardListAction implements Action {
 		// 카테고리에 맞는 전체 게시글 수를 조회하는 메서드
 		if(cate_step == 0) {
 			type = "all";
-			totalRecord = dao1.getBoardListAllCount(cate_group);
-			list = dao1.getBoardListAll(cate_group, startNo, endNo);
-			category = dao2.getCategoryAll(cate_group);
+			totalRecord = boardDAO.getBoardListAllCount(cate_group);
+			list = boardDAO.getBoardListAll(cate_group, startNo, endNo);
+			category = categoryDAO.getCategoryAll(cate_group);
 		}else {
 			type = "detail";
-			totalRecord = dao1.getBoardListCount(cate_num);
-			list = dao1.getBoardList(cate_num, startNo, endNo);
-			category = dao2.getCategory(cate_num);
+			totalRecord = boardDAO.getBoardListCount(cate_num);
+			list = boardDAO.getBoardList(cate_num, startNo, endNo);
+			category = categoryDAO.getCategory(cate_num);
 		}
 
 		allPage = (int) (Math.ceil(totalRecord / (double) rowsize));
@@ -77,13 +82,27 @@ public class MemberBoardListAction implements Action {
 			endBlock = allPage;
 		}
 
-		dao1.setBoardLike();
-		dao1.setBoardScrap();
-		dao1.setBoardComment();
+		boardDAO.setBoardLike();
+		boardDAO.setBoardScrap();
+		boardDAO.setBoardComment();
 
-		List<MemberDTO> list2 = dao1.getMemberList(list);
-		List<CategoryDTO> list3 = dao1.getCategoryAllList(list);
-		List<CategoryDTO> cateList = dao2.getCategoryList(list); 
+		if(cate_num == 16 || cate_num == 17 || cate_num == 18 || cate_num == 19) {	// 구인 게시판인 경우
+			CompanyDAO companyDAO = CompanyDAO.getInstance();
+			JobDAO jobDAO = JobDAO.getInstance();
+			
+			List<CompanyDTO> list2 = companyDAO.getCompanyList(list);
+			List<JobDTO> jobList = jobDAO.getJobList(list);
+			
+			request.setAttribute("companyList", list2);
+			request.setAttribute("jobList", jobList);
+			
+		}else {													// 구인게시판이 아닌 경우
+			List<MemberDTO> list2 = boardDAO.getMemberList(list);
+			request.setAttribute("memberList", list2);
+		}
+		
+		List<CategoryDTO> list3 = boardDAO.getCategoryAllList(list);
+		List<CategoryDTO> cateList = categoryDAO.getCategoryList(list); 
 		
 		String[] big_categorys = new String[cateList.size()];
 		String[] small_categorys = new String[cateList.size()];
@@ -139,7 +158,7 @@ public class MemberBoardListAction implements Action {
 		
 
 		request.setAttribute("boardList", list);
-		request.setAttribute("memberList", list2);
+		
 		request.setAttribute("categoryList", list3);
 		request.setAttribute("category", category);
 		request.setAttribute("cate_num", cate_num);

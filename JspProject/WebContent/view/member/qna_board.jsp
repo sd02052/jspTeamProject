@@ -27,6 +27,12 @@
 <c:set var="big_category" value="${big_category }" />
 <c:set var="small_category" value="${small_category }" />
 <script type="text/javascript">
+
+	<%
+	if(session.getAttribute("loginNum") != null){
+		int loginNum = (int)session.getAttribute("loginNum");
+	}
+	%>
 	
 	$(function(){
 		$("#"+${big_category }).css("border-right","5px solid #e67d3e");
@@ -82,6 +88,7 @@
 							<div class="col-xs-12 col-md-8">
 								<h4>${cate.getCate_name() }</h4>
 							</div>
+							
 							<c:if test="${loginNum != null }">
 								<div class="col-xs-12 col-md-4" align="right">
 									<a class="btn btn-success" href="<%=request.getContextPath()%>/member_board_write.do?cate_num=${cate.getCate_num()}&big=${big_category}&small=${small_category}">새 글 쓰기</a>

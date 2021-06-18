@@ -42,7 +42,7 @@ $(function(){
 	$(function(){
 		$("#sort-hit").addClass('active');
 	});
-	<%}%>
+	<%};%>
 });
 <%
 	String date = "date";
@@ -55,10 +55,10 @@ $(function(){
 <%-- 구인 게시판일 경우에만 구인 글쓰기로 이동 --%>
 function moveWrite() {
 	if(${cate_num} == 17) {
-		location.href="member_job_write_check.do?num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step }";
+		location.href="member_job_write_check.do?cate_num=17&big=${big_category}&small=${small_category}&cate_group=5&cate_step=1";
 	}else {
 		location.href="member_board_write.do?cate_num=${cate_num }&big=${big_category}&small=${small_category}";
-	}
+	};
 };
 </script>
 <body>

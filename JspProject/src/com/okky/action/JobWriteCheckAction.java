@@ -19,7 +19,7 @@ public class JobWriteCheckAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		int cate_num = Integer.parseInt(request.getParameter("num").trim());
+		int cate_num = Integer.parseInt(request.getParameter("cate_num").trim());
 		String big_category = request.getParameter("big");
 		String small_category = request.getParameter("small");
 		int cate_group = Integer.parseInt(request.getParameter("cate_group").trim());

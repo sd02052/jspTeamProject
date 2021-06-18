@@ -143,7 +143,7 @@ function changeSelect(){
 	if(selectValue == 17){
 		var flag = confirm("게시판 변경시 수정된 내용은 초기화 됩니다. 변경 하시겠습니까?");
 		if(flag == true) {
-			location.href="member_job_write_check.do?num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step }";
+			location.href="member_job_write_check.do?cate_num=17&big=${big_category}&small=${small_category}&cate_group=5&cate_step=1";
 		} else {
 			$("#categorySelect option:eq(0)").prop("selected", true);
 		}

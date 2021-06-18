@@ -170,9 +170,9 @@ function changeSelect(){
 						<div class="col-xs-12" style="border-top: 1px solid gray;border-left: 1px solid gray;border-right: 1px solid gray;">
 							<ul class="list-inline">
 								<li class="list-unstyled li1 img1" style="padding-top: 10px;">
-								<a class="avatar-photo text-left"> <img width="30"
+								<a class="text-left"> <img width="30"
 									height="30" class="img-circle "
-									src="//www.gravatar.com/avatar/b66da5ef6099211f5db8f5f7a3b4c36b?d=identicon&s=30">
+									src="<%=request.getContextPath() %>/images/profileUpload/${dto.getMem_image() }">
 								</a>
 								</li>
 

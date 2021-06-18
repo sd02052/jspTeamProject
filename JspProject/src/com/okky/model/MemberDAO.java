@@ -242,7 +242,7 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				count = rs.getInt(1) + 1;
+				count = rs.getInt(1);
 			}
 			
 			sql = "select * from okky_member";

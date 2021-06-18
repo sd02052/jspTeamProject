@@ -11,11 +11,17 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
+<script type="text/javascript">
+$(function(){
+	$("#"+${big_category }).css("border-right","5px solid #e67d3e");
+	$("#"+${small_category }).css("color","#fff");
+});
+</script>
 <body>
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../../include/side.jsp" />
-			<div style="width: 805px; min-height: 800px;">
+			<div class="content">
 				
 				<div id="article-create" class="content">
 					<div class="content-header">

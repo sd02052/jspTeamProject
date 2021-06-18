@@ -500,7 +500,6 @@ public class CompanyDAO {
 			pstmt.setString(13, dto.getCompany_content());
 			pstmt.setInt(14, dto.getCompany_target());
 			
-			pstmt.executeUpdate(sql);
 			
 			result = count;
 			

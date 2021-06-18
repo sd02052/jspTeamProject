@@ -122,7 +122,21 @@ function moveWrite() {
 												<span class="list-group-item-text article-id">#${dto.getBoard_num() }</span> 
 												<a class="list-group-item-text item-tag label label-info padding"
 												href="<%=request.getContextPath()%>/member_board_list.do?cate_num=${categoryList[status.index].getCate_num()}&big=${big[status.index] }&small=${small[status.index] }&cate_group=${categoryList[status.index].getCate_group()}&cate_step=${categoryList[status.index].getCate_step()}">
+											
+												<%-- 구인 게시판인 경우 : 아이콘 추가 --%>
+												<c:if test="${categoryList[status.index].getCate_num() eq 16 || categoryList[status.index].getCate_num() eq 17 || categoryList[status.index].getCate_num() eq 18 || categoryList[status.index].getCate_num() eq 19}">
+													<i class="fas fa-lightbulb"></i>
+												</c:if>
+
 												${categoryList[status.index].getCate_name()}</a>
+
+												<%-- 구인 게시판인 경우 : 고용형태, 위치 추가 --%>
+												<c:if test="${!empty jobList }">
+													<c:if test="${jobList[status.index].getJob_contract() eq 0 }"><span class="label label-success">정규직</span></c:if>
+													<c:if test="${jobList[status.index].getJob_contract() eq 1 }"><span class="label label-primary">계약직</span></c:if>
+													<span class="location">${jobList[status.index].getJob_location() }</span>
+												</c:if>
+												
 											</div>
 											<h5 class="list-group-item-heading list-group-item-evaluate">
 												<a class="font_style" href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
@@ -176,6 +190,23 @@ function moveWrite() {
 												</div>
 											</div>
 										</c:if>
+										
+										<%-- 구인게시판인 경우 : 회사 정보 --%>
+										<c:if test="${!empty companyList }">
+											<div class="avatar clearfix avatar-list">
+												<a href="<%=request.getContextPath()%>/member_company_cont.do?com_num=${companyList[status.index].getCompany_num() }&mem_num=${dto.getBoard_writer() }"> 
+													<img class="avatar-photo" src="<%=request.getContextPath()%>/images/company/${companyList[status.index].getCompany_logo() }">
+												</a>
+												<div class="avatar-info">
+													<a class="nickname" href="<%=request.getContextPath()%>/member_company_cont.do?com_num=${companyList[status.index].getCompany_num() }&mem_num=${dto.getBoard_writer() }">${companyList[status.index].getCompany_name() }</a>
+													<div class="date-created">
+														<span class="timeago">${dto.getBoard_regdate() }</span>
+													</div>
+												</div>
+											</div>
+										</c:if>
+										
+										
 										</div> <!-- /프로필 -->
 									</li>
 								</c:forEach>

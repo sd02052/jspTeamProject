@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
@@ -121,7 +122,12 @@
 	resize: vertical;
 }
 </style>
-
+<script type="text/javascript">
+$(function(){
+	$("#"+${big_category}).css("border-right","5px solid #e67d3e");
+	$("#"+${small_category}).css("color","#fff");
+})
+</script>
 </head>
 
 <body>
@@ -134,7 +140,7 @@
 					<div class="row">
 						<div class="row">
 							<div class="col-xs-12">
-								<h4>커뮤니티</h4>
+								<h4>${cate_name }</h4>
 							</div>
 						</div>
 						<br>
@@ -149,21 +155,19 @@
 								</li>
 								
 								<!-- 아이디 값 받아오기 -->
-								
 								<li class="list-unstyled li1 a2">
 									<div class="text-left">
-										<span class="list-group-item-text article-id font">${mdto.getMem_nick() }</span>
+										<span class="list-group-item-text article-id font">${dto.getMem_nick() }</span>
 										<p class="span">
-											<i class="fas fa-bolt i1"></i>0
+											<i class="fas fa-bolt i1"></i>${dto.getMem_score() }
 										</p>
 									</div>
 								</li>
 							</ul>
 						</div>
 						
-						<form action="member_board_post.do" method="post" class="form-horizontal">
-						<input type="hidden" name="login_mem" value="${loginNum }">
-						<!-- <input type="hidden" name="board_writer" /> -->
+						<form action="<%=request.getContextPath() %>/member_board_post.do" method="post" class="form-horizontal">
+						<input type="hidden" name="board_writer" value="${dto.getMem_num() }">
 							<div class="col-xs-12 d" style="border: 1px solid gray;">
 								<div class="form-group">
 
@@ -171,21 +175,15 @@
 										class="col-md-2 control-label"></label>
 									<div class="col-sm-8">
 										<select class="form-control" name="category">
-											
-											<!-- 각 게시판 마다 value 맞춰주기 -->
-											
-											<option>게시판을 선택해 주세요.</option>
-											<option value="2">Tech Q&A</option> 
-											<option value="3">Blockchain Q&A</option>
-											<option value="4">IT News & 정보</option>
-											<option value="5">Tips & 강좌</option>
-											<option value="6">공지사항</option>
-											<option value="7">사는얘기</option>
-											<option value="8">포럼</option>
-											<option value="9">IT 행사</option>
-											<option value="10">기술 서적 리뷰</option>
-											<option value="11">정기모임/스터디</option>
-											<option value="12">학원/홍보</option>
+													<option>게시판을 선택해 주세요.</option>
+											<c:if test="${!empty cate_list }">
+												<c:forEach items="${cate_list }" var="cateDTO">
+													<option value="${cateDTO.getCate_num() }">${cateDTO.getCate_name() }</option> 
+												</c:forEach>
+											</c:if>
+											<c:if test="${empty cate_list }">
+												<option value="">카테고리 불러오기 실패</option> 
+											</c:if>
 										</select>
 									</div>
 								</div>
@@ -217,6 +215,7 @@
 								<div class="col-xs-12 col-md-3">
 									<br> <br>
 									<button type="button" class="btn btn-success"
+									onclick="history.back()"
 										style="float: right;">
 										</i>취소
 									</button>

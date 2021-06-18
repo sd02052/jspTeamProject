@@ -47,6 +47,13 @@ function fnImgPop(url){
 	  var OpenWindow=window.open('','_blank', 'width='+img_width+', height='+img_height+', menubars=no, scrollbars=auto');
 	  OpenWindow.document.write("<style>body{margin:0px;}</style><img src='"+url+"' width='"+win_width+"'>");
 	 }
+	 
+<%
+	if(session.getAttribute("loginNum") != null){
+		int loginNum = (int)session.getAttribute("loginNum");
+	}
+%>
+	 
 </script>
 </head>
 <body>
@@ -91,8 +98,15 @@ function fnImgPop(url){
 										<div class="row">						
 											<div class="col-xs-10">
 												<p class="cont-num">#&nbsp;${comDTO.getCompany_num() }</p>
-													<div class="col-xs-11"><a href="<%=request.getContextPath()%>/member_company_cont.do?com_num=${comDTO.getCompany_num() }&mem_num=${memList.getMem_num() }">
-														<p class="cont-title">${comDTO.getCompany_name() }</p></a>
+													<div class="col-xs-11">
+														<c:if test="${comDTO.getCompany_check() ne 1 }">
+															<p class="cont-title">${comDTO.getCompany_name() }</p>
+														</c:if>
+														
+														<c:if test="${comDTO.getCompany_check() eq 1 }">
+															<a href="<%=request.getContextPath()%>/member_company_cont.do?com_num=${comDTO.getCompany_num() }&mem_num=${memList.getMem_num() }">
+																<p class="cont-title">${comDTO.getCompany_name() }</p></a>
+														</c:if>
 													</div>
 											
 													<div class="col-xs-12">
@@ -171,11 +185,13 @@ function fnImgPop(url){
 														<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 														거절&nbsp;&nbsp;<span class="caret"></span></button>
 													</c:if>
+													<c:if test="${loginNum eq 9999 }">
 														<ul class="dropdown-menu" role="menu">
 													    	<li><a href="<%=request.getContextPath()%>/company_check.do?num=${comDTO.getCompany_num() }&check=0">대기</a></li>
 													    	<li><a href="<%=request.getContextPath()%>/company_check.do?num=${comDTO.getCompany_num() }&check=1">승인</a></li>
 													    	<li><a href="<%=request.getContextPath()%>/company_check.do?num=${comDTO.getCompany_num() }&check=2">거절</a></li>
 													  	</ul>
+													 </c:if>
 												</div>		
 											</div>	
 																			

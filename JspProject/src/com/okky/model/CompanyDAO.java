@@ -466,4 +466,54 @@ public class CompanyDAO {
 		
 		return list;
 	}
+	
+	// 회사 인증글을 추가하는 메서드
+	public int insertComapny(CompanyDTO dto) {
+		int result = 0, count = 0;
+		
+		try {
+			openConn();
+			sql = "select max(company_num) from okky_company";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1) + 1;
+			}else {
+				count = 1;
+			}
+			
+			sql = "insert into okky_company values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default, ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, count);
+			pstmt.setString(2, dto.getCompany_name());
+			pstmt.setString(3, dto.getCompany_license_num());
+			pstmt.setString(4, dto.getCompany_license_image());
+			pstmt.setString(5, dto.getCompany_boss_phone());
+			pstmt.setString(6, dto.getCompany_boss_email());
+			pstmt.setString(7, dto.getCompany_charge_phone());
+			pstmt.setString(8, dto.getCompany_charge_email());
+			pstmt.setString(9, dto.getCompany_charge_name());
+			pstmt.setString(10, dto.getCompany_emp());
+			pstmt.setString(11, dto.getCompany_homepage());
+			pstmt.setString(12, dto.getCompany_logo());
+			pstmt.setString(13, dto.getCompany_content());
+			pstmt.setInt(14, dto.getCompany_target());
+			
+			pstmt.executeUpdate(sql);
+			
+			result = count;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("insertComapny 오류발생");
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+		return result;
+	}
+	
+	
 }

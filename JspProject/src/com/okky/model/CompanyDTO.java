@@ -16,8 +16,16 @@ public class CompanyDTO {
 	private String company_content;
 	private int company_check;
 	private int company_target;
-
+	private String company_regdate;
 	
+
+	public String getCompany_regdate() {
+		return company_regdate;
+	}
+
+	public void setCompany_regdate(String company_regdate) {
+		this.company_regdate = company_regdate;
+	}
 
 	public int getCompany_num() {
 		return company_num;

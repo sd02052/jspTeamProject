@@ -49,10 +49,11 @@ public class CompanyVerifyAction implements Action {
 		String company_content = multi.getParameter("content").trim();
 		String company_homepage = "";
 		
+		
 		if(multi.getParameter("homepage") != null) {
 			company_homepage = multi.getParameter("homepage").trim();
 		}else {
-			company_homepage = "없음";
+			company_homepage = "(없음)";
 		}
 		
 		String company_license_image = company_name + "_" + multi.getFilesystemName("license_image");
@@ -70,7 +71,7 @@ public class CompanyVerifyAction implements Action {
 			mem_num = (int) session.getAttribute("loginNum");
 		}
 		
-		int company_target = 20;
+		int company_target = mem_num;
 		
 		dto.setCompany_name(company_name);
 		dto.setCompany_license_num(company_license_num);
@@ -88,6 +89,7 @@ public class CompanyVerifyAction implements Action {
 		
 		CompanyDAO companyDAO = CompanyDAO.getInstance();
 		int res = companyDAO.insertComapny(dto);
+		memberDAO.updateMemberCompany(res, mem_num);
 		
 		ActionForward forward = new ActionForward();
 		

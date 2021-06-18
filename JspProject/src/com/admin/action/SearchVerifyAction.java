@@ -33,7 +33,6 @@ public class SearchVerifyAction implements Action {
 		}
 
 		CompanyDAO comDAO = CompanyDAO.getInstance();
-		BoardDAO boardDAO = BoardDAO.getInstance();
 		MemberDAO memDAO = MemberDAO.getInstance();
 
 		// 페이징 작업
@@ -69,12 +68,8 @@ public class SearchVerifyAction implements Action {
 		// 회사 테이블의 회사번호와 동일한 회사번호를 가지는 멤버 정보를 조회하는 메서드
 		List<MemberDTO> memList = memDAO.getCompanyMemberList(pageList);
 
-		// 회사 테이블의 참조번호와 동일한 글번호를 가지는 게시글 정보를 조회하는 메서드s
-		List<BoardDTO> boardList = boardDAO.getCompanyBoardList(pageList);
-
 		// 5) 작업했던 값들을 키로 저장하여 view 페이지로 넘기기
 		request.setAttribute("memList", memList);
-		request.setAttribute("boardList", boardList);
 
 		request.setAttribute("find_field", find_field);
 		request.setAttribute("find_data", find_data);

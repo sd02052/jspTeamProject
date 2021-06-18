@@ -153,7 +153,7 @@
 		if(${cate_num} == 17) {
 			location.href="member_job_write_check.do?num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step }";
 		}else {
-			location.href="member_board_write.do?num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step }";
+			location.href="member_board_write.do?cate_num=${cate_num }&big=${big_category}&small=${small_category}";
 		}
 	};
 	
@@ -173,12 +173,12 @@
 							<div class="col-xs-12 col-md-8">
 								<h4>${cate.getCate_name() }</h4>
 							</div>
-							<div class="col-xs-12 col-md-4" align="right">
-								<button type="button" class="btn btn-success"
-									onclick="moveWrite()">
-									<i class="fas fa-pencil-alt"></i>새 글 쓰기
-								</button>
-							</div>
+							
+							<c:if test="${loginNum != null }">
+								<div class="col-xs-12 col-md-4" align="right">
+									<a class="btn btn-success" onclick="moveWrite()">새 글 쓰기</a>
+								</div>
+							</c:if>
 						</div>
 
 						<br>

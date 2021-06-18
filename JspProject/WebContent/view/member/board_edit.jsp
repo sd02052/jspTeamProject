@@ -146,7 +146,7 @@ function boardWriteCancle(){
 					<div class="row">
 						<div class="row">
 							<div class="col-xs-12">
-								<h4>${category.getCate_name() }</h4>
+								<h4>${cate_dto.getCate_name() }</h4>
 							</div>
 						</div>
 						<br>
@@ -165,17 +165,17 @@ function boardWriteCancle(){
 								<li class="list-unstyled li1 a2" style="padding-top: 10px;">
 									<div class="text-left">
 										<a href=""> <span
-											class="list-group-item-text article-id font">${dto.getMem_nick() }</span>
+											class="list-group-item-text article-id font">${mem_dto.getMem_nick() }</span>
 										</a>
 										<p class="span">
-											<i class="fas fa-bolt i1"></i>${dto.getMem_score() }
+											<i class="fas fa-bolt i1"></i>${mem_dto.getMem_score() }
 										</p>
 									</div>
 								</li>
 							</ul>
 						</div>
 
-						<form action="<%=request.getContextPath() %>/member_board_write_ok.do" method="post" class="form-horizontal">
+						<form action="<%=request.getContextPath() %>/member_board_edit_ok.do" method="post" class="form-horizontal">
 							<input type="hidden" name="board_writer" value="${dto.getMem_num() }">
 							<input type="hidden" name="big" value="${big_category}">
 							<input type="hidden" name="small" value="${small_category}">
@@ -187,7 +187,12 @@ function boardWriteCancle(){
 											<option value="">:::게시판 선택:::</option>
 											<c:if test="${!empty cate_list }">
 												<c:forEach items="${cate_list }" var="cateDTO">
-													<option value="${cateDTO.getCate_num() }">${cateDTO.getCate_name() }</option>
+													<c:if test="${cate_dto.getCate_num() != cateDTO.getCate_num() }">
+														<option value="${cateDTO.getCate_num() }">${cateDTO.getCate_name() }</option>
+													</c:if>
+													<c:if test="${cate_dto.getCate_num() == cateDTO.getCate_num() }">
+														<option value="${cateDTO.getCate_num() }" selected>${cateDTO.getCate_name() }</option>
+													</c:if>
 												</c:forEach>
 											</c:if>
 											<c:if test="${empty cate_list }">
@@ -202,7 +207,7 @@ function boardWriteCancle(){
 									<label for="inputEmail3" class="col-md-2 control-label"></label>
 									<div class="col-sm-8">
 										<input type="text" class="form-control" id="inputEmail3"
-											placeholder="제목을 입력해 주세요." name="board_title" required>
+											placeholder="제목을 입력해 주세요." name="board_title" required value="${board_dto.getBoard_title()}">
 									</div>
 								</div>
 
@@ -219,7 +224,7 @@ function boardWriteCancle(){
 									<label for="inputEmail3" class="col-md-2 control-label"></label>
 									<div class="col-sm-8 ">
 										<textarea class="form-control noresize" rows="15"
-											name="board_content" required></textarea>
+											name="board_content" required>${board_dto.getBoard_content()}</textarea>
 									</div>
 								</div>
 								<div class="col-xs-12 col-md-3">

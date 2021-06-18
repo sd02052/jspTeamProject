@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.stream.events.Comment;
 
 import com.okky.controller.Action;
 import com.okky.controller.ActionForward;
@@ -13,7 +12,6 @@ import com.okky.model.BoardDAO;
 import com.okky.model.CommentDAO;
 import com.okky.model.CommentDTO;
 import com.okky.model.MemberDAO;
-import com.okky.model.MemberDTO;
 
 public class MemberCommentWriteAction implements Action {
 

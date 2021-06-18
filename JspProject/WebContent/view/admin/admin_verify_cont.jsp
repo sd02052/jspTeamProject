@@ -86,14 +86,14 @@ function fnImgPop(url){
 															<img src="<%=request.getContextPath() %>/images/profileUpload/${memList.getMem_image() }" class="cont-mem-logo img-circle"></a>
 														
 														<div class="cont-mem-info">
-															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${memList.getMem_num() }">${memList.getMem_nick() }</a><br>
-															<span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${memList.getMem_score() }</span><br>
+															<a class="cont-mem-nick" href="<%=request.getContextPath()%>/member_personal.do?num=${memList.getMem_num() }">${memList.getMem_nick() }</a>
+															<div style="display:inline-block;"><span class="cont-activity"><i class="activity-img fas fa-bolt"></i>&nbsp;${memList.getMem_score() }</span></div>
+															<div><span class="cont-activity pull-right">${comDTO.getCompany_regdate() }</span></div>
 														</div>
 													</div>	
 												</div>	
 									</li>
-							
-								
+									
 									<li class="list-group-item list-group-item-question list-group-has-note clearfix ">
 										<div class="row">						
 											<div class="col-xs-10">

@@ -83,10 +83,8 @@ create table okky_company(
 	company_logo varchar2(200),						-- 회사 로고
 	company_content varchar2(1000) not null,		-- 회사 소개
 	company_check number(1) default 0,				-- 회사 등록 인증 여부(0: 대기, 1: 승인, 2: 거절)
-	company_target number(5) not null,				-- 회사 등록 게시글 번호
-    constraint fk_target5 foreign key(company_target) references okky_board(board_num) on delete cascade 
-    
     company_target number(5) not null,				-- 회사를 등록한 회원 번호
+    company_regdate date,							-- 회사인증 등록일자
     constraint fk_target5 foreign key(company_target) references okky_member(mem_num) on delete cascade 
 );
 
@@ -109,12 +107,3 @@ create table okky_mem_tag(
     tag_target number(5) not null,          -- 태그가 적용된 회원
     constraint fk_tag1 foreign key(tag_target) references okky_member(mem_num) on delete cascade
 );
-
-
-
-지금 company_target 대상이 board_num인데
-하다보니 company 는 회사인증글만 따로 관리가 되어서 board가 필요없을 거 같아요.
-
-그래서 company_target 대상을 회원 번호로 하고
-회사인증글 작성일자 company_regdate 를 추가하려는데 
-

@@ -18,7 +18,7 @@ $(function(){
 });
 </script>
 <body>
-	<div class="layout_container">
+	<div class="content">
 		<div class="main">
 			<jsp:include page="../../include/side.jsp" />
 			<div class="content">
@@ -122,15 +122,15 @@ $(function(){
 											<div class="form-group required">
 												<label>직원 수</label>
 												<select class="form-control" name="emp">
-													<option value="5" selected>5명 미만</option>
-													<option value="10">5 ~ 9명</option>
-													<option value="20">10 ~ 19명</option>
-													<option value="30">20 ~ 29명</option>
-													<option value="40">30 ~ 39명</option>
-													<option value="50">40 ~ 49명</option>
-													<option value="100">50 ~ 99명</option>
-													<option value="200">100 ~ 199명</option>
-													<option value="999">200명 이상</option>
+													<option value="5명 미만" selected>5명 미만</option>
+													<option value="5 ~ 9명">5 ~ 9명</option>
+													<option value="10 ~ 19명">10 ~ 19명</option>
+													<option value="20 ~ 29명">20 ~ 29명</option>
+													<option value="30 ~ 39명">30 ~ 39명</option>
+													<option value="40 ~ 49명">40 ~ 49명</option>
+													<option value="50 ~ 99명">50 ~ 99명</option>
+													<option value="100 ~ 199명">100 ~ 199명</option>
+													<option value="200명 이상">200명 이상</option>
 												</select>
 											</div>
 										</div>

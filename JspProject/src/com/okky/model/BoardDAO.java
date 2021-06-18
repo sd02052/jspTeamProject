@@ -1936,4 +1936,124 @@ public class BoardDAO {
 		}
 		return result;
 	}
+	
+	public int getJobFullListCount() {
+		int count = 0;
+		
+		try {
+			openConn();
+			sql = "select count(*) from okky_board where board_num in (select job_target from okky_job where job_contract = 0)";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+		return count;
+	}
+	
+	public List<BoardDTO> getJobFullList(int startNo, int endNo, String sort) {
+		List<BoardDTO> list = new ArrayList<>();
+		
+		try {
+			openConn();
+			sql = "select * from (select row_number() over(order by board_regdate desc) rnum, b.* from okky_board b where board_num in (select job_target from okky_job where job_contract = ?)) where rnum >= ? and rnum <= ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, sort);
+			pstmt.setInt(2, startNo);
+			pstmt.setInt(3, endNo);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
+
+				dto.setBoard_num(rs.getInt("board_num"));
+				dto.setBoard_title(rs.getString("board_title"));
+				dto.setBoard_writer(rs.getInt("board_writer"));
+				dto.setBoard_content(rs.getString("board_content"));
+				dto.setBoard_hit(rs.getInt("board_hit"));
+				dto.setBoard_like(rs.getInt("board_like"));
+				dto.setBoard_scrap(rs.getInt("board_scrap"));
+				dto.setBoard_category(rs.getInt("board_category"));
+				dto.setBoard_regdate(rs.getString("board_regdate"));
+				dto.setBoard_comment(rs.getInt("board_comment"));
+
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+		return list;
+	}
+	
+	public int getJobPartListCount() {
+		int count = 0;
+		
+		try {
+			openConn();
+			sql = "select count(*) from okky_board where board_num in (select job_target from okky_job where job_contract = 1)";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+		return count;
+	}
+	
+	public List<BoardDTO> getJobPartList(int startNo, int endNo) {
+		List<BoardDTO> list = new ArrayList<>();
+		
+		try {
+			openConn();
+			sql = "select * from (select row_number() over(order by board_regdate desc) rnum, b.* from okky_board b where board_num in (select job_target from okky_job where job_contract = 1)) where rnum >= ? and rnum <= ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startNo);
+			pstmt.setInt(2, endNo);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
+
+				dto.setBoard_num(rs.getInt("board_num"));
+				dto.setBoard_title(rs.getString("board_title"));
+				dto.setBoard_writer(rs.getInt("board_writer"));
+				dto.setBoard_content(rs.getString("board_content"));
+				dto.setBoard_hit(rs.getInt("board_hit"));
+				dto.setBoard_like(rs.getInt("board_like"));
+				dto.setBoard_scrap(rs.getInt("board_scrap"));
+				dto.setBoard_category(rs.getInt("board_category"));
+				dto.setBoard_regdate(rs.getString("board_regdate"));
+				dto.setBoard_comment(rs.getInt("board_comment"));
+
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+		return list;
+	}
+	
 }

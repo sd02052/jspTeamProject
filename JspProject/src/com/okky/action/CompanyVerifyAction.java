@@ -1,5 +1,6 @@
 package com.okky.action;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -49,20 +50,27 @@ public class CompanyVerifyAction implements Action {
 		String company_content = multi.getParameter("content").trim();
 		String company_homepage = "";
 		
-		
 		if(multi.getParameter("homepage") != null) {
 			company_homepage = multi.getParameter("homepage").trim();
 		}else {
 			company_homepage = "(없음)";
 		}
 		
-		String company_license_image = company_name + "_" + multi.getFilesystemName("license_image");
-		String company_logo = "";
+		// 회사 사업자 등록증 = 회사이름_사업자등록증 이름
+		File company_license_image = multi.getFile("license_image");
+		company_license_image.renameTo(new File(company_name+ "_" + company_license_image));
+		dto.setCompany_license_image(company_license_image.getName());
+
+		// 회사 로고 이름 = 회사이름_로고이름
+		File company_logo = null;
 		
-		if(multi.getFilesystemName("logo") != null) {
-			company_logo = company_name + "_" + multi.getFilesystemName("logo");
+		if(multi.getFile("logo") != null) {
+			company_logo = multi.getFile("logo");
+			company_logo.renameTo(new File(company_name + "_" + company_logo));
+			dto.setCompany_logo(company_logo.getName());
+			
 		}else {
-			company_logo = "company_default.png";
+			dto.setCompany_logo("company_default.png");
 		}
 		
 		int mem_num = 0;
@@ -83,8 +91,6 @@ public class CompanyVerifyAction implements Action {
 		dto.setCompany_emp(company_emp);
 		dto.setCompany_content(company_content);
 		dto.setCompany_homepage(company_homepage);
-		dto.setCompany_license_image(company_license_image);
-		dto.setCompany_logo(company_logo);
 		dto.setCompany_target(company_target);
 		
 		CompanyDAO companyDAO = CompanyDAO.getInstance();

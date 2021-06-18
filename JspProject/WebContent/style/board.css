@@ -87,6 +87,13 @@
     overflow: hidden;
     vertical-align: middle;
 }
+.avatar-photo {
+    display: inline-block;
+    border: 1px solid #ededed;
+    border-radius: 50%;
+    overflow: hidden;
+    vertical-align: middle;
+}
 .label {
     font-weight: normal !important;
 }

@@ -285,7 +285,7 @@ public class MemberDAO {
 		try {
 			openConn();
 
-			sql = "select * from okky_member where mem_company = ? order by mem_num desc";
+			sql = "select * from okky_member where mem_num = (select company_target from okky_company where company_num = ?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 
@@ -389,7 +389,7 @@ public class MemberDAO {
 			for (int i = 0; i < pageList.size(); i++) {
 				int company_num = pageList.get(i).getCompany_num();
 
-				sql = "select * from okky_member where mem_company = ?";
+				sql = "select * from okky_member where mem_num = (select company_target from okky_company where company_num = ?)";
 
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, company_num);

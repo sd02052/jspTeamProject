@@ -1,3 +1,4 @@
+<%@page import="com.okky.model.CompanyDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -52,6 +53,10 @@ function fnImgPop(url){
 	if(session.getAttribute("loginNum") != null){
 		int loginNum = (int)session.getAttribute("loginNum");
 	}
+
+	CompanyDTO dto = (CompanyDTO)request.getAttribute("comList");
+	String company_content = dto.getCompany_content().replace("\n", "<br>");
+	
 %>
 	 
 </script>
@@ -211,7 +216,7 @@ function fnImgPop(url){
 									<li class="list-group-item list-group-item-question list-group-has-note clearfix">
 									<%--<%= ${comDTO.getCompany_content()}.replaceAll(" ", "&nbsp;").replaceAll("\n", "<br>") --%>
 									
-										<p>${comDTO.getCompany_content() }</p>				
+										<p><%=company_content %></p>				
 									</li>
 								</ul>
 							</div>

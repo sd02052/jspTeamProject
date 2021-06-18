@@ -83,7 +83,19 @@ function moveWrite() {
 					
 						<h4>${cate.getCate_name() }</h4>
 						<!-- 네비 -->
-						<form method="post" action="<%=request.getContextPath()%>/member_board_search.do">
+						<%-- 구인 - 정규직&비정규직 태그 검색시 이동경로 --%>
+						<c:choose>
+							<c:when test="${sort eq '0' || sort eq '1' }">
+								<form method="post" action="<%=request.getContextPath()%>/member_job_search.do">
+								<input type="hidden" name="contract" value=${sort }>
+						</c:when>
+						
+						<%-- 일반 검색 경로 --%>
+							<c:otherwise>
+								<form method="post" action="<%=request.getContextPath()%>/member_board_search.do">
+							</c:otherwise>
+						</c:choose>
+						
 							<div class="category-filter-wrapper">
 								<!-- 검색 -->
 								<div class="category-filter-query pull-right">
@@ -102,13 +114,20 @@ function moveWrite() {
 									</div>
 								</div>
 								<!-- 정렬 -->
+								
 								<ul class="list-sort pull-left">
 									<li><a href="<%=request.getContextPath() %>/member_board_list.do?cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-date">최신순</a></li>
-									<li><a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort=<%=like %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-like">추천순</a></li>
-									<li><a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort=<%=comment %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-comment">댓글순</a></li>
-									<li><a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort=<%=scrap %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-scrap">스크랩순</a></li>
-									<li><a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort=<%=hit %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-hit">조회순</a></li>
+									
+									<%-- 구인 - 정규직&비정규직 태그 검색시 나머지 숨김 --%>
+									<c:if test="${sort ne '0' || sort ne '1' }">
+										<li><a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort=<%=like %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-like">추천순</a></li>
+										<li><a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort=<%=comment %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-comment">댓글순</a></li>
+										<li><a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort=<%=scrap %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-scrap">스크랩순</a></li>
+										<li><a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort=<%=hit %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-hit">조회순</a></li>
+									</c:if>
+									
 								</ul>
+								
 							</div>
 						</form>
 					</div>
@@ -135,10 +154,16 @@ function moveWrite() {
 
 												${categoryList[status.index].getCate_name()}</a>
 
-												<%-- 구인 게시판인 경우 : 고용형태, 위치 추가 --%>
+												<%-- 구인 게시판인 경우 : 고용형태, 위치 추가, 태그 이동 추가 --%>
 												<c:if test="${!empty jobList }">
-													<c:if test="${jobList[status.index].getJob_contract() eq 0 }"><span class="label label-success">정규직</span></c:if>
-													<c:if test="${jobList[status.index].getJob_contract() eq 1 }"><span class="label label-primary">계약직</span></c:if>
+													<c:if test="${jobList[status.index].getJob_contract() eq 0 }">
+														<a href="<%=request.getContextPath() %>/member_job_contract_list.do?cate_num=${categoryList[status.index].getCate_num()}&big=${big[status.index] }&small=${small[status.index] }&cate_group=${categoryList[status.index].getCate_group()}&cate_step=${categoryList[status.index].getCate_step()}&sort=0">
+														<span class="label label-success">정규직</span></a>
+													</c:if>
+													<c:if test="${jobList[status.index].getJob_contract() eq 1 }">
+														<a href="<%=request.getContextPath() %>/member_job_contract_list.do?cate_num=${categoryList[status.index].getCate_num()}&big=${big[status.index] }&small=${small[status.index] }&cate_group=${categoryList[status.index].getCate_group()}&cate_step=${categoryList[status.index].getCate_step()}&sort=1">
+														<span class="label label-primary">계약직</span></a>
+													</c:if>
 													<span class="location">${jobList[status.index].getJob_location() }</span>
 												</c:if>
 												
@@ -493,7 +518,115 @@ function moveWrite() {
 						</nav>
 						</c:if>
 					</c:if>
-				
+					
+					<%-- 구인 - 정규직인 경우 pagination --%>
+					<c:if test="${!empty list }">
+					<c:if test="${sort eq '0' }">
+						<nav>
+							<div align="center">
+							  <ul class="pagination">
+							  
+							  <c:if test="${page > 1 }">
+								    <li>
+								      <a href="member_board_list_sort.do?page=1&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Previous">
+								        <span aria-hidden="true">&laquo;</span>
+								      </a>
+								    </li>
+							   </c:if>
+							   
+							   <c:if test="${page eq 1 }">
+								    <li>
+								      <a aria-label="Previous">
+								        <span aria-hidden="true">&laquo;</span>
+								      </a>
+								    </li>
+							   </c:if>
+							    
+							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
+								    <c:if test="${i == page }">
+								   		<li class="active"><a href="member_board_list_sort.do?page=${i }&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
+								    </c:if>
+								    
+								    <c:if test="${i != page }">
+									    <li><a href="member_board_list_sort.do?page=${i }&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
+								    </c:if>
+							    </c:forEach>
+							    
+							    <c:if test="${page < allPage }">
+								    <li>
+								      <a href="member_board_list_sort.do?page=${allPage }&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Next">
+								        <span aria-hidden="true">&raquo;</span>
+								      </a>
+								    </li>
+							    </c:if>
+							    
+							    <c:if test="${page eq allPage }">
+								    <li>
+								      <a aria-label="Next">
+								        <span aria-hidden="true">&raquo;</span>
+								      </a>
+								    </li>
+							    </c:if>
+							  </ul>
+							  </div>
+						</nav>
+						</c:if>
+					</c:if>
+					
+					<%-- 구인 - 비정규직인 경우 pagination --%>
+					<c:if test="${!empty list }">
+					<c:if test="${sort eq '1' }">
+						<nav>
+							<div align="center">
+							  <ul class="pagination">
+							  
+							  <c:if test="${page > 1 }">
+								    <li>
+								      <a href="member_board_list_sort.do?page=1&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Previous">
+								        <span aria-hidden="true">&laquo;</span>
+								      </a>
+								    </li>
+							   </c:if>
+							   
+							   <c:if test="${page eq 1 }">
+								    <li>
+								      <a aria-label="Previous">
+								        <span aria-hidden="true">&laquo;</span>
+								      </a>
+								    </li>
+							   </c:if>
+							    
+							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
+								    <c:if test="${i == page }">
+								   		<li class="active"><a href="member_board_list_sort.do?page=${i }&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
+								    </c:if>
+								    
+								    <c:if test="${i != page }">
+									    <li><a href="member_board_list_sort.do?page=${i }&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
+								    </c:if>
+							    </c:forEach>
+							    
+							    <c:if test="${page < allPage }">
+								    <li>
+								      <a href="member_board_list_sort.do?page=${allPage }&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Next">
+								        <span aria-hidden="true">&raquo;</span>
+								      </a>
+								    </li>
+							    </c:if>
+							    
+							    <c:if test="${page eq allPage }">
+								    <li>
+								      <a aria-label="Next">
+								        <span aria-hidden="true">&raquo;</span>
+								      </a>
+								    </li>
+							    </c:if>
+							  </ul>
+							  </div>
+						</nav>
+						</c:if>
+					</c:if>
+					
 				</div>
 			</div>
 			<jsp:include page="../../include/footer.jsp" />

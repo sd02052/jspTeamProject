@@ -42,13 +42,13 @@ public class JobWriteCheckAction implements Action {
 			int mem_num = (int) session.getAttribute("loginNum");
 			MemberDAO memDAO = MemberDAO.getInstance();
 			MemberDTO login_mem = memDAO.getMember(mem_num);
-			forward.setRedirect(true);
 			
 			if(login_mem.getMem_company() != 0) {	// 회사가 있는 회원인 경우
 				CompanyDAO companyDAO = CompanyDAO.getInstance();
 				CompanyDTO companyDTO = companyDAO.getCompanyList(login_mem.getMem_company());
 				
 				if(companyDTO.getCompany_check() == 1) {	// 회사 인증이 통과된 회원인 경우
+					forward.setRedirect(true);
 					forward.setPath("member_job_write.do?num="+cate_num+"&big="+big_category+"&small="+small_category+"&cate_group="+cate_group+"&cate_step="+cate_step);
 					
 					System.out.println("인증1");
@@ -56,38 +56,28 @@ public class JobWriteCheckAction implements Action {
 				}else if(companyDTO.getCompany_check() == 0) {	// 회사 인증이 대기 중인 회원인 경우
 					out.println("<script>");
 					out.println("alert('회사 인증 대기중입니다.')");
+					out.println("location.href='start.do'");
 					out.println("</script>");
-					forward.setPath("member_board_list.do?cate_num="+cate_num+"&big="+big_category+"&small="+small_category+"&cate_group="+cate_group+"&cate_step="+cate_step);
 					
 					System.out.println("인증0");
 					
 				}else if(companyDTO.getCompany_check() == 2) {	// 회사 인증이 거절된 회원인 경우
-					forward.setPath("member_job_verify.do");
 					
 					out.println("<script>");
 					out.println("alert('회사 인증이 거절되었습니다. 다시 등록해주세요.')");
+					out.println("location.href='start.do'");
 					out.println("</script>");
 					
 					System.out.println("인증2");
 				}
 			}else {	// 회사가 없는 회원인 경우
-				forward.setPath("member_job_verify.do");
+				forward.setRedirect(true);
+				forward.setPath("main.do");
 				
 				System.out.println("인증4");
 			}
 			
-		}else {
-			forward.setPath("member_board_list.do?cate_num="+cate_num+"&big="+big_category+"&small="+small_category+"&cate_group="+cate_group+"&cate_step="+cate_step);
 		}
-		
-		out.println("<script>");
-		out.println("alert('test')");
-		out.println("</script>");
-		
-		out.println("<script>");
-		out.println("alert('게시물 추가 실패!!!')");
-		out.println("history.back()");
-		out.println("</script>");
 		
 		return forward;
 	}

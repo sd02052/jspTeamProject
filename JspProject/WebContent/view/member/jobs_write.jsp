@@ -121,6 +121,21 @@
 	height: 32px;
 }
 </style>
+<script type="text/javascript">
+
+$(function() {	/* 정규직이면 연봉, 비정규직이면 월급 노출 */
+	$("input[type='radio'][name='contract']").click(function() {
+		if($("input[type='radio'][name='contract']:checked").val() == 1) {
+			$(".contract0").css("display", "block");
+			$(".contract1").css("display", "none");
+		}else {
+			$(".contract0").css("display", "none");
+			$(".contract1").css("display", "block");
+		}
+	});
+});
+
+</script>
 </head>
 <body>
 	<div class="layout_container">
@@ -275,15 +290,15 @@
 									<div class="form-group">
 										<label for="inputPassword3" class="col-md-2 control-label"></label>
 										<div class="col-sm-8">
-											<p><b>급여</b></p>  
-											<div class="col-sm-6">
-											<input name="mincost" class="form-control" placeholder="OOO">만 이상 ~
-											</div>
-											<div class="col-sm-6">
-											<input name="maxcost" class="form-control" placeholder="OOO">만 미만
-											</div>
+											<div class="contract1"><p><b>급여</b> 연봉</p></div>  
+											<div class="contract0" style="display:none"><p><b>급여</b> 월급</p></div>  
 											
-										
+												<div class="col-sm-6">
+												<input name="mincost" class="form-control" placeholder="숫자로 기입해주세요.">만 이상 ~
+												</div>
+												<div class="col-sm-6">
+												<input name="maxcost" class="form-control" placeholder="숫자로 기입해주세요.">만 미만
+												</div>
 										</div>
 									</div>
 									

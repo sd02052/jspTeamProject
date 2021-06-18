@@ -604,6 +604,21 @@ public class MemberDAO {
 		}
 	}
 	
+	public void boardUpScore(int num) {
+		try {
+			openConn();
+			sql = "update okky_member set mem_score = mem_score + 10 where mem_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+	}
+	
 	public void boardDownScore(int num) {
 		try {
 			openConn();
@@ -891,6 +906,4 @@ public class MemberDAO {
 		return result;
 	} // memberWithdrawal() 메서드 end
 	
-	
-
 }

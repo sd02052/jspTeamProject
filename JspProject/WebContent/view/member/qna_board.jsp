@@ -55,7 +55,7 @@
 			$("#sort-hit").addClass('active');
 		});
 		<%}%>
-	})
+	});
 	
 	<% 
 		String date = "date";
@@ -82,11 +82,11 @@
 							<div class="col-xs-12 col-md-8">
 								<h4>${cate.getCate_name() }</h4>
 							</div>
-							<div class="col-xs-12 col-md-4" align="right">
-								<button type="button" class="btn btn-success" onclick="location.href='<%=request.getContextPath()%>/member_board_write.do'">
-									<i class="fas fa-pencil-alt"></i>새 글 쓰기
-								</button>
-							</div>
+							<c:if test="${loginNum != null }">
+								<div class="col-xs-12 col-md-4" align="right">
+									<a class="btn btn-success" href="<%=request.getContextPath()%>/member_board_write.do?cate_num=${cate.getCate_num()}&big=${big_category}&small=${small_category}">새 글 쓰기</a>
+								</div>
+							</c:if>
 						</div>
 						<br>
 
@@ -138,7 +138,7 @@
 									<div class="col-xs-7">
 										<div class="row">
 											<span class="list-group-item-text article-id font">#${dto.getBoard_num() }</span>
-											<a class="list-group-item-text item-tag label label-info padding" href="<%=request.getContextPath()%>/member_board_list.do?cate_num=${categoryList[status.index].getCate_num()}&big=${big[status.index] }&small=${small[status.index] }&cate_group=${categoryList[status.index].getCate_group()}&cate_step=${categoryList[status.index].getCate_step()}">
+											<a class="list-group-item-text item-tag label label-info padding" href="<%=request.getContextPath()%>/member_qna_board_list.do?cate_num=${categoryList[status.index].getCate_num()}&big=${big[status.index] }&small=${small[status.index] }&cate_group=${categoryList[status.index].getCate_group()}&cate_step=${categoryList[status.index].getCate_step()}">
 											${categoryList[status.index].getCate_name()}</a>
 										</div>
 										<div class="row">

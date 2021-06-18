@@ -1851,4 +1851,32 @@ public class BoardDAO {
 		return result;
 	}
 	
+	public int writeBoard(BoardDTO dto) {
+		int result = 0, count = 0;
+		try {
+			openConn();
+			sql = "select count(*) from okky_board";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				count = rs.getInt(1) + 1;
+			}
+			
+			sql = "insert into okky_board values(?,?,?,?,default,default,default,?,sysdate,default)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, count);
+			pstmt.setString(2, dto.getBoard_title());
+			pstmt.setInt(3, dto.getBoard_writer());
+			pstmt.setString(4, dto.getBoard_content());
+			pstmt.setInt(5, dto.getBoard_category());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	}
 }

@@ -20,7 +20,7 @@
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../../include/side.jsp" />
-				<div style="width: 805px; min-height: 800px;">
+				<div class="md_container" style="width: 805px; min-height: 800px;">
 				    <div id="create-user" class="content clearfix" role="main">
 				    	<h3 class="content-header">회원 탈퇴</h3>
 						<div class="panel panel-default panel-margin-10">

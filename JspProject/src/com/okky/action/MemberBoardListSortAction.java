@@ -113,6 +113,7 @@ public class MemberBoardListSortAction implements Action {
 			request.setAttribute("memberList", list2);
 		}
 
+
 		List<CategoryDTO> list3 = boardDAO.getCategoryAllList(list);
 		List<CategoryDTO> cateList = categoryDAO.getCategoryList(list);
 

@@ -1,69 +1,11 @@
 @charset "UTF-8";
 
-.answer-count {
-	padding: 5px 10px;
+.content-wrapper{
+	margin-top: 25px;
 }
-
-.answer-selected {
-	color: white;
-	background-color: 3A93DE;
+.panel-default {
+    border-color: #ddd;
 }
-
-.answer-non-selected {
-	color: white;
-	background-color: 2CA526;
-}
-
-.answer-no-comment {
-	color: DF5925;
-}
-
-.list-group-has-note {
-	border-left: 3px #3a93de solid !important;
-}
-
-.list-group-no-note {
-	border-left: 3px #ddd solid !important;
-}
-
-.mem-logo {
-	display: inline-block;
-	vertical-align: middle; 
-	border: 1px solid #ededed;
-	overflow: hidden;
-	width: 32px;
-	height: 32px;
-    margin-right: 5px;
-    border-radius: 50%;
-}
-
-.qna-text {
-	display: inline-block;
-	vertical-align: middle;
-	font-size: 1.6em;
-	font-weight: bord;
-	margin: 0;
-	padding: 0;
-}
-
-.qna-selected {
-	padding: 0px 10px;
-	color: #FFF;
-	background-color: #2CA526;
-}
-
-.qna-deselected {
-	padding: 0px 10px;
-	color: #FFF;
-	background-color: #3A93DE;
-}
-
-.qna-no-comment {
-	padding: 0px 10px;
-	color: #DF5925;
-	background-color: none;
-}
-
 .commented {
 	border-left: 3px #3A93DE solid !important;
 }
@@ -72,19 +14,90 @@
 	border-left: 3px #ddd solid !important;
 }
 
-.selected {
-	border-left: 3px #2ca526 solid !important;
+/* nav */
+.category-filter-wrapper {
+    margin-top: 20px;
+}
+.btn.btn-wide {
+    padding-left: 20px;
+    padding-right: 20px;
+    letter-spacing: 1px;
+}
+.category-filter-query {
+    width: 50%;
+}
+.list-sort {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 5px;
+}
+.list-sort li {
+    float: left;
+    margin-right: 20px;
+}
+.list-sort li > a {
+    color: #bbb;
+    font-size: 12px;
+}
+.list-sort li > a.active {
+    color: #555;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.list-group-has-note {
+    border-left: 3px #3a93de solid !important;
 }
 
-.search-btn2 {
-	border:  1px solid #ededed;
-	border-radius: 0;
+
+
+/* board */
+.list-group-has-note {
+	border-left: 3px #3a93de solid !important;
 }
 
-.search-btn {
-	height: 34px;
+.list-group-no-note {
+	border-left: 3px #ddd solid !important;
 }
-
+.list-summary-wrapper {
+    float: left;	
+}
+.list-sort .active {
+	color: #555;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.list-title-wrap {
+    float: left;
+    width: 450px;
+    margin-right: 10px;
+}
+.list-group-item-summary .item-icon {
+    font-size: 12px;
+    vertical-align: middle;
+}
+.avatar-list .avatar-photo {
+    vertical-align: middle;
+    width: 32px;
+    height: 32px;
+}
+.avatar-photo {
+    display: inline-block;
+    border: 1px solid #ededed;
+    border-radius: 50%;
+    overflow: hidden;
+    vertical-align: middle;
+}
+.label {
+    font-weight: normal !important;
+}
+.list-group-item {
+    padding: 6px 10px !important;
+}
+.list-group-item-author {
+    margin-top: 2px;
+    width: 180px;
+    float: right;
+}
 /* 아래로 0617 추가 */
 .company-logo {
 	display: inline-block;
@@ -99,3 +112,13 @@
 .location {
 	font-size: 8px;
 }
+
+@media ( max-width : 768px) {
+	.list-title-wrap {
+		width: auto;
+	}
+	.list-summary-wrapper {
+		display: none;
+	}
+}
+

@@ -175,9 +175,16 @@
 							</div>
 							
 							<c:if test="${loginNum != null }">
-								<div class="col-xs-12 col-md-4" align="right">
-									<a class="btn btn-success" onclick="moveWrite()">새 글 쓰기</a>
-								</div>
+								<c:if test="${loginType == 'member' && cate.getCate_num() != 8}">
+									<div class="col-xs-12 col-md-4" align="right">
+										<a class="btn btn-success" onclick="moveWrite()">새 글 쓰기</a>
+									</div>
+								</c:if>
+								<c:if test="${loginType == 'admin' }">
+									<div class="col-xs-12 col-md-4" align="right">
+										<a class="btn btn-success" onclick="moveWrite()">새 글 쓰기</a>
+									</div>
+								</c:if>
 							</c:if>
 						</div>
 

@@ -119,6 +119,7 @@ public class MemberBoardContAction implements Action {
 		request.setAttribute("category", category);
 		request.setAttribute("commentList", comment_list);
 		request.setAttribute("commentWriterList", comment_writer_list);
+		request.setAttribute("board_num", board_dto.getBoard_num());
 		
 		
 		ActionForward forward = new ActionForward();

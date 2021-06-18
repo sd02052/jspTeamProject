@@ -128,10 +128,25 @@ $(function(){
 })
 </script>
 <script type="text/javascript">
-function boardWriteCancle(){
+function boardEditCancle(){
 	var flag = confirm('정말로 취소하시겠습니까?');
 	if(flag == true){
 	window.history.back();
+	}
+};
+</script>
+<script type="text/javascript">
+function changeSelect(){ 
+	var langSelect = document.getElementById("categorySelect");
+	var selectValue = langSelect.options[langSelect.selectedIndex].value; 
+	console.log(selectValue); 
+	if(selectValue == 17){
+		var flag = confirm("게시판 변경시 수정된 내용은 초기화 됩니다. 변경 하시겠습니까?");
+		if(flag == true) {
+			location.href="member_job_write_check.do?num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step }";
+		} else {
+			$("#categorySelect option:eq(0)").prop("selected", true);
+		}
 	}
 };
 </script>
@@ -176,24 +191,39 @@ function boardWriteCancle(){
 						</div>
 
 						<form action="<%=request.getContextPath() %>/member_board_edit_ok.do" method="post" class="form-horizontal">
-							<input type="hidden" name="board_writer" value="${dto.getMem_num() }">
+							<input type="hidden" name="board_writer" value="${mem_dto.getMem_num() }">
+							<input type="hidden" name="board_num" value="${board_dto.getBoard_num() }">
 							<input type="hidden" name="big" value="${big_category}">
 							<input type="hidden" name="small" value="${small_category}">
 							<div class="col-xs-12 d" style="border: 1px solid gray;">
 								<div class="form-group">
 									<br> <label for="inputEmail3" class="col-md-2 control-label"></label>
 									<div class="col-sm-8">
-										<select class="form-control" name="board_category" required>
+										<select id="categorySelect" class="form-control" name="edit_category" required onchange="changeSelect()">
 											<option value="">:::게시판 선택:::</option>
 											<c:if test="${!empty cate_list }">
-												<c:forEach items="${cate_list }" var="cateDTO">
-													<c:if test="${cate_dto.getCate_num() != cateDTO.getCate_num() }">
-														<option value="${cateDTO.getCate_num() }">${cateDTO.getCate_name() }</option>
-													</c:if>
-													<c:if test="${cate_dto.getCate_num() == cateDTO.getCate_num() }">
-														<option value="${cateDTO.getCate_num() }" selected>${cateDTO.getCate_name() }</option>
-													</c:if>
-												</c:forEach>
+												<c:if test="${loginType == 'admin' }">
+													<c:forEach items="${cate_list }" var="cateDTO">
+														<c:if test="${cate_dto.getCate_num() != cateDTO.getCate_num() }">
+															<option value="${cateDTO.getCate_num() }">${cateDTO.getCate_name() }</option>
+														</c:if>
+														<c:if test="${cate_dto.getCate_num() == cateDTO.getCate_num() }">
+															<option value="${cateDTO.getCate_num() }" selected>${cateDTO.getCate_name() }</option>
+														</c:if>
+													</c:forEach>
+												</c:if>
+												<c:if test="${loginType == 'member' }">
+													<c:forEach items="${cate_list }" var="cateDTO">
+														<c:if test="${cateDTO.getCate_num() != 8}">
+															<c:if test="${cate_dto.getCate_num() != cateDTO.getCate_num() }">
+																<option value="${cateDTO.getCate_num() }">${cateDTO.getCate_name() }</option>
+															</c:if>
+															<c:if test="${cate_dto.getCate_num() == cateDTO.getCate_num() }">
+																<option value="${cateDTO.getCate_num() }" selected>${cateDTO.getCate_name() }</option>
+															</c:if>
+														</c:if>
+													</c:forEach>
+												</c:if>
 											</c:if>
 											<c:if test="${empty cate_list }">
 												<option value="">카테고리 불러오기 실패</option>
@@ -207,33 +237,24 @@ function boardWriteCancle(){
 									<label for="inputEmail3" class="col-md-2 control-label"></label>
 									<div class="col-sm-8">
 										<input type="text" class="form-control" id="inputEmail3"
-											placeholder="제목을 입력해 주세요." name="board_title" required value="${board_dto.getBoard_title()}">
+											placeholder="제목을 입력해 주세요." name="edit_title" required value="${board_dto.getBoard_title()}">
 									</div>
 								</div>
 
-								<!-- 태그는 DB에 없어 잠시 빼놓음 -->
-								<!-- <div class="form-group">
-									<label for="inputPassword3" class="col-md-2 control-label"></label>
-									<div class="col-sm-8">
-										<input type="file" class="form-control" id="inputPassword3"
-											name="board_image" placeholder="파일을 선택해주세요.">
-									</div>
-								</div> -->
-								
 								<div class="row">
 									<label for="inputEmail3" class="col-md-2 control-label"></label>
 									<div class="col-sm-8 ">
 										<textarea class="form-control noresize" rows="15"
-											name="board_content" required>${board_dto.getBoard_content()}</textarea>
+											name="edit_content" required>${board_dto.getBoard_content()}</textarea>
 									</div>
 								</div>
 								<div class="col-xs-12 col-md-3">
 									<br> <br>
-									<input type="button" class="btn btn-default" style="float: right;" value="취소" onclick="return boardWriteCancle()">
+									<input type="button" class="btn btn-default" style="float: right;" value="취소" onclick="return boardEditCancle()">
 								</div>
 								<div class="col-xs-12 col-md-8">
 									<br> <br> 
-									<input type="submit" class="btn btn-success" style="float: right;" value="등록">
+									<input type="submit" class="btn btn-success" style="float: right;" value="수정">
 								</div>
 							</div>
 						</form>

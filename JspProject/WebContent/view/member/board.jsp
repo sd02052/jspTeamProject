@@ -69,13 +69,18 @@ function moveWrite() {
 				<div id="list-aticle" class="content scaffold-list">
 					<c:set var="list" value="${boardList }" />
 					<c:set var="cate" value="${category }" />
+
 					<!-- 카테고리 헤더 -->
 					<div class="nav">
+					
 					<c:if test="${loginNum != null }">
-						<a class="create btn btn-success btn-wide pull-right" onclick="moveWrite()">
-							<i class="fas fa-pencil-alt"></i> 새 글 쓰기
-						</a>
+						<c:if test="${(loginType == 'member' && cate.getCate_num() != 8) || loginType == 'admin'}">
+							<a class="create btn btn-success btn-wide pull-right" onclick="moveWrite()">
+								<i class="fas fa-pencil-alt"></i> 새 글 쓰기
+							</a>
+						</c:if>
 					</c:if>
+					
 						<h4>${cate.getCate_name() }</h4>
 						<!-- 네비 -->
 						<form method="post" action="<%=request.getContextPath()%>/member_board_search.do">

@@ -1,3 +1,4 @@
+<%@page import="com.okky.model.BoardDTO"%>
 <%@page import="com.okky.model.CommentDTO"%>
 <%@page import="com.okky.model.CategoryDTO"%>
 <%@page import="java.util.List"%>
@@ -59,6 +60,8 @@ if(session.getAttribute("loginNum") != null){
 	int loginNum = (int)session.getAttribute("loginNum");
 }
 	List<CommentDTO> list = (List<CommentDTO>) request.getAttribute("commentList");
+	String[] comment_content = new String[list.size()];
+	String[] comment_content1 = new String[list.size()];
 	for(int i = 0; i < list.size(); i++){
 %>
 <script type="text/javascript">
@@ -80,9 +83,16 @@ function commentEditCancle<%=list.get(i).getCom_num() %>(){
 	$("#comment-form-<%=list.get(i).getCom_num()%>")[0].reset();
 	}
 };
-
 </script>
-<%} %>
+<%
+	comment_content[i] = list.get(i).getCom_content();
+	comment_content1[i] = comment_content[i].replace("\n", "<br>");
+	}; 
+	
+	BoardDTO board_dto = (BoardDTO)request.getAttribute("dto");
+	String board_content = board_dto.getBoard_content();
+	String board_content1 = board_content.replace("\n", "<br>");
+%>
 <script type="text/javascript">
 
 $(function() { 
@@ -166,7 +176,7 @@ $(function() {
 											class="label label-info">${category.getCate_name() }</span>
 										</a><br> <span class="cont-title">${dto.getBoard_title() }</span>
 										<hr>
-										<p>${dto.getBoard_content() }</p>
+										<p><%=board_content1 %></p>
 									</div>
 								</td>
 
@@ -214,9 +224,9 @@ $(function() {
 													<i class="facebook-img fas fa-cog" data-toggle="tooltip" data-placement="left" title="게시물 설정"></i>
 												</button>
 												<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-													<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_qna_board_edit.do?num=${dto.getBoard_num()}"> <i class="fas fa-edit"></i>&nbsp;수정
+													<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_board_edit.do?num=${dto.getBoard_num()}&big=${big_category}&small=${small_category}&cate_num=${category.getCate_num()}"> <i class="fas fa-edit"></i>&nbsp;수정
 													</a></li>
-													<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_qna_board_delete.do?num=${dto.getBoard_num()}&big=${big_category}&small=${small_category}&cate_num=${category.getCate_num()}" onclick="return confirm('댓글을 삭제 하시겠습니까?');"> <i class="fas fa-trash-alt"></i>&nbsp;삭제
+													<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_qna_board_delete.do?num=${dto.getBoard_num()}&big=${big_category}&small=${small_category}&cate_num=${category.getCate_num()}" onclick="return confirm('게시물을 삭제 하시겠습니까?');"> <i class="fas fa-trash-alt"></i>&nbsp;삭제
 													</a></li>
 												</ul>
 											</div>
@@ -244,6 +254,7 @@ $(function() {
 										${dto.getBoard_comment() }</span></td>
 							</tr>
 							<c:if test="${!empty commentList }">
+								<% int i = 0; %>
 								<c:forEach items="${commentList }" var="dto" varStatus="status">
 										<!-- 다른 회원이 작성한 댓글 -->
 										<form method="post" action="<%=request.getContextPath() %>/member_qna_comment_edit.do" id="comment-form-${dto.getCom_num() }">
@@ -314,11 +325,9 @@ $(function() {
 													</div>
 													<br> <br> <br>
 													<div class="com-content-${dto.getCom_num() } pull-left">
-														<p>${dto.getCom_content() }</p>
+														<p><%=comment_content1[i++] %></p>
 													</div>
-													
-														<textarea class="form-control com-edit-area-${dto.getCom_num() }" name="com_content" rows="3" style="display: none;" value="${dto.getCom_content() }">${dto.getCom_content() }</textarea>
-													
+													<textarea class="form-control com-edit-area-${dto.getCom_num() }" name="com_content" rows="3" style="display: none;" value="${dto.getCom_content() }">${dto.getCom_content() }</textarea>
 												</td>
 												<td class="col-md-2">
 												<div id="like_form">

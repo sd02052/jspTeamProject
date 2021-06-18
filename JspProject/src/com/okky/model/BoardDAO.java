@@ -1915,4 +1915,25 @@ public class BoardDAO {
 		}
 		return result;
 	}
+	
+	public int editBoard(BoardDTO dto) {
+		int result = 0;
+		try {
+			openConn();
+			sql = "update okky_board set board_category = ?, board_title = ?, board_content = ? where board_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getBoard_category());
+			pstmt.setString(2, dto.getBoard_title());
+			pstmt.setString(3, dto.getBoard_content());
+			pstmt.setInt(4, dto.getBoard_num());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	}
 }

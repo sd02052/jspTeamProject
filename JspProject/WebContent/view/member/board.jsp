@@ -72,7 +72,7 @@ function moveWrite() {
 					<!-- 카테고리 헤더 -->
 					<div class="nav">
 					<c:if test="${loginNum != null }">
-						<a class="create btn btn-success btn-wide pull-right" href="<%=request.getContextPath()%>/member_board_write.do?cate_num=${cate.getCate_num()}&big=${big_category}&small=${small_category}">
+						<a class="create btn btn-success btn-wide pull-right" onclick="moveWrite()">
 							<i class="fas fa-pencil-alt"></i> 새 글 쓰기
 						</a>
 					</c:if>

@@ -70,7 +70,7 @@ public class CompanyVerifyAction implements Action {
 			mem_num = (int) session.getAttribute("loginNum");
 		}
 		
-		int company_target = 1;
+		int company_target = 20;
 		
 		dto.setCompany_name(company_name);
 		dto.setCompany_license_num(company_license_num);

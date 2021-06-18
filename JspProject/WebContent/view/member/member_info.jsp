@@ -94,7 +94,7 @@ function handleImgFileSelect(e) {
 				                   		</a>
 				                   		
 				                   		<div class="avatar-info">
-				                   			<a class="nickname" href="" title="1">1</a>
+				                   			<a class="nickname" href="" title="1"><%=dto.getMem_nick() %></a>
 				                   			<div class="activity block">
 				                   				<span class="fas fa-bolt"></span> <%=dto.getMem_score() %>
 				                   			</div>

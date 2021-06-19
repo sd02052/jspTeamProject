@@ -12,6 +12,8 @@ import com.okky.model.BoardDAO;
 import com.okky.model.BoardDTO;
 import com.okky.model.CommentDAO;
 import com.okky.model.CommentDTO;
+import com.okky.model.CompanyDAO;
+import com.okky.model.CompanyDTO;
 import com.okky.model.LikeDAO;
 import com.okky.model.LikeDTO;
 import com.okky.model.MemberDAO;
@@ -28,6 +30,7 @@ public class MemberPersonalCommentedAction implements Action {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		CommentDAO comDAO = CommentDAO.getInstance();
 		LikeDAO likeDAO = LikeDAO.getInstance();
+		CompanyDAO companyDAO = CompanyDAO.getInstance();
 
 		// 페이징 작업
 		int rowsize = 10; // 한 페이지당 보여질 게시물의 수
@@ -57,6 +60,8 @@ public class MemberPersonalCommentedAction implements Action {
 		}
 
 		MemberDTO memDTO = memDAO.getMember(num); // 회원정보를 조회하는 메서드
+		CompanyDTO companyDTO = companyDAO.getMemCompanyList(num);
+		
 		List<BoardDTO> boardList = boardDAO.getMemberBoardList(num, startNo, endNo); // 회원이 작성한 모든 글을 조회하는 메서드
 		List<LikeDTO> likeList = likeDAO.getScrapList(num, startNo, endNo); // 회원이 스크랩한 글 번호를 조회하는 메서드
 
@@ -65,6 +70,7 @@ public class MemberPersonalCommentedAction implements Action {
 		List<BoardDTO> cbList = boardDAO.getBoardList(comList); // 회원이 작성한 모든 댓글이 달린 게시글을 조회하는 메서드
 
 		request.setAttribute("memDTO", memDTO);
+		request.setAttribute("companyDTO", companyDTO);
 
 		request.setAttribute("boardList", boardList);
 		request.setAttribute("likeList", likeList);

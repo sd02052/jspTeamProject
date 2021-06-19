@@ -33,15 +33,31 @@
 				                <div class="user-info col-sm-9">
 				                    <div class="clearfix">
 				                        <h2 class="pull-left">${memDTO.getMem_nick() }</h2>
-				                        <button class="btn btn-success pull-right btn-wide disabled">
-				                            <i class="fas fa-plus"></i>팔로우
-				                        </button>
+				                        
+				                        <%-- 회사 관련 버튼 --%>
+				                        <c:if test="${memDTO.getMem_company() ne 0 }">
+					                        <div class="btn-group pull-right btn-wide ">
+											  <button type="button" class="btn btn-default dropdown-toggle btn-success" data-toggle="dropdown" aria-expanded="false">
+											   <i class="fas fa-building"></i>&nbsp;회사 <span class="caret"></span>
+											  </button>
+											  <ul class="dropdown-menu" role="menu">
+											  <c:if test="${companyDTO.getCompany_check() eq 1 }">
+											    <li><a href="<%=request.getContextPath() %>/member_company_cont.do?mem_num=${memDTO.getMem_num() }&com_num=${memDTO.getMem_company() }"><i class="far fa-building"></i>&nbsp;${companyDTO.getCompany_name() }</a></li>
+											    <li><a href="<%=request.getContextPath() %>/member_job_write_check.do?cate_num=17&big='menu5'&small='menu5-2'&cate_group=5&cate_step=1">구인 글쓰기</a></li>
+											    <li class="divider"></li>
+											   </c:if>
+											    <li><a href="<%=request.getContextPath() %>/admin_verify_cont.do?num=${memDTO.getMem_company() }">회사인증관리</a></li>
+											  </ul>
+											</div>
+										</c:if>
+										
 				                    </div>
 				                    <div class="user-points">
 				                        <div class="user-point">
 				                            <div class="user-point-label"><i class="fas fa-bolt"></i> 활동점수</div>
-				                            <div class="user-point-num">${memDTO.getMem_score() }</div>
+				                            <div class="user-point-num ">${memDTO.getMem_score() }</div>
 				                        </div>
+				                        <%--
 				                        <div class="user-point">
 				                            <div class="user-point-label"><i class="fas fa-user"></i> 팔로잉</div>
 				                            <div class="user-point-num">0</div>
@@ -50,6 +66,7 @@
 				                            <div class="user-point-label"><i class="fas fa-users"></i> 팔로워</div >
 				                            <div class="user-point-num">0</div>
 				                        </div>
+				                         --%>
 				                    </div>
 				
 				                </div>

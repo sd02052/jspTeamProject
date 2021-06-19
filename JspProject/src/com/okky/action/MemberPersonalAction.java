@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.okky.controller.Action;
 import com.okky.controller.ActionForward;
@@ -32,6 +33,14 @@ public class MemberPersonalAction implements Action {
 		LikeDAO likeDAO = LikeDAO.getInstance();
 		CommentDAO comDAO = CommentDAO.getInstance();
 		CompanyDAO companyDAO = CompanyDAO.getInstance();
+		
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("loginNum") != null) {
+			int mem_num = (int) session.getAttribute("loginNum");
+			MemberDTO login_mem = memDAO.getMember(mem_num);
+			request.setAttribute("login_mem", login_mem);
+		}
 
 		// 페이징 작업
 		int rowsize = 10; // 한 페이지당 보여질 게시물의 수

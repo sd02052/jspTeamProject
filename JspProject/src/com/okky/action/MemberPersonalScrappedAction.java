@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.okky.controller.Action;
 import com.okky.controller.ActionForward;
@@ -32,6 +33,14 @@ public class MemberPersonalScrappedAction implements Action {
 		CommentDAO comDAO = CommentDAO.getInstance();
 		CompanyDAO companyDAO = CompanyDAO.getInstance();
 
+		HttpSession session = request.getSession();
+
+		if (session.getAttribute("loginNum") != null) {
+			int mem_num = (int) session.getAttribute("loginNum");
+			MemberDTO login_mem = memDAO.getMember(mem_num);
+			request.setAttribute("login_mem", login_mem);
+		}
+
 		// 페이징 작업
 		int rowsize = 10; // 한 페이지당 보여질 게시물의 수
 		int block = 5; // 하단에 보여질 페이지의 최대 수 예) [1][2][3] / [4][5][6] (최대 3개씩)
@@ -51,9 +60,9 @@ public class MemberPersonalScrappedAction implements Action {
 
 		int totalRecord_board = boardDAO.getSearchListCount(num); // 작성글 전체수
 		int totalRecord_com = comDAO.getCommentListCount(num); // 작성 댓글 전체수
-		int totalRecord_scrap = likeDAO.getScrapListCount(num);	// 회원이 스크랩한 모든 글 수
+		int totalRecord_scrap = likeDAO.getScrapListCount(num); // 회원이 스크랩한 모든 글 수
 
-		int allPage = (int) (Math.ceil(totalRecord_scrap / (double) rowsize)); 
+		int allPage = (int) (Math.ceil(totalRecord_scrap / (double) rowsize));
 
 		if (endBlock > allPage) {
 			endBlock = allPage;
@@ -61,10 +70,10 @@ public class MemberPersonalScrappedAction implements Action {
 
 		MemberDTO memDTO = memDAO.getMember(num); // 회원정보를 조회하는 메서드
 		CompanyDTO companyDTO = companyDAO.getMemCompanyList(num);
-		
+
 		List<BoardDTO> boardList = boardDAO.getMemberBoardList(num, startNo, endNo); // 회원이 작성한 모든 글을 조회하는 메서드
 		List<CommentDTO> comList = comDAO.getMemberCommentList(num, startNo, endNo); // 회원이 작성한 모든 댓글을 조회하는 메서드
-		
+
 		// 스크랩
 		List<LikeDTO> likeList = likeDAO.getScrapList(num, startNo, endNo); // 회원이 스크랩한 글 번호를 조회하는 메서드
 		List<BoardDTO> lbList = boardDAO.getScrapBoardList(likeList); // 회원이 스크랩한 글의 정보를 조회하는 메서드
@@ -72,7 +81,7 @@ public class MemberPersonalScrappedAction implements Action {
 
 		request.setAttribute("memDTO", memDTO);
 		request.setAttribute("companyDTO", companyDTO);
-		
+
 		request.setAttribute("boardList", boardList);
 		request.setAttribute("comList", comList);
 

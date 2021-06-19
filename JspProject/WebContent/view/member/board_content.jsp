@@ -195,14 +195,16 @@ function commentEditCancle<%=list.get(i).getCom_num() %>(){
 												data-toggle="tooltip" data-placement="left" title="페이스북 이동"></i>
 											</a>
 										</div>
-										<c:if test="${loginNum == dto.getBoard_writer() }"><!-- 자신이 작성한 게시물일 경우 -->
+										<c:if test="${loginNum == dto.getBoard_writer() || loginType == 'admin'}"><!-- 자신이 작성한 게시물일 경우 or 관리자일 경우-->
 											<div class="com-edit dropdown">
 												<button class="com-edit-btn btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
 													<i class="facebook-img fas fa-cog" data-toggle="tooltip" data-placement="left" title="게시물 설정"></i>
 												</button>
 												<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-													<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_board_edit.do?num=${dto.getBoard_num()}&big=${big_category}&small=${small_category}&cate_num=${category.getCate_num()}"> <i class="fas fa-edit"></i>&nbsp;수정
-													</a></li>
+													<c:if test="${loginType != 'admin' }"> <!-- 자신의 글일때만 수정버튼 보이게 -->
+														<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_board_edit.do?num=${dto.getBoard_num()}&big=${big_category}&small=${small_category}&cate_num=${category.getCate_num()}"> <i class="fas fa-edit"></i>&nbsp;수정
+														</a></li>
+													</c:if>
 													<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_board_delete.do?num=${dto.getBoard_num()}&big=${big_category}&small=${small_category}&cate_num=${category.getCate_num()}" onclick="return confirm('게시물을 삭제 하시겠습니까?');"> <i class="fas fa-trash-alt"></i>&nbsp;삭제
 													</a></li>
 												</ul>

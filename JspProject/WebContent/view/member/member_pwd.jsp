@@ -8,7 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OKKY - All That Developer</title>
+<link href="<%=request.getContextPath()%>/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+<title>OKKY - 회원정보 등록</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/member_pwd.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>

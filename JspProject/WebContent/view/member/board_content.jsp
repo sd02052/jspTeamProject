@@ -4,12 +4,16 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	BoardDTO boardDTO = (BoardDTO)request.getAttribute("dto");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OKKY - (글제목)</title>
+<link href="<%=request.getContextPath()%>/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+<title>OKKY - <%=boardDTO.getBoard_title() %></title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/style/style.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/style/content.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>

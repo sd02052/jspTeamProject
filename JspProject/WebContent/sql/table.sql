@@ -83,7 +83,6 @@ create table okky_job(
     job_do varchar2(100) not null,         -- 직무
     job_mincareer number(10) not null,     -- 최소 경력
     job_maxcareer number(10) not null,     -- 최대 경력
-    constraint fk_target4 foreign key(job_target) references okky_board(board_num) on delete cascade 
 );
 
 create table okky_mem_tag(

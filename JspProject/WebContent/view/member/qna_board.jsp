@@ -1,11 +1,16 @@
+<%@page import="com.okky.model.CategoryDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	CategoryDTO categoryDTO = (CategoryDTO)request.getAttribute("category");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
+<link href="<%=request.getContextPath()%>/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+<title>OKKY - <%=categoryDTO.getCate_name() %></title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/style/style.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/style/board.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>

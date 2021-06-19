@@ -1848,6 +1848,11 @@ public class BoardDAO {
 					while(rs.next()) {
 						job_num = rs.getInt("job_num");
 					}
+					sql = "delete from okky_job where job_target = ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, num);
+					pstmt.executeUpdate();
+					
 					sql = "update okky_job set job_num = job_num - 1 where job_num > ?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setInt(1, job_num);

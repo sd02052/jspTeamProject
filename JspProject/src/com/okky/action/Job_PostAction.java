@@ -13,6 +13,7 @@ import com.okky.model.BoardDAO;
 import com.okky.model.BoardDTO;
 import com.okky.model.JobDAO;
 import com.okky.model.JobDTO;
+import com.okky.model.MemberDAO;
 
 public class Job_PostAction implements Action {
 
@@ -78,6 +79,8 @@ public class Job_PostAction implements Action {
 		PrintWriter out = response.getWriter();
 		
 		if(res > 0) {
+			MemberDAO memberDAO = MemberDAO.getInstance();
+			memberDAO.boardUpScore(mem_num);
 			forward.setRedirect(true);
 			forward.setPath("member_board_list.do?cate_num="+cate_num+"&big="+big_category+"&small="+small_category+"&cate_group="+cate_group+"&cate_step="+cate_step);
 		}else {

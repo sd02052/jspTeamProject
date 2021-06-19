@@ -12,231 +12,200 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<style type="text/css">
-.list-sort a{
-	color: #bbb;
-    font-size: 12px;
-}
-.list-sort .active {
-	color: #555;
-    font-weight: bold;
-    text-decoration: underline;
-}
-</style>
 </head>
 <c:set var="big_category" value="${big_category }" />
 <c:set var="small_category" value="${small_category }" />
 <script type="text/javascript">
-
-	<%
-	if(session.getAttribute("loginNum") != null){
-		int loginNum = (int)session.getAttribute("loginNum");
-	}
-	%>
+$(function(){
+	$("#"+${big_category }).css("border-right","5px solid #e67d3e");
+	$("#"+${small_category }).css("color","#fff");
 	
+	<%String sort = (String)request.getAttribute("sort");
+
+	if (sort.equals("date")) {%>
 	$(function(){
-		$("#"+${big_category }).css("border-right","5px solid #e67d3e");
-		$("#"+${small_category }).css("color","#fff");
-		
-		<%String sort = (String)request.getAttribute("sort");
-
-		if (sort.equals("date")) {%>
-		$(function(){
-			$("#sort-date").addClass('active');
-		});
-		<%} else if (sort.equals("like")) {%>
-		$(function(){
-			$("#sort-like").addClass('active');
-		});
-		<%} else if (sort.equals("comment")) {%>
-		$(function(){
-			$("#sort-comment").addClass('active');
-		});
-		<%} else if (sort.equals("scrap")) {%>
-		$(function(){
-			$("#sort-scrap").addClass('active');
-		});
-		<%} else if (sort.equals("hit")) {%>
-		$(function(){
-			$("#sort-hit").addClass('active');
-		});
-		<%}%>
+		$("#sort-date").addClass('active');
 	});
-	
-	<% 
-		String date = "date";
-		String like = "like";
-		String comment = "comment";
-		String scrap = "scrap";
-		String hit = "hit";
-	%>
+	<%} else if (sort.equals("like")) {%>
+	$(function(){
+		$("#sort-like").addClass('active');
+	});
+	<%} else if (sort.equals("comment")) {%>
+	$(function(){
+		$("#sort-comment").addClass('active');
+	});
+	<%} else if (sort.equals("scrap")) {%>
+	$(function(){
+		$("#sort-scrap").addClass('active');
+	});
+	<%} else if (sort.equals("hit")) {%>
+	$(function(){
+		$("#sort-hit").addClass('active');
+	});
+	<%}%>
+});
+<%
+	String date = "date";
+	String like = "like";
+	String comment = "comment";
+	String scrap = "scrap";
+	String hit = "hit";
+%>
 
 </script>
 <body>
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../../include/side.jsp" />
-			<!-- 본문 시작-->
-
-
 			<div class="content">
-				<div class="container-fluid">
-				<c:set var="list" value="${boardList }" />
-				<c:set var="cate" value="${category }" />
-					<div class="row">
-						<div class="row">
-							<div class="col-xs-12 col-md-8">
-								<h4>${cate.getCate_name() }</h4>
-							</div>
-							
-							<c:if test="${loginNum != null }">
-								<div class="col-xs-12 col-md-4" align="right">
-									<a class="btn btn-success" href="<%=request.getContextPath()%>/member_board_write.do?cate_num=${cate.getCate_num()}&big=${big_category}&small=${small_category}">새 글 쓰기</a>
-								</div>
-							</c:if>
-						</div>
-						<br>
-
-						<form class="form-inline" method="post" action="<%=request.getContextPath()%>/member_qna_search.do">
-							<div class="row">
-									<div class="col-md-6 list-sort">
-										<a href="<%=request.getContextPath() %>/member_qna_board_list.do?cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-date">최신순</a>
-										&nbsp;
-										<a href="<%=request.getContextPath() %>/member_qna_board_list_sort.do?sort=<%=like %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-like">추천순</a>
-										&nbsp;
-										<a href="<%=request.getContextPath() %>/member_qna_board_list_sort.do?sort=<%=comment %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-comment">댓글순</a>
-										&nbsp;
-										<a href="<%=request.getContextPath() %>/member_qna_board_list_sort.do?sort=<%=scrap %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-scrap">스크랩순</a>
-										&nbsp;
-										<a href="<%=request.getContextPath() %>/member_qna_board_list_sort.do?sort=<%=hit %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-hit">조회순</a>
-										&nbsp;
+				<div id="list-aticle" class="content scaffold-list">
+					<c:set var="list" value="${boardList }" />
+					<c:set var="cate" value="${category }" />
+					<!-- 카테고리 헤더 -->
+					<div class="nav">
+					<c:if test="${loginNum != null }">
+						 <c:if test="${(loginType == 'member' && cate.getCate_num() != 8) || loginType == 'admin'}">
+                        <a class="create btn btn-success btn-wide pull-right" href="<%=request.getContextPath()%>/member_board_write.do?cate_num=${cate_num }&big=${big_category}&small=${small_category}">
+                            <i class="fas fa-pencil-alt"></i> 새 글 쓰기
+                        </a>
+                         </c:if>
+                    </c:if>
+						<h4>${cate.getCate_name() }</h4>
+						<!-- 네비 -->
+						<form method="post" action="<%=request.getContextPath()%>/member_qna_search.do">
+							<div class="category-filter-wrapper">
+								<!-- 검색 -->
+								<div class="category-filter-query pull-right">
+									<div class="input-group input-group-sm">
+										<input type="hidden" name="cate_num" value="${cate.getCate_num() }">
+										<input type="hidden" name="big" value="${big_category }">
+										<input type="hidden" name="small" value="${small_category }">
+										<input type="hidden" name="cate_group" value="${cate.getCate_group() }">
+										<input type="hidden" name="cate_step" value="${cate.getCate_step() }">
+										<input type="search" class="form-control" id="search-field" name="data" placeholder="검색어">
+										<span class="input-group-btn">
+											<button type="submit" class="btn btn-default">
+												<i class="fas fa-search"></i>
+											</button>
+										</span>
 									</div>
-								<div class="col-md-6" align="right">
-									<div class="form-group">
-										<label class="sr-only" for="exampleInputAmount"></label>
-										<div class="input-group">
-											<input type="hidden" name="cate_num" value="${cate.getCate_num() }">
-											<input type="hidden" name="big" value="${big_category }">
-											<input type="hidden" name="small" value="${small_category }">
-											<input type="hidden" name="cate_group" value="${cate.getCate_group() }">
-											<input type="hidden" name="cate_step" value="${cate.getCate_step() }">
-											<input type="search" class="form-control" id="search-field" name="data" placeholder="검색어">
-											<span class="input-group-addon">
-												<button type="submit" class="btn btn-link btn-xs">
-													<i class="fas fa-search"></i>
-												</button>
-											</span>
-										</div>
-										
-									</div>
-
 								</div>
+								<!-- 정렬 -->
+								<ul class="list-sort pull-left">
+									<li><a href="<%=request.getContextPath() %>/member_qna_board_list.do?cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-date">최신순</a></li>
+									<li><a href="<%=request.getContextPath() %>/member_qna_board_list_sort.do?sort=<%=like %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-like">추천순</a></li>
+									<li><a href="<%=request.getContextPath() %>/member_qna_board_list_sort.do?sort=<%=comment %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-comment">댓글순</a></li>
+									<li><a href="<%=request.getContextPath() %>/member_qna_board_list_sort.do?sort=<%=scrap %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-scrap">스크랩순</a></li>
+									<li><a href="<%=request.getContextPath() %>/member_qna_board_list_sort.do?sort=<%=hit %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-hit">조회순</a></li>
+								</ul>
 							</div>
 						</form>
-						
-						<br>
-						
-						<c:if test="${!empty list }">
-							<c:forEach items="${list }" var="dto" varStatus="status">
-								<div class="row <c:if test='${dto.getBoard_comment() > 0 && selectList[status.index] eq 0 }'>commented</c:if> 
-									<c:if test='${dto.getBoard_comment() eq 0 }'>uncommented</c:if> 
-									<c:if test='${selectList[status.index] > 0 }'>selected</c:if>" 
-									style="border: 1px solid #ddd; border-bottom-width: 0.5px;">
-									<div class="col-xs-7">
-										<div class="row">
-											<span class="list-group-item-text article-id font">#${dto.getBoard_num() }</span>
-											<a class="list-group-item-text item-tag label label-info padding" href="<%=request.getContextPath()%>/member_qna_board_list.do?cate_num=${categoryList[status.index].getCate_num()}&big=${big[status.index] }&small=${small[status.index] }&cate_group=${categoryList[status.index].getCate_group()}&cate_step=${categoryList[status.index].getCate_step()}">
-											${categoryList[status.index].getCate_name()}</a>
-										</div>
-										<div class="row">
-											<h5 class="list-group-item-heading list-group-item-evaluate h">
+					</div>
+					<!-- /카테고리 헤더 -->
+
+					<!-- 게시판 -->
+					<div class="content-wrapper">
+						<div class="panel panel-default">
+							<ul class="list-group">
+							<c:if test="${!empty list }">
+								<c:forEach items="${list }" var="dto" varStatus="status">
+									<li class="list-group-item list-group-item-question <c:if test='${dto.getBoard_comment() > 0 }'>commented</c:if> 
+									<c:if test='${dto.getBoard_comment() eq 0 }'>uncommented</c:if> clearfix">
+										<div class="list-title-wrap clearfix">
+											<div class="list-tag clearfix">
+												<span class="list-group-item-text article-id">#${dto.getBoard_num() }</span> 
+												<a class="list-group-item-text item-tag label label-info padding" href="<%=request.getContextPath()%>/member_qna_board_list.do?cate_num=${categoryList[status.index].getCate_num()}&big=${big[status.index] }&small=${small[status.index] }&cate_group=${categoryList[status.index].getCate_group()}&cate_step=${categoryList[status.index].getCate_step()}">
+												${categoryList[status.index].getCate_name()}</a>
+											</div>
+											<h5 class="list-group-item-heading list-group-item-evaluate">
 												<a class="font_style" href="<%=request.getContextPath() %>/member_qna_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
 											</h5>
 										</div>
-									</div>
-									<div class="col-xs-5">
-										<div class="row">
-											<div class="col-md-12">
-												<ul class="list-inline">
-													<li class="list-unstyled li1"><i class="fas fa-thumbs-up img1"></i>&nbsp;&nbsp;<p class="qna-text">${dto.getBoard_like() }</p></li>
+	
+										<div class="list-summary-wrapper clearfix">
+											<div class="list-group-item-summary qna-list-evaluate clearfix">
+												<ul>
+													<li class="list-evaluate">
+														<i class="item-icon fas fa-thumbs-up img"></i> ${dto.getBoard_like() }
+													</li>
+													
 													<c:if test="${selectList[status.index] > 0 }">
-															<li class="list-unstyled li1">
-																<div class="qna-selected">
-																		<i class="fas fa-check-circle img1"></i>
-																	&nbsp;&nbsp;<p class="qna-text">${dto.getBoard_comment() }</p>
-																</div>
-															</li>
+														<li class="list-evaluate qna-selected-wrapper">
+															<div class="qna-selected">
+																<i class="fas fa-check-circle"></i> ${dto.getBoard_comment() }
+															</div>
+														</li>
 													</c:if>
 													
 													<c:if test="${dto.getBoard_comment() > 0 && selectList[status.index] eq 0 }">
-															<li class="list-unstyled li1">
+															<li class="list-evaluate qna-deselected-wrapper">
 																<div class="qna-deselected">
-																	<i class="fas fa-exclamation-circle img1"></i>
-																		&nbsp;&nbsp;<p class="qna-text">${dto.getBoard_comment() }</p>
+																	<i class="fas fa-exclamation-circle"></i> ${dto.getBoard_comment() }
 																</div>
 															</li>
 													</c:if>
 													
 													<c:if test="${dto.getBoard_comment() eq 0 }">
-														<li class="list-unstyled li1">
+														<li class="list-evaluate qna-no-comment-wrapper">
 															<div class="qna-no-comment">
-																<i class="fas fa-question-circle img1"></i>
-																&nbsp;&nbsp;<p class="qna-text">${dto.getBoard_comment() }</p>
+																<i class="fas fa-question-circle"></i> ${dto.getBoard_comment() }
 															</div>
 														</li>
 													</c:if>
-													
-													<%-- 탈퇴회원인 경우 --%>
-													<c:if test="${memberList[status.index].getMem_check() eq 'yes' }">
-														<li class="list-unstyled li1  img1"></li>
-																<span class="text-left"><img  class="mem-logo" src="<%=request.getContextPath()%>/images/profileUpload/${memberList[status.index].getMem_image() }"></span>
-														</li>
-														<li class="list-unstyled li1 a2">
-															<div>
-																<span class="a1" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }">${memberList[status.index].getMem_nick() }</span> &nbsp;
-																<div style="font-size: 10px; display: inline-block;">
-																	<i class="activity-img fas fa-lock"></i>
-																</div>
-																<p class="span">${dto.getBoard_regdate() }</p>
-															</div>
-														</li>
-													</c:if>
-
-													<%-- 탈퇴회원이 아닌 경우 --%>
-													<c:if test="${memberList[status.index].getMem_check() eq 'no' }">
-														<li class="list-unstyled li1  img1"></li>
-															<a class="text-left" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }"> 
-																<img class="mem-logo" src="<%=request.getContextPath()%>/images/profileUpload/${memberList[status.index].getMem_image() }">
-															</a>
-														</li>
-														<li class="list-unstyled li1 a2">
-															<div>
-																<a class="a1" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }">${memberList[status.index].getMem_nick() }</a> &nbsp;
-																<div style="font-size: 10px; display: inline-block;">
-																	<i class="fas fa-bolt i1"></i> ${memberList[status.index].getMem_score() }
-																</div>
-																<p class="span">${dto.getBoard_regdate() }</p>
-															</div>
-														</li>
-													</c:if>
-													
 												</ul>
 											</div>
 										</div>
-									</div>
+										<!-- 프로필 -->
+										<div class="list-group-item-author clearfix">
+										<%-- 탈퇴회원이 아닌 경우 --%>
+										<c:if test="${memberList[status.index].getMem_check() eq 'no' }">
+											<div class="avatar clearfix avatar-list">
+												<a href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }" class="avartar-photo"> 
+													<img class="avatar-photo" src="<%=request.getContextPath()%>/images/profileUpload/${memberList[status.index].getMem_image() }">
+												</a>
+												<div class="avatar-info">
+													<a class="nickname" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }">${memberList[status.index].getMem_nick() }</a>
+													<div class="activity">
+														<span><i class="fas fa-bolt"></i> ${memberList[status.index].getMem_score() }</span>
+													</div>
+													<div class="date-created">
+														<span class="timeago">${dto.getBoard_regdate() }</span>
+													</div>
+												</div>
+											</div>
+										</c:if>
+										
+										<%-- 탈퇴회원인 경우 --%>
+										<c:if test="${memberList[status.index].getMem_check() eq 'yes' }">
+											<div class="avatar clearfix avatar-list">
+												<img class="avatar-photo" src="<%=request.getContextPath()%>/images/profileUpload/${memberList[status.index].getMem_image() }">
+												<div class="avatar-info">
+													<span class="nickname" >${memberList[status.index].getMem_nick() }</span>
+													<div class="activity">
+														<span><i class="activity-img fas fa-lock"></i></span>
+													</div>
+													<div class="date-created">
+														<span class="timeago">${dto.getBoard_regdate() }</span>
+													</div>
+												</div>
+											</div>
+										</c:if>
+										</div> <!-- /프로필 -->
+									</li>
+								</c:forEach>
+							</c:if>
+							
+							<!-- DB에 글 정보가 없을 경우 -->
+							<c:if test="${empty list }">
+								<div>
+									<h4 style="text-align: center;">등록된 게시물이 없습니다.</h4>
 								</div>
-							</c:forEach>
-						</c:if>
-						
-						<c:if test="${empty list }">
-							<div class="row " style="border: 1px solid #ddd; border-bottom-width: 0.5px;">
-								<h4 style="text-align: center;">등록된 게시물이 없습니다.</h4>
-							</div>
-						</c:if>
-						
-					</div>
-					<!-- 본문 끝 -->
- 	 						
+							</c:if>
+							</ul>
+						</div>
+					</div> <!-- /게시판 -->
+
+					
 					<%-- pagination --%>
 					<c:if test="${!empty list }">
 					<c:if test="${sort eq 'date' }">
@@ -502,11 +471,11 @@
 						</nav>
 						</c:if>
 					</c:if>
-					
+				
 				</div>
 			</div>
 			<jsp:include page="../../include/footer.jsp" />
 		</div>
+	</div>
 </body>
-
 </html>

@@ -1834,6 +1834,37 @@ public class BoardDAO {
 				pstmt.executeUpdate();
 			}
 			
+			sql = "select count(*) from okky_job where job_target = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				if(rs.getInt(1) > 0) {
+					int job_num = 0;
+					sql = "select job_num from okky_job where job_target = ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, num);
+					rs = pstmt.executeQuery();
+					while(rs.next()) {
+						job_num = rs.getInt("job_num");
+					}
+					sql = "update okky_job set job_num = job_num - 1 where job_num > ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, job_num);
+					pstmt.executeUpdate();
+					
+					sql= "update okky_job set job_target = job_target - 1 where job_target > ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, num);
+					pstmt.executeUpdate();
+				} else {
+					sql = "update okky_job set job_target = job_target - 1 where job_target > ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, num);
+					pstmt.executeUpdate();
+				}
+			}
+			
 			sql = "update okky_board set board_num = board_num - 1 where board_num > ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);

@@ -72,15 +72,14 @@ function moveWrite() {
 
 					<!-- 카테고리 헤더 -->
 					<div class="nav">
-					
 					<c:if test="${loginNum != null }">
-						<c:if test="${(loginType == 'member' && cate.getCate_num() != 8) || loginType == 'admin'}">
-							<a class="create btn btn-success btn-wide pull-right" onclick="moveWrite()">
-								<i class="fas fa-pencil-alt"></i> 새 글 쓰기
-							</a>
-						</c:if>
-					</c:if>
-					
+                        <c:if test="${(loginType == 'member' && cate.getCate_num() != 8) || loginType == 'admin'}">
+                            <a class="create btn btn-success btn-wide pull-right" onclick="moveWrite()">
+                                <i class="fas fa-pencil-alt"></i> 새 글 쓰기
+                            </a>
+                        </c:if>
+                    </c:if>
+
 						<h4>${cate.getCate_name() }</h4>
 						<!-- 네비 -->
 						<form method="post" action="<%=request.getContextPath()%>/member_board_search.do">
@@ -219,7 +218,7 @@ function moveWrite() {
 							
 							<!-- DB에 글 정보가 없을 경우 -->
 							<c:if test="${empty list }">
-								<div class="panel panel-default">
+								<div>
 									<h4 style="text-align: center;">등록된 게시물이 없습니다.</h4>
 								</div>
 							</c:if>

@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="<%=request.getContextPath()%>/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
 <title>OKKY - 회원관리</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/admin.css">

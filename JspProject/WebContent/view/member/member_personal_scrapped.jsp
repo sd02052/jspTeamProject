@@ -6,7 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OKKY - All That Developer</title>
+<link href="<%=request.getContextPath()%>/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+<title>OKKY - 회원정보 보기</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/member_personal.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">

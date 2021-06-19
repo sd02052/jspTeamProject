@@ -55,7 +55,7 @@ function fnImgPop(url){
 		int loginNum = (int)session.getAttribute("loginNum");
 	}
 
-	CompanyDTO dto = (CompanyDTO)request.getAttribute("comDTO");
+	CompanyDTO dto = (CompanyDTO)request.getAttribute("comList");
 	String content = dto.getCompany_content().replace("\n", "<br>");
 %>
 	 
@@ -153,7 +153,7 @@ function fnImgPop(url){
 															
 															<tr>
 																<th>회사 홈페이지</th>
-																<td>${comDTO.getCompany_homepage() }</td>
+																<td><a href="${comDTO.getCompany_homepage() }">${comDTO.getCompany_homepage() }</a></td>
 																<td colspan="4"></td>
 															</tr>
 															
@@ -180,15 +180,16 @@ function fnImgPop(url){
 												<div class="btn-group btn-verify">
 													<c:if test="${comDTO.getCompany_check() eq 0 }">
 														<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-														대기&nbsp;&nbsp;<span class="caret"></span></button>
+														대기<c:if test="${loginNum eq 9999 }">&nbsp;&nbsp;<span class="caret"></span></c:if>
+														</button>
 													</c:if>
 													<c:if test="${comDTO.getCompany_check() eq 1 }">
 														<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-														승인&nbsp;&nbsp;<span class="caret"></span></button>
+														승인<c:if test="${loginNum eq 9999 }">&nbsp;&nbsp;<span class="caret"></span></c:if></button>
 													</c:if>
 													<c:if test="${comDTO.getCompany_check() eq 2 }">
 														<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-														거절&nbsp;&nbsp;<span class="caret"></span></button>
+														거절<c:if test="${loginNum eq 9999 }">&nbsp;&nbsp;<span class="caret"></span></c:if></button>
 													</c:if>
 													<c:if test="${loginNum eq 9999 }">
 														<ul class="dropdown-menu" role="menu">

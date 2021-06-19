@@ -30,7 +30,7 @@ public class FrontController extends HttpServlet {
 		Properties prop = new Properties();
 
 		FileInputStream fis = new FileInputStream(
-				"C:\\NCS\\jspTeamProject\\JspProject\\src\\com\\okky\\controller\\mapping.properties");
+				"C:\\Users\\leehe\\git\\jspTeamProject\\JspProject\\src\\com\\okky\\controller\\mapping.properties");
 		prop.load(fis);
 		String value = prop.getProperty(command);
 		

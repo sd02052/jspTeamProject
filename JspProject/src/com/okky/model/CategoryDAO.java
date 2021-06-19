@@ -176,7 +176,7 @@ public class CategoryDAO {
 		} finally {
 			closeConn(rs, pstmt, con);
 		}
-		
+
 		return list;
 	}
 
@@ -185,18 +185,34 @@ public class CategoryDAO {
 
 		try {
 			openConn();
-			sql = "select * from okky_category where cate_group = ? and cate_step != 0 order by cate_num";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, cate_group);
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				CategoryDTO dto = new CategoryDTO();
-				dto.setCate_num(rs.getInt("cate_num"));
-				dto.setCate_name(rs.getString("cate_name"));
-				dto.setCate_group(rs.getInt("cate_group"));
-				dto.setCate_step(rs.getInt("cate_step"));
+			if (cate_group != 4) {
+				sql = "select * from okky_category where cate_group = ? and cate_step != 0 order by cate_num";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, cate_group);
+				rs = pstmt.executeQuery();
+				while (rs.next()) {
+					CategoryDTO dto = new CategoryDTO();
+					dto.setCate_num(rs.getInt("cate_num"));
+					dto.setCate_name(rs.getString("cate_name"));
+					dto.setCate_group(rs.getInt("cate_group"));
+					dto.setCate_step(rs.getInt("cate_step"));
 
-				list.add(dto);
+					list.add(dto);
+				}
+			} else {
+				sql = "select * from okky_category where cate_group = ? order by cate_num";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, cate_group);
+				rs = pstmt.executeQuery();
+				while (rs.next()) {
+					CategoryDTO dto = new CategoryDTO();
+					dto.setCate_num(rs.getInt("cate_num"));
+					dto.setCate_name(rs.getString("cate_name"));
+					dto.setCate_group(rs.getInt("cate_group"));
+					dto.setCate_step(rs.getInt("cate_step"));
+
+					list.add(dto);
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

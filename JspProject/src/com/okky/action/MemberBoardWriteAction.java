@@ -22,6 +22,7 @@ public class MemberBoardWriteAction implements Action {
 		HttpSession session = request.getSession();
 		int loginNum = (int)session.getAttribute("loginNum");
 		int cate_num = Integer.parseInt(request.getParameter("cate_num").trim());
+		System.out.println(cate_num);
 		String big_category = request.getParameter("big").trim();
 		String small_category = request.getParameter("small").trim();
 		MemberDAO dao = MemberDAO.getInstance();

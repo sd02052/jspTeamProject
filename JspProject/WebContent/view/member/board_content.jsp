@@ -52,6 +52,8 @@ if(session.getAttribute("loginNum") != null){
 	int loginNum = (int)session.getAttribute("loginNum");
 }
 	List<CommentDTO> list = (List<CommentDTO>) request.getAttribute("commentList");
+	String[] comment_content = new String[list.size()];
+	String[] comment_content1 = new String[list.size()];
 	for(int i = 0; i < list.size(); i++){
 %>
 <script type="text/javascript">
@@ -74,7 +76,15 @@ function commentEditCancle<%=list.get(i).getCom_num() %>(){
 	}
 };
 </script>
-<%} %>
+<%
+	comment_content[i] = list.get(i).getCom_content();
+	comment_content1[i] = comment_content[i].replace("\n", "<br>");
+	};
+	
+	BoardDTO board_dto = (BoardDTO)request.getAttribute("dto");
+	String board_content = board_dto.getBoard_content();
+	String board_content1 = board_content.replace("\n", "<br>");
+%>
 </head>
 <body>
 
@@ -142,7 +152,7 @@ function commentEditCancle<%=list.get(i).getCom_num() %>(){
 											class="label label-info">${category.getCate_name() }</span>
 										</a><br> <span class="cont-title">${dto.getBoard_title() }</span>
 										<hr>
-										<p>${dto.getBoard_content() }</p>
+										<p><%=board_content1 %></p>
 									</div>
 								</td>
 
@@ -221,6 +231,7 @@ function commentEditCancle<%=list.get(i).getCom_num() %>(){
 										${dto.getBoard_comment() }</span></td>
 							</tr>
 							<c:if test="${!empty commentList }">
+								<% int i = 0; %>
 								<c:forEach items="${commentList }" var="dto" varStatus="status">
 										<!-- 다른 회원이 작성한 댓글 -->
 										<form method="post" action="<%=request.getContextPath() %>/member_comment_edit.do" id="comment-form-${dto.getCom_num() }">
@@ -256,7 +267,7 @@ function commentEditCancle<%=list.get(i).getCom_num() %>(){
 													
 													<br> <br> <br>
 													<div class="com-content-${dto.getCom_num() } pull-left">
-														<p>${dto.getCom_content() }</p>
+														<p><%=comment_content1[i++] %></p>
 													</div>
 													<textarea class="form-control com-edit-area-${dto.getCom_num() }" name="com_content" rows="3" style="display: none;" value="${dto.getCom_content() }">${dto.getCom_content() }</textarea>
 												</td>

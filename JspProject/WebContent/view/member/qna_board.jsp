@@ -197,7 +197,7 @@ $(function(){
 							
 							<!-- DB에 글 정보가 없을 경우 -->
 							<c:if test="${empty list }">
-								<div class="panel panel-default">
+								<div>
 									<h4 style="text-align: center;">등록된 게시물이 없습니다.</h4>
 								</div>
 							</c:if>

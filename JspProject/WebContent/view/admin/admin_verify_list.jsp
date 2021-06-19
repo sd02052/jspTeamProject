@@ -142,7 +142,7 @@ function check() {
 													</div>	
 												</div>	
 	
-											<div class="cont-regdate col-xs-2">${boardList[status.index].getBoard_regdate().substring(0,10) }</div>
+											<div class="cont-regdate col-xs-2">${comDTO.getCompany_regdate().substring(0,10) }</div>
 											<c:if test="${comDTO.getCompany_check() eq 0 }">			
 												<div class="col-xs-1 margin-auto"><span class="badge badge-waitting">대기</span></div>
 											</c:if>	

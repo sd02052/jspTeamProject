@@ -242,7 +242,7 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				count = rs.getInt(1) + 1;
+				count = rs.getInt(1);
 			}
 			
 			sql = "select * from okky_member";
@@ -905,5 +905,24 @@ public class MemberDAO {
 		}
 		return result;
 	} // memberWithdrawal() 메서드 end
+	
+	// 회원의 회사번호를 업데이트하는 메서드
+	public void updateMemberCompany(int company_num, int mem_num) {
+		
+		try {
+			openConn();
+			sql = "update okky_member set mem_company = ? where mem_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, company_num);
+			pstmt.setInt(2, mem_num);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+	}
 	
 }

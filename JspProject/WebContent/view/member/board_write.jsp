@@ -135,6 +135,22 @@ function boardWriteCancle(){
 	}
 };
 </script>
+<script>
+function changeSelect(){ 
+	var langSelect = document.getElementById("categorySelect");
+	var selectValue = langSelect.options[langSelect.selectedIndex].value; 
+	console.log(selectValue); 
+	if(selectValue == 17){
+		var flag = confirm("게시판 변경시 수정된 내용은 초기화 됩니다. 변경 하시겠습니까?");
+		if(flag == true) {
+			location.href="member_job_write_check.do?cate_num=17&big=${big_category}&small=${small_category}&cate_group=5&cate_step=1";
+		} else {
+			$("#categorySelect option:eq(0)").prop("selected", true);
+		};
+	};
+};
+
+</script>
 </head>
 <body>
 	<div class="layout_container">
@@ -183,12 +199,21 @@ function boardWriteCancle(){
 								<div class="form-group">
 									<br> <label for="inputEmail3" class="col-md-2 control-label"></label>
 									<div class="col-sm-8">
-										<select class="form-control" name="board_category" required>
+										<select id="categorySelect" class="form-control" name="board_category" required onchange="changeSelect()">
 											<option value="">:::게시판 선택:::</option>
 											<c:if test="${!empty cate_list }">
-												<c:forEach items="${cate_list }" var="cateDTO">
-													<option value="${cateDTO.getCate_num() }">${cateDTO.getCate_name() }</option>
-												</c:forEach>
+												<c:if test="${loginType == 'admin' }">
+													<c:forEach items="${cate_list }" var="cateDTO">
+														<option value="${cateDTO.getCate_num() }">${cateDTO.getCate_name() }</option>
+													</c:forEach>
+												</c:if>
+												<c:if test="${loginType == 'member' }">
+													<c:forEach items="${cate_list }" var="cateDTO">
+														<c:if test="${cateDTO.getCate_num() != 8}">
+															<option value="${cateDTO.getCate_num() }">${cateDTO.getCate_name() }</option>
+														</c:if>
+													</c:forEach>
+												</c:if>
 											</c:if>
 											<c:if test="${empty cate_list }">
 												<option value="">카테고리 불러오기 실패</option>
@@ -206,15 +231,6 @@ function boardWriteCancle(){
 									</div>
 								</div>
 
-								<!-- 태그는 DB에 없어 잠시 빼놓음 -->
-								<!-- <div class="form-group">
-									<label for="inputPassword3" class="col-md-2 control-label"></label>
-									<div class="col-sm-8">
-										<input type="file" class="form-control" id="inputPassword3"
-											name="board_image" placeholder="파일을 선택해주세요.">
-									</div>
-								</div> -->
-								
 								<div class="row">
 									<label for="inputEmail3" class="col-md-2 control-label"></label>
 									<div class="col-sm-8 ">

@@ -19,7 +19,7 @@ public class JobWriteCheckAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		int cate_num = Integer.parseInt(request.getParameter("num").trim());
+		int cate_num = Integer.parseInt(request.getParameter("cate_num").trim());
 		String big_category = request.getParameter("big");
 		String small_category = request.getParameter("small");
 		int cate_group = Integer.parseInt(request.getParameter("cate_group").trim());
@@ -34,8 +34,6 @@ public class JobWriteCheckAction implements Action {
 		request.setAttribute("small_category", small_category);
 		
 		ActionForward forward = new ActionForward();
-		forward.setRedirect(true);
-		
 		PrintWriter out = response.getWriter();
 		
 		if(session.getAttribute("loginNum") != null) {
@@ -51,32 +49,22 @@ public class JobWriteCheckAction implements Action {
 					forward.setRedirect(true);
 					forward.setPath("member_job_write.do?num="+cate_num+"&big="+big_category+"&small="+small_category+"&cate_group="+cate_group+"&cate_step="+cate_step);
 					
-					System.out.println("인증1");
-					
 				}else if(companyDTO.getCompany_check() == 0) {	// 회사 인증이 대기 중인 회원인 경우
 					out.println("<script>");
 					out.println("alert('회사 인증 대기중입니다.')");
-					out.println("location.href='start.do'");
+					out.println("location.href='admin_verify_cont.do?num="+companyDTO.getCompany_num()+"'");
 					out.println("</script>");
-					
-					System.out.println("인증0");
 					
 				}else if(companyDTO.getCompany_check() == 2) {	// 회사 인증이 거절된 회원인 경우
-					
 					out.println("<script>");
 					out.println("alert('회사 인증이 거절되었습니다. 다시 등록해주세요.')");
-					out.println("location.href='start.do'");
+					out.println("location.href='view/member/company_verify.jsp'");
 					out.println("</script>");
-					
-					System.out.println("인증2");
 				}
 			}else {	// 회사가 없는 회원인 경우
-				forward.setRedirect(true);
-				forward.setPath("main.do");
-				
-				System.out.println("인증4");
+				forward.setRedirect(false);
+				forward.setPath("view/member/company_verify.jsp");
 			}
-			
 		}
 		
 		return forward;

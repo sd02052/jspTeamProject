@@ -25,7 +25,8 @@ public class MemberSignUpAction implements Action {
 			mem_emailCheck = "no";
 		}
 		
-		String mem_image = "dpro.png";
+		int random_count = (int)((Math.random()*10000)%5);
+		String mem_image = "dpro"+random_count+".png";
 		
 		MemberDTO dto = new MemberDTO();
 		dto.setMem_id(mem_id);

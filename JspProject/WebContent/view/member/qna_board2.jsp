@@ -1,98 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>board1</title>
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/style/style.css">
+<title>Insert title here</title>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/style/style.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/style/board.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
-	rel="stylesheet">
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<style>
-.table-bordered {
-	padding: 5px 10px;
-}
-
-.label1 {
-	background-color: #bbb;
-}
-
-.h {
-	margin: 3px 0px;
-}
-
-.padding {
-	padding: 1.8px 5.4px 2.7px;
-}
-
-.font {
-	font-size: 12px;
-}
-
-.font1 {
-	font-size: 10px;
-}
-
-
-.box {
-	width: 400px;
-	height: 40px;
-}
-
-.size {
-	width: 803px;
-	height: 53px;
-}
-
-.img {
-	width: 14px;
-	height: 14px;
-}
-
-.li1 {
-	font-size: 13px;
-	color: gray;
-}
-
-.pa {
-	padding: 20px;
-}
-
-.a1 {
-	font-size: 12px;
-}
-
-.li2 {
-	font-size: 3px;
-	color: gray;
-}
-
-.font2 {
-	font-size: 3px;
-	color: gray;
-}
-
-.span {
-	font-size: 10px;
-}
-
-.img1 {
-	padding-top: 12px;
-}
-
-.a2 {
-	padding-top: 12px;
-}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<style type="text/css">
 .list-sort a{
 	color: #bbb;
     font-size: 12px;
@@ -103,11 +23,16 @@
     text-decoration: underline;
 }
 </style>
-
 </head>
 <c:set var="big_category" value="${big_category }" />
 <c:set var="small_category" value="${small_category }" />
 <script type="text/javascript">
+
+	<%
+	if(session.getAttribute("loginNum") != null){
+		int loginNum = (int)session.getAttribute("loginNum");
+	}
+	%>
 	
 	$(function(){
 		$("#"+${big_category }).css("border-right","5px solid #e67d3e");
@@ -136,7 +61,7 @@
 			$("#sort-hit").addClass('active');
 		});
 		<%}%>
-	})
+	});
 	
 	<% 
 		String date = "date";
@@ -145,27 +70,19 @@
 		String scrap = "scrap";
 		String hit = "hit";
 	%>
-	
-	<%-- 구인 게시판일 경우에만 구인 글쓰기로 이동 --%>
-	function moveWrite() {
-		if(${cate_num} == 17) {
-			location.href="member_job_write_check.do?num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step }";
-		}else {
-			location.href="member_board_write.do?cate_num=${cate_num }&big=${big_category}&small=${small_category}";
-		}
-	};
-	
+
 </script>
 <body>
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../../include/side.jsp" />
 			<!-- 본문 시작-->
-			
+
+
 			<div class="content">
 				<div class="container-fluid">
-					<c:set var="list" value="${boardList }" />
-					<c:set var="cate" value="${category }" />
+				<c:set var="list" value="${boardList }" />
+				<c:set var="cate" value="${category }" />
 					<div class="row">
 						<div class="row">
 							<div class="col-xs-12 col-md-8">
@@ -174,25 +91,24 @@
 							
 							<c:if test="${loginNum != null }">
 								<div class="col-xs-12 col-md-4" align="right">
-									<a class="btn btn-success" onclick="moveWrite()">새 글 쓰기</a>
+									<a class="btn btn-success" href="<%=request.getContextPath()%>/member_board_write.do?cate_num=${cate.getCate_num()}&big=${big_category}&small=${small_category}">새 글 쓰기</a>
 								</div>
 							</c:if>
 						</div>
-
 						<br>
 
-						<form class="form-inline" method="post" action="<%=request.getContextPath()%>/member_board_search.do">
+						<form class="form-inline" method="post" action="<%=request.getContextPath()%>/member_qna_search.do">
 							<div class="row">
 									<div class="col-md-6 list-sort">
-										<a href="<%=request.getContextPath() %>/member_board_list.do?cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-date">최신순</a>
+										<a href="<%=request.getContextPath() %>/member_qna_board_list.do?cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-date">최신순</a>
 										&nbsp;
-										<a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort=<%=like %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-like">추천순</a>
+										<a href="<%=request.getContextPath() %>/member_qna_board_list_sort.do?sort=<%=like %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-like">추천순</a>
 										&nbsp;
-										<a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort=<%=comment %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-comment">댓글순</a>
+										<a href="<%=request.getContextPath() %>/member_qna_board_list_sort.do?sort=<%=comment %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-comment">댓글순</a>
 										&nbsp;
-										<a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort=<%=scrap %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-scrap">스크랩순</a>
+										<a href="<%=request.getContextPath() %>/member_qna_board_list_sort.do?sort=<%=scrap %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-scrap">스크랩순</a>
 										&nbsp;
-										<a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort=<%=hit %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-hit">조회순</a>
+										<a href="<%=request.getContextPath() %>/member_qna_board_list_sort.do?sort=<%=hit %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-hit">조회순</a>
 										&nbsp;
 									</div>
 								<div class="col-md-6" align="right">
@@ -213,59 +129,71 @@
 										</div>
 										
 									</div>
+
 								</div>
 							</div>
 						</form>
 						
 						<br>
-
+						
 						<c:if test="${!empty list }">
 							<c:forEach items="${list }" var="dto" varStatus="status">
-								<div class="row <c:if test='${dto.getBoard_comment() > 0 }'>commented</c:if> <c:if test='${dto.getBoard_comment() eq 0 }'>uncommented</c:if>"
+								<div class="row <c:if test='${dto.getBoard_comment() > 0 && selectList[status.index] eq 0 }'>commented</c:if> 
+									<c:if test='${dto.getBoard_comment() eq 0 }'>uncommented</c:if> 
+									<c:if test='${selectList[status.index] > 0 }'>selected</c:if>" 
 									style="border: 1px solid #ddd; border-bottom-width: 0.5px;">
-									<div class="col-sm-7">
+									<div class="col-xs-7">
 										<div class="row">
 											<span class="list-group-item-text article-id font">#${dto.getBoard_num() }</span>
-											<a class="list-group-item-text item-tag label label-info padding" 
-											href="<%=request.getContextPath()%>/member_board_list.do?cate_num=${categoryList[status.index].getCate_num()}&big=${big[status.index] }&small=${small[status.index] }&cate_group=${categoryList[status.index].getCate_group()}&cate_step=${categoryList[status.index].getCate_step()}">
-												
-												<%-- 구인 게시판인 경우 : 아이콘 추가 --%>
-												<c:if test="${categoryList[status.index].getCate_num() eq 16 || categoryList[status.index].getCate_num() eq 17 || categoryList[status.index].getCate_num() eq 18 || categoryList[status.index].getCate_num() eq 19}">
-													<i class="fas fa-lightbulb"></i>
-												</c:if>
-
-												${categoryList[status.index].getCate_name()}</a>
-
-												<%-- 구인 게시판인 경우 : 고용형태, 위치 추가 --%>
-												<c:if test="${!empty jobList }">
-													<c:if test="${jobList[status.index].getJob_contract() eq 0 }"><span class="label label-success">정규직</span></c:if>
-													<c:if test="${jobList[status.index].getJob_contract() eq 1 }"><span class="label label-primary">계약직</span></c:if>
-													<span class="location">${jobList[status.index].getJob_location() }</span>
-												</c:if>
-												
+											<a class="list-group-item-text item-tag label label-info padding" href="<%=request.getContextPath()%>/member_qna_board_list.do?cate_num=${categoryList[status.index].getCate_num()}&big=${big[status.index] }&small=${small[status.index] }&cate_group=${categoryList[status.index].getCate_group()}&cate_step=${categoryList[status.index].getCate_step()}">
+											${categoryList[status.index].getCate_name()}</a>
 										</div>
 										<div class="row">
 											<h5 class="list-group-item-heading list-group-item-evaluate h">
-												<a class="font_style" href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
+												<a class="font_style" href="<%=request.getContextPath() %>/member_qna_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
 											</h5>
 										</div>
 									</div>
-									<div class="col-sm-5">
+									<div class="col-xs-5">
 										<div class="row">
-											<div class="col-sm-12">
+											<div class="col-md-12">
 												<ul class="list-inline">
-													<li class="list-unstyled li1 <c:if test="${dto.getBoard_comment() eq 0 }">item-icon-disabled</c:if>"><i class="fas fa-comment img"></i> ${dto.getBoard_comment() }</li>
-													<li class="list-unstyled li1 <c:if test="${dto.getBoard_like() eq 0 }">item-icon-disabled</c:if>"><i class="fas fa-thumbs-up img"></i> ${dto.getBoard_like() }</li>
-													<li class="list-unstyled li1 <c:if test="${dto.getBoard_hit() eq 0 }">item-icon-disabled</c:if>"><i class="far fa-eye"></i> ${dto.getBoard_hit() }</li>
-
+													<li class="list-unstyled li1"><i class="fas fa-thumbs-up img1"></i>&nbsp;&nbsp;<p class="qna-text">${dto.getBoard_like() }</p></li>
+													<c:if test="${selectList[status.index] > 0 }">
+															<li class="list-unstyled li1">
+																<div class="qna-selected">
+																		<i class="fas fa-check-circle img1"></i>
+																	&nbsp;&nbsp;<p class="qna-text">${dto.getBoard_comment() }</p>
+																</div>
+															</li>
+													</c:if>
+													
+													<c:if test="${dto.getBoard_comment() > 0 && selectList[status.index] eq 0 }">
+															<li class="list-unstyled li1">
+																<div class="qna-deselected">
+																	<i class="fas fa-exclamation-circle img1"></i>
+																		&nbsp;&nbsp;<p class="qna-text">${dto.getBoard_comment() }</p>
+																</div>
+															</li>
+													</c:if>
+													
+													<c:if test="${dto.getBoard_comment() eq 0 }">
+														<li class="list-unstyled li1">
+															<div class="qna-no-comment">
+																<i class="fas fa-question-circle img1"></i>
+																&nbsp;&nbsp;<p class="qna-text">${dto.getBoard_comment() }</p>
+															</div>
+														</li>
+													</c:if>
+													
 													<%-- 탈퇴회원인 경우 --%>
 													<c:if test="${memberList[status.index].getMem_check() eq 'yes' }">
-														<li class="list-unstyled li1  img1">
-																<img class="mem-logo" src="<%=request.getContextPath()%>/images/profileUpload/${memberList[status.index].getMem_image() }">
+														<li class="list-unstyled li1  img1"></li>
+																<span class="text-left"><img  class="mem-logo" src="<%=request.getContextPath()%>/images/profileUpload/${memberList[status.index].getMem_image() }"></span>
 														</li>
 														<li class="list-unstyled li1 a2">
 															<div>
-																${memberList[status.index].getMem_nick() } &nbsp;
+																<span class="a1" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }">${memberList[status.index].getMem_nick() }</span> &nbsp;
 																<div style="font-size: 10px; display: inline-block;">
 																	<i class="activity-img fas fa-lock"></i>
 																</div>
@@ -273,10 +201,10 @@
 															</div>
 														</li>
 													</c:if>
-													
+
 													<%-- 탈퇴회원이 아닌 경우 --%>
 													<c:if test="${memberList[status.index].getMem_check() eq 'no' }">
-														<li class="list-unstyled li1  img1">
+														<li class="list-unstyled li1  img1"></li>
 															<a class="text-left" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }"> 
 																<img class="mem-logo" src="<%=request.getContextPath()%>/images/profileUpload/${memberList[status.index].getMem_image() }">
 															</a>
@@ -285,30 +213,13 @@
 															<div>
 																<a class="a1" href="<%=request.getContextPath()%>/member_personal.do?num=${memberList[status.index].getMem_num() }">${memberList[status.index].getMem_nick() }</a> &nbsp;
 																<div style="font-size: 10px; display: inline-block;">
-																	<i class="fas fa-bolt i1"></i>
-																	${memberList[status.index].getMem_score() }
+																	<i class="fas fa-bolt i1"></i> ${memberList[status.index].getMem_score() }
 																</div>
 																<p class="span">${dto.getBoard_regdate() }</p>
 															</div>
 														</li>
 													</c:if>
 													
-													<%-- 구인게시판인 경우 : 회사 정보 --%>
-													<c:if test="${!empty companyList }">
-														<li class="list-unstyled li1  img1">
-															<a class="text-left" href="<%=request.getContextPath()%>/member_company_cont.do?com_num=${companyList[status.index].getCompany_num() }&mem_num=${dto.getBoard_writer() }"> 
-																<img class="company-logo" src="<%=request.getContextPath()%>/images/company/${companyList[status.index].getCompany_logo() }">
-															</a>
-														</li>
-														<li class="list-unstyled li1 a2">
-															<div>
-																<a class="a1" href="<%=request.getContextPath()%>/member_company_cont.do?com_num=${companyList[status.index].getCompany_num() }&mem_num=${dto.getBoard_writer() }">${companyList[status.index].getCompany_name() }</a> &nbsp;
-																<div style="font-size: 10px; display: inline-block;">
-																</div>
-																<p class="span">${dto.getBoard_regdate() }</p>
-															</div>
-														</li>
-													</c:if>
 												</ul>
 											</div>
 										</div>
@@ -316,17 +227,16 @@
 								</div>
 							</c:forEach>
 						</c:if>
-
+						
 						<c:if test="${empty list }">
-							<div class="row "
-								style="border: 1px solid #ddd; border-bottom-width: 0.5px;">
+							<div class="row " style="border: 1px solid #ddd; border-bottom-width: 0.5px;">
 								<h4 style="text-align: center;">등록된 게시물이 없습니다.</h4>
 							</div>
 						</c:if>
-
+						
 					</div>
 					<!-- 본문 끝 -->
-					
+ 	 						
 					<%-- pagination --%>
 					<c:if test="${!empty list }">
 					<c:if test="${sort eq 'date' }">
@@ -336,7 +246,7 @@
 							  
 							  <c:if test="${page > 1 }">
 								    <li>
-								      <a href="member_board_list.do?page=1&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Previous">
+								      <a href="member_qna_board_list.do?page=1&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Previous">
 								        <span aria-hidden="true">&laquo;</span>
 								      </a>
 								    </li>
@@ -352,17 +262,17 @@
 							    
 							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
 								    <c:if test="${i == page }">
-								   		<li class="active"><a href="member_board_list.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
+								   		<li class="active"><a href="member_qna_board_list.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
 								    </c:if>
 								    
 								    <c:if test="${i != page }">
-									    <li><a href="member_board_list.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
+									    <li><a href="member_qna_board_list.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
 								    </c:if>
 							    </c:forEach>
 							    
 							    <c:if test="${page < allPage }">
 								    <li>
-								      <a href="member_board_list.do?page=${allPage }&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Next">
+								      <a href="member_qna_board_list.do?page=${allPage }&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Next">
 								        <span aria-hidden="true">&raquo;</span>
 								      </a>
 								    </li>
@@ -389,7 +299,7 @@
 							  
 							  <c:if test="${page > 1 }">
 								    <li>
-								      <a href="member_board_list_sort.do?page=1&sort=<%=like %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Previous">
+								      <a href="member_qna_board_list_sort.do?page=1&sort=<%=like %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Previous">
 								        <span aria-hidden="true">&laquo;</span>
 								      </a>
 								    </li>
@@ -405,17 +315,17 @@
 							    
 							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
 								    <c:if test="${i == page }">
-								   		<li class="active"><a href="member_board_list_sort.do?page=${i }&sort=<%=like %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
+								   		<li class="active"><a href="member_qna_board_list_sort.do?page=${i }&sort=<%=like %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
 								    </c:if>
 								    
 								    <c:if test="${i != page }">
-									    <li><a href="member_board_list_sort.do?page=${i }&sort=<%=like %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
+									    <li><a href="member_qna_board_list_sort.do?page=${i }&sort=<%=like %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
 								    </c:if>
 							    </c:forEach>
 							    
 							    <c:if test="${page < allPage }">
 								    <li>
-								      <a href="member_board_list_sort.do?page=${allPage }&sort=<%=like %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Next">
+								      <a href="member_qna_board_list_sort.do?page=${allPage }&sort=<%=like %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Next">
 								        <span aria-hidden="true">&raquo;</span>
 								      </a>
 								    </li>
@@ -442,7 +352,7 @@
 							  
 							  <c:if test="${page > 1 }">
 								    <li>
-								      <a href="member_board_list_sort.do?page=1&sort=<%=comment %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Previous">
+								      <a href="member_qna_board_list_sort.do?page=1&sort=<%=comment %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Previous">
 								        <span aria-hidden="true">&laquo;</span>
 								      </a>
 								    </li>
@@ -462,13 +372,13 @@
 								    </c:if>
 								    
 								    <c:if test="${i != page }">
-									    <li><a href="member_board_list_sort.do?page=${i }&sort=<%=comment %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
+									    <li><a href="member_qna_board_list_sort.do?page=${i }&sort=<%=comment %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
 								    </c:if>
 							    </c:forEach>
 							    
 							    <c:if test="${page < allPage }">
 								    <li>
-								      <a href="member_board_list_sort.do?page=${allPage }&sort=<%=comment %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Next">
+								      <a href="member_qna_board_list_sort.do?page=${allPage }&sort=<%=comment %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Next">
 								        <span aria-hidden="true">&raquo;</span>
 								      </a>
 								    </li>
@@ -495,7 +405,7 @@
 							  
 							  <c:if test="${page > 1 }">
 								    <li>
-								      <a href="member_board_list_sort.do?page=1&sort=<%=scrap %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Previous">
+								      <a href="member_qna_board_list_sort.do?page=1&sort=<%=scrap %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Previous">
 								        <span aria-hidden="true">&laquo;</span>
 								      </a>
 								    </li>
@@ -511,17 +421,17 @@
 							    
 							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
 								    <c:if test="${i == page }">
-								   		<li class="active"><a href="member_board_list_sort.do?page=${i }&sort=<%=scrap %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
+								   		<li class="active"><a href="member_qna_board_list_sort.do?page=${i }&sort=<%=scrap %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
 								    </c:if>
 								    
 								    <c:if test="${i != page }">
-									    <li><a href="member_board_list_sort.do?page=${i }&sort=<%=scrap %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
+									    <li><a href="member_qna_board_list_sort.do?page=${i }&sort=<%=scrap %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
 								    </c:if>
 							    </c:forEach>
 							    
 							    <c:if test="${page < allPage }">
 								    <li>
-								      <a href="member_board_list_sort.do?page=${allPage }&sort=<%=scrap %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Next">
+								      <a href="member_qna_board_list_sort.do?page=${allPage }&sort=<%=scrap %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Next">
 								        <span aria-hidden="true">&raquo;</span>
 								      </a>
 								    </li>
@@ -548,7 +458,7 @@
 							  
 							  <c:if test="${page > 1 }">
 								    <li>
-								      <a href="member_board_list_sort.do?page=1&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Previous">
+								      <a href="member_qna_board_list_sort.do?page=1&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Previous">
 								        <span aria-hidden="true">&laquo;</span>
 								      </a>
 								    </li>
@@ -564,17 +474,17 @@
 							    
 							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
 								    <c:if test="${i == page }">
-								   		<li class="active"><a href="member_board_list_sort.do?page=${i }&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
+								   		<li class="active"><a href="member_qna_board_list_sort.do?page=${i }&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
 								    </c:if>
 								    
 								    <c:if test="${i != page }">
-									    <li><a href="member_board_list_sort.do?page=${i }&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
+									    <li><a href="member_qna_board_list_sort.do?page=${i }&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
 								    </c:if>
 							    </c:forEach>
 							    
 							    <c:if test="${page < allPage }">
 								    <li>
-								      <a href="member_board_list_sort.do?page=${allPage }&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Next">
+								      <a href="member_qna_board_list_sort.do?page=${allPage }&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Next">
 								        <span aria-hidden="true">&raquo;</span>
 								      </a>
 								    </li>

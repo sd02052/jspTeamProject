@@ -98,7 +98,6 @@
     width: 180px;
     float: right;
 }
-/* 아래로 0617 추가 */
 .company-logo {
 	display: inline-block;
 	vertical-align: middle; 
@@ -108,10 +107,35 @@
 	height: 32px;
     margin-right: 5px;
 }
-
 .location {
 	font-size: 8px;
 }
+.qna-selected-wrapper {
+	background-color: #2ca526;
+    color: #fff;
+    width: 55px !important;
+}
+.qna-deselected-wrapper {
+	background-color: #3a93de;
+    color: #fff;
+    width: 55px !important;
+}
+.qna-no-comment-wrapper {
+    background: none;
+    color: #df5925;
+    width: 55px !important;
+}
+.list-evaluate {
+	display: inline-block;
+    padding: 5px 0;
+    width: 20px;
+    text-align: center;
+}
+.qna-list-evaluate {
+	font-size: 18px !important;
+
+}
+
 
 @media ( max-width : 768px) {
 	.list-title-wrap {

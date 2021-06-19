@@ -1314,7 +1314,7 @@ public class BoardDAO {
 
 		try {
 			openConn();
-			sql = "select * from (select row_number() over(order by board_regdate) rnum, b.* from okky_board b where board_writer = ?) where rnum >= ? and rnum <= ?";
+			sql = "select * from (select row_number() over(order by board_regdate desc) rnum, b.* from okky_board b where board_writer = ?) where rnum >= ? and rnum <= ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setInt(2, startNo);

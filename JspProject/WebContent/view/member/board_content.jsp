@@ -190,9 +190,9 @@ function commentEditCancle<%=list.get(i).getCom_num() %>(){
 											<span class="badge-scrap badge">${dto.getBoard_scrap() }</span>
 										</div>
 										<div class="cont-facebook">
-											<a href=""> <i
+											<a href="https://www.facebook.com/okky.sns/" target="_blank"> <i
 												class="facebook-img fab fa-facebook-square"
-												data-toggle="tooltip" data-placement="left" title="페이스북 공유"></i>
+												data-toggle="tooltip" data-placement="left" title="페이스북 이동"></i>
 											</a>
 										</div>
 										<c:if test="${loginNum == dto.getBoard_writer() }"><!-- 자신이 작성한 게시물일 경우 -->

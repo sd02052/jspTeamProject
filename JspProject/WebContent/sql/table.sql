@@ -34,13 +34,6 @@ create table okky_board(
     constraint fk_category foreign key(board_category) references okky_category(cate_num) on delete cascade
 );
 
-create table okky_tag(
-    tag_num number(5) primary key,			-- 태그 번호
-    tag_name varchar2(100) not null,		-- 태그 이름
-    tag_target number(5) not null,			-- 태그가 적용된 게시물
-    constraint fk_tag foreign key(tag_target) references okky_board(board_num) on delete cascade
-);
-
 create table okky_comment(
     com_num number(5) primary key,			-- 댓글 번호
     com_writer number(5) not null,			-- 댓글 작성자
@@ -58,14 +51,6 @@ create table okky_like(
 	like_target number(5) not null,			-- 좋아요 눌려진 타겟 번호
 	like_writer number(5) not null,			-- 좋아요 누른 사람
 	like_flag number(2) not null			-- 좋아요 눌려진 타겟 종류(1:게시물, 2:댓글, 3:스크랩)
-);
-
-create table okky_follow(
-	follow_num number(5) primary key,		-- 팔로우 번호
-	follow_mem number(5) not null,			-- 팔로우 한 사람
-	follow_target number(5) not null,		-- 팔로우 당한 사람
-	constraint fk_mem foreign key(follow_mem) references okky_member(mem_num) on delete cascade,
-	constraint fk_target foreign key(follow_target) references okky_member(mem_num) on delete cascade
 );
 
 create table okky_company(

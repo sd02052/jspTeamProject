@@ -233,7 +233,7 @@
 		
 		<ul class="nav nav-sidebar nav-bottom">
 			<li>
-				<a href="#" class="link">
+				<a href="https://github.com/sd02052/jspTeamProject" class="link" target="_blank">
 					<i class="fab fa-github"></i>
 					<span class="nav-sidebar-label nav-sidebar-category-label">Github Issues</span>
 				</a>

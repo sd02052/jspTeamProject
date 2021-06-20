@@ -1351,10 +1351,15 @@ public class BoardDAO {
 		String start = null, end = null;
 		try {
 			openConn();
-			sql = "select to_char(a.s_date, 'yy/mm/dd') monday, to_char(a.s_date+1, 'yy/mm/dd') tuesday, "
-					+ "to_char(a.s_date+2, 'yy/mm/dd') wednesday, to_char(a.s_date+3, 'yy/mm/dd') thursday, "
-					+ "to_char(a.s_date+4, 'yy/mm/dd') friday, to_char(a.s_date+5, 'yy/mm/dd') saturday, "
-					+ "to_char(a.s_date+6, 'yy/mm/dd') sunday from (select sysdate - (to_number(to_char(sysdate,'d'))-2) s_date from dual) a";
+			sql = "SELECT to_char(sysdate, 'yy/mm/dd') today" + 
+					"     , TO_CHAR(TRUNC(sysdate,'iw')  ,'yy/mm/dd') monday" + 
+					"     , TO_CHAR(TRUNC(sysdate,'iw')+1,'yy/mm/dd') tuesday" + 
+					"     , TO_CHAR(TRUNC(sysdate,'iw')+2,'yy/mm/dd') wednesday" + 
+					"     , TO_CHAR(TRUNC(sysdate,'iw')+3,'yy/mm/dd') thursday" + 
+					"     , TO_CHAR(TRUNC(sysdate,'iw')+4,'yy/mm/dd') friday" + 
+					"     , TO_CHAR(TRUNC(sysdate,'iw')+5,'yy/mm/dd') saturday" + 
+					"     , TO_CHAR(TRUNC(sysdate,'iw')+6,'yy/mm/dd') sunday" + 
+					"  FROM dual";
 
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();

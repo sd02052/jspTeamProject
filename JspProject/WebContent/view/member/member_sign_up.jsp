@@ -26,7 +26,7 @@
 				                </div>
 				        
 				                <form class="form-signin panel-body" action="<%=request.getContextPath()%>/member_sign_up.do">
-				                    <input type="email" id="inputID" name="mem_id" class="form-control" placeholder="아이디" required autofocus>
+				                    <input type="text" id="inputID" name="mem_id" class="form-control" placeholder="아이디" required autofocus>
 				                    <input type="password" id="inputPassword" name="mem_pwd" class="form-control" placeholder="비밀번호" required>
 				                    <input type="email" id="inputEmail" name="mem_email" class="form-control" placeholder="이메일" required>
 				                    <input type="text" id="inputNickname" name="mem_nick" class="form-control" placeholder="닉네임" required>

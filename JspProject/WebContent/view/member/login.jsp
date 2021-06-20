@@ -26,7 +26,7 @@
 				                </div>
 				                <form class="form-signin panel-body panel-margin" method="post" action="<%=request.getContextPath() %>/member_login_ok.do">
 				                    <label for="inputEmail" class="sr-only">아이디</label>
-				                    <input type="email" id="inputEmail" class="form-control" placeholder="아이디" required autofocus name="mem_id">
+				                    <input type="text" id="inputID" class="form-control" placeholder="아이디" required autofocus name="mem_id">
 				                    <label for="inputPassword" class="sr-only">비밀번호</label>
 				                    <input type="password" id="inputPassword" class="form-control" placeholder="비밀번호" required name="mem_pwd">
 				

@@ -66,4 +66,64 @@ public class TagDAO {
 			e.printStackTrace();
 		}
 	}
+
+	public int addTag(int num, String tag_list) {
+		int result = 0, count = 0;
+		try {
+			openConn();
+			sql = "select count(*) from okky_mem_tag where tag_target = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				if (rs.getInt(1) > 0) { // 회원 태그가 이미 있는 경우
+					sql = "select * from okky_mem_tag where tag_target = ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, num);
+					rs = pstmt.executeQuery();
+					while (rs.next()) {
+						int tag_num = rs.getInt("tag_num");
+						if (tag_list.length() != 0) {
+							sql = "update okky_mem_tag set tag_name = ? where tag_num = ?";
+							pstmt = con.prepareStatement(sql);
+							pstmt.setString(1, tag_list);
+							pstmt.setInt(2, tag_num);
+							result = pstmt.executeUpdate();
+						} else if(tag_list.length() == 0){
+							sql = "delete from okky_mem_tag where tag_num = ?";
+							pstmt = con.prepareStatement(sql);
+							pstmt.setInt(1, tag_num);
+							result = pstmt.executeUpdate();
+							
+							sql = "update okky_mem_tag set tag_num = tag_num - 1 where tag_num > ?";
+							pstmt = con.prepareStatement(sql);
+							pstmt.setInt(1, tag_num);
+							pstmt.executeUpdate();
+						}
+					}
+				} else { // 회원 태그가 없는 경우
+					sql = "select count(*) from okky_mem_tag";
+					pstmt = con.prepareStatement(sql);
+					rs = pstmt.executeQuery();
+					while (rs.next()) {
+						count = rs.getInt(1) + 1;
+					}
+
+					sql = "insert into okky_mem_tag values(?, ?, ?)";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, count);
+					pstmt.setString(2, tag_list);
+					pstmt.setInt(3, num);
+					result = pstmt.executeUpdate();
+				}
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	}
 }

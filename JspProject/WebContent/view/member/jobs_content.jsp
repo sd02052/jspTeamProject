@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="<%=request.getContextPath()%>/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
 <title>OKKY - (글제목)</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/style.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/style/content.css">
@@ -181,10 +182,9 @@ $(document).ready(function(){
 							</div>
 					
 					</div>
-				</div>
-			<jsp:include page="../../include/footer.jsp" />
+				<jsp:include page="../../include/footer.jsp" />
+			</div>
 		</div>
-	</div>						
 
 
 </body>

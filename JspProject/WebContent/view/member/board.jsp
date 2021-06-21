@@ -147,9 +147,19 @@ function moveWrite() {
 												</c:if>
 												
 											</div>
-											<h5 class="list-group-item-heading list-group-item-evaluate">
-												<a class="font_style" href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
-											</h5>
+											<%-- 일반 게시판의 경우 --%>
+                                            <c:if test="${empty jobList }">
+                                                <h5 class="list-group-item-heading list-group-item-evaluate">
+                                                    <a class="font_style" href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
+                                                </h5>
+                                            </c:if>
+
+                                            <%-- 구인 게시판의 경우 --%>
+                                            <c:if test="${!empty jobList }">
+                                                <h5 class="list-group-item-heading list-group-item-evaluate">
+                                                    <a class="font_style" href="<%=request.getContextPath() %>/member_job_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
+                                                </h5>
+                                            </c:if>
 										</div>
 	
 										<div class="list-summary-wrapper clearfix">

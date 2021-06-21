@@ -78,6 +78,14 @@ function handleImgFileSelect(e) {
 	});
 }
 </script>
+<script type="text/javascript">
+function checkSize(input) {
+    if (input.files && input.files[0].size > (250 * 1024)) {
+        alert("파일 사이즈가 250KB를 넘습니다.");
+        input.value = null;
+    }
+}
+</script>
 </head>
 <body>
 	<div class="layout_container">
@@ -119,9 +127,9 @@ function handleImgFileSelect(e) {
 				                   		
 				                   		<button class="btn btn-primary" id="profile-upload-btn" style="font-size:12px">이미지 업로드
 				                   			<br>
-				                   			<small>권장 사이즈 150ps<br>최대 250KB</small>
+				                   			<small>권장 사이즈 150px<br>최대 250KB</small>
 				                   		</button>
-				                   		<input type="file" name="files" id="profileImge" accept="image/gif, image/jpeg, image/jpg, image/png" style="display:none;"/>
+				                   		<input type="file" name="files" id="profileImge" accept="image/gif, image/jpeg, image/jpg, image/png" style="display:none;" onchange="checkSize(this)"/>
 				                   		
 				                   		<input class="btn btn-success picture-confirm-btn" id="picture-confirm-btn" type="submit" value="확인">
 				                   </form>

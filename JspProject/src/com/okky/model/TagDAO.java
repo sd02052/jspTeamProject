@@ -89,12 +89,12 @@ public class TagDAO {
 							pstmt.setString(1, tag_list);
 							pstmt.setInt(2, tag_num);
 							result = pstmt.executeUpdate();
-						} else if(tag_list.length() == 0){
+						} else if (tag_list.length() == 0) {
 							sql = "delete from okky_mem_tag where tag_num = ?";
 							pstmt = con.prepareStatement(sql);
 							pstmt.setInt(1, tag_num);
 							result = pstmt.executeUpdate();
-							
+
 							sql = "update okky_mem_tag set tag_num = tag_num - 1 where tag_num > ?";
 							pstmt = con.prepareStatement(sql);
 							pstmt.setInt(1, tag_num);
@@ -102,19 +102,23 @@ public class TagDAO {
 						}
 					}
 				} else { // 회원 태그가 없는 경우
-					sql = "select count(*) from okky_mem_tag";
-					pstmt = con.prepareStatement(sql);
-					rs = pstmt.executeQuery();
-					while (rs.next()) {
-						count = rs.getInt(1) + 1;
-					}
+					if (tag_list.length() != 0) {
+						sql = "select count(*) from okky_mem_tag";
+						pstmt = con.prepareStatement(sql);
+						rs = pstmt.executeQuery();
+						while (rs.next()) {
+							count = rs.getInt(1) + 1;
+						}
 
-					sql = "insert into okky_mem_tag values(?, ?, ?)";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setInt(1, count);
-					pstmt.setString(2, tag_list);
-					pstmt.setInt(3, num);
-					result = pstmt.executeUpdate();
+						sql = "insert into okky_mem_tag values(?, ?, ?)";
+						pstmt = con.prepareStatement(sql);
+						pstmt.setInt(1, count);
+						pstmt.setString(2, tag_list);
+						pstmt.setInt(3, num);
+						result = pstmt.executeUpdate();
+					} else if (tag_list.length() == 0) {
+						result = 1;
+					}
 				}
 			}
 

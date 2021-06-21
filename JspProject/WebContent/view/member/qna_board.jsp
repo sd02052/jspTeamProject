@@ -24,7 +24,7 @@
 $(function(){
 	$("#"+${big_category }).css("border-right","5px solid #e67d3e");
 	$("#"+${small_category }).css("color","#fff");
-	
+
 	<%String sort = (String)request.getAttribute("sort");
 
 	if (sort.equals("date")) {%>

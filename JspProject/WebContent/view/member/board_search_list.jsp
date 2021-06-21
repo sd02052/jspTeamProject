@@ -104,19 +104,11 @@ function moveWrite() {
 								</div>
 								<!-- 정렬 -->
 								<ul class="list-sort pull-left">
-<<<<<<< HEAD
 									<li><a href="<%=request.getContextPath() %>/member_board_search.do?cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" id="sort-date">최신순</a></li>
 									<li><a href="<%=request.getContextPath() %>/member_board_search_list_sort.do?sort=<%=like %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" id="sort-like">추천순</a></li>
 									<li><a href="<%=request.getContextPath() %>/member_board_search_list_sort.do?sort=<%=comment %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" id="sort-comment">댓글순</a></li>
 									<li><a href="<%=request.getContextPath() %>/member_board_search_list_sort.do?sort=<%=scrap %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" id="sort-scrap">스크랩순</a></li>
 									<li><a href="<%=request.getContextPath() %>/member_board_search_list_sort.do?sort=<%=hit %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" id="sort-hit">조회순</a></li>
-=======
-									<li><a href="<%=request.getContextPath() %>/member_board_list.do?cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-date">최신순</a></li>
-									<li><a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort=<%=like %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-like">추천순</a></li>
-									<li><a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort=<%=comment %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-comment">댓글순</a></li>
-									<li><a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort=<%=scrap %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-scrap">스크랩순</a></li>
-									<li><a href="<%=request.getContextPath() %>/member_board_list_sort.do?sort=<%=hit %>&cate_num=${cate_num}&big=${big_category}&small=${small_category}&cate_group=${cate_group}&cate_step=${cate_step}" id="sort-hit">조회순</a></li>
->>>>>>> branch 'newSOL' of https://github.com/sd02052/jspTeamProject.git
 								</ul>
 							</div>
 						</form>
@@ -228,13 +220,8 @@ function moveWrite() {
 							
 							<!-- DB에 글 정보가 없을 경우 -->
 							<c:if test="${empty list }">
-<<<<<<< HEAD
 								<div>
 									<h4 style="text-align: center;">검색된 게시물이 없습니다.</h4>
-=======
-								<div class="panel panel-default">
-									<h4 style="text-align: center;">등록된 게시물이 없습니다.</h4>
->>>>>>> branch 'newSOL' of https://github.com/sd02052/jspTeamProject.git
 								</div>
 							</c:if>
 							</ul>
@@ -251,11 +238,7 @@ function moveWrite() {
 							  
 							  <c:if test="${page > 1 }">
 								    <li>
-<<<<<<< HEAD
 								      <a href="member_board_search.do?page=1&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" aria-label="Previous">
-=======
-								      <a href="member_board_list.do?page=1&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Previous">
->>>>>>> branch 'newSOL' of https://github.com/sd02052/jspTeamProject.git
 								        <span aria-hidden="true">&laquo;</span>
 								      </a>
 								    </li>
@@ -271,29 +254,17 @@ function moveWrite() {
 							    
 							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
 								    <c:if test="${i == page }">
-<<<<<<< HEAD
 								   		<li class="active"><a href="member_board_search.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }">${i }</a></li>
-=======
-								   		<li class="active"><a href="member_board_list.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
->>>>>>> branch 'newSOL' of https://github.com/sd02052/jspTeamProject.git
 								    </c:if>
 								    
 								    <c:if test="${i != page }">
-<<<<<<< HEAD
 									    <li><a href="member_board_search.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }">${i }</a></li>
-=======
-									    <li><a href="member_board_list.do?page=${i }&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
->>>>>>> branch 'newSOL' of https://github.com/sd02052/jspTeamProject.git
 								    </c:if>
 							    </c:forEach>
 							    
 							    <c:if test="${page < allPage }">
 								    <li>
-<<<<<<< HEAD
 								      <a href="member_board_search.do?page=${allPage }&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" aria-label="Next">
-=======
-								      <a href="member_board_list.do?page=${allPage }&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Next">
->>>>>>> branch 'newSOL' of https://github.com/sd02052/jspTeamProject.git
 								        <span aria-hidden="true">&raquo;</span>
 								      </a>
 								    </li>
@@ -373,11 +344,7 @@ function moveWrite() {
 							  
 							  <c:if test="${page > 1 }">
 								    <li>
-<<<<<<< HEAD
 								      <a href="member_board_search_list_sort.do?page=1&sort=<%=comment %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" aria-label="Previous">
-=======
-								      <a href="member_board_list_sort.do?page=1&sort=<%=comment %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Previous">
->>>>>>> branch 'newSOL' of https://github.com/sd02052/jspTeamProject.git
 								        <span aria-hidden="true">&laquo;</span>
 								      </a>
 								    </li>
@@ -393,29 +360,17 @@ function moveWrite() {
 							    
 							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
 								    <c:if test="${i == page }">
-<<<<<<< HEAD
 								   		<li class="active"><a href="member_board_search_list_sort.do?page=${i }&sort=<%=comment %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }">${i }</a></li>
-=======
-								   		<li class="active"><a href="member_qna_search.do?page=${i }&sort=<%=comment %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
->>>>>>> branch 'newSOL' of https://github.com/sd02052/jspTeamProject.git
 								    </c:if>
 								    
 								    <c:if test="${i != page }">
-<<<<<<< HEAD
 									    <li><a href="member_board_search_list_sort.do?page=${i }&sort=<%=comment %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }">${i }</a></li>
-=======
-									    <li><a href="member_board_list_sort.do?page=${i }&sort=<%=comment %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
->>>>>>> branch 'newSOL' of https://github.com/sd02052/jspTeamProject.git
 								    </c:if>
 							    </c:forEach>
 							    
 							    <c:if test="${page < allPage }">
 								    <li>
-<<<<<<< HEAD
 								      <a href="member_board_search_list_sort.do?page=${allPage }&sort=<%=comment %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" aria-label="Next">
-=======
-								      <a href="member_board_list_sort.do?page=${allPage }&sort=<%=comment %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Next">
->>>>>>> branch 'newSOL' of https://github.com/sd02052/jspTeamProject.git
 								        <span aria-hidden="true">&raquo;</span>
 								      </a>
 								    </li>
@@ -442,11 +397,7 @@ function moveWrite() {
 							  
 							  <c:if test="${page > 1 }">
 								    <li>
-<<<<<<< HEAD
 								      <a href="member_board_search_list_sort.do?page=1&sort=<%=scrap %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" aria-label="Previous">
-=======
-								      <a href="member_board_list_sort.do?page=1&sort=<%=scrap %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Previous">
->>>>>>> branch 'newSOL' of https://github.com/sd02052/jspTeamProject.git
 								        <span aria-hidden="true">&laquo;</span>
 								      </a>
 								    </li>
@@ -462,29 +413,17 @@ function moveWrite() {
 							    
 							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
 								    <c:if test="${i == page }">
-<<<<<<< HEAD
 								   		<li class="active"><a href="member_board_search_list_sort.do?page=${i }&sort=<%=scrap %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }">${i }</a></li>
-=======
-								   		<li class="active"><a href="member_board_list_sort.do?page=${i }&sort=<%=scrap %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
->>>>>>> branch 'newSOL' of https://github.com/sd02052/jspTeamProject.git
 								    </c:if>
 								    
 								    <c:if test="${i != page }">
-<<<<<<< HEAD
 									    <li><a href="member_board_search_list_sort.do?page=${i }&sort=<%=scrap %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }">${i }</a></li>
-=======
-									    <li><a href="member_board_list_sort.do?page=${i }&sort=<%=scrap %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
->>>>>>> branch 'newSOL' of https://github.com/sd02052/jspTeamProject.git
 								    </c:if>
 							    </c:forEach>
 							    
 							    <c:if test="${page < allPage }">
 								    <li>
-<<<<<<< HEAD
 								      <a href="member_board_search_list_sort.do?page=${allPage }&sort=<%=scrap %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" aria-label="Next">
-=======
-								      <a href="member_board_list_sort.do?page=${allPage }&sort=<%=scrap %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Next">
->>>>>>> branch 'newSOL' of https://github.com/sd02052/jspTeamProject.git
 								        <span aria-hidden="true">&raquo;</span>
 								      </a>
 								    </li>
@@ -511,11 +450,7 @@ function moveWrite() {
 							  
 							  <c:if test="${page > 1 }">
 								    <li>
-<<<<<<< HEAD
 								      <a href="member_board_search_list_sort.do?page=1&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" aria-label="Previous">
-=======
-								      <a href="member_board_list_sort.do?page=1&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Previous">
->>>>>>> branch 'newSOL' of https://github.com/sd02052/jspTeamProject.git
 								        <span aria-hidden="true">&laquo;</span>
 								      </a>
 								    </li>
@@ -531,29 +466,17 @@ function moveWrite() {
 							    
 							    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
 								    <c:if test="${i == page }">
-<<<<<<< HEAD
 								   		<li class="active"><a href="member_board_search_list_sort.do?page=${i }&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }">${i }</a></li>
-=======
-								   		<li class="active"><a href="member_board_list_sort.do?page=${i }&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
->>>>>>> branch 'newSOL' of https://github.com/sd02052/jspTeamProject.git
 								    </c:if>
 								    
 								    <c:if test="${i != page }">
-<<<<<<< HEAD
 									    <li><a href="member_board_search_list_sort.do?page=${i }&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }">${i }</a></li>
-=======
-									    <li><a href="member_board_list_sort.do?page=${i }&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}">${i }</a></li>
->>>>>>> branch 'newSOL' of https://github.com/sd02052/jspTeamProject.git
 								    </c:if>
 							    </c:forEach>
 							    
 							    <c:if test="${page < allPage }">
 								    <li>
-<<<<<<< HEAD
 								      <a href="member_board_search_list_sort.do?page=${allPage }&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}&data=${data }" aria-label="Next">
-=======
-								      <a href="member_board_list_sort.do?page=${allPage }&sort=<%=hit %>&cate_num=${cate_num }&big=${big_category }&small=${small_category }&cate_group=${cate_group}&cate_step=${cate_step}" aria-label="Next">
->>>>>>> branch 'newSOL' of https://github.com/sd02052/jspTeamProject.git
 								        <span aria-hidden="true">&raquo;</span>
 								      </a>
 								    </li>

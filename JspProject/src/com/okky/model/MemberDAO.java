@@ -235,24 +235,24 @@ public class MemberDAO {
 			sql = "select count(*) from okky_member";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				count = rs.getInt(1);
 			}
-			
+
 			sql = "select count(*) from okky_member where mem_id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getMem_id());
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				if(rs.getInt(1) > 0) {
+			while (rs.next()) {
+				if (rs.getInt(1) > 0) {
 					result = -1; // 아이디 중복일 때
-				} else { // 아이디 중복 아닐 때 
+				} else { // 아이디 중복 아닐 때
 					sql = "select count(*) from okky_member where mem_nick = ?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, dto.getMem_nick());
 					rs = pstmt.executeQuery();
-					while(rs.next()) {
-						if(rs.getInt(1) > 0) {
+					while (rs.next()) {
+						if (rs.getInt(1) > 0) {
 							result = -2; // 닉네임 중복일 때
 						} else { // 아이디, 닉네임 둘 다 중복 아닐 때
 							sql = "insert into okky_member values(?,?,?,?,?,?,sysdate,?,default,default,default)";
@@ -266,7 +266,7 @@ public class MemberDAO {
 							pstmt.setString(5, dto.getMem_image());
 							pstmt.setString(6, dto.getMem_email());
 							pstmt.setString(7, dto.getMem_emailCheck());
-							
+
 							result = pstmt.executeUpdate();
 						}
 					}
@@ -741,46 +741,27 @@ public class MemberDAO {
 
 	// okky_member 테이블의 회원번호에 해당하는 정보를 수정하는 메서드.
 	public int infoEdit(MemberDTO dto) {
-
 		int result = 0;
-
 		try {
 			openConn();
-
-			sql = "select mem_nick from okky_member";
-
+			sql = "select count(*) from okky_member where mem_nick = ?";
 			pstmt = con.prepareStatement(sql);
-
+			pstmt.setString(1, dto.getMem_nick());
 			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				if (dto.getMem_nick().equals(rs.getString("mem_nick"))) { // 닉네임 중복
-
-					// 현재 본인 닉네임은 중복처리 예외 작업
-					sql = "select mem_nick from okky_member where mem_num = ?";
-
+			while (rs.next()) {
+				if (rs.getInt(1) > 0) { // 닉네임 중복되는 경우
+					sql = "select * from okky_member where mem_num = ?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setInt(1, dto.getMem_num());
-
 					rs = pstmt.executeQuery();
-
-					if (rs.next()) {
-						if (rs.getString("mem_nick").equals(dto.getMem_nick())) {
-
-							// 현재 닉네임과 작성 닉네임이 같은 경우
-							sql = "update okky_member set mem_nick = ? where mem_num = ?";
-
-							pstmt = con.prepareStatement(sql);
-							pstmt.setString(1, dto.getMem_nick());
-							pstmt.setInt(2, dto.getMem_num());
-
-							result = pstmt.executeUpdate();
+					while (rs.next()) {
+						if (rs.getString("mem_nick").equals(dto.getMem_nick())) { // 원래 닉네임이랑 같은 경우
+							result = 1;
+						} else { // 원래 닉네임이랑 다른 경우
+							result = -1;
 						}
-					} else { // 닉네임이 중복인데 내 현재 닉네임은 아닌 경우
-						result = -1;
 					}
-				} else { // 닉네임 사용 가능 ( 닉네임 중복이 아닌 경우)
-
+				} else { // 닉네임 중복 안되는 경우
 					sql = "update okky_member set mem_nick = ? where mem_num = ?";
 
 					pstmt = con.prepareStatement(sql);
@@ -791,6 +772,7 @@ public class MemberDAO {
 				}
 			}
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			closeConn(rs, pstmt, con);

@@ -305,8 +305,8 @@ function commentEditCancle<%=list.get(i).getCom_num()%>(){
 					</table>
 				</div>
 			</div>
+			<jsp:include page="../../include/footer.jsp" />
 		</div>
-		<jsp:include page="../../include/footer.jsp" />
 	</div>
 	</div>
 </body>

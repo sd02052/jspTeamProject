@@ -228,7 +228,7 @@ $(function() {
 													<i class="facebook-img fas fa-cog" data-toggle="tooltip" data-placement="left" title="게시물 설정"></i>
 												</button>
 												<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-												<c:if test="${loginType != 'admin' }"> <!-- 자신의 글일때만 수정버튼 보이게 -->
+												<c:if test="${loginNum == dto.getBoard_writer() }"> <!-- 자신의 글일때만 수정버튼 보이게 -->
 													<li role="presentation"><a role="menuitem" tabindex="-1" href="<%=request.getContextPath() %>/member_board_edit.do?num=${dto.getBoard_num()}&big=${big_category}&small=${small_category}&cate_num=${category.getCate_num()}"> <i class="fas fa-edit"></i>&nbsp;수정
 													</a></li>
 													</c:if>

@@ -1,3 +1,5 @@
+<%@page import="com.okky.model.CompanyDTO"%>
+<%@page import="com.okky.model.JobDTO"%>
 <%@page import="com.okky.model.BoardDTO"%>
 <%@page import="com.okky.model.CommentDTO"%>
 <%@page import="com.okky.model.CategoryDTO"%>
@@ -5,12 +7,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	BoardDTO boardDTO = (BoardDTO)request.getAttribute("dto");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OKKY - (글제목)</title>
+<title>OKKY - <%=boardDTO.getBoard_title() %></title>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/style/style.css">
 <link rel="stylesheet"
@@ -92,6 +97,9 @@ function commentEditCancle<%=list.get(i).getCom_num()%>(){
 	BoardDTO board_dto = (BoardDTO) request.getAttribute("dto");
 	String board_content = board_dto.getBoard_content();
 	String board_content1 = board_content.replace("\n", "<br>");
+	
+	CompanyDTO company_dto = (CompanyDTO)request.getAttribute("companyDTO");
+	String company_content = company_dto.getCompany_content().replace("\n", "<br>");
 %>
 </head>
 <body>
@@ -105,11 +113,6 @@ function commentEditCancle<%=list.get(i).getCom_num()%>(){
 
 					<div class="nav">
 						<h4>구인</h4>
-						<button type="button"
-							class="btn-write create btn btn-success btn-wide pull-right"
-							onclick="location.href='<%=request.getContextPath()%>/member_job_write.do'">
-							<i class="fas fa-pencil-alt"></i>새 글 쓰기
-						</button>
 					</div>
 
 					<br>
@@ -123,15 +126,15 @@ function commentEditCancle<%=list.get(i).getCom_num()%>(){
 								<div class="cont-header">
 									<div class="cont-member pull-left">
 										<a
-											href="<%=request.getContextPath()%>/view/member/member_personal.jsp">
-											<img src="<%=request.getContextPath()%>/images/profile01.png"
+											href="<%=request.getContextPath()%>/member_company_cont.do?com_num=${companyDTO.getCompany_num() }&mem_num=${memDTO.getMem_num() }">
+											<img src="<%=request.getContextPath()%>/images/company/${companyDTO.getCompany_logo() }"
 											class="cont-company-logo">
 										</a>
 
 
 										<div class="cont-mem-info">
 											<a class="cont-mem-nick"
-												href="<%=request.getContextPath()%>/view/member/member_personal.jsp">${companyDTO.getCompany_name() }</a>
+												href="<%=request.getContextPath()%>/member_company_cont.do?com_num=${companyDTO.getCompany_num() }&mem_num=${memDTO.getMem_num() }">${companyDTO.getCompany_name() }</a>
 
 
 											<div class="cont-regdate">
@@ -142,7 +145,7 @@ function commentEditCancle<%=list.get(i).getCom_num()%>(){
 
 									<div class="cont-wrapper pull-right">
 										<i class="comment-img fas fa-comment"></i>&nbsp;${dto.getBoard_comment() }&nbsp;&nbsp;
-										<i class="hit-img far fa-eye"></i>&nbsp;{dto.getBoard_hit() }
+										<i class="hit-img far fa-eye"></i>&nbsp;${dto.getBoard_hit() }
 									</div>
 
 								</div>
@@ -154,8 +157,10 @@ function commentEditCancle<%=list.get(i).getCom_num()%>(){
 									<hr>
 
 									<p>
-										<b>종류 : </b> <span class="label label-primary">계약직</span> <span
-											class="label label-success">정규직</span>
+										<b>종류 : </b>
+										<c:if test="${jobdto.getJob_contract() eq 1 }"><span class="label label-primary">계약직</span> </c:if> 
+										<c:if test="${jobdto.getJob_contract() eq 0 }"><span class="label label-success">정규직</span> </c:if> 
+										
 									</p>
 
 									<p>
@@ -184,7 +189,7 @@ function commentEditCancle<%=list.get(i).getCom_num()%>(){
 									<h4>
 										<b>∙ 프로젝트 정보</b>
 									</h4>
-									<p>${dto.getBoard_content() }</p>
+									<p><%=board_content1 %></p>
 
 									<hr>
 									<h4>
@@ -253,7 +258,7 @@ function commentEditCancle<%=list.get(i).getCom_num()%>(){
 												aria-labelledby="dropdownMenu1">
 												<li role="presentation"><a role="menuitem"
 													tabindex="-1"
-													href="<%=request.getContextPath() %>/member_board_edit.do?num=${dto.getBoard_num()}&big=${big_category}&small=${small_category}&cate_num=${category.getCate_num()}">
+													href="<%=request.getContextPath() %>/member_job_edit.do?num=${dto.getBoard_num()}&big=${big_category}&small=${small_category}&cate_num=${category.getCate_num()}">
 														<i class="fas fa-edit"></i>&nbsp;수정
 												</a></li>
 												<li role="presentation"><a role="menuitem"
@@ -292,8 +297,8 @@ function commentEditCancle<%=list.get(i).getCom_num()%>(){
 							<td class="col-xs-3">
 								<div class="auto-padding">
 									<a
-										href="<%=request.getContextPath()%>/view/member/company_content.jsp">
-										<img src="<%=request.getContextPath()%>/images/profile01.png"
+										href="<%=request.getContextPath()%>/member_company_cont.do?com_num=${companyDTO.getCompany_num() }&mem_num=${memDTO.getMem_num() }">
+										<img src="<%=request.getContextPath()%>/images/company/${companyDTO.getCompany_logo()}"
 										class="company-logo auto-padding">
 									</a>
 								</div>
@@ -301,12 +306,12 @@ function commentEditCancle<%=list.get(i).getCom_num()%>(){
 							<td class="col-xs-9">
 								<h2>
 									<a
-										href="<%=request.getContextPath()%>/view/member/company_content.jsp">
+										href="<%=request.getContextPath()%>/member_company_cont.do?com_num=${companyDTO.getCompany_num() }&mem_num=${memDTO.getMem_num() }">
 										<span class="company-name">${companyDTO.getCompany_name() }</span>
 									</a>
-								</h2> <a href="(회사 홈페이지)"><span class="company-homepage">${companyDTO.getCompany_homepage() }</span></a>
+								</h2> <a href="${companyDTO.getCompany_homepage() }"><span class="company-homepage">${companyDTO.getCompany_homepage() }</span></a>
 								<hr>
-								<p class="company-content">${companyDTO.getCompany_content() }</p>
+								<p class="company-content"><%=company_content %></p>
 							</td>
 						</tr>
 					</table>

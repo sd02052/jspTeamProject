@@ -26,11 +26,9 @@ public class Job_ContentAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		System.out.println("여기 들어옴");
 		
 		HttpSession session = request.getSession();
 		int board_num = Integer.parseInt(request.getParameter("num").trim());
-//		int job_num = Integer.parseInt(request.getParameter("num").trim());
 		String hit = request.getParameter("hit").trim();
 		
 		BoardDAO dao = BoardDAO.getInstance();
@@ -38,6 +36,7 @@ public class Job_ContentAction implements Action {
 		CommentDAO dao2 = CommentDAO.getInstance();
 		JobDAO dao4 = JobDAO.getInstance();
 		CompanyDAO dao5 = CompanyDAO.getInstance(); 
+		MemberDAO dao6 = MemberDAO.getInstance();
 		
 		if(session.getAttribute("loginNum") != null) {
 			int mem_num = (int) session.getAttribute("loginNum");
@@ -65,7 +64,8 @@ public class Job_ContentAction implements Action {
 		BoardDTO board_dto = dao.getBoardCont(board_num);
 		MemberDTO board_writer = dao.getWriter(board_num);
 		JobDTO job_dto = dao4.getJobCont(board_num);
-				
+		MemberDTO memDTO = dao6.getMember(board_dto.getBoard_writer());
+		
 		int board_category = board_dto.getBoard_category();
 		CategoryDTO category = dao1.getCategory(board_category);
 
@@ -75,8 +75,6 @@ public class Job_ContentAction implements Action {
 		
 		String big_category = null;
 		String small_category = null;
-		
-		System.out.println("if문 위");
 		
 		if (board_category == 2) {
 			big_category = "'menu1'";
@@ -135,11 +133,7 @@ public class Job_ContentAction implements Action {
 		request.setAttribute("board_num", board_dto.getBoard_num());
 		request.setAttribute("jobdto", job_dto);
 		request.setAttribute("companyDTO", companyDTO);
-		
-		System.out.println(board_dto);
-		System.out.println(job_dto);
-		
-		System.out.println("Attribute 끝");		
+		request.setAttribute("memDTO", memDTO);
 		
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);

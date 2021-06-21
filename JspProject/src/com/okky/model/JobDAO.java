@@ -501,5 +501,60 @@ public class JobDAO {
 		}
 		return dto;
 	}
+	
+	public int getCheckJob(int board_num) {
+		int result = 0;
+		
+		try {
+			openConn();
+			sql = "select count(job_target) from okky_job where job_target = (select board_num from okky_board where board_num = ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, board_num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				if(rs.getInt(1) == 1) {
+					result = 0;
+				}else {
+					result = 1;				
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+		return result;
+	}
+	
+	public int editJob(JobDTO dto) {
+		int result = 0;
+		
+		try {
+			openConn();
+			sql = "update okky_job set job_contract = ?, job_location = ?, job_do = ?, job_mincareer = ?, job_maxcareer = ?, job_mincost = ?, job_maxcost = ? where job_target = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getJob_contract());
+			pstmt.setString(2, dto.getJob_location());
+			pstmt.setString(3, dto.getJob_do());
+			pstmt.setInt(4, dto.getJob_mincareer());
+			pstmt.setInt(5, dto.getJob_maxcareer());
+			pstmt.setInt(6, dto.getJob_mincost());
+			pstmt.setInt(7, dto.getJob_maxcost());
+			pstmt.setInt(8, dto.getJob_target());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+		return result;
+	}
 
 }

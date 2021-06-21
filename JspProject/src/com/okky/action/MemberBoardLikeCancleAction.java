@@ -9,6 +9,7 @@ import com.okky.controller.Action;
 import com.okky.controller.ActionForward;
 import com.okky.model.BoardDAO;
 import com.okky.model.CommentDAO;
+import com.okky.model.JobDAO;
 
 public class MemberBoardLikeCancleAction implements Action {
 
@@ -17,12 +18,25 @@ public class MemberBoardLikeCancleAction implements Action {
 		int num = Integer.parseInt(request.getParameter("board_num"));
 		int login_mem = Integer.parseInt(request.getParameter("login_num"));
 		BoardDAO dao = BoardDAO.getInstance();
+		JobDAO jobDAO = JobDAO.getInstance();
 
 		dao.update_Like_cancle(num, login_mem);
-
+		
+		int check = jobDAO.getCheckJob(num);
+		
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(true);
-		forward.setPath("member_board_content.do?num=" + num + "&hit='no'");
+		
+		if(check == 0) {
+			forward.setRedirect(true);
+			forward.setPath("member_job_content.do?num=" + num + "&hit='no'");
+		}else {
+			forward.setRedirect(true);
+			forward.setPath("member_board_content.do?num=" + num + "&hit='no'");
+		}
+
+		forward.setRedirect(true);
+		
 		return forward;
 	}
 

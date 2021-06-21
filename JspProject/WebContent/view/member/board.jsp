@@ -147,9 +147,19 @@ function moveWrite() {
 												</c:if>
 												
 											</div>
-											<h5 class="list-group-item-heading list-group-item-evaluate">
-												<a class="font_style" href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
-											</h5>
+											<%-- 일반 게시판의 경우 --%>
+                                            <c:if test="${empty jobList }">
+                                                <h5 class="list-group-item-heading list-group-item-evaluate">
+                                                    <a class="font_style" href="<%=request.getContextPath() %>/member_board_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
+                                                </h5>
+                                            </c:if>
+
+                                            <%-- 구인 게시판의 경우 --%>
+                                            <c:if test="${!empty jobList }">
+                                                <h5 class="list-group-item-heading list-group-item-evaluate">
+                                                    <a class="font_style" href="<%=request.getContextPath() %>/member_job_content.do?num=${dto.getBoard_num() }&hit='yes'">${dto.getBoard_title() }</a>
+                                                </h5>
+                                            </c:if>
 										</div>
 	
 										<div class="list-summary-wrapper clearfix">
@@ -203,8 +213,8 @@ function moveWrite() {
 										<%-- 구인게시판인 경우 : 회사 정보 --%>
 										<c:if test="${!empty companyList }">
 											<div class="avatar clearfix avatar-list">
-												<a href="<%=request.getContextPath()%>/member_company_cont.do?com_num=${companyList[status.index].getCompany_num() }&mem_num=${dto.getBoard_writer() }"> 
-													<img class="avatar-photo" src="<%=request.getContextPath()%>/images/company/${companyList[status.index].getCompany_logo() }">
+												<a href="<%=request.getContextPath()%>/member_company_cont.do?com_num=${companyList[status.index].getCompany_num() }&mem_num=${dto.getBoard_writer() }" class="avatar-photo avatar-company"> 
+													<img src="<%=request.getContextPath()%>/images/company/${companyList[status.index].getCompany_logo() }">
 												</a>
 												<div class="avatar-info">
 													<a class="nickname" href="<%=request.getContextPath()%>/member_company_cont.do?com_num=${companyList[status.index].getCompany_num() }&mem_num=${dto.getBoard_writer() }">${companyList[status.index].getCompany_name() }</a>

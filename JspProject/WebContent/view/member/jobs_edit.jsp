@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="<%=request.getContextPath()%>/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
-<title>OKKY - 구인 글쓰기</title>
+<title>OKKY - 구인 글 수정하기</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/style/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -171,12 +171,12 @@ $(function() {	/* 정규직이면 연봉, 비정규직이면 월급 노출 */
 							</ul>
 						</div>
 						
-						<form method="post" class="form-horizontal" action="<%=request.getContextPath() %>/member_job_post.do">
-							<input type="hidden" name="num" value="${cate_num }">
-							<input type="hidden" name="cate_group" value="${cate_group }">
-							<input type="hidden" name="cate_step" value="${cate_step }">
+						<form method="post" class="form-horizontal" action="<%=request.getContextPath() %>/member_job_edit_ok.do">
+							<input type="hidden" name="num" value="${board_dto.getBoard_num() }">
+							<input type="hidden" name="cate_num" value="${cate_dto.getCate_num() }">
 							<input type="hidden" name="big" value="${big_category }">
 							<input type="hidden" name="small" value="${small_category }">
+							<input type="hidden" name="category" value="${board_dto.getBoard_category() }">
 							<!-- <input type="hidden" name="board_writer" /> -->
 								<div class="col-xs-12 d" style="border: 1px solid gray;">
 									<div class="form-group">
@@ -194,7 +194,7 @@ $(function() {	/* 정규직이면 연봉, 비정규직이면 월급 노출 */
 									<div class="form-group">
 										<label for="inputEmail3" class="col-md-2 control-label"></label>
 										<div class="col-sm-8">
-											<input type="text" class="form-control" id="inputEmail3" placeholder="제목을 입력해 주세요." name="title" required>
+											<input type="text" class="form-control" id="inputEmail3" value="${board_dto.getBoard_title() }" name="title" required>
 										</div>
 									</div>
 									
@@ -205,23 +205,42 @@ $(function() {	/* 정규직이면 연봉, 비정규직이면 월급 노출 */
 										<div class="col-sm-4">
 											<span><b>종류</b></span>  
 											<div class="radio-check form-check-inline">
-						                        <div class="radio form-check radio-inline">
-						                            <label>
-						                                <input type="radio" name="contract" value="0" checked>
-						                                <span class="label label-success">정규직</span>
-						                            </label>
-						                          </div>
-						                          <div class="radio form-check radio-inline">
-						                            <label>
-						                                <input type="radio" name="contract" value="1">
-						                                <span class="label label-primary">계약직</span>
-						                            </label>
-						                          </div>
+											
+												<c:if test="${jobDTO.getJob_contract() eq 0 }">
+							                        <div class="radio form-check radio-inline">
+							                            <label>
+							                                <input type="radio" name="contract" value="0" checked>
+							                                <span class="label label-success">정규직</span>
+							                            </label>
+							                          </div>
+							                          <div class="radio form-check radio-inline">
+							                            <label>
+							                                <input type="radio" name="contract" value="1">
+							                                <span class="label label-primary">계약직</span>
+							                            </label>
+							                          </div>
+						                        </c:if>
+						                        
+						                        <c:if test="${jobDTO.getJob_contract() eq 1 }">
+							                        <div class="radio form-check radio-inline">
+							                            <label>
+							                                <input type="radio" name="contract" value="0">
+							                                <span class="label label-success">정규직</span>
+							                            </label>
+							                          </div>
+							                          <div class="radio form-check radio-inline">
+							                            <label>
+							                                <input type="radio" name="contract" value="1" checked>
+							                                <span class="label label-primary">계약직</span>
+							                            </label>
+							                          </div>
+						                        </c:if>
+						                           
 					                    	</div>
 										</div>
 										
 										<div class="col-sm-4">
-											<b>지역</b> <input name="location" class="form-control" placeholder="ex) OO시 OO구" required>
+											<b>지역</b> <input name="location" class="form-control" value="${jobDTO.getJob_location() }" required>
 										</div>
 										</div>
 										
@@ -238,7 +257,7 @@ $(function() {	/* 정규직이면 연봉, 비정규직이면 월급 노출 */
 										<label for="inputPassword3" class="col-md-2 control-label"></label>
 										<div class="col-sm-8">
 											<b>직무</b>  
-											<input name="doing" class="form-control" placeholder="ex) 프론트" required>
+											<input name="doing" class="form-control" value="${jobDTO.getJob_do() }" required>
 										</div>
 									</div>
 									
@@ -249,40 +268,27 @@ $(function() {	/* 정규직이면 연봉, 비정규직이면 월급 노출 */
 											<select name="mincareer" class="form-control" required>
 												<option value="">최소 경력</option> 
 												<option value="0">신입</option>
-												<option value="1">1년 이상</option>
-												<option value="2">2년 이상</option>
-												<option value="3">3년 이상</option>
-												<option value="4">4년 이상</option>
-												<option value="5">5년 이상</option>
-												<option value="6">6년 이상</option>
-												<option value="7">7년 이상</option>
-												<option value="8">8년 이상</option>
-												<option value="9">9년 이상</option>
-												<option value="10">10년 이상</option>
-												<option value="11">11년 이상</option>
-												<option value="12">12년 이상</option>
-												<option value="13">13년 이상</option>
-												<option value="14">14년 이상</option>
-												<option value="15">15년 이상</option>
+												<c:forEach var="i" begin="1" end="15">
+													<c:if test="${jobDTO.getJob_mincareer() eq i }">
+														<option value="${i }" selected>${i }년 이상</option>
+													</c:if>
+													<c:if test="${jobDTO.getJob_mincareer() ne i }">
+														<option value="${i }">${i }년 이상</option>
+													</c:if>
+												</c:forEach>
 											</select>
 											<br>
 											<select name="maxcareer" class="form-control" required>
 												<option value="">최대 경력</option>
 												<option value="0">무관</option>
-												<option value="2">2년 미만</option>
-												<option value="3">3년 미만</option>
-												<option value="4">4년 미만</option>
-												<option value="5">5년 미만</option>
-												<option value="6">6년 미만</option>
-												<option value="7">7년 미만</option>
-												<option value="8">8년 미만</option>
-												<option value="9">9년 미만</option>
-												<option value="10">10년 미만</option>
-												<option value="11">11년 미만</option>
-												<option value="12">12년 미만</option>
-												<option value="13">13년 미만</option>
-												<option value="14">14년 미만</option>
-												<option value="15">15년 미만</option>
+												<c:forEach var="i" begin="1" end="15">
+													<c:if test="${jobDTO.getJob_maxcareer() eq i }">
+														<option value="${i }" selected>${i }년 미만</option>
+													</c:if>
+													<c:if test="${jobDTO.getJob_maxcareer() ne i }">
+														<option value="${i }">${i }년 미만</option>
+													</c:if>
+												</c:forEach>
 											</select>
 										
 										</div>
@@ -295,10 +301,10 @@ $(function() {	/* 정규직이면 연봉, 비정규직이면 월급 노출 */
 											<div class="contract0" style="display:none"><p><b>급여</b> 월급</p></div>  
 											
 												<div class="col-sm-6">
-												<input name="mincost" class="form-control" placeholder="숫자로 기입해주세요." required>만 이상 ~
+												<input name="mincost" class="form-control" value="${jobDTO.getJob_mincost() }" required>만 이상 ~
 												</div>
 												<div class="col-sm-6">
-												<input name="maxcost" class="form-control" placeholder="숫자로 기입해주세요." required>만 미만
+												<input name="maxcost" class="form-control" value="${jobDTO.getJob_maxcost() }" required>만 미만
 												</div>
 										</div>
 									</div>
@@ -316,16 +322,16 @@ $(function() {	/* 정규직이면 연봉, 비정규직이면 월급 노출 */
 									<div class="row">
 										<label for="inputEmail3" class="col-md-2 control-label"></label>
 										<div class="col-sm-8 ">
-											<textarea class="form-control noresize" rows="15" name="content" required></textarea>
+											<textarea class="form-control noresize" rows="15" name="content" required>${board_dto.getBoard_content() }</textarea>
 										</div>
 									</div>
 									<div class="col-xs-12 col-md-3">
 										<br> <br>
-										<button type="button" class="btn btn-success" onclick="<%=request.getContextPath() %>/member_job_board_list.do?cate_num=16&big='menu5'&small='menu5-1'&cate_group=5&cate_step=0" style="float: right;" >취소</button>
+										<button type="button" class="btn btn-default" onclick="<%=request.getContextPath() %>/member_job_content.do?num=${board_dto.getBoard_num() }&hit='yes'" style="float: right;" >취소</button>
 									</div>
 									<div class="col-xs-12 col-md-8">
 										<br> <br>
-										<input type="submit" class="btn btn-success" style="float: right;" value="등록">
+										<input type="submit" class="btn btn-success" style="float: right;" value="수정">
 									</div>
 							</div>
 						</form>

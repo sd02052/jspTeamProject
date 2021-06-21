@@ -11,6 +11,13 @@ public class JobDTO {
 	private int job_mincareer;
 	private int job_maxcareer;
 
+	@Override
+	public String toString() {
+		return "JobDTO [job_num=" + job_num + ", job_target=" + job_target + ", job_contract=" + job_contract
+				+ ", job_mincost=" + job_mincost + ", job_maxcost=" + job_maxcost + ", job_location=" + job_location
+				+ ", job_do=" + job_do + ", job_mincareer=" + job_mincareer + ", job_maxcareer=" + job_maxcareer + "]";
+	}
+
 	public int getJob_num() {
 		return job_num;
 	}

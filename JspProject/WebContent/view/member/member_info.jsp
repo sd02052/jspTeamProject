@@ -22,18 +22,13 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/bootstrap-tagsinput.js"></script>
 <script>
-/* 이메일 수신 동의 여부 */
-$(function cAll() {
-	// 이메일 수신 동의 여부 (mem_emailCheck의 value값)
-	var ck = $('input:checkbox[id="mem_emailCheck"]').val();
-	if(ck == "yes"){
-		// 이메일 수신 동의가 yes일 경우 체크
+$(function(){
+	console.log($("input[type=checkbox]").val());
+	if($("input[type=checkbox]").val() == "yes"){
 		$("input[type=checkbox]").prop("checked", true);
 	} else {
-		// 이메일 수신 동의가 yes가 아닐 경우
-        $("input[type=checkbox]").prop("checked", false);
-    }
-	
+		$("input[type=checkbox]").prop("checked", false);
+	}
 });
 
 /* 이미지 변경 버튼 클릭 이벤트 */
@@ -161,7 +156,7 @@ function checkSize(input) {
 				                    </div>
 				                    <div class="checkbox">
 				                        <label>
-				                            <input type="checkbox" name="mem_emailCheck" id="mem_emailCheck" value="<%=dto.getMem_emailCheck() %>" onclick="cAll();"> 이메일 수신 동의
+				                            <input type="checkbox" name="mem_emailCheck" id="mem_emailCheck" value="<%=dto.getMem_emailCheck() %>"> 이메일 수신 동의
 				                            
 				                           
 				                        </label>

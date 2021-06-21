@@ -756,17 +756,25 @@ public class MemberDAO {
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
 						if (rs.getString("mem_nick").equals(dto.getMem_nick())) { // 원래 닉네임이랑 같은 경우
-							result = 1;
+							sql = "update okky_member set mem_nick = ?, mem_emailcheck = ? where mem_num = ?";
+							
+							pstmt = con.prepareStatement(sql);
+							pstmt.setString(1, dto.getMem_nick());
+							pstmt.setString(2, dto.getMem_emailCheck());
+							pstmt.setInt(3, dto.getMem_num());
+							result = pstmt.executeUpdate();
 						} else { // 원래 닉네임이랑 다른 경우
 							result = -1;
 						}
 					}
 				} else { // 닉네임 중복 안되는 경우
-					sql = "update okky_member set mem_nick = ? where mem_num = ?";
+					sql = "update okky_member set mem_nick = ?, mem_emailcheck = ? where mem_num = ?";
 
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, dto.getMem_nick());
-					pstmt.setInt(2, dto.getMem_num());
+					pstmt.setString(2, dto.getMem_emailCheck());
+					pstmt.setInt(3, dto.getMem_num());
+					
 
 					result = pstmt.executeUpdate();
 				}

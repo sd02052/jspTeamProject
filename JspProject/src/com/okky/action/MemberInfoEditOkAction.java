@@ -24,15 +24,41 @@ public class MemberInfoEditOkAction implements Action {
 		int mem_num = Integer.parseInt(request.getParameter("num").trim());
 		String mem_nick = request.getParameter("mem_nick").trim();
 		String tag_name = request.getParameter("mem_tag").trim();
-
+		System.out.println(request.getParameter("mem_emailCheck")); 
+		String email_check = request.getParameter("mem_emailCheck");
+		System.out.println("넘어온 이메일 체크 >>> " + email_check);
+		
+		MemberDAO dao = MemberDAO.getInstance();
 		MemberDTO dto = new MemberDTO();
 		dto.setMem_num(mem_num);
 		dto.setMem_nick(mem_nick);
-
+		
+		MemberDTO dto1 = dao.getMember(mem_num);
+		if(dto1.getMem_emailCheck().equals("yes")) {
+			if(email_check == null) {
+				email_check = "no";
+			} else {
+				email_check = "yes";
+			}
+		} else if(dto1.getMem_emailCheck().equals("no")) {
+			if(email_check == null) {
+				email_check = "no";
+			} else if(email_check.equals("no")){
+				email_check = "yes";
+			}
+		}
+		System.out.println(email_check);
+		/*if(email_check == null) {
+			if(dto1.getMem_emailCheck().equals("yes")) {
+				email_check = "no";
+			} else if(dto1.getMem_emailCheck().equals("no")){
+				email_check = "yes";
+			}
+		}*/
+		dto.setMem_emailCheck(email_check);
 		TagDTO tdto = new TagDTO();
 		tdto.setTag_name(tag_name);
 
-		MemberDAO dao = MemberDAO.getInstance();
 		
 		int res = dao.infoEdit(dto);
 

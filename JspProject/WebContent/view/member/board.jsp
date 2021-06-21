@@ -213,8 +213,8 @@ function moveWrite() {
 										<%-- 구인게시판인 경우 : 회사 정보 --%>
 										<c:if test="${!empty companyList }">
 											<div class="avatar clearfix avatar-list">
-												<a href="<%=request.getContextPath()%>/member_company_cont.do?com_num=${companyList[status.index].getCompany_num() }&mem_num=${dto.getBoard_writer() }"> 
-													<img class="avatar-photo" src="<%=request.getContextPath()%>/images/company/${companyList[status.index].getCompany_logo() }">
+												<a href="<%=request.getContextPath()%>/member_company_cont.do?com_num=${companyList[status.index].getCompany_num() }&mem_num=${dto.getBoard_writer() }" class="avatar-photo avatar-company"> 
+													<img src="<%=request.getContextPath()%>/images/company/${companyList[status.index].getCompany_logo() }">
 												</a>
 												<div class="avatar-info">
 													<a class="nickname" href="<%=request.getContextPath()%>/member_company_cont.do?com_num=${companyList[status.index].getCompany_num() }&mem_num=${dto.getBoard_writer() }">${companyList[status.index].getCompany_name() }</a>

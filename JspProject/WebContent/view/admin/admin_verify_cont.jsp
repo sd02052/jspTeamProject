@@ -215,8 +215,6 @@ function fnImgPop(url){
 										<h5 class="cont-title-com">회사소개</h5>
 									</li>
 									<li class="list-group-item list-group-item-question list-group-has-note clearfix">
-									<%--<%= ${comDTO.getCompany_content()}.replaceAll(" ", "&nbsp;").replaceAll("\n", "<br>") --%>
-									
 										<p><%=content %></p>				
 									</li>
 								</ul>

@@ -58,7 +58,6 @@ $(function(){
 %>
 
 
-};
 </script>
 <body>
 	<div class="layout_container">

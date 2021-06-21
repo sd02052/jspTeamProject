@@ -57,8 +57,6 @@ $(function(){
 	String hit = "hit";
 %>
 
-
-};
 </script>
 <body>
 	<div class="layout_container">
